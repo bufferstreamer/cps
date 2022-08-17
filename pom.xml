@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.cps</groupId>
@@ -8,7 +8,7 @@
     <version>4.7.4</version>
 
 
-    
+
     <properties>
         <cps.version>4.7.4</cps.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,7 +34,7 @@
     <!-- 依赖声明 -->
     <dependencyManagement>
         <dependencies>
-        
+
             <!-- SpringBoot的依赖配置-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -43,14 +43,14 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            
+
             <!-- 阿里数据库连接池 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
-            
+
             <!-- 验证码 -->
             <dependency>
                 <groupId>com.github.penggle</groupId>
@@ -197,6 +197,13 @@
                 <version>${cps.version}</version>
             </dependency>
 
+            <!-- 审核模块-->
+            <dependency>
+                <groupId>com.cps</groupId>
+                <artifactId>cps-audit</artifactId>
+                <version>${cps.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -207,6 +214,7 @@
         <module>cps-quartz</module>
         <module>cps-generator</module>
         <module>cps-common</module>
+        <module>cps-audit</module>
     </modules>
     <packaging>pom</packaging>
 

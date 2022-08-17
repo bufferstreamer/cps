@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cps.audit.mapper.AuditDocumentsMapper">
+    
+    <resultMap type="AuditDocuments" id="AuditDocumentsResult">
+        <result property="userId"    column="user_id"    />
+        <result property="checklistId"    column="checklist_id"    />
+        <result property="auditType"    column="audit_type"    />
+        <result property="auditStatus"    column="audit_status"    />
+        <result property="adminId"    column="admin_id"    />
+        <result property="auditResult"    column="audit_result"    />
+        <result property="createDatetime"    column="create_datetime"    />
+        <result property="updateDatetime"    column="update_datetime"    />
+    </resultMap>
+
+    <sql id="selectAuditDocumentsVo">
+        select user_id, checklist_id, audit_type, audit_status, admin_id, audit_result, create_datetime, update_datetime from audit_documents
+    </sql>
+
+    <select id="selectAuditDocumentsList" parameterType="AuditDocuments" resultMap="AuditDocumentsResult">
+        <include refid="selectAuditDocumentsVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="auditType != null  and auditType != ''"> and audit_type = #{auditType}</if>
+            <if test="auditStatus != null  and auditStatus != ''"> and audit_status = #{auditStatus}</if>
+            <if test="adminId != null "> and admin_id = #{adminId}</if>
+            <if test="auditResult != null  and auditResult != ''"> and audit_result = #{auditResult}</if>
+            <if test="createDatetime != null "> and create_datetime = #{createDatetime}</if>
+            <if test="updateDatetime != null "> and update_datetime = #{updateDatetime}</if>
+        </where>
+    </select>
+    
+    <select id="selectAuditDocumentsByChecklistId" parameterType="String" resultMap="AuditDocumentsResult">
+        <include refid="selectAuditDocumentsVo"/>
+        where checklist_id = #{checklistId}
+    </select>
+        
+    <insert id="insertAuditDocuments" parameterType="AuditDocuments">
+        insert into audit_documents
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="checklistId != null">checklist_id,</if>
+            <if test="auditType != null">audit_type,</if>
+            <if test="auditStatus != null">audit_status,</if>
+            <if test="adminId != null">admin_id,</if>
+            <if test="auditResult != null">audit_result,</if>
+            <if test="createDatetime != null">create_datetime,</if>
+            <if test="updateDatetime != null">update_datetime,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="checklistId != null">#{checklistId},</if>
+            <if test="auditType != null">#{auditType},</if>
+            <if test="auditStatus != null">#{auditStatus},</if>
+            <if test="adminId != null">#{adminId},</if>
+            <if test="auditResult != null">#{auditResult},</if>
+            <if test="createDatetime != null">#{createDatetime},</if>
+            <if test="updateDatetime != null">#{updateDatetime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAuditDocuments" parameterType="AuditDocuments">
+        update audit_documents
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="auditType != null">audit_type = #{auditType},</if>
+            <if test="auditStatus != null">audit_status = #{auditStatus},</if>
+            <if test="adminId != null">admin_id = #{adminId},</if>
+            <if test="auditResult != null">audit_result = #{auditResult},</if>
+            <if test="createDatetime != null">create_datetime = #{createDatetime},</if>
+            <if test="updateDatetime != null">update_datetime = #{updateDatetime},</if>
+        </trim>
+        where checklist_id = #{checklistId}
+    </update>
+
+    <delete id="deleteAuditDocumentsByChecklistId" parameterType="String">
+        delete from audit_documents where checklist_id = #{checklistId}
+    </delete>
+
+    <delete id="deleteAuditDocumentsByChecklistIds" parameterType="String">
+        delete from audit_documents where checklist_id in 
+        <foreach item="checklistId" collection="array" open="(" separator="," close=")">
+            #{checklistId}
+        </foreach>
+    </delete>
+
+</mapper>
