@@ -67,6 +67,13 @@
             <artifactId>cps-generator</artifactId>
         </dependency>
 
+        <!-- 审核模块-->
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-audit</artifactId>
+            <version>${cps.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -86,15 +93,15 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>   
-                <groupId>org.apache.maven.plugins</groupId>   
-                <artifactId>maven-war-plugin</artifactId>   
-                <version>3.0.0</version>   
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.0.0</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <warName>${project.artifactId}</warName>
-                </configuration>   
-            </plugin>   
+                </configuration>
+            </plugin>
             <!-- YUI Compressor (CSS/JS压缩) 
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
