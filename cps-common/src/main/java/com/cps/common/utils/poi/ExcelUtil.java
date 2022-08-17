@@ -72,7 +72,7 @@ import com.cps.common.annotation.Excel;
 import com.cps.common.annotation.Excel.ColumnType;
 import com.cps.common.annotation.Excel.Type;
 import com.cps.common.annotation.Excels;
-import com.cps.common.config.RuoYiConfig;
+import com.cps.common.config.CpsConfig;
 import com.cps.common.core.domain.AjaxResult;
 import com.cps.common.core.text.Convert;
 import com.cps.common.exception.UtilException;
@@ -1262,7 +1262,7 @@ public class ExcelUtil<T>
      */
     public String getAbsoluteFile(String filename)
     {
-        String downloadPath = RuoYiConfig.getDownloadPath() + filename;
+        String downloadPath = CpsConfig.getDownloadPath() + filename;
         File desc = new File(downloadPath);
         if (!desc.getParentFile().exists())
         {

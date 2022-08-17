@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.cps.common.config.RuoYiConfig;
+import com.cps.common.config.CpsConfig;
 import com.cps.common.constant.ShiroConstants;
 import com.cps.common.core.controller.BaseController;
 import com.cps.common.core.domain.AjaxResult;
@@ -60,8 +60,8 @@ public class SysIndexController extends BaseController
         mmap.put("footer", footer);
         mmap.put("tagsView", tagsView);
         mmap.put("mainClass", contentMainClass(footer, tagsView));
-        mmap.put("copyrightYear", RuoYiConfig.getCopyrightYear());
-        mmap.put("demoEnabled", RuoYiConfig.isDemoEnabled());
+        mmap.put("copyrightYear", CpsConfig.getCopyrightYear());
+        mmap.put("demoEnabled", CpsConfig.isDemoEnabled());
         mmap.put("isDefaultModifyPwd", initPasswordIsModify(user.getPwdUpdateDate()));
         mmap.put("isPasswordExpired", passwordIsExpiration(user.getPwdUpdateDate()));
         mmap.put("isMobile", ServletUtils.checkAgentIsMobile(ServletUtils.getRequest().getHeader("User-Agent")));
@@ -130,7 +130,7 @@ public class SysIndexController extends BaseController
     @GetMapping("/system/main")
     public String main(ModelMap mmap)
     {
-        mmap.put("version", RuoYiConfig.getVersion());
+        mmap.put("version", CpsConfig.getVersion());
         return "main";
     }
 

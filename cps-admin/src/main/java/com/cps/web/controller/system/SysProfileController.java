@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.cps.common.annotation.Log;
-import com.cps.common.config.RuoYiConfig;
+import com.cps.common.config.CpsConfig;
 import com.cps.common.constant.UserConstants;
 import com.cps.common.core.controller.BaseController;
 import com.cps.common.core.domain.AjaxResult;
@@ -169,7 +169,7 @@ public class SysProfileController extends BaseController
         {
             if (!file.isEmpty())
             {
-                String avatar = FileUploadUtils.upload(RuoYiConfig.getAvatarPath(), file, MimeTypeUtils.IMAGE_EXTENSION);
+                String avatar = FileUploadUtils.upload(CpsConfig.getAvatarPath(), file, MimeTypeUtils.IMAGE_EXTENSION);
                 currentUser.setAvatar(avatar);
                 if (userService.updateUserInfo(currentUser) > 0)
                 {
