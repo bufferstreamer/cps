@@ -74,6 +74,12 @@
             <version>${cps.version}</version>
         </dependency>
 
+        <!-- 标书&公告模块-->
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-cp</artifactId>
+            <version>${cps.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

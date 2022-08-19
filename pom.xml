@@ -203,7 +203,12 @@
                 <artifactId>cps-audit</artifactId>
                 <version>${cps.version}</version>
             </dependency>
-
+            <!--标书&公告模块-->
+            <dependency>
+                <groupId>com.cps</groupId>
+                <artifactId>cps-cp</artifactId>
+                <version>${cps.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -215,6 +220,7 @@
         <module>cps-generator</module>
         <module>cps-common</module>
         <module>cps-audit</module>
+        <module>cps-cp</module>
     </modules>
     <packaging>pom</packaging>
 
