@@ -2,6 +2,7 @@ package com.cps.audit.controller;
 
 import java.util.List;
 
+import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.uuid.CpsIdUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +89,8 @@ public class SupplierLicenseInfoController extends BaseController
     @ResponseBody
     public AjaxResult addSave(SupplierLicenseInfo supplierLicenseInfo)
     {
-        supplierLicenseInfo.setChecklistId(CpsIdUtils.createChecklistId('1'));//此处应该利用用户id从数据库查找
+        supplierLicenseInfo.setChecklistId(CpsIdUtils.createChecklistId('1'));
+        supplierLicenseInfo.setCreateDatetime(DateUtils.parseDate(DateUtils.getTime()));
         return toAjax(supplierLicenseInfoService.insertSupplierLicenseInfo(supplierLicenseInfo));
     }
 

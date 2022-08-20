@@ -2,6 +2,7 @@ package com.cps.audit.controller;
 
 import java.util.List;
 
+import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.uuid.CpsIdUtils;
 import com.cps.common.utils.uuid.IdUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -90,7 +91,8 @@ public class BusinessCreditEvaluationInfoController extends BaseController
     public AjaxResult addSave(BusinessCreditEvaluationInfo businessCreditEvaluationInfo)
     {
         businessCreditEvaluationInfo.setBusinessCreditEvaluationAuditId(IdUtils.simpleUUID());
-        businessCreditEvaluationInfo.setChecklistId(CpsIdUtils.createChecklistId('1'));//此处应该利用用户id从数据库查找
+        businessCreditEvaluationInfo.setChecklistId(CpsIdUtils.createChecklistId('2'));//此处应该利用用户id从数据库查找
+        businessCreditEvaluationInfo.setCreateDatetime(DateUtils.parseDate(DateUtils.getTime()));
         return toAjax(businessCreditEvaluationInfoService.insertBusinessCreditEvaluationInfo(businessCreditEvaluationInfo));
     }
 

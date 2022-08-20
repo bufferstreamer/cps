@@ -1,6 +1,9 @@
 package com.cps.audit.service.impl;
 
 import java.util.List;
+
+import com.cps.audit.domain.AuditDocuments;
+import com.cps.audit.mapper.AuditDocumentsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cps.audit.mapper.BusinessCreditEvaluationInfoMapper;
@@ -19,6 +22,9 @@ public class BusinessCreditEvaluationInfoServiceImpl implements IBusinessCreditE
 {
     @Autowired
     private BusinessCreditEvaluationInfoMapper businessCreditEvaluationInfoMapper;
+
+    @Autowired
+    private AuditDocumentsMapper auditDocumentsMapper;
 
     /**
      * 查询小商超信用评价审核管理
@@ -53,6 +59,14 @@ public class BusinessCreditEvaluationInfoServiceImpl implements IBusinessCreditE
     @Override
     public int insertBusinessCreditEvaluationInfo(BusinessCreditEvaluationInfo businessCreditEvaluationInfo)
     {
+        AuditDocuments auditDocuments = new AuditDocuments();
+        auditDocuments.setChecklistId(businessCreditEvaluationInfo.getChecklistId());
+        auditDocuments.setAuditType(String.valueOf(businessCreditEvaluationInfo.getChecklistId().charAt(0)));
+        auditDocuments.setCreateDatetime(businessCreditEvaluationInfo.getCreateDatetime());
+        auditDocuments.setUpdateDatetime(businessCreditEvaluationInfo.getCreateDatetime());
+        auditDocuments.setAdminId(1L);//待定
+        auditDocuments.setUserId(1L);//待定
+        auditDocumentsMapper.insertAuditDocuments(auditDocuments);
         return businessCreditEvaluationInfoMapper.insertBusinessCreditEvaluationInfo(businessCreditEvaluationInfo);
     }
 

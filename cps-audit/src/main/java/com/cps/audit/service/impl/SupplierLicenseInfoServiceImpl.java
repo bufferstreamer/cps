@@ -1,6 +1,9 @@
 package com.cps.audit.service.impl;
 
 import java.util.List;
+
+import com.cps.audit.domain.AuditDocuments;
+import com.cps.audit.mapper.AuditDocumentsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cps.audit.mapper.SupplierLicenseInfoMapper;
@@ -19,6 +22,9 @@ public class SupplierLicenseInfoServiceImpl implements ISupplierLicenseInfoServi
 {
     @Autowired
     private SupplierLicenseInfoMapper supplierLicenseInfoMapper;
+
+    @Autowired
+    private AuditDocumentsMapper auditDocumentsMapper;
 
     /**
      * 查询供应商营业执照审核管理
@@ -53,6 +59,14 @@ public class SupplierLicenseInfoServiceImpl implements ISupplierLicenseInfoServi
     @Override
     public int insertSupplierLicenseInfo(SupplierLicenseInfo supplierLicenseInfo)
     {
+        AuditDocuments auditDocuments = new AuditDocuments();
+        auditDocuments.setChecklistId(supplierLicenseInfo.getChecklistId());
+        auditDocuments.setAuditType(String.valueOf(supplierLicenseInfo.getChecklistId().charAt(0)));
+        auditDocuments.setCreateDatetime(supplierLicenseInfo.getCreateDatetime());
+        auditDocuments.setUpdateDatetime(supplierLicenseInfo.getCreateDatetime());
+        auditDocuments.setAdminId(1L);//待定
+        auditDocuments.setUserId(1L);//待定
+        auditDocumentsMapper.insertAuditDocuments(auditDocuments);
         return supplierLicenseInfoMapper.insertSupplierLicenseInfo(supplierLicenseInfo);
     }
 

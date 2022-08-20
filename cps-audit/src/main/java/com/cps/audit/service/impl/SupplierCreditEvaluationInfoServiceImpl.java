@@ -1,6 +1,9 @@
 package com.cps.audit.service.impl;
 
 import java.util.List;
+
+import com.cps.audit.domain.AuditDocuments;
+import com.cps.audit.mapper.AuditDocumentsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cps.audit.mapper.SupplierCreditEvaluationInfoMapper;
@@ -19,6 +22,9 @@ public class SupplierCreditEvaluationInfoServiceImpl implements ISupplierCreditE
 {
     @Autowired
     private SupplierCreditEvaluationInfoMapper supplierCreditEvaluationInfoMapper;
+
+    @Autowired
+    private AuditDocumentsMapper auditDocumentsMapper;
 
     /**
      * 查询供应商评价审核管理
@@ -53,6 +59,14 @@ public class SupplierCreditEvaluationInfoServiceImpl implements ISupplierCreditE
     @Override
     public int insertSupplierCreditEvaluationInfo(SupplierCreditEvaluationInfo supplierCreditEvaluationInfo)
     {
+        AuditDocuments auditDocuments = new AuditDocuments();
+        auditDocuments.setChecklistId(supplierCreditEvaluationInfo.getChecklistId());
+        auditDocuments.setAuditType(String.valueOf(supplierCreditEvaluationInfo.getChecklistId().charAt(0)));
+        auditDocuments.setCreateDatetime(supplierCreditEvaluationInfo.getCreateDatetime());
+        auditDocuments.setUpdateDatetime(supplierCreditEvaluationInfo.getCreateDatetime());
+        auditDocuments.setAdminId(1L);//待定
+        auditDocuments.setUserId(1L);//待定
+        auditDocumentsMapper.insertAuditDocuments(auditDocuments);
         return supplierCreditEvaluationInfoMapper.insertSupplierCreditEvaluationInfo(supplierCreditEvaluationInfo);
     }
 

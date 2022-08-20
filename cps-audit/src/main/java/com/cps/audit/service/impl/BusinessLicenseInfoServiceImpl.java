@@ -1,6 +1,9 @@
 package com.cps.audit.service.impl;
 
 import java.util.List;
+
+import com.cps.audit.domain.AuditDocuments;
+import com.cps.audit.mapper.AuditDocumentsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cps.audit.mapper.BusinessLicenseInfoMapper;
@@ -19,6 +22,9 @@ public class BusinessLicenseInfoServiceImpl implements IBusinessLicenseInfoServi
 {
     @Autowired
     private BusinessLicenseInfoMapper businessLicenseInfoMapper;
+
+    @Autowired
+    private AuditDocumentsMapper auditDocumentsMapper;
 
     /**
      * 查询小商超审核管理
@@ -53,6 +59,14 @@ public class BusinessLicenseInfoServiceImpl implements IBusinessLicenseInfoServi
     @Override
     public int insertBusinessLicenseInfo(BusinessLicenseInfo businessLicenseInfo)
     {
+        AuditDocuments auditDocuments = new AuditDocuments();
+        auditDocuments.setChecklistId(businessLicenseInfo.getBusinessAuditDocumentId());
+        auditDocuments.setAuditType(String.valueOf(businessLicenseInfo.getBusinessAuditDocumentId().charAt(0)));
+        auditDocuments.setCreateDatetime(businessLicenseInfo.getCreateDatetime());
+        auditDocuments.setUpdateDatetime(businessLicenseInfo.getCreateDatetime());
+        auditDocuments.setAdminId(1L);//待定
+        auditDocuments.setUserId(1L);//待定
+        auditDocumentsMapper.insertAuditDocuments(auditDocuments);
         return businessLicenseInfoMapper.insertBusinessLicenseInfo(businessLicenseInfo);
     }
 

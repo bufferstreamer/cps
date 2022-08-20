@@ -18,10 +18,10 @@
                                 <label>法人姓名：</label>
                                 <input type="text" name="frName"/>
                             </li>
-                            <li>
-                                <label>创建时间：</label>
-                                <input type="text" class="time-input" placeholder="请选择创建时间" name="createDatetime"/>
-                            </li>
+<!--                            <li>-->
+<!--                                <label>创建时间：</label>-->
+<!--                                <input type="text" class="time-input" placeholder="请选择创建时间" name="createDatetime"/>-->
+<!--                            </li>-->
                             <li>
                                 <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
                                 <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
@@ -35,12 +35,12 @@
                 <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="audit:businessCreditEvaluationManage:add">
                     <i class="fa fa-plus"></i> 添加
                 </a>
-                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="audit:businessCreditEvaluationManage:edit">
-                    <i class="fa fa-edit"></i> 修改
-                </a>
-                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="audit:businessCreditEvaluationManage:remove">
-                    <i class="fa fa-remove"></i> 删除
-                </a>
+<!--                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="audit:businessCreditEvaluationManage:edit">-->
+<!--                    <i class="fa fa-edit"></i> 修改-->
+<!--                </a>-->
+<!--                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="audit:businessCreditEvaluationManage:remove">-->
+<!--                    <i class="fa fa-remove"></i> 删除-->
+<!--                </a>-->
                 <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="audit:businessCreditEvaluationManage:export">
                     <i class="fa fa-download"></i> 导出
                 </a>
@@ -60,7 +60,8 @@
             var options = {
                 url: prefix + "/list",
                 createUrl: prefix + "/add",
-                updateUrl: prefix + "/edit/{id}",
+                // updateUrl: prefix + "/edit/{id}",
+                updateUrl: ctx + "audit/auditDocumentsManage" + "/edit/{id}",
                 removeUrl: prefix + "/remove",
                 exportUrl: prefix + "/export",
                 modalName: "小商超信用评价审核管理",
@@ -93,8 +94,8 @@
                     align: 'center',
                     formatter: function(value, row, index) {
                         var actions = [];
-                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.businessCreditEvaluationAuditId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.businessCreditEvaluationAuditId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.checklistId + '\')"><i class="fa fa-edit"></i>审核</a> ');
+                        // actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.businessCreditEvaluationAuditId + '\')"><i class="fa fa-remove"></i>删除</a>');
                         return actions.join('');
                     }
                 }]
