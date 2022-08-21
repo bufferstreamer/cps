@@ -88,7 +88,7 @@ public class AuditDocumentsController extends BaseController
     @ResponseBody
     public AjaxResult addSave(AuditDocuments auditDocuments)
     {
-        auditDocuments.setChecklistId(CpsIdUtils.createChecklistId('1'));//此处应该利用用户id从数据库查找
+//        auditDocuments.setChecklistId(CpsIdUtils.createChecklistId('1'));//此处应该利用用户id从数据库查找
         return toAjax(auditDocumentsService.insertAuditDocuments(auditDocuments));
     }
 

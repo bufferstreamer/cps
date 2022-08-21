@@ -1,6 +1,9 @@
 package com.cps.audit.service.impl;
 
 import java.util.List;
+
+import com.cps.audit.domain.AuditDocuments;
+import com.cps.audit.mapper.AuditDocumentsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cps.audit.mapper.TaxAndBankInfoMapper;
@@ -19,6 +22,9 @@ public class TaxAndBankInfoServiceImpl implements ITaxAndBankInfoService
 {
     @Autowired
     private TaxAndBankInfoMapper taxAndBankInfoMapper;
+
+    @Autowired
+    private AuditDocumentsMapper auditDocumentsMapper;
 
     /**
      * 查询税务及银行审核管理
@@ -53,7 +59,21 @@ public class TaxAndBankInfoServiceImpl implements ITaxAndBankInfoService
     @Override
     public int insertTaxAndBankInfo(TaxAndBankInfo taxAndBankInfo)
     {
-        return taxAndBankInfoMapper.insertTaxAndBankInfo(taxAndBankInfo);
+        AuditDocuments auditDocuments = new AuditDocuments();
+        auditDocuments.setChecklistId(taxAndBankInfo.getChecklistId());
+        auditDocuments.setAuditType(String.valueOf(taxAndBankInfo.getChecklistId().charAt(0)));
+        auditDocuments.setCreateDatetime(taxAndBankInfo.getCreateDatetime());
+        auditDocuments.setUpdateDatetime(taxAndBankInfo.getCreateDatetime());
+        auditDocuments.setAdminId(1L);//待定
+        auditDocuments.setUserId(1L);//待定
+        int res = 0;
+        try{
+            res = taxAndBankInfoMapper.insertTaxAndBankInfo(taxAndBankInfo);
+            auditDocumentsMapper.insertAuditDocuments(auditDocuments);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return res;
     }
 
     /**
