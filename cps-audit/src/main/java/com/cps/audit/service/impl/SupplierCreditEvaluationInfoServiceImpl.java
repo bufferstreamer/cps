@@ -66,8 +66,14 @@ public class SupplierCreditEvaluationInfoServiceImpl implements ISupplierCreditE
         auditDocuments.setUpdateDatetime(supplierCreditEvaluationInfo.getCreateDatetime());
         auditDocuments.setAdminId(1L);//待定
         auditDocuments.setUserId(1L);//待定
-        auditDocumentsMapper.insertAuditDocuments(auditDocuments);
-        return supplierCreditEvaluationInfoMapper.insertSupplierCreditEvaluationInfo(supplierCreditEvaluationInfo);
+        int res = 0;
+        try{
+            res = supplierCreditEvaluationInfoMapper.insertSupplierCreditEvaluationInfo(supplierCreditEvaluationInfo);
+            auditDocumentsMapper.insertAuditDocuments(auditDocuments);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return res;
     }
 
     /**

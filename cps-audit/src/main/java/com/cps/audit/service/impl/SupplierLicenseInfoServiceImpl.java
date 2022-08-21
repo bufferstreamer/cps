@@ -66,8 +66,14 @@ public class SupplierLicenseInfoServiceImpl implements ISupplierLicenseInfoServi
         auditDocuments.setUpdateDatetime(supplierLicenseInfo.getCreateDatetime());
         auditDocuments.setAdminId(1L);//待定
         auditDocuments.setUserId(1L);//待定
-        auditDocumentsMapper.insertAuditDocuments(auditDocuments);
-        return supplierLicenseInfoMapper.insertSupplierLicenseInfo(supplierLicenseInfo);
+        int res = 0;
+        try{
+            res = supplierLicenseInfoMapper.insertSupplierLicenseInfo(supplierLicenseInfo);
+            auditDocumentsMapper.insertAuditDocuments(auditDocuments);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return res;
     }
 
     /**

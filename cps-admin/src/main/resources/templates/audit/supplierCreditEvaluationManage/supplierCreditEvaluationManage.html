@@ -87,7 +87,12 @@
                 },
                 {
                     field: 'corporateCreditInfo',
-                    title: '公司征信信息jpg照片'
+                    title: '公司征信信息jpg照片',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<img alt="公司征信信息jpg照片" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.corporateCreditInfo +'">');
+                        return actions.join('');
+                    }
                 },
                 {
                     field: 'frName',
@@ -95,7 +100,12 @@
                 },
                 {
                     field: 'frCriminalRecord',
-                    title: '法人犯罪记录信息jpg照片'
+                    title: '法人犯罪记录信息jpg照片',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<img alt="法人犯罪记录信息jpg照片" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.frCriminalRecord +'">');
+                        return actions.join('');
+                    }
                 },
                 {
                     field: 'createDatetime',

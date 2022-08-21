@@ -111,7 +111,12 @@
                 },
                 {
                     field: 'businessLicense',
-                    title: '个体工商户营业执照jpg照片'
+                    title: '个体工商户营业执照jpg照片',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<img alt="个体工商户营业执照jpg照片" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.businessLicense +'">');
+                        return actions.join('');
+                    }
                 },
                 {
                     field: 'businessLicenseNumber',
@@ -139,7 +144,7 @@
                             case '2':
                                 return '家庭经营'
                             default:
-                                return '个人经营'
+                                return '未知的组成形式'
                         }
                     }
                 },
@@ -153,7 +158,12 @@
                 },
                 {
                     field: 'businessCertificate',
-                    title: '经营许可证.jpg'
+                    title: '经营许可证.jpg',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<img alt="经营许可证" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.businessCertificate +'">');
+                        return actions.join('');
+                    }
                 },
                 {
                     field: 'username',
@@ -169,7 +179,23 @@
                 },
                 {
                     field: 'contactCardType',
-                    title: '联系人证件类型: 1身份证 2港澳居民来往内地通行证 3台湾居民来往大陆通行证 4普通护照 5外国人永久居留身份证'
+                    title: '联系人证件类型: 1身份证 2港澳居民来往内地通行证 3台湾居民来往大陆通行证 4普通护照 5外国人永久居留身份证',
+                    formatter: function (value, row) {
+                        switch (value) {
+                            case '1':
+                                return '身份证'
+                            case '2':
+                                return '港澳居民来往内地通行证'
+                            case '3':
+                                return '台湾居民来往大陆通行证'
+                            case '4':
+                                return '普通护照'
+                            case '5':
+                                return '外国人永久居留身份证'
+                            default:
+                                return '未知的证件类型'
+                        }
+                    }
                 },
                 {
                     field: 'idNumber',
@@ -177,11 +203,21 @@
                 },
                 {
                     field: 'frontPhoto',
-                    title: '联系人证件正面jpg照片'
+                    title: '联系人证件正面jpg照片',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<img alt="联系人证件正面jpg照片" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.frontPhoto +'">');
+                        return actions.join('');
+                    }
                 },
                 {
                     field: 'backPhoto',
-                    title: '联系人证件反面jpg照片'
+                    title: '联系人证件反面jpg照片',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<img alt="联系人证件反面jpg照片" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.backPhoto +'">');
+                        return actions.join('');
+                    }
                 },
                 {
                     field: 'contactPhone',

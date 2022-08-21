@@ -117,7 +117,7 @@
                             case '3':
                                 return '法人'
                             default:
-                                return '自然人'
+                                return '未知的纳税人类型'
                         }
                     }
                 },
@@ -127,11 +127,21 @@
                 },
                 {
                     field: 'taxRegistrationCertificate',
-                    title: '税务登记证电子版.jpg'
+                    title: '税务登记证电子版.jpg',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<img alt="税务登记证电子版.jpg" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.taxRegistrationCertificate +'">');
+                        return actions.join('');
+                    }
                 },
                 {
                     field: 'generalTaxpayerQualificationCertificate',
-                    title: '一般纳税人资格证电子版.jpg'
+                    title: '一般纳税人资格证电子版.jpg',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<img alt="一般纳税人资格证电子版.jpg" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.generalTaxpayerQualificationCertificate +'">');
+                        return actions.join('');
+                    }
                 },
                 {
                     field: 'bankAccountName',
@@ -155,7 +165,12 @@
                 },
                 {
                     field: 'bankAccountOpenLicense',
-                    title: '银行开户许可证电子版jpg'
+                    title: '银行开户许可证电子版jpg',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<img alt="银行开户许可证电子版jpg" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.bankAccountOpenLicense +'">');
+                        return actions.join('');
+                    }
                 },
                 {
                     field: 'createDatetime',

@@ -66,8 +66,14 @@ public class BusinessCreditEvaluationInfoServiceImpl implements IBusinessCreditE
         auditDocuments.setUpdateDatetime(businessCreditEvaluationInfo.getCreateDatetime());
         auditDocuments.setAdminId(1L);//待定
         auditDocuments.setUserId(1L);//待定
-        auditDocumentsMapper.insertAuditDocuments(auditDocuments);
-        return businessCreditEvaluationInfoMapper.insertBusinessCreditEvaluationInfo(businessCreditEvaluationInfo);
+        int res = 0;
+        try{
+            res = businessCreditEvaluationInfoMapper.insertBusinessCreditEvaluationInfo(businessCreditEvaluationInfo);
+            auditDocumentsMapper.insertAuditDocuments(auditDocuments);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return res;
     }
 
     /**

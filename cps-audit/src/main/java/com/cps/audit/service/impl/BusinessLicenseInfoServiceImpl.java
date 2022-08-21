@@ -66,8 +66,14 @@ public class BusinessLicenseInfoServiceImpl implements IBusinessLicenseInfoServi
         auditDocuments.setUpdateDatetime(businessLicenseInfo.getCreateDatetime());
         auditDocuments.setAdminId(1L);//待定
         auditDocuments.setUserId(1L);//待定
-        auditDocumentsMapper.insertAuditDocuments(auditDocuments);
-        return businessLicenseInfoMapper.insertBusinessLicenseInfo(businessLicenseInfo);
+        int res = 0;
+        try{
+            res = businessLicenseInfoMapper.insertBusinessLicenseInfo(businessLicenseInfo);
+            auditDocumentsMapper.insertAuditDocuments(auditDocuments);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return res;
     }
 
     /**

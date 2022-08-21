@@ -66,8 +66,14 @@ public class TaxAndBankInfoServiceImpl implements ITaxAndBankInfoService
         auditDocuments.setUpdateDatetime(taxAndBankInfo.getCreateDatetime());
         auditDocuments.setAdminId(1L);//待定
         auditDocuments.setUserId(1L);//待定
-        auditDocumentsMapper.insertAuditDocuments(auditDocuments);
-        return taxAndBankInfoMapper.insertTaxAndBankInfo(taxAndBankInfo);
+        int res = 0;
+        try{
+            res = taxAndBankInfoMapper.insertTaxAndBankInfo(taxAndBankInfo);
+            auditDocumentsMapper.insertAuditDocuments(auditDocuments);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return res;
     }
 
     /**
