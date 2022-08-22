@@ -124,4 +124,12 @@ public class ContractController extends BaseController
     {
         return toAjax(contractService.deleteContractByContractIds(ids));
     }
+
+    // 查询详细方法
+    @RequestMapping("/detail/{contractId}")
+    public String detail(@PathVariable("contractId") String contractId, ModelMap mmap)
+    {
+        mmap.put("contract", contractService.selectContractByContractId(contractId));
+        return prefix + "/detail";
+    }
 }

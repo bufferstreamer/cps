@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('竞价列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>标书ID：</label>
+                                <input type="text" name="tenderId"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="cp:tender2:add">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="cp:tender2:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="cp:tender2:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="cp:tender2:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('cp:tender2:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('cp:tender2:remove')}]];
+        var prefix = ctx + "cp/tender2";
+        var detailFlag = [[${@permission.hasPermi('cp:tender2:detail')}]];
+        var downloadFlag = [[${@permission.hasPermi('cp:tender2:downloadFlag')}]];
+        function downloadFile(value){
+            console.log("文件名");
+            console.log("value");
+            window.location.href = ctx + "common/download/resource?resource=" + value;
+        }
+        function detl( id) {  $.modal.openFull("Dtail",ctx+"cp/tender2/detail/"+id); }
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                detailUrl: prefix + "/detail/{id}",
+                modalName: "竞价",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'tenderId',
+                    title: '标书ID',
+                    visible: true
+                },
+                {
+                    field: 'projectName',
+                    title: '项目名称'
+                },
+                {
+                    field: 'gxsId',
+                    title: '供销社id'
+                },
+                {
+                    field: 'contact',
+                    title: '联系人'
+                },
+                {
+                    field: 'bidNumber',
+                    title: '竞标次数'
+                },
+                {
+                    field: 'phoneOfContact',
+                    title: '联系人手机号'
+                },
+                {
+                    field: 'tenderDocument',
+                    title: '标书存储位置'
+                },
+                {
+                    field: 'createDatetime',
+                    title: '创建时间'
+                },
+                {
+                    field: 'dealineForQualificationReview',
+                    title: '资质审核截止时间'
+                },
+                {
+                    field: 'bidStartTime',
+                    title: '竞标开始时间'
+                },
+                {
+                    field: 'bidEndTime',
+                    title: '竞标结束时间'
+                },
+                {
+                    field: 'publishTime',
+                    title: '公布时间'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + downloadFlag + '" href="javascript:void(0)" onclick="downloadFile(\'' + row.tenderDocument + '\')"><i class="fa fa-download"></i>下载</a>');
+                        actions.push('<a class="btn btn-success btn-xs ' +detailFlag + '" href="javascript:void(0)" onclick="detl(\'' + row.tenderId + '\')"><i class="fa fa-edit"></i>查看</a> ');
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.tenderId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.tenderId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>
