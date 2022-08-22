@@ -67,13 +67,12 @@
             <artifactId>cps-generator</artifactId>
         </dependency>
 
-<<<<<<< HEAD
         <dependency>
         	<groupId>com.cps</groupId>
         	<artifactId>cps-user</artifactId>
         	<version>4.7.4</version>
         </dependency>
-=======
+
         <!-- 审核模块-->
         <dependency>
             <groupId>com.cps</groupId>
@@ -81,16 +80,12 @@
             <version>${cps.version}</version>
         </dependency>
 
-<<<<<<< HEAD
->>>>>>> 0c415620d6494e216a828dae3b90e403b73ad2b7
-=======
         <!-- 标书&公告模块-->
         <dependency>
             <groupId>com.cps</groupId>
             <artifactId>cps-cp</artifactId>
             <version>${cps.version}</version>
         </dependency>
->>>>>>> fea1b4f3c622906e1f90bde859e3e3a210f1a4e7
     </dependencies>
 
     <build>

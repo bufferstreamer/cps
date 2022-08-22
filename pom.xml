@@ -219,16 +219,9 @@
         <module>cps-quartz</module>
         <module>cps-generator</module>
         <module>cps-common</module>
-<<<<<<< HEAD
-        
         <module>cps-user</module>
-=======
         <module>cps-audit</module>
-<<<<<<< HEAD
->>>>>>> 0c415620d6494e216a828dae3b90e403b73ad2b7
-=======
         <module>cps-cp</module>
->>>>>>> fea1b4f3c622906e1f90bde859e3e3a210f1a4e7
     </modules>
     <packaging>pom</packaging>
 
