@@ -207,6 +207,8 @@
         <module>cps-quartz</module>
         <module>cps-generator</module>
         <module>cps-common</module>
+        
+        <module>cps-user</module>
     </modules>
     <packaging>pom</packaging>
 

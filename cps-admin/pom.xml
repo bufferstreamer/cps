@@ -67,6 +67,11 @@
             <artifactId>cps-generator</artifactId>
         </dependency>
 
+        <dependency>
+        	<groupId>com.cps</groupId>
+        	<artifactId>cps-user</artifactId>
+        	<version>4.7.4</version>
+        </dependency>
     </dependencies>
 
     <build>

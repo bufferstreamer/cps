@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cps.user.mapper.ManagerMapper">
+    
+    <resultMap type="Manager" id="ManagerResult">
+        <result property="managerId"    column="manager_id"    />
+        <result property="nickname"    column="nickname"    />
+        <result property="username"    column="username"    />
+        <result property="password"    column="password"    />
+        <result property="contactCardType"    column="contact_card_type"    />
+        <result property="contactCardId"    column="contact_card_id"    />
+        <result property="contactName"    column="contact_name"    />
+        <result property="contactPhoneNumber"    column="contact_phone_number"    />
+        <result property="registerTime"    column="register_time"    />
+        <result property="lastLogin"    column="last_login"    />
+        <result property="manageState"    column="manage_state"    />
+    </resultMap>
+
+    <sql id="selectManagerVo">
+        select manager_id, nickname, username, password, contact_card_type, contact_card_id, contact_name, contact_phone_number, register_time, last_login, manage_state from manager
+    </sql>
+
+    <select id="selectManagerList" parameterType="Manager" resultMap="ManagerResult">
+        <include refid="selectManagerVo"/>
+        <where>  
+            <if test="nickname != null  and nickname != ''"> and nickname like concat('%', #{nickname}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectManagerByManagerId" parameterType="Long" resultMap="ManagerResult">
+        <include refid="selectManagerVo"/>
+        where manager_id = #{managerId}
+    </select>
+        
+    <insert id="insertManager" parameterType="Manager">
+        insert into manager
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="managerId != null">manager_id,</if>
+            <if test="nickname != null and nickname != ''">nickname,</if>
+            <if test="username != null and username != ''">username,</if>
+            <if test="password != null and password != ''">password,</if>
+            <if test="contactCardType != null and contactCardType != ''">contact_card_type,</if>
+            <if test="contactCardId != null and contactCardId != ''">contact_card_id,</if>
+            <if test="contactName != null and contactName != ''">contact_name,</if>
+            <if test="contactPhoneNumber != null and contactPhoneNumber != ''">contact_phone_number,</if>
+            <if test="registerTime != null">register_time,</if>
+            <if test="lastLogin != null">last_login,</if>
+            <if test="manageState != null">manage_state,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="managerId != null">#{managerId},</if>
+            <if test="nickname != null and nickname != ''">#{nickname},</if>
+            <if test="username != null and username != ''">#{username},</if>
+            <if test="password != null and password != ''">#{password},</if>
+            <if test="contactCardType != null and contactCardType != ''">#{contactCardType},</if>
+            <if test="contactCardId != null and contactCardId != ''">#{contactCardId},</if>
+            <if test="contactName != null and contactName != ''">#{contactName},</if>
+            <if test="contactPhoneNumber != null and contactPhoneNumber != ''">#{contactPhoneNumber},</if>
+            <if test="registerTime != null">#{registerTime},</if>
+            <if test="lastLogin != null">#{lastLogin},</if>
+            <if test="manageState != null">#{manageState},</if>
+         </trim>
+    </insert>
+
+    <update id="updateManager" parameterType="Manager">
+        update manager
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="nickname != null and nickname != ''">nickname = #{nickname},</if>
+            <if test="username != null and username != ''">username = #{username},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="contactCardType != null and contactCardType != ''">contact_card_type = #{contactCardType},</if>
+            <if test="contactCardId != null and contactCardId != ''">contact_card_id = #{contactCardId},</if>
+            <if test="contactName != null and contactName != ''">contact_name = #{contactName},</if>
+            <if test="contactPhoneNumber != null and contactPhoneNumber != ''">contact_phone_number = #{contactPhoneNumber},</if>
+            <if test="registerTime != null">register_time = #{registerTime},</if>
+            <if test="lastLogin != null">last_login = #{lastLogin},</if>
+            <if test="manageState != null">manage_state = #{manageState},</if>
+        </trim>
+        where manager_id = #{managerId}
+    </update>
+
+    <delete id="deleteManagerByManagerId" parameterType="Long">
+        delete from manager where manager_id = #{managerId}
+    </delete>
+
+    <delete id="deleteManagerByManagerIds" parameterType="String">
+        delete from manager where manager_id in 
+        <foreach item="managerId" collection="array" open="(" separator="," close=")">
+            #{managerId}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改超市角色')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-supermarket-edit" th:object="${supermarket}">
+            <input name="shopId" th:field="*{shopId}" type="hidden">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">超市名称：</label>
+                <div class="col-sm-8">
+                    <input name="shopName" th:field="*{shopName}" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">昵称：</label>
+                <div class="col-sm-8">
+                    <input name="nickname" th:field="*{nickname}" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">密码：</label>
+                <div class="col-sm-8">
+                    <input name="password" th:field="*{password}" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">联系人姓名：</label>
+                <div class="col-sm-8">
+                    <input name="contactPerson" th:field="*{contactPerson}" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">联系人电话：</label>
+                <div class="col-sm-8">
+                    <input name="contactPhone" th:field="*{contactPhone}" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">联系人邮箱：</label>
+                <div class="col-sm-8">
+                    <input name="contactEmail" th:field="*{contactEmail}" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">角色状态：</label>
+                <div class="col-sm-8">
+                    <select name="shopState" class="form-control m-b" th:with="type=${@dict.getType('sys_common_status')}">
+                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{shopState}"></option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var prefix = ctx + "user/supermarket";
+        $("#form-supermarket-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-supermarket-edit').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

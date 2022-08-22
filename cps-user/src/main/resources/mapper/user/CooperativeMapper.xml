@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cps.user.mapper.CooperativeMapper">
+    
+    <resultMap type="Cooperative" id="CooperativeResult">
+        <result property="gxsId"    column="gxs_id"    />
+        <result property="gxsName"    column="gxs_name"    />
+        <result property="nickname"    column="nickname"    />
+        <result property="username"    column="username"    />
+        <result property="password"    column="password"    />
+        <result property="gxsState"    column="gxs_state"    />
+        <result property="registerTime"    column="register_time"    />
+        <result property="lastLogin"    column="last_login"    />
+    </resultMap>
+
+    <sql id="selectCooperativeVo">
+        select gxs_id, gxs_name, nickname, username, password, gxs_state, register_time, last_login from cooperative
+    </sql>
+
+    <select id="selectCooperativeList" parameterType="Cooperative" resultMap="CooperativeResult">
+        <include refid="selectCooperativeVo"/>
+        <where>  
+            <if test="gxsName != null  and gxsName != ''"> and gxs_name like concat('%', #{gxsName}, '%')</if>
+            <if test="nickname != null  and nickname != ''"> and nickname like concat('%', #{nickname}, '%')</if>
+            <if test="username != null  and username != ''"> and username like concat('%', #{username}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectCooperativeByGxsId" parameterType="Long" resultMap="CooperativeResult">
+        <include refid="selectCooperativeVo"/>
+        where gxs_id = #{gxsId}
+    </select>
+        
+    <insert id="insertCooperative" parameterType="Cooperative">
+        insert into cooperative
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="gxsId != null">gxs_id,</if>
+            <if test="gxsName != null and gxsName != ''">gxs_name,</if>
+            <if test="nickname != null and nickname != ''">nickname,</if>
+            <if test="username != null and username != ''">username,</if>
+            <if test="password != null and password != ''">password,</if>
+            <if test="gxsState != null">gxs_state,</if>
+            <if test="registerTime != null">register_time,</if>
+            <if test="lastLogin != null">last_login,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="gxsId != null">#{gxsId},</if>
+            <if test="gxsName != null and gxsName != ''">#{gxsName},</if>
+            <if test="nickname != null and nickname != ''">#{nickname},</if>
+            <if test="username != null and username != ''">#{username},</if>
+            <if test="password != null and password != ''">#{password},</if>
+            <if test="gxsState != null">#{gxsState},</if>
+            <if test="registerTime != null">#{registerTime},</if>
+            <if test="lastLogin != null">#{lastLogin},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCooperative" parameterType="Cooperative">
+        update cooperative
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="gxsName != null and gxsName != ''">gxs_name = #{gxsName},</if>
+            <if test="nickname != null and nickname != ''">nickname = #{nickname},</if>
+            <if test="username != null and username != ''">username = #{username},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="gxsState != null">gxs_state = #{gxsState},</if>
+            <if test="registerTime != null">register_time = #{registerTime},</if>
+            <if test="lastLogin != null">last_login = #{lastLogin},</if>
+        </trim>
+        where gxs_id = #{gxsId}
+    </update>
+
+    <delete id="deleteCooperativeByGxsId" parameterType="Long">
+        delete from cooperative where gxs_id = #{gxsId}
+    </delete>
+
+    <delete id="deleteCooperativeByGxsIds" parameterType="String">
+        delete from cooperative where gxs_id in 
+        <foreach item="gxsId" collection="array" open="(" separator="," close=")">
+            #{gxsId}
+        </foreach>
+    </delete>
+
+</mapper>

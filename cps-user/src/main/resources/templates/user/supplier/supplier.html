@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('供应商角色列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>昵称：</label>
+                                <input type="text" name="nickname"/>
+                            </li>
+                            <li>
+                                <label>公司名称：</label>
+                                <input type="text" name="companyName"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="user:supplier:add">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="user:supplier:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="user:supplier:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="user:supplier:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('user:supplier:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('user:supplier:remove')}]];
+        var companyPropertyDatas = [[${@dict.getType('company_pro')}]];
+        var companyTypeDatas = [[${@dict.getType('company_type')}]];
+        var useCodeDatas = [[${@dict.getType('sys_yes_no')}]];
+        var contactCardTypeDatas = [[${@dict.getType('con_card_type')}]];
+        var supplyStateDatas = [[${@dict.getType('sys_common_status')}]];
+        var prefix = ctx + "user/supplier";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "供应商角色",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'supplyId',
+                    title: '',
+                    visible: false
+                },
+                {
+                    field: 'nickname',
+                    title: '昵称'
+                },
+                {
+                    field: 'companyName',
+                    title: '公司名称'
+                },
+                {
+                    field: 'companyProperty',
+                    title: '公司性质',
+                    formatter: function(value, row, index) {
+                       return $.table.selectDictLabel(companyPropertyDatas, value);
+                    }
+                },
+                {
+                    field: 'companyType',
+                    title: '企业类型',
+                    formatter: function(value, row, index) {
+                       return $.table.selectDictLabel(companyTypeDatas, value);
+                    }
+                },
+                {
+                    field: 'useCode',
+                    title: '是否使用统一社会信用代码证',
+                    formatter: function(value, row, index) {
+                       return $.table.selectDictLabel(useCodeDatas, value);
+                    }
+                },
+                {
+                    field: 'codeId',
+                    title: '社会信用代码证号/组织机构代码证号'
+                },
+                {
+                    field: 'contactPerson',
+                    title: '联系人姓名'
+                },
+                {
+                    field: 'contactCardType',
+                    title: '联系人证件类型',
+                    formatter: function(value, row, index) {
+                       return $.table.selectDictLabel(contactCardTypeDatas, value);
+                    }
+                },
+                {
+                    field: 'cardId',
+                    title: '联系人证件号'
+                },
+                {
+                    field: 'contactPhone',
+                    title: '联系人电话号'
+                },
+                {
+                    field: 'contactEmail',
+                    title: '联系人邮箱'
+                },
+                {
+                    field: 'registerTime',
+                    title: '注册时间'
+                },
+                {
+                    field: 'lastLogin',
+                    title: '上次登陆时间'
+                },
+                {
+                    field: 'supplyState',
+                    title: '供应商状态',
+                    formatter: function(value, row, index) {
+                       return $.table.selectDictLabel(supplyStateDatas, value);
+                    }
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.supplyId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.supplyId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>
