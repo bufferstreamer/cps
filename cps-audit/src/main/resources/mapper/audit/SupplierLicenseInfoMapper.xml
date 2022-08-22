@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cps.audit.mapper.SupplierLicenseInfoMapper">
+    
+    <resultMap type="SupplierLicenseInfo" id="SupplierLicenseInfoResult">
+        <result property="checklistId"    column="checklist_id"    />
+        <result property="corporateName"    column="corporate_name"    />
+        <result property="registrationNumber"    column="registration_number"    />
+        <result property="frName"    column="fr_name"    />
+        <result property="idNumber"    column="id_number"    />
+        <result property="frontPhoto"    column="front_photo"    />
+        <result property="backPhoto"    column="back_photo"    />
+        <result property="businessLicenseLocation"    column="business_license_location"    />
+        <result property="businessLicenseAddress"    column="business_license_address"    />
+        <result property="incorporationDate"    column="incorporation_date"    />
+        <result property="registeredCapital"    column="registered_capital"    />
+        <result property="businessScope"    column="business_scope"    />
+        <result property="businessLicense"    column="business_license"    />
+        <result property="officePhone"    column="office_phone"    />
+        <result property="emergencyContact"    column="emergency_contact"    />
+        <result property="emergencyContactPhone"    column="emergency_contact_phone"    />
+        <result property="createDatetime"    column="create_datetime"    />
+    </resultMap>
+
+    <sql id="selectSupplierLicenseInfoVo">
+        select checklist_id, corporate_name, registration_number, fr_name, id_number, front_photo, back_photo, business_license_location, business_license_address, incorporation_date, registered_capital, business_scope, business_license, office_phone, emergency_contact, emergency_contact_phone, create_datetime from audit_supplier_license_info
+    </sql>
+
+    <select id="selectSupplierLicenseInfoList" parameterType="SupplierLicenseInfo" resultMap="SupplierLicenseInfoResult">
+        <include refid="selectSupplierLicenseInfoVo"/>
+        <where>  
+            <if test="corporateName != null  and corporateName != ''"> and corporate_name like concat('%', #{corporateName}, '%')</if>
+            <if test="registrationNumber != null  and registrationNumber != ''"> and registration_number = #{registrationNumber}</if>
+            <if test="frName != null  and frName != ''"> and fr_name like concat('%', #{frName}, '%')</if>
+            <if test="idNumber != null  and idNumber != ''"> and id_number = #{idNumber}</if>
+            <if test="frontPhoto != null  and frontPhoto != ''"> and front_photo = #{frontPhoto}</if>
+            <if test="backPhoto != null  and backPhoto != ''"> and back_photo = #{backPhoto}</if>
+            <if test="businessLicenseLocation != null  and businessLicenseLocation != ''"> and business_license_location = #{businessLicenseLocation}</if>
+            <if test="businessLicenseAddress != null  and businessLicenseAddress != ''"> and business_license_address = #{businessLicenseAddress}</if>
+            <if test="incorporationDate != null "> and incorporation_date = #{incorporationDate}</if>
+            <if test="registeredCapital != null "> and registered_capital = #{registeredCapital}</if>
+            <if test="businessScope != null  and businessScope != ''"> and business_scope = #{businessScope}</if>
+            <if test="businessLicense != null  and businessLicense != ''"> and business_license = #{businessLicense}</if>
+            <if test="officePhone != null  and officePhone != ''"> and office_phone = #{officePhone}</if>
+            <if test="emergencyContact != null  and emergencyContact != ''"> and emergency_contact = #{emergencyContact}</if>
+            <if test="emergencyContactPhone != null  and emergencyContactPhone != ''"> and emergency_contact_phone = #{emergencyContactPhone}</if>
+            <if test="createDatetime != null "> and create_datetime = #{createDatetime}</if>
+        </where>
+    </select>
+    
+    <select id="selectSupplierLicenseInfoByChecklistId" parameterType="String" resultMap="SupplierLicenseInfoResult">
+        <include refid="selectSupplierLicenseInfoVo"/>
+        where checklist_id = #{checklistId}
+    </select>
+        
+    <insert id="insertSupplierLicenseInfo" parameterType="SupplierLicenseInfo">
+        insert into audit_supplier_license_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="checklistId != null">checklist_id,</if>
+            <if test="corporateName != null">corporate_name,</if>
+            <if test="registrationNumber != null and registrationNumber != ''">registration_number,</if>
+            <if test="frName != null">fr_name,</if>
+            <if test="idNumber != null">id_number,</if>
+            <if test="frontPhoto != null">front_photo,</if>
+            <if test="backPhoto != null">back_photo,</if>
+            <if test="businessLicenseLocation != null">business_license_location,</if>
+            <if test="businessLicenseAddress != null">business_license_address,</if>
+            <if test="incorporationDate != null">incorporation_date,</if>
+            <if test="registeredCapital != null">registered_capital,</if>
+            <if test="businessScope != null">business_scope,</if>
+            <if test="businessLicense != null">business_license,</if>
+            <if test="officePhone != null">office_phone,</if>
+            <if test="emergencyContact != null">emergency_contact,</if>
+            <if test="emergencyContactPhone != null">emergency_contact_phone,</if>
+            <if test="createDatetime != null">create_datetime,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="checklistId != null">#{checklistId},</if>
+            <if test="corporateName != null">#{corporateName},</if>
+            <if test="registrationNumber != null and registrationNumber != ''">#{registrationNumber},</if>
+            <if test="frName != null">#{frName},</if>
+            <if test="idNumber != null">#{idNumber},</if>
+            <if test="frontPhoto != null">#{frontPhoto},</if>
+            <if test="backPhoto != null">#{backPhoto},</if>
+            <if test="businessLicenseLocation != null">#{businessLicenseLocation},</if>
+            <if test="businessLicenseAddress != null">#{businessLicenseAddress},</if>
+            <if test="incorporationDate != null">#{incorporationDate},</if>
+            <if test="registeredCapital != null">#{registeredCapital},</if>
+            <if test="businessScope != null">#{businessScope},</if>
+            <if test="businessLicense != null">#{businessLicense},</if>
+            <if test="officePhone != null">#{officePhone},</if>
+            <if test="emergencyContact != null">#{emergencyContact},</if>
+            <if test="emergencyContactPhone != null">#{emergencyContactPhone},</if>
+            <if test="createDatetime != null">#{createDatetime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSupplierLicenseInfo" parameterType="SupplierLicenseInfo">
+        update audit_supplier_license_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="corporateName != null">corporate_name = #{corporateName},</if>
+            <if test="registrationNumber != null and registrationNumber != ''">registration_number = #{registrationNumber},</if>
+            <if test="frName != null">fr_name = #{frName},</if>
+            <if test="idNumber != null">id_number = #{idNumber},</if>
+            <if test="frontPhoto != null">front_photo = #{frontPhoto},</if>
+            <if test="backPhoto != null">back_photo = #{backPhoto},</if>
+            <if test="businessLicenseLocation != null">business_license_location = #{businessLicenseLocation},</if>
+            <if test="businessLicenseAddress != null">business_license_address = #{businessLicenseAddress},</if>
+            <if test="incorporationDate != null">incorporation_date = #{incorporationDate},</if>
+            <if test="registeredCapital != null">registered_capital = #{registeredCapital},</if>
+            <if test="businessScope != null">business_scope = #{businessScope},</if>
+            <if test="businessLicense != null">business_license = #{businessLicense},</if>
+            <if test="officePhone != null">office_phone = #{officePhone},</if>
+            <if test="emergencyContact != null">emergency_contact = #{emergencyContact},</if>
+            <if test="emergencyContactPhone != null">emergency_contact_phone = #{emergencyContactPhone},</if>
+            <if test="createDatetime != null">create_datetime = #{createDatetime},</if>
+        </trim>
+        where checklist_id = #{checklistId}
+    </update>
+
+    <delete id="deleteSupplierLicenseInfoByChecklistId" parameterType="String">
+        delete from audit_supplier_license_info where checklist_id = #{checklistId}
+    </delete>
+
+    <delete id="deleteSupplierLicenseInfoByChecklistIds" parameterType="String">
+        delete from audit_supplier_license_info where checklist_id in 
+        <foreach item="checklistId" collection="array" open="(" separator="," close=")">
+            #{checklistId}
+        </foreach>
+    </delete>
+
+</mapper>
