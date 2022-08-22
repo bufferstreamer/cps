@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cps.cp.mapper.BidWinningCandidatesAnnouncementMapper">
+    
+    <resultMap type="BidWinningCandidatesAnnouncement" id="BidWinningCandidatesAnnouncementResult">
+        <result property="bidWinningCandidatesAnnouncementId"    column="bid_winning_candidates_announcement_id"    />
+        <result property="bidWinningCandidatesDocument"    column="bid_winning_candidates_document"    />
+        <result property="tenderId"    column="tender_id"    />
+        <result property="publicityTime"    column="publicity_time"    />
+        <result property="deadlineTime"    column="deadline_time"    />
+    </resultMap>
+
+    <sql id="selectBidWinningCandidatesAnnouncementVo">
+        select bid_winning_candidates_announcement_id, bid_winning_candidates_document, tender_id, publicity_time, deadline_time from bid_winning_candidates_announcement
+    </sql>
+
+    <select id="selectBidWinningCandidatesAnnouncementList" parameterType="BidWinningCandidatesAnnouncement" resultMap="BidWinningCandidatesAnnouncementResult">
+        <include refid="selectBidWinningCandidatesAnnouncementVo"/>
+        <where>  
+            <if test="bidWinningCandidatesAnnouncementId != null  and bidWinningCandidatesAnnouncementId != ''"> and bid_winning_candidates_announcement_id = #{bidWinningCandidatesAnnouncementId}</if>
+        </where>
+    </select>
+    
+    <select id="selectBidWinningCandidatesAnnouncementByBidWinningCandidatesAnnouncementId" parameterType="String" resultMap="BidWinningCandidatesAnnouncementResult">
+        <include refid="selectBidWinningCandidatesAnnouncementVo"/>
+        where bid_winning_candidates_announcement_id = #{bidWinningCandidatesAnnouncementId}
+    </select>
+        
+    <insert id="insertBidWinningCandidatesAnnouncement" parameterType="BidWinningCandidatesAnnouncement">
+        insert into bid_winning_candidates_announcement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bidWinningCandidatesAnnouncementId != null">bid_winning_candidates_announcement_id,</if>
+            <if test="bidWinningCandidatesDocument != null and bidWinningCandidatesDocument != ''">bid_winning_candidates_document,</if>
+            <if test="tenderId != null and tenderId != ''">tender_id,</if>
+            <if test="publicityTime != null">publicity_time,</if>
+            <if test="deadlineTime != null">deadline_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bidWinningCandidatesAnnouncementId != null">#{bidWinningCandidatesAnnouncementId},</if>
+            <if test="bidWinningCandidatesDocument != null and bidWinningCandidatesDocument != ''">#{bidWinningCandidatesDocument},</if>
+            <if test="tenderId != null and tenderId != ''">#{tenderId},</if>
+            <if test="publicityTime != null">#{publicityTime},</if>
+            <if test="deadlineTime != null">#{deadlineTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBidWinningCandidatesAnnouncement" parameterType="BidWinningCandidatesAnnouncement">
+        update bid_winning_candidates_announcement
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bidWinningCandidatesDocument != null and bidWinningCandidatesDocument != ''">bid_winning_candidates_document = #{bidWinningCandidatesDocument},</if>
+            <if test="tenderId != null and tenderId != ''">tender_id = #{tenderId},</if>
+            <if test="publicityTime != null">publicity_time = #{publicityTime},</if>
+            <if test="deadlineTime != null">deadline_time = #{deadlineTime},</if>
+        </trim>
+        where bid_winning_candidates_announcement_id = #{bidWinningCandidatesAnnouncementId}
+    </update>
+
+    <delete id="deleteBidWinningCandidatesAnnouncementByBidWinningCandidatesAnnouncementId" parameterType="String">
+        delete from bid_winning_candidates_announcement where bid_winning_candidates_announcement_id = #{bidWinningCandidatesAnnouncementId}
+    </delete>
+
+    <delete id="deleteBidWinningCandidatesAnnouncementByBidWinningCandidatesAnnouncementIds" parameterType="String">
+        delete from bid_winning_candidates_announcement where bid_winning_candidates_announcement_id in 
+        <foreach item="bidWinningCandidatesAnnouncementId" collection="array" open="(" separator="," close=")">
+            #{bidWinningCandidatesAnnouncementId}
+        </foreach>
+    </delete>
+
+</mapper>
