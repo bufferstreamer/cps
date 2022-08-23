@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80012
 File Encoding         : 65001
 
-Date: 2022-08-22 19:27:41
+Date: 2022-08-23 12:37:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -18,7 +18,6 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 -- Table structure for area_code
 -- ----------------------------
-use database `ry_temp`
 DROP TABLE IF EXISTS `area_code`;
 CREATE TABLE `area_code` (
   `area_id` int(11) NOT NULL COMMENT '地区编码',
@@ -50,6 +49,7 @@ CREATE TABLE `audit_business_credit_evaluation_info` (
 -- ----------------------------
 -- Records of audit_business_credit_evaluation_info
 -- ----------------------------
+INSERT INTO `audit_business_credit_evaluation_info` VALUES ('c18c08b5a0e0475d894a6bc79ffe1f47', '2166117484203500023', '123', '', '2022-08-22 21:27:22');
 
 -- ----------------------------
 -- Table structure for audit_business_license_info
@@ -102,6 +102,8 @@ CREATE TABLE `audit_documents` (
 -- ----------------------------
 -- Records of audit_documents
 -- ----------------------------
+INSERT INTO `audit_documents` VALUES ('1', '1166117486330100070', '1', '1', '1', null, '2022-08-22 21:27:43', '2022-08-22 21:27:43');
+INSERT INTO `audit_documents` VALUES ('1', '2166117484203500023', '2', '1', '1', null, '2022-08-22 21:27:22', '2022-08-22 21:27:22');
 
 -- ----------------------------
 -- Table structure for audit_supplier_credit_evaluation_info
@@ -121,6 +123,7 @@ CREATE TABLE `audit_supplier_credit_evaluation_info` (
 -- ----------------------------
 -- Records of audit_supplier_credit_evaluation_info
 -- ----------------------------
+INSERT INTO `audit_supplier_credit_evaluation_info` VALUES ('037a1c72c8a346868d5e092fdb05f413', '1166117486330100070', '123', '', '123', '', '2022-08-22 21:27:43');
 
 -- ----------------------------
 -- Table structure for audit_supplier_license_info
@@ -1191,13 +1194,14 @@ CREATE TABLE `sys_logininfor` (
   `msg` varchar(255) DEFAULT '' COMMENT '提示消息',
   `login_time` datetime DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`info_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统访问记录';
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统访问记录';
 
 -- ----------------------------
 -- Records of sys_logininfor
 -- ----------------------------
 INSERT INTO `sys_logininfor` VALUES ('100', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-20 21:06:09');
 INSERT INTO `sys_logininfor` VALUES ('101', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-21 12:30:24');
+INSERT INTO `sys_logininfor` VALUES ('102', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-22 21:24:58');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -1420,7 +1424,7 @@ CREATE TABLE `sys_oper_log` (
   `error_msg` varchar(2000) DEFAULT '' COMMENT '错误消息',
   `oper_time` datetime DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`oper_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='操作日志记录';
+) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='操作日志记录';
 
 -- ----------------------------
 -- Records of sys_oper_log
@@ -1451,6 +1455,8 @@ INSERT INTO `sys_oper_log` VALUES ('122', '菜单管理', '2', 'com.cps.web.cont
 INSERT INTO `sys_oper_log` VALUES ('123', '角色管理', '3', 'com.cps.web.controller.system.SysRoleController.remove()', 'POST', '1', 'admin', '研发部门', '/cps/system/role/remove', '127.0.0.1', '内网IP', '{\"ids\":[\"2\"]}', null, '1', '普通角色已分配,不能删除', '2022-08-20 21:10:34');
 INSERT INTO `sys_oper_log` VALUES ('124', '用户管理', '3', 'com.cps.web.controller.system.SysUserController.remove()', 'POST', '1', 'admin', '研发部门', '/cps/system/user/remove', '127.0.0.1', '内网IP', '{\"ids\":[\"2\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-20 21:10:51');
 INSERT INTO `sys_oper_log` VALUES ('125', '角色管理', '3', 'com.cps.web.controller.system.SysRoleController.remove()', 'POST', '1', 'admin', '研发部门', '/cps/system/role/remove', '127.0.0.1', '内网IP', '{\"ids\":[\"2\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-20 21:11:10');
+INSERT INTO `sys_oper_log` VALUES ('126', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"123\"],\"frName\":[\"123\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-22\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-22 21:27:22');
+INSERT INTO `sys_oper_log` VALUES ('127', '供应商评价审核管理', '1', 'com.cps.audit.controller.SupplierCreditEvaluationInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/supplierCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"123\"],\"corporateName\":[\"123\"],\"corporateCreditInfo\":[\"\"],\"frName\":[\"123\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-22\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-22 21:27:43');
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -1567,7 +1573,7 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2022-08-21 12:30:24', '2022-08-18 19:11:49', 'admin', '2022-08-18 19:11:49', '', '2022-08-21 12:30:23', '管理员');
+INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2022-08-22 21:24:57', '2022-08-18 19:11:49', 'admin', '2022-08-18 19:11:49', '', '2022-08-22 21:24:57', '管理员');
 INSERT INTO `sys_user` VALUES ('2', '105', 'ry', '若依', '00', 'ry@qq.com', '15666666666', '1', '', '8e6d98b90472783cc73c17047ddccf36', '222222', '0', '2', '127.0.0.1', '2022-08-18 19:11:49', '2022-08-18 19:11:49', 'admin', '2022-08-18 19:11:49', '', null, '测试员');
 
 -- ----------------------------
@@ -1592,7 +1598,7 @@ CREATE TABLE `sys_user_online` (
 -- ----------------------------
 -- Records of sys_user_online
 -- ----------------------------
-INSERT INTO `sys_user_online` VALUES ('701ba4d6-0145-4df1-801a-83639fee4250', 'admin', '研发部门', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', 'on_line', '2022-08-21 12:30:24', '2022-08-21 12:30:24', '1800000');
+INSERT INTO `sys_user_online` VALUES ('f57522eb-2540-485d-8b6a-78e5bbae0498', 'admin', '研发部门', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', 'on_line', '2022-08-22 21:24:57', '2022-08-22 21:27:22', '1800000');
 
 -- ----------------------------
 -- Table structure for sys_user_post
