@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="QualificationReview" id="QualificationReviewResult">
         <result property="qualificationReviewId"    column="qualification_review_id"    />
-        <result property="supplierId"    column="supplier_id"    />
+        <result property="supplyId"    column="supply_id"    />
         <result property="qualificationReviewDocument"    column="qualification_review_document"    />
         <result property="goodsId"    column="goods_id"    />
         <result property="tenderId"    column="tender_id"    />
@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectQualificationReviewVo">
-        select qualification_review_id, supplier_id, qualification_review_document, goods_id, tender_id, audit_status, audit_explanation, submit_time from qualification_review
+        select qualification_review_id, supply_id, qualification_review_document, goods_id, tender_id, audit_status, audit_explanation, submit_time from qualification_review
     </sql>
 
     <select id="selectQualificationReviewList" parameterType="QualificationReview" resultMap="QualificationReviewResult">
@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into qualification_review
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="qualificationReviewId != null">qualification_review_id,</if>
-            <if test="supplierId != null">supplier_id,</if>
+            <if test="supplyId != null">supply_id,</if>
             <if test="qualificationReviewDocument != null and qualificationReviewDocument != ''">qualification_review_document,</if>
             <if test="goodsId != null">goods_id,</if>
             <if test="tenderId != null and tenderId != ''">tender_id,</if>
@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="qualificationReviewId != null">#{qualificationReviewId},</if>
-            <if test="supplierId != null">#{supplierId},</if>
+            <if test="supplyId != null">#{supplyId},</if>
             <if test="qualificationReviewDocument != null and qualificationReviewDocument != ''">#{qualificationReviewDocument},</if>
             <if test="goodsId != null">#{goodsId},</if>
             <if test="tenderId != null and tenderId != ''">#{tenderId},</if>
@@ -58,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateQualificationReview" parameterType="QualificationReview">
         update qualification_review
         <trim prefix="SET" suffixOverrides=",">
-            <if test="supplierId != null">supplier_id = #{supplierId},</if>
+            <if test="supplyId != null">supply_id = #{supplyId},</if>
             <if test="qualificationReviewDocument != null and qualificationReviewDocument != ''">qualification_review_document = #{qualificationReviewDocument},</if>
             <if test="goodsId != null">goods_id = #{goodsId},</if>
             <if test="tenderId != null and tenderId != ''">tender_id = #{tenderId},</if>

@@ -22,7 +22,7 @@ public class QualificationReview extends BaseEntity
 
     /** 供应商ID */
     @Excel(name = "供应商ID")
-    private Long supplierId;
+    private Long supplyId;
 
     /** 资质审核文件存储位置 */
     @Excel(name = "资质审核文件存储位置")
@@ -58,14 +58,14 @@ public class QualificationReview extends BaseEntity
     {
         return qualificationReviewId;
     }
-    public void setSupplierId(Long supplierId) 
+    public void setSupplyId(Long supplyId)
     {
-        this.supplierId = supplierId;
+        this.supplyId = supplyId;
     }
 
-    public Long getSupplierId() 
+    public Long getSupplyId()
     {
-        return supplierId;
+        return supplyId;
     }
     public void setQualificationReviewDocument(String qualificationReviewDocument) 
     {
@@ -126,7 +126,7 @@ public class QualificationReview extends BaseEntity
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("qualificationReviewId", getQualificationReviewId())
-            .append("supplierId", getSupplierId())
+            .append("supplyId", getSupplyId())
             .append("qualificationReviewDocument", getQualificationReviewDocument())
             .append("goodsId", getGoodsId())
             .append("tenderId", getTenderId())
