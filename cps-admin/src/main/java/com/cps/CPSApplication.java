@@ -16,5 +16,7 @@ public class CPSApplication
     {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(CPSApplication.class, args);
+        
+        System.out.println("集采系统启动成功！");
     }
 }
