@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
-Source Server Version : 80012
+Source Server         : ln
+Source Server Version : 80027
 Source Host           : localhost:3306
 Source Database       : cps
 
 Target Server Type    : MYSQL
-Target Server Version : 80012
+Target Server Version : 80027
 File Encoding         : 65001
 
-Date: 2022-08-24 10:04:25
+Date: 2022-08-24 18:04:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,14 +20,14 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `area_code`;
 CREATE TABLE `area_code` (
-  `id` int(11) NOT NULL COMMENT '地区id',
+  `id` int NOT NULL COMMENT '地区id',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '地区名称',
-  `pid` int(11) NOT NULL COMMENT '父地区id',
-  `area_code` int(11) DEFAULT NULL COMMENT '地区编码',
-  `visible` int(11) DEFAULT NULL COMMENT '是否可见',
-  `displayorder` int(11) DEFAULT NULL COMMENT '是否支持配送',
+  `pid` int NOT NULL COMMENT '父地区id',
+  `area_code` int DEFAULT NULL COMMENT '地区编码',
+  `visible` int DEFAULT NULL COMMENT '是否可见',
+  `displayorder` int DEFAULT NULL COMMENT '是否支持配送',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of area_code
@@ -3615,7 +3615,7 @@ CREATE TABLE `audit_business_credit_evaluation_info` (
   `fr_criminal_record` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '法人犯罪记录信息jpg照片',
   `create_datetime` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`business_credit_evaluation_audit_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='小商超信用评价审核信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='小商超信用评价审核信息表';
 
 -- ----------------------------
 -- Records of audit_business_credit_evaluation_info
@@ -3648,7 +3648,7 @@ CREATE TABLE `audit_business_license_info` (
   `contact_email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '联系人邮箱',
   `create_datetime` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`business_audit_document_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='小商超审核信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='小商超审核信息表';
 
 -- ----------------------------
 -- Records of audit_business_license_info
@@ -3659,16 +3659,16 @@ CREATE TABLE `audit_business_license_info` (
 -- ----------------------------
 DROP TABLE IF EXISTS `audit_documents`;
 CREATE TABLE `audit_documents` (
-  `user_id` bigint(20) unsigned NOT NULL COMMENT '用户id',
+  `user_id` bigint unsigned NOT NULL COMMENT '用户id',
   `checklist_id` varchar(19) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '审核单id',
   `audit_type` char(1) DEFAULT '1' COMMENT '审核类型（1供应商 2小商超）',
   `audit_status` char(1) DEFAULT '1' COMMENT '审核状态（1未审核 2审核通过）',
-  `admin_id` bigint(20) unsigned NOT NULL COMMENT '管理员id',
+  `admin_id` bigint unsigned NOT NULL COMMENT '管理员id',
   `audit_result` varchar(500) DEFAULT NULL COMMENT '审核结果（备注）',
   `create_datetime` datetime DEFAULT NULL COMMENT '创建时间',
   `update_datetime` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`checklist_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='审核单据表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='审核单据表';
 
 -- ----------------------------
 -- Records of audit_documents
@@ -3689,7 +3689,7 @@ CREATE TABLE `audit_supplier_credit_evaluation_info` (
   `fr_criminal_record` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '法人犯罪记录信息jpg照片',
   `create_datetime` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`supplier_credit_evaluation_audit_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='供应商评价审核信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='供应商评价审核信息表';
 
 -- ----------------------------
 -- Records of audit_supplier_credit_evaluation_info
@@ -3719,7 +3719,7 @@ CREATE TABLE `audit_supplier_license_info` (
   `emergency_contact_phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '公司紧急联系人手机',
   `create_datetime` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`checklist_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='供应商营业执照审核信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='供应商营业执照审核信息表';
 
 -- ----------------------------
 -- Records of audit_supplier_license_info
@@ -3745,7 +3745,7 @@ CREATE TABLE `audit_tax_and_bank_info` (
   `bank_account_open_license` varchar(100) DEFAULT '' COMMENT '银行开户许可证电子版jpg',
   `create_datetime` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`tax_and_bank_audit_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='税务及银行审核信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='税务及银行审核信息表';
 
 -- ----------------------------
 -- Records of audit_tax_and_bank_info
@@ -3762,7 +3762,7 @@ CREATE TABLE `bid_winning_candidates_announcement` (
   `publicity_time` datetime NOT NULL COMMENT '公示时间',
   `deadline_time` datetime NOT NULL COMMENT '公示截止时间',
   PRIMARY KEY (`bid_winning_candidates_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='中标候选人公示公告';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='中标候选人公示公告';
 
 -- ----------------------------
 -- Records of bid_winning_candidates_announcement
@@ -3777,7 +3777,7 @@ CREATE TABLE `bid_winning_results_announcement` (
   `bid_winning_results_announcement_document` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '文件存储位置',
   `tender_id` varchar(22) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标书ID',
   PRIMARY KEY (`bid_winning_results_announcement_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='中标结果公告';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='中标结果公告';
 
 -- ----------------------------
 -- Records of bid_winning_results_announcement
@@ -3790,12 +3790,12 @@ DROP TABLE IF EXISTS `centralized_purchase_record`;
 CREATE TABLE `centralized_purchase_record` (
   `centralized_purchase_record_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '集中采购记录ID',
   `tender_id` varchar(22) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标书ID',
-  `supply_id` bigint(20) unsigned NOT NULL COMMENT '供应商ID',
+  `supply_id` bigint unsigned NOT NULL COMMENT '供应商ID',
   `tender_document` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '投标文件存储信息',
   `centralized_purchase_record_time` datetime NOT NULL COMMENT '时间',
   `is_bid` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '是否中标“0”否 “1”是',
   PRIMARY KEY (`centralized_purchase_record_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='集中采购记录';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='集中采购记录';
 
 -- ----------------------------
 -- Records of centralized_purchase_record
@@ -3811,7 +3811,7 @@ CREATE TABLE `change_announcement` (
   `tender_id` varchar(22) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标书ID',
   `change_time` datetime NOT NULL COMMENT '变更时间',
   PRIMARY KEY (`change_announcement_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='变更公告';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='变更公告';
 
 -- ----------------------------
 -- Records of change_announcement
@@ -3830,7 +3830,7 @@ CREATE TABLE `contract` (
   `signature_b` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '乙方是否签名0未签1签',
   `contract_time` datetime NOT NULL COMMENT '合同签定时间',
   PRIMARY KEY (`contract_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='合同';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='合同';
 
 -- ----------------------------
 -- Records of contract
@@ -3850,7 +3850,7 @@ CREATE TABLE `cooperative` (
   `register_time` datetime DEFAULT NULL COMMENT '注册时间',
   `last_login` datetime DEFAULT NULL COMMENT '上次登陆时间',
   PRIMARY KEY (`gxs_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='供销社角色';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='供销社角色';
 
 -- ----------------------------
 -- Records of cooperative
@@ -3863,7 +3863,7 @@ INSERT INTO `cooperative` VALUES ('2166082309210848213', '供销社2', '供销�
 -- ----------------------------
 DROP TABLE IF EXISTS `gen_table`;
 CREATE TABLE `gen_table` (
-  `table_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `table_id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
   `table_name` varchar(200) DEFAULT '' COMMENT '表名称',
   `table_comment` varchar(500) DEFAULT '' COMMENT '表描述',
   `sub_table_name` varchar(64) DEFAULT NULL COMMENT '关联子表的表名',
@@ -3905,7 +3905,7 @@ INSERT INTO `gen_table` VALUES ('21', 'supplier', '供应商角色', '', '', 'Su
 -- ----------------------------
 DROP TABLE IF EXISTS `gen_table_column`;
 CREATE TABLE `gen_table_column` (
-  `column_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `column_id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
   `table_id` varchar(64) DEFAULT NULL COMMENT '归属表编号',
   `column_name` varchar(200) DEFAULT NULL COMMENT '列名称',
   `column_comment` varchar(500) DEFAULT NULL COMMENT '列描述',
@@ -3922,7 +3922,7 @@ CREATE TABLE `gen_table_column` (
   `query_type` varchar(200) DEFAULT 'EQ' COMMENT '查询方式（等于、不等于、大于、小于、范围）',
   `html_type` varchar(200) DEFAULT NULL COMMENT '显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件）',
   `dict_type` varchar(200) DEFAULT '' COMMENT '字典类型',
-  `sort` int(11) DEFAULT NULL COMMENT '排序',
+  `sort` int DEFAULT NULL COMMENT '排序',
   `create_by` varchar(64) DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(64) DEFAULT '' COMMENT '更新者',
@@ -4061,19 +4061,19 @@ DROP TABLE IF EXISTS `goods`;
 CREATE TABLE `goods` (
   `goods_id` varchar(26) NOT NULL COMMENT '商品ID',
   `goods_name` varchar(64) NOT NULL COMMENT '商品名称',
-  `sales` int(11) NOT NULL COMMENT '销量',
+  `sales` int NOT NULL COMMENT '销量',
   `goods_status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '状态（1正常 -1删除 0下架）',
   `category_id` varchar(10) NOT NULL COMMENT '商品类别id',
   `highest_id` varchar(2) NOT NULL COMMENT '顶层商品类别id',
   `goods_content` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品内容',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `stock` int(11) NOT NULL COMMENT '库存',
+  `stock` int NOT NULL COMMENT '库存',
   `price` decimal(10,2) NOT NULL COMMENT '商品价格',
-  `supplier_id` bigint(20) NOT NULL COMMENT '厂家ID',
+  `supplier_id` bigint NOT NULL COMMENT '厂家ID',
   `tender_id` varchar(22) NOT NULL COMMENT '标书ID',
   PRIMARY KEY (`goods_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='商品表';
 
 -- ----------------------------
 -- Records of goods
@@ -4089,7 +4089,7 @@ CREATE TABLE `goods_category` (
   `superior_id` varchar(10) NOT NULL COMMENT '父类',
   `category_name` varchar(64) DEFAULT '' COMMENT '名称',
   PRIMARY KEY (`category_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品分类';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='商品分类';
 
 -- ----------------------------
 -- Records of goods_category
@@ -4105,11 +4105,11 @@ CREATE TABLE `goods_traffic_record` (
   `express_delivery_number` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '快递单号',
   `category_id` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品类别id',
   `goods_id` varchar(26) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品编号',
-  `goods_quantity` int(11) NOT NULL COMMENT '商品数量',
-  `batch` int(11) NOT NULL COMMENT '批次',
+  `goods_quantity` int NOT NULL COMMENT '商品数量',
+  `batch` int NOT NULL COMMENT '批次',
   `centralized_purchase_record_time` datetime NOT NULL COMMENT '时间',
   PRIMARY KEY (`goods_traffic_record_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='货运记录';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='货运记录';
 
 -- ----------------------------
 -- Records of goods_traffic_record
@@ -4126,10 +4126,10 @@ CREATE TABLE `inventory_quantity` (
   `area_num` char(1) NOT NULL COMMENT '区域号',
   `shelve_num` varchar(3) NOT NULL COMMENT '货架',
   `layer_num` char(1) NOT NULL COMMENT '层号',
-  `quantity` int(11) NOT NULL COMMENT '数量',
+  `quantity` int NOT NULL COMMENT '数量',
   `goods_id` varchar(26) NOT NULL COMMENT '商品ID',
   PRIMARY KEY (`inventory_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='在库记录表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='在库记录表';
 
 -- ----------------------------
 -- Records of inventory_quantity
@@ -4148,11 +4148,11 @@ CREATE TABLE `inventory_records` (
   `area_num` char(1) NOT NULL,
   `shelve_num` varchar(3) NOT NULL COMMENT '货架',
   `layer_num` char(1) NOT NULL COMMENT '层号',
-  `quantity` int(11) NOT NULL COMMENT '数量',
+  `quantity` int NOT NULL COMMENT '数量',
   `storehouse_id` varchar(32) NOT NULL COMMENT '仓库ID',
   `principal_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '负责人名称',
   PRIMARY KEY (`record_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='库存记录信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='库存记录信息表';
 
 -- ----------------------------
 -- Records of inventory_records
@@ -4175,7 +4175,7 @@ CREATE TABLE `manager` (
   `last_login` datetime DEFAULT NULL COMMENT '上次登录时间',
   `manage_state` char(1) DEFAULT NULL COMMENT '角色状态（0正常 1停用）',
   PRIMARY KEY (`manager_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='管理员角色';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='管理员角色';
 
 -- ----------------------------
 -- Records of manager
@@ -4189,11 +4189,11 @@ DROP TABLE IF EXISTS `price_quality`;
 CREATE TABLE `price_quality` (
   `pq_id` varchar(32) NOT NULL COMMENT '比质比价ID',
   `tender_id` varchar(22) NOT NULL COMMENT '标书ID',
-  `product_number` int(11) DEFAULT NULL COMMENT '产品编号',
-  `supplier_id` bigint(20) NOT NULL COMMENT '供应商',
+  `product_number` int DEFAULT NULL COMMENT '产品编号',
+  `supplier_id` bigint NOT NULL COMMENT '供应商',
   `scores` varchar(5) DEFAULT '' COMMENT '分数',
   PRIMARY KEY (`pq_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='比质比价得分表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='比质比价得分表';
 
 -- ----------------------------
 -- Records of price_quality
@@ -4259,9 +4259,9 @@ CREATE TABLE `qrtz_fired_triggers` (
   `trigger_name` varchar(200) NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
   `trigger_group` varchar(200) NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
   `instance_name` varchar(200) NOT NULL COMMENT '调度器实例名',
-  `fired_time` bigint(20) NOT NULL COMMENT '触发的时间',
-  `sched_time` bigint(20) NOT NULL COMMENT '定时器制定的时间',
-  `priority` int(11) NOT NULL COMMENT '优先级',
+  `fired_time` bigint NOT NULL COMMENT '触发的时间',
+  `sched_time` bigint NOT NULL COMMENT '定时器制定的时间',
+  `priority` int NOT NULL COMMENT '优先级',
   `state` varchar(16) NOT NULL COMMENT '状态',
   `job_name` varchar(200) DEFAULT NULL COMMENT '任务名称',
   `job_group` varchar(200) DEFAULT NULL COMMENT '任务组名',
@@ -4331,8 +4331,8 @@ DROP TABLE IF EXISTS `qrtz_scheduler_state`;
 CREATE TABLE `qrtz_scheduler_state` (
   `sched_name` varchar(120) NOT NULL COMMENT '调度名称',
   `instance_name` varchar(200) NOT NULL COMMENT '实例名称',
-  `last_checkin_time` bigint(20) NOT NULL COMMENT '上次检查时间',
-  `checkin_interval` bigint(20) NOT NULL COMMENT '检查间隔时间',
+  `last_checkin_time` bigint NOT NULL COMMENT '上次检查时间',
+  `checkin_interval` bigint NOT NULL COMMENT '检查间隔时间',
   PRIMARY KEY (`sched_name`,`instance_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='调度器状态表';
 
@@ -4348,9 +4348,9 @@ CREATE TABLE `qrtz_simple_triggers` (
   `sched_name` varchar(120) NOT NULL COMMENT '调度名称',
   `trigger_name` varchar(200) NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
   `trigger_group` varchar(200) NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
-  `repeat_count` bigint(20) NOT NULL COMMENT '重复的次数统计',
-  `repeat_interval` bigint(20) NOT NULL COMMENT '重复的间隔时间',
-  `times_triggered` bigint(20) NOT NULL COMMENT '已经触发的次数',
+  `repeat_count` bigint NOT NULL COMMENT '重复的次数统计',
+  `repeat_interval` bigint NOT NULL COMMENT '重复的间隔时间',
+  `times_triggered` bigint NOT NULL COMMENT '已经触发的次数',
   PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`),
   CONSTRAINT `qrtz_simple_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `trigger_name`, `trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='简单触发器的信息表';
@@ -4370,10 +4370,10 @@ CREATE TABLE `qrtz_simprop_triggers` (
   `str_prop_1` varchar(512) DEFAULT NULL COMMENT 'String类型的trigger的第一个参数',
   `str_prop_2` varchar(512) DEFAULT NULL COMMENT 'String类型的trigger的第二个参数',
   `str_prop_3` varchar(512) DEFAULT NULL COMMENT 'String类型的trigger的第三个参数',
-  `int_prop_1` int(11) DEFAULT NULL COMMENT 'int类型的trigger的第一个参数',
-  `int_prop_2` int(11) DEFAULT NULL COMMENT 'int类型的trigger的第二个参数',
-  `long_prop_1` bigint(20) DEFAULT NULL COMMENT 'long类型的trigger的第一个参数',
-  `long_prop_2` bigint(20) DEFAULT NULL COMMENT 'long类型的trigger的第二个参数',
+  `int_prop_1` int DEFAULT NULL COMMENT 'int类型的trigger的第一个参数',
+  `int_prop_2` int DEFAULT NULL COMMENT 'int类型的trigger的第二个参数',
+  `long_prop_1` bigint DEFAULT NULL COMMENT 'long类型的trigger的第一个参数',
+  `long_prop_2` bigint DEFAULT NULL COMMENT 'long类型的trigger的第二个参数',
   `dec_prop_1` decimal(13,4) DEFAULT NULL COMMENT 'decimal类型的trigger的第一个参数',
   `dec_prop_2` decimal(13,4) DEFAULT NULL COMMENT 'decimal类型的trigger的第二个参数',
   `bool_prop_1` varchar(1) DEFAULT NULL COMMENT 'Boolean类型的trigger的第一个参数',
@@ -4397,15 +4397,15 @@ CREATE TABLE `qrtz_triggers` (
   `job_name` varchar(200) NOT NULL COMMENT 'qrtz_job_details表job_name的外键',
   `job_group` varchar(200) NOT NULL COMMENT 'qrtz_job_details表job_group的外键',
   `description` varchar(250) DEFAULT NULL COMMENT '相关介绍',
-  `next_fire_time` bigint(20) DEFAULT NULL COMMENT '上一次触发时间（毫秒）',
-  `prev_fire_time` bigint(20) DEFAULT NULL COMMENT '下一次触发时间（默认为-1表示不触发）',
-  `priority` int(11) DEFAULT NULL COMMENT '优先级',
+  `next_fire_time` bigint DEFAULT NULL COMMENT '上一次触发时间（毫秒）',
+  `prev_fire_time` bigint DEFAULT NULL COMMENT '下一次触发时间（默认为-1表示不触发）',
+  `priority` int DEFAULT NULL COMMENT '优先级',
   `trigger_state` varchar(16) NOT NULL COMMENT '触发器状态',
   `trigger_type` varchar(8) NOT NULL COMMENT '触发器的类型',
-  `start_time` bigint(20) NOT NULL COMMENT '开始时间',
-  `end_time` bigint(20) DEFAULT NULL COMMENT '结束时间',
+  `start_time` bigint NOT NULL COMMENT '开始时间',
+  `end_time` bigint DEFAULT NULL COMMENT '结束时间',
   `calendar_name` varchar(200) DEFAULT NULL COMMENT '日程表名称',
-  `misfire_instr` smallint(6) DEFAULT NULL COMMENT '补偿执行的策略',
+  `misfire_instr` smallint DEFAULT NULL COMMENT '补偿执行的策略',
   `job_data` blob COMMENT '存放持久化job对象',
   PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`),
   KEY `sched_name` (`sched_name`,`job_name`,`job_group`),
@@ -4422,7 +4422,7 @@ CREATE TABLE `qrtz_triggers` (
 DROP TABLE IF EXISTS `qualification_review`;
 CREATE TABLE `qualification_review` (
   `qualification_review_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '资质审核ID',
-  `supply_id` bigint(20) NOT NULL COMMENT '供应商ID',
+  `supply_id` bigint NOT NULL COMMENT '供应商ID',
   `qualification_review_document` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '资质审核文件存储位置',
   `goods_id` varchar(26) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品编号',
   `tender_id` varchar(22) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标书id',
@@ -4430,7 +4430,7 @@ CREATE TABLE `qualification_review` (
   `audit_explanation` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '审核说明',
   `submit_time` datetime NOT NULL COMMENT '提交时间',
   PRIMARY KEY (`qualification_review_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='资质审核';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='资质审核';
 
 -- ----------------------------
 -- Records of qualification_review
@@ -4447,7 +4447,7 @@ CREATE TABLE `shipping_information` (
   `principal` varchar(32) NOT NULL COMMENT '负责人名称',
   `phone` varchar(11) NOT NULL COMMENT '联系电话',
   PRIMARY KEY (`shipping_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='货运信息';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='货运信息';
 
 -- ----------------------------
 -- Records of shipping_information
@@ -4461,11 +4461,11 @@ CREATE TABLE `storehouse` (
   `storehouse_id` varchar(32) NOT NULL COMMENT '仓库ID',
   `principal` varchar(32) NOT NULL COMMENT '负责人名称',
   `phone` varchar(11) NOT NULL COMMENT '联系电话',
-  `shelves_num` int(11) NOT NULL COMMENT '货架量',
+  `shelves_num` int NOT NULL COMMENT '货架量',
   `acreage` decimal(12,4) NOT NULL COMMENT '面积',
   `position` varchar(500) NOT NULL COMMENT '位置',
   PRIMARY KEY (`storehouse_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='仓库表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='仓库表';
 
 -- ----------------------------
 -- Records of storehouse
@@ -4476,7 +4476,7 @@ CREATE TABLE `storehouse` (
 -- ----------------------------
 DROP TABLE IF EXISTS `supermarket`;
 CREATE TABLE `supermarket` (
-  `shop_id` bigint(20) NOT NULL,
+  `shop_id` bigint NOT NULL,
   `shop_name` varchar(255) DEFAULT NULL COMMENT '超市名称',
   `nickname` varchar(255) DEFAULT NULL COMMENT '昵称',
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '用户名',
@@ -4490,7 +4490,7 @@ CREATE TABLE `supermarket` (
   `last_login` datetime DEFAULT NULL COMMENT '上次登陆时间',
   `shop_state` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '角色状态（0正常 1停用）',
   PRIMARY KEY (`shop_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='超市角色';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='超市角色';
 
 -- ----------------------------
 -- Records of supermarket
@@ -4521,7 +4521,7 @@ CREATE TABLE `supplier` (
   `last_login` datetime DEFAULT NULL COMMENT '上次登陆时间',
   `supply_state` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '供应商状态（0正常 1停用）',
   PRIMARY KEY (`supply_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='供应商角色';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='供应商角色';
 
 -- ----------------------------
 -- Records of supplier
@@ -4533,7 +4533,7 @@ INSERT INTO `supplier` VALUES ('1166082321923960199', '供应商1', '供应商1'
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_config`;
 CREATE TABLE `sys_config` (
-  `config_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '参数主键',
+  `config_id` int NOT NULL AUTO_INCREMENT COMMENT '参数主键',
   `config_name` varchar(100) DEFAULT '' COMMENT '参数名称',
   `config_key` varchar(100) DEFAULT '' COMMENT '参数键名',
   `config_value` varchar(500) DEFAULT '' COMMENT '参数键值',
@@ -4565,11 +4565,11 @@ INSERT INTO `sys_config` VALUES ('10', '主框架页-是否开启页签', 'sys.i
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE `sys_dept` (
-  `dept_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '部门id',
-  `parent_id` bigint(20) DEFAULT '0' COMMENT '父部门id',
+  `dept_id` bigint NOT NULL AUTO_INCREMENT COMMENT '部门id',
+  `parent_id` bigint DEFAULT '0' COMMENT '父部门id',
   `ancestors` varchar(50) DEFAULT '' COMMENT '祖级列表',
   `dept_name` varchar(30) DEFAULT '' COMMENT '部门名称',
-  `order_num` int(11) DEFAULT '0' COMMENT '显示顺序',
+  `order_num` int DEFAULT '0' COMMENT '显示顺序',
   `leader` varchar(20) DEFAULT NULL COMMENT '负责人',
   `phone` varchar(11) DEFAULT NULL COMMENT '联系电话',
   `email` varchar(50) DEFAULT NULL COMMENT '邮箱',
@@ -4601,8 +4601,8 @@ INSERT INTO `sys_dept` VALUES ('109', '102', '0,100,102', '财务部门', '2', '
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_data`;
 CREATE TABLE `sys_dict_data` (
-  `dict_code` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '字典编码',
-  `dict_sort` int(11) DEFAULT '0' COMMENT '字典排序',
+  `dict_code` bigint NOT NULL AUTO_INCREMENT COMMENT '字典编码',
+  `dict_sort` int DEFAULT '0' COMMENT '字典排序',
   `dict_label` varchar(100) DEFAULT '' COMMENT '字典标签',
   `dict_value` varchar(100) DEFAULT '' COMMENT '字典键值',
   `dict_type` varchar(100) DEFAULT '' COMMENT '字典类型',
@@ -4616,7 +4616,7 @@ CREATE TABLE `sys_dict_data` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`dict_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='字典数据表';
+) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='字典数据表';
 
 -- ----------------------------
 -- Records of sys_dict_data
@@ -4665,13 +4665,20 @@ INSERT INTO `sys_dict_data` VALUES ('111', '1', '国有企业', '0', 'company_ty
 INSERT INTO `sys_dict_data` VALUES ('112', '2', '集体所有制企业', '1', 'company_type', '', '', 'Y', '0', 'admin', '2022-08-16 20:08:41', '', '2022-08-18 19:30:24', '');
 INSERT INTO `sys_dict_data` VALUES ('113', '3', '私营企业', '2', 'company_type', '', '', 'Y', '0', 'admin', '2022-08-16 20:08:55', '', '2022-08-18 19:30:27', '');
 INSERT INTO `sys_dict_data` VALUES ('114', '4', '股份制企业', '3', 'company_type', '', '', 'Y', '0', 'admin', '2022-08-16 20:09:28', '', '2022-08-18 19:30:30', '');
+INSERT INTO `sys_dict_data` VALUES ('200', '1', '供应商与供销社', '0', 'contract_type', '', '', 'Y', '0', 'admin', '2022-08-16 19:45:02', 'admin', '2022-08-16 19:46:52', '');
+INSERT INTO `sys_dict_data` VALUES ('201', '2', '小商超与供销社', '1', 'contract_type', '', '', 'Y', '0', 'admin', '2022-08-16 19:46:31', 'admin', '2022-08-16 19:47:21', '');
+INSERT INTO `sys_dict_data` VALUES ('202', '1', '否', '0', 'contract_signature', null, null, 'Y', '0', 'admin', '2022-08-16 19:49:44', '', null, null);
+INSERT INTO `sys_dict_data` VALUES ('203', '2', '是', '1', 'contract_signature', null, null, 'Y', '0', 'admin', '2022-08-16 19:49:52', '', null, null);
+INSERT INTO `sys_dict_data` VALUES ('204', '1', '未审核', '0', 'audit_status', null, null, 'Y', '0', 'admin', '2022-08-16 20:27:08', '', null, null);
+INSERT INTO `sys_dict_data` VALUES ('205', '2', '审核通过', '1', 'audit_status', null, null, 'Y', '0', 'admin', '2022-08-16 20:27:29', '', null, null);
+INSERT INTO `sys_dict_data` VALUES ('206', '3', '审核未通过', '2', 'audit_status', null, null, 'Y', '0', 'admin', '2022-08-16 20:28:40', '', null, null);
 
 -- ----------------------------
 -- Table structure for sys_dict_type
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_type`;
 CREATE TABLE `sys_dict_type` (
-  `dict_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '字典主键',
+  `dict_id` bigint NOT NULL AUTO_INCREMENT COMMENT '字典主键',
   `dict_name` varchar(100) DEFAULT '' COMMENT '字典名称',
   `dict_type` varchar(100) DEFAULT '' COMMENT '字典类型',
   `status` char(1) DEFAULT '0' COMMENT '状态（0正常 1停用）',
@@ -4701,13 +4708,16 @@ INSERT INTO `sys_dict_type` VALUES ('100', '审核状态', 'sys_examine_status',
 INSERT INTO `sys_dict_type` VALUES ('101', '证件类型', 'con_card_type', '0', 'admin', '2022-08-16 19:38:49', 'admin', '2022-08-16 19:39:47', '证件类型列表');
 INSERT INTO `sys_dict_type` VALUES ('102', '公司性质', 'company_pro', '0', 'admin', '2022-08-16 20:05:19', 'admin', '2022-08-18 19:33:17', '公司性质列表');
 INSERT INTO `sys_dict_type` VALUES ('103', '企业类型', 'company_type', '0', 'admin', '2022-08-16 20:08:00', 'admin', '2022-08-18 19:33:45', '企业类型列表');
+INSERT INTO `sys_dict_type` VALUES ('104', '合同类别', 'contract_type', '0', 'admin', '2022-08-16 19:42:11', '', null, null);
+INSERT INTO `sys_dict_type` VALUES ('105', '是否签名', 'contract_signature', '0', 'admin', '2022-08-16 19:49:23', 'admin', '2022-08-24 15:58:26', '合同签名');
+INSERT INTO `sys_dict_type` VALUES ('106', '审核状态', 'audit_status', '0', 'admin', '2022-08-16 20:26:14', 'admin', '2022-08-24 15:58:35', '资质审核状态');
 
 -- ----------------------------
 -- Table structure for sys_job
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_job`;
 CREATE TABLE `sys_job` (
-  `job_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '任务ID',
+  `job_id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务ID',
   `job_name` varchar(64) NOT NULL DEFAULT '' COMMENT '任务名称',
   `job_group` varchar(64) NOT NULL DEFAULT 'DEFAULT' COMMENT '任务组名',
   `invoke_target` varchar(500) NOT NULL COMMENT '调用目标字符串',
@@ -4735,7 +4745,7 @@ INSERT INTO `sys_job` VALUES ('3', '系统默认（多参）', 'DEFAULT', 'ryTas
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_job_log`;
 CREATE TABLE `sys_job_log` (
-  `job_log_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '任务日志ID',
+  `job_log_id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务日志ID',
   `job_name` varchar(64) NOT NULL COMMENT '任务名称',
   `job_group` varchar(64) NOT NULL COMMENT '任务组名',
   `invoke_target` varchar(500) NOT NULL COMMENT '调用目标字符串',
@@ -4755,7 +4765,7 @@ CREATE TABLE `sys_job_log` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_logininfor`;
 CREATE TABLE `sys_logininfor` (
-  `info_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '访问ID',
+  `info_id` bigint NOT NULL AUTO_INCREMENT COMMENT '访问ID',
   `login_name` varchar(50) DEFAULT '' COMMENT '登录账号',
   `ipaddr` varchar(128) DEFAULT '' COMMENT '登录IP地址',
   `login_location` varchar(255) DEFAULT '' COMMENT '登录地点',
@@ -4788,10 +4798,10 @@ INSERT INTO `sys_logininfor` VALUES ('111', 'admin', '127.0.0.1', '内网IP', 'F
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
-  `menu_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
+  `menu_id` bigint NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
   `menu_name` varchar(50) NOT NULL COMMENT '菜单名称',
-  `parent_id` bigint(20) DEFAULT '0' COMMENT '父菜单ID',
-  `order_num` int(11) DEFAULT '0' COMMENT '显示顺序',
+  `parent_id` bigint DEFAULT '0' COMMENT '父菜单ID',
+  `order_num` int DEFAULT '0' COMMENT '显示顺序',
   `url` varchar(200) DEFAULT '#' COMMENT '请求地址',
   `target` varchar(20) DEFAULT '' COMMENT '打开方式（menuItem页签 menuBlank新窗口）',
   `menu_type` char(1) DEFAULT '' COMMENT '菜单类型（M目录 C菜单 F按钮）',
@@ -4805,7 +4815,7 @@ CREATE TABLE `sys_menu` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2214 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=3239 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单权限表';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -4956,13 +4966,64 @@ INSERT INTO `sys_menu` VALUES ('2210', '供销社角色新增', '2208', '2', '#'
 INSERT INTO `sys_menu` VALUES ('2211', '供销社角色修改', '2208', '3', '#', '', 'F', '0', '1', 'user:cooperative:edit', '#', 'admin', '2022-08-24 10:00:07', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2212', '供销社角色删除', '2208', '4', '#', '', 'F', '0', '1', 'user:cooperative:remove', '#', 'admin', '2022-08-24 10:00:07', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2213', '供销社角色导出', '2208', '5', '#', '', 'F', '0', '1', 'user:cooperative:export', '#', 'admin', '2022-08-24 10:00:07', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3184', '集采', '0', '7', '#', 'menuItem', 'M', '0', '1', null, 'fa fa-cart-plus', 'admin', '2022-08-24 11:28:49', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3185', '招标&竞价', '3184', '1', '#', 'menuItem', 'M', '0', '1', null, 'fa fa-legal', 'admin', '2022-08-24 11:29:51', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3188', '公告', '3184', '3', '#', 'menuItem', 'M', '0', '1', null, 'fa fa-bank', 'admin', '2022-08-24 11:32:20', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3191', '招标', '3185', '1', '/cp/tender1', '', 'C', '0', '1', 'cp:tender1:view', '#', 'admin', '2022-08-24 11:38:59', '', null, '招标菜单');
+INSERT INTO `sys_menu` VALUES ('3192', '招标查询', '3191', '1', '#', '', 'F', '0', '1', 'cp:tender1:list', '#', 'admin', '2022-08-24 11:38:59', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3193', '招标新增', '3191', '2', '#', '', 'F', '0', '1', 'cp:tender1:add', '#', 'admin', '2022-08-24 11:38:59', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3194', '招标修改', '3191', '3', '#', '', 'F', '0', '1', 'cp:tender1:edit', '#', 'admin', '2022-08-24 11:38:59', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3195', '招标删除', '3191', '4', '#', '', 'F', '0', '1', 'cp:tender1:remove', '#', 'admin', '2022-08-24 11:38:59', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3196', '招标导出', '3191', '5', '#', '', 'F', '0', '1', 'cp:tender1:export', '#', 'admin', '2022-08-24 11:38:59', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3197', '竞价', '3185', '1', '/cp/tender2', '', 'C', '0', '1', 'cp:tender2:view', '#', 'admin', '2022-08-24 11:40:42', '', null, '竞价菜单');
+INSERT INTO `sys_menu` VALUES ('3198', '竞价查询', '3197', '1', '#', '', 'F', '0', '1', 'cp:tender2:list', '#', 'admin', '2022-08-24 11:40:42', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3199', '竞价新增', '3197', '2', '#', '', 'F', '0', '1', 'cp:tender2:add', '#', 'admin', '2022-08-24 11:40:42', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3200', '竞价修改', '3197', '3', '#', '', 'F', '0', '1', 'cp:tender2:edit', '#', 'admin', '2022-08-24 11:40:42', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3201', '竞价删除', '3197', '4', '#', '', 'F', '0', '1', 'cp:tender2:remove', '#', 'admin', '2022-08-24 11:40:42', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3202', '竞价导出', '3197', '5', '#', '', 'F', '0', '1', 'cp:tender2:export', '#', 'admin', '2022-08-24 11:40:42', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3203', '资质审核', '3184', '2', '/cp/qualificationReview', 'menuItem', 'C', '0', '1', 'cp:qualificationReview:view', '#', 'admin', '2022-08-24 11:43:14', 'admin', '2022-08-24 11:46:07', '资质审核菜单');
+INSERT INTO `sys_menu` VALUES ('3204', '资质审核查询', '3203', '1', '#', '', 'F', '0', '1', 'cp:qualificationReview:list', '#', 'admin', '2022-08-24 11:43:14', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3205', '资质审核新增', '3203', '2', '#', '', 'F', '0', '1', 'cp:qualificationReview:add', '#', 'admin', '2022-08-24 11:43:14', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3206', '资质审核修改', '3203', '3', '#', '', 'F', '0', '1', 'cp:qualificationReview:edit', '#', 'admin', '2022-08-24 11:43:14', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3207', '资质审核删除', '3203', '4', '#', '', 'F', '0', '1', 'cp:qualificationReview:remove', '#', 'admin', '2022-08-24 11:43:14', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3208', '资质审核导出', '3203', '5', '#', '', 'F', '0', '1', 'cp:qualificationReview:export', '#', 'admin', '2022-08-24 11:43:14', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3209', '中标候选人公示公告', '3188', '1', '/cp/bidWinningCandidates', '', 'C', '0', '1', 'cp:bidWinningCandidates:view', '#', 'admin', '2022-08-24 11:49:31', '', null, '中标候选人公示公告菜单');
+INSERT INTO `sys_menu` VALUES ('3210', '中标候选人公示公告查询', '3209', '1', '#', '', 'F', '0', '1', 'cp:bidWinningCandidates:list', '#', 'admin', '2022-08-24 11:49:31', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3211', '中标候选人公示公告新增', '3209', '2', '#', '', 'F', '0', '1', 'cp:bidWinningCandidates:add', '#', 'admin', '2022-08-24 11:49:31', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3212', '中标候选人公示公告修改', '3209', '3', '#', '', 'F', '0', '1', 'cp:bidWinningCandidates:edit', '#', 'admin', '2022-08-24 11:49:31', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3213', '中标候选人公示公告删除', '3209', '4', '#', '', 'F', '0', '1', 'cp:bidWinningCandidates:remove', '#', 'admin', '2022-08-24 11:49:31', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3214', '中标候选人公示公告导出', '3209', '5', '#', '', 'F', '0', '1', 'cp:bidWinningCandidates:export', '#', 'admin', '2022-08-24 11:49:31', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3215', '中标结果公告', '3188', '1', '/cp/bidWinningResultsAnnouncement', '', 'C', '0', '1', 'cp:bidWinningResultsAnnouncement:view', '#', 'admin', '2022-08-24 11:51:28', '', null, '中标结果公告菜单');
+INSERT INTO `sys_menu` VALUES ('3216', '中标结果公告查询', '3215', '1', '#', '', 'F', '0', '1', 'cp:bidWinningResultsAnnouncement:list', '#', 'admin', '2022-08-24 11:51:28', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3217', '中标结果公告新增', '3215', '2', '#', '', 'F', '0', '1', 'cp:bidWinningResultsAnnouncement:add', '#', 'admin', '2022-08-24 11:51:28', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3218', '中标结果公告修改', '3215', '3', '#', '', 'F', '0', '1', 'cp:bidWinningResultsAnnouncement:edit', '#', 'admin', '2022-08-24 11:51:28', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3219', '中标结果公告删除', '3215', '4', '#', '', 'F', '0', '1', 'cp:bidWinningResultsAnnouncement:remove', '#', 'admin', '2022-08-24 11:51:28', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3220', '中标结果公告导出', '3215', '5', '#', '', 'F', '0', '1', 'cp:bidWinningResultsAnnouncement:export', '#', 'admin', '2022-08-24 11:51:28', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3221', '变更公告', '3188', '1', '/cp/changeAnnouncement', '', 'C', '0', '1', 'cp:changeAnnouncement:view', '#', 'admin', '2022-08-24 11:52:53', '', null, '变更公告菜单');
+INSERT INTO `sys_menu` VALUES ('3222', '变更公告查询', '3221', '1', '#', '', 'F', '0', '1', 'cp:changeAnnouncement:list', '#', 'admin', '2022-08-24 11:52:53', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3223', '变更公告新增', '3221', '2', '#', '', 'F', '0', '1', 'cp:changeAnnouncement:add', '#', 'admin', '2022-08-24 11:52:53', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3224', '变更公告修改', '3221', '3', '#', '', 'F', '0', '1', 'cp:changeAnnouncement:edit', '#', 'admin', '2022-08-24 11:52:53', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3225', '变更公告删除', '3221', '4', '#', '', 'F', '0', '1', 'cp:changeAnnouncement:remove', '#', 'admin', '2022-08-24 11:52:53', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3226', '变更公告导出', '3221', '5', '#', '', 'F', '0', '1', 'cp:changeAnnouncement:export', '#', 'admin', '2022-08-24 11:52:53', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3227', '终止公告', '3188', '1', '/cp/terminationAnnouncement', '', 'C', '0', '1', 'cp:terminationAnnouncement:view', '#', 'admin', '2022-08-24 11:54:57', '', null, '终止公告菜单');
+INSERT INTO `sys_menu` VALUES ('3228', '终止公告查询', '3227', '1', '#', '', 'F', '0', '1', 'cp:terminationAnnouncement:list', '#', 'admin', '2022-08-24 11:54:57', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3229', '终止公告新增', '3227', '2', '#', '', 'F', '0', '1', 'cp:terminationAnnouncement:add', '#', 'admin', '2022-08-24 11:54:57', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3230', '终止公告修改', '3227', '3', '#', '', 'F', '0', '1', 'cp:terminationAnnouncement:edit', '#', 'admin', '2022-08-24 11:54:57', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3231', '终止公告删除', '3227', '4', '#', '', 'F', '0', '1', 'cp:terminationAnnouncement:remove', '#', 'admin', '2022-08-24 11:54:57', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3232', '终止公告导出', '3227', '5', '#', '', 'F', '0', '1', 'cp:terminationAnnouncement:export', '#', 'admin', '2022-08-24 11:54:57', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3233', '合同', '3184', '4', '/cp/contract', 'menuItem', 'C', '0', '1', 'cp:contract:view', 'fa fa-handshake-o', 'admin', '2022-08-24 11:56:15', 'admin', '2022-08-24 11:56:40', '合同菜单');
+INSERT INTO `sys_menu` VALUES ('3234', '合同查询', '3233', '1', '#', '', 'F', '0', '1', 'cp:contract:list', '#', 'admin', '2022-08-24 11:56:15', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3235', '合同新增', '3233', '2', '#', '', 'F', '0', '1', 'cp:contract:add', '#', 'admin', '2022-08-24 11:56:15', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3236', '合同修改', '3233', '3', '#', '', 'F', '0', '1', 'cp:contract:edit', '#', 'admin', '2022-08-24 11:56:15', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3237', '合同删除', '3233', '4', '#', '', 'F', '0', '1', 'cp:contract:remove', '#', 'admin', '2022-08-24 11:56:15', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3238', '合同导出', '3233', '5', '#', '', 'F', '0', '1', 'cp:contract:export', '#', 'admin', '2022-08-24 11:56:15', '', null, '');
 
 -- ----------------------------
 -- Table structure for sys_notice
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_notice`;
 CREATE TABLE `sys_notice` (
-  `notice_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '公告ID',
+  `notice_id` int NOT NULL AUTO_INCREMENT COMMENT '公告ID',
   `notice_title` varchar(50) NOT NULL COMMENT '公告标题',
   `notice_type` char(1) NOT NULL COMMENT '公告类型（1通知 2公告）',
   `notice_content` varchar(2000) DEFAULT NULL COMMENT '公告内容',
@@ -4986,12 +5047,12 @@ INSERT INTO `sys_notice` VALUES ('2', '维护通知：2018-07-01 若依系统凌
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_oper_log`;
 CREATE TABLE `sys_oper_log` (
-  `oper_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '日志主键',
+  `oper_id` bigint NOT NULL AUTO_INCREMENT COMMENT '日志主键',
   `title` varchar(50) DEFAULT '' COMMENT '模块标题',
-  `business_type` int(11) DEFAULT '0' COMMENT '业务类型（0其它 1新增 2修改 3删除）',
+  `business_type` int DEFAULT '0' COMMENT '业务类型（0其它 1新增 2修改 3删除）',
   `method` varchar(100) DEFAULT '' COMMENT '方法名称',
   `request_method` varchar(10) DEFAULT '' COMMENT '请求方式',
-  `operator_type` int(11) DEFAULT '0' COMMENT '操作类别（0其它 1后台用户 2手机端用户）',
+  `operator_type` int DEFAULT '0' COMMENT '操作类别（0其它 1后台用户 2手机端用户）',
   `oper_name` varchar(50) DEFAULT '' COMMENT '操作人员',
   `dept_name` varchar(50) DEFAULT '' COMMENT '部门名称',
   `oper_url` varchar(255) DEFAULT '' COMMENT '请求URL',
@@ -4999,7 +5060,7 @@ CREATE TABLE `sys_oper_log` (
   `oper_location` varchar(255) DEFAULT '' COMMENT '操作地点',
   `oper_param` varchar(2000) DEFAULT '' COMMENT '请求参数',
   `json_result` varchar(2000) DEFAULT '' COMMENT '返回参数',
-  `status` int(11) DEFAULT '0' COMMENT '操作状态（0正常 1异常）',
+  `status` int DEFAULT '0' COMMENT '操作状态（0正常 1异常）',
   `error_msg` varchar(2000) DEFAULT '' COMMENT '错误消息',
   `oper_time` datetime DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`oper_id`)
@@ -5067,10 +5128,10 @@ INSERT INTO `sys_oper_log` VALUES ('152', '代码生成', '8', 'com.cps.generato
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_post`;
 CREATE TABLE `sys_post` (
-  `post_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '岗位ID',
+  `post_id` bigint NOT NULL AUTO_INCREMENT COMMENT '岗位ID',
   `post_code` varchar(64) NOT NULL COMMENT '岗位编码',
   `post_name` varchar(50) NOT NULL COMMENT '岗位名称',
-  `post_sort` int(11) NOT NULL COMMENT '显示顺序',
+  `post_sort` int NOT NULL COMMENT '显示顺序',
   `status` char(1) NOT NULL COMMENT '状态（0正常 1停用）',
   `create_by` varchar(64) DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
@@ -5093,10 +5154,10 @@ INSERT INTO `sys_post` VALUES ('4', 'user', '普通员工', '4', '0', 'admin', '
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
-  `role_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '角色ID',
+  `role_id` bigint NOT NULL AUTO_INCREMENT COMMENT '角色ID',
   `role_name` varchar(30) NOT NULL COMMENT '角色名称',
   `role_key` varchar(100) NOT NULL COMMENT '角色权限字符串',
-  `role_sort` int(11) NOT NULL COMMENT '显示顺序',
+  `role_sort` int NOT NULL COMMENT '显示顺序',
   `data_scope` char(1) DEFAULT '1' COMMENT '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）',
   `status` char(1) NOT NULL COMMENT '角色状态（0正常 1停用）',
   `del_flag` char(1) DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
@@ -5122,8 +5183,8 @@ INSERT INTO `sys_role` VALUES ('103', '供应商', 'Supplier', '5', '1', '0', '0
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_dept`;
 CREATE TABLE `sys_role_dept` (
-  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
-  `dept_id` bigint(20) NOT NULL COMMENT '部门ID',
+  `role_id` bigint NOT NULL COMMENT '角色ID',
+  `dept_id` bigint NOT NULL COMMENT '部门ID',
   PRIMARY KEY (`role_id`,`dept_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色和部门关联表';
 
@@ -5136,8 +5197,8 @@ CREATE TABLE `sys_role_dept` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu` (
-  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
-  `menu_id` bigint(20) NOT NULL COMMENT '菜单ID',
+  `role_id` bigint NOT NULL COMMENT '角色ID',
+  `menu_id` bigint NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`role_id`,`menu_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色和菜单关联表';
 
@@ -5150,8 +5211,8 @@ CREATE TABLE `sys_role_menu` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
-  `user_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-  `dept_id` bigint(20) DEFAULT NULL COMMENT '部门ID',
+  `user_id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  `dept_id` bigint DEFAULT NULL COMMENT '部门ID',
   `login_name` varchar(30) NOT NULL COMMENT '登录账号',
   `user_name` varchar(30) DEFAULT '' COMMENT '用户昵称',
   `user_type` varchar(2) DEFAULT '00' COMMENT '用户类型（00系统用户 01注册用户）',
@@ -5195,13 +5256,14 @@ CREATE TABLE `sys_user_online` (
   `status` varchar(10) DEFAULT '' COMMENT '在线状态on_line在线off_line离线',
   `start_timestamp` datetime DEFAULT NULL COMMENT 'session创建时间',
   `last_access_time` datetime DEFAULT NULL COMMENT 'session最后访问时间',
-  `expire_time` int(11) DEFAULT '0' COMMENT '超时时间，单位为分钟',
+  `expire_time` int DEFAULT '0' COMMENT '超时时间，单位为分钟',
   PRIMARY KEY (`sessionId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='在线用户记录';
 
 -- ----------------------------
 -- Records of sys_user_online
 -- ----------------------------
+INSERT INTO `sys_user_online` VALUES ('5dc1b575-4961-4b5e-a58a-5a5ac3cb68f9', 'admin', '研发部门', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', 'on_line', '2022-08-24 17:35:20', '2022-08-24 18:03:57', '1800000');
 INSERT INTO `sys_user_online` VALUES ('f4acc75c-1e7e-4066-8c2a-daf7ff2ee7c4', 'admin', '研发部门', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', 'on_line', '2022-08-24 09:47:06', '2022-08-24 09:59:34', '1800000');
 
 -- ----------------------------
@@ -5209,8 +5271,8 @@ INSERT INTO `sys_user_online` VALUES ('f4acc75c-1e7e-4066-8c2a-daf7ff2ee7c4', 'a
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_post`;
 CREATE TABLE `sys_user_post` (
-  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
-  `post_id` bigint(20) NOT NULL COMMENT '岗位ID',
+  `user_id` bigint NOT NULL COMMENT '用户ID',
+  `post_id` bigint NOT NULL COMMENT '岗位ID',
   PRIMARY KEY (`user_id`,`post_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户与岗位关联表';
 
@@ -5224,8 +5286,8 @@ INSERT INTO `sys_user_post` VALUES ('1', '1');
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role` (
-  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
-  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
+  `user_id` bigint NOT NULL COMMENT '用户ID',
+  `role_id` bigint NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`user_id`,`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户和角色关联表';
 
@@ -5241,18 +5303,18 @@ DROP TABLE IF EXISTS `tender`;
 CREATE TABLE `tender` (
   `tender_id` varchar(22) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标书ID',
   `project_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '项目名称',
-  `gxs_id` bigint(20) NOT NULL COMMENT '供销社id',
+  `gxs_id` bigint NOT NULL COMMENT '供销社id',
   `contact` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '联系人',
   `phone_of_contact` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '联系人手机号',
   `tender_document` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标书存储位置',
-  `bid_number` int(10) unsigned NOT NULL DEFAULT '1' COMMENT '竞标次数:1代表招标，大于1代表竞价',
+  `bid_number` int unsigned NOT NULL DEFAULT '1' COMMENT '竞标次数:1代表招标，大于1代表竞价',
   `create_datetime` datetime NOT NULL COMMENT '创建时间',
   `dealine_for_qualification_review` datetime NOT NULL COMMENT '资质审核截止时间',
   `bid_start_time` datetime NOT NULL COMMENT '竞标开始时间',
   `bid_end_time` datetime NOT NULL COMMENT '竞标结束时间',
   `publish_time` datetime NOT NULL COMMENT '公布时间',
   PRIMARY KEY (`tender_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='集中采购标书';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='集中采购标书';
 
 -- ----------------------------
 -- Records of tender
@@ -5268,7 +5330,7 @@ CREATE TABLE `termination_announcement` (
   `tender_id` varchar(22) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标书ID',
   `termination_time` datetime DEFAULT NULL COMMENT '时间',
   PRIMARY KEY (`termination_announcement_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='终止公告';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='终止公告';
 
 -- ----------------------------
 -- Records of termination_announcement
