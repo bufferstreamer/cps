@@ -1,6 +1,8 @@
 package com.cps.cp.controller;
 
 import java.util.List;
+
+import com.cps.common.utils.uuid.IdUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -86,6 +88,7 @@ public class BidWinningResultsAnnouncementController extends BaseController
     @ResponseBody
     public AjaxResult addSave(BidWinningResultsAnnouncement bidWinningResultsAnnouncement)
     {
+        bidWinningResultsAnnouncement.setBidWinningResultsAnnouncementId(IdUtils.fastSimpleUUID());
         return toAjax(bidWinningResultsAnnouncementService.insertBidWinningResultsAnnouncement(bidWinningResultsAnnouncement));
     }
 
