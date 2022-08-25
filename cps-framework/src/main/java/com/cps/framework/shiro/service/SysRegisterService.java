@@ -15,6 +15,8 @@ import com.cps.framework.manager.AsyncManager;
 import com.cps.framework.manager.factory.AsyncFactory;
 import com.cps.system.service.ISysUserService;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 注册校验方法
  * 
@@ -35,7 +37,6 @@ public class SysRegisterService
     public String register(SysUser user)
     {
         String msg = "", loginName = user.getLoginName(), password = user.getPassword();
-
         if (ShiroConstants.CAPTCHA_ERROR.equals(ServletUtils.getRequest().getAttribute(ShiroConstants.CURRENT_CAPTCHA)))
         {
             msg = "验证码错误";

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Validator;
+
+import com.cps.common.utils.ServletUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -231,7 +233,15 @@ public class SysUserServiceImpl implements ISysUserService
     public boolean registerUser(SysUser user)
     {
         user.setUserType(UserConstants.REGISTER_USER_TYPE);
-        return userMapper.insertUser(user) > 0;
+        boolean regFlag = userMapper.insertUser(user) > 0;
+        if(regFlag){
+            SysUser tempUser = selectUserByLoginName(user.getUserName());
+            Long userRole = Long.valueOf(ServletUtils.getRequest().getParameter("userRole"));
+            Long[] userRoles = new Long[1];
+            userRoles[0] = userRole;
+            insertUserRole(tempUser.getUserId(),userRoles);
+        }
+        return regFlag;
     }
 
     /**

@@ -1,5 +1,7 @@
 package com.cps.web.controller.system;
 
+import com.cps.common.utils.ServletUtils;
+import com.cps.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,9 @@ public class SysRegisterController extends BaseController
 
     @Autowired
     private ISysConfigService configService;
+
+    @Autowired
+    private ISysUserService userService;
 
     @GetMapping("/register")
     public String register()
