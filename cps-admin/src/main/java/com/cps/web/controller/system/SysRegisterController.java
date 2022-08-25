@@ -2,6 +2,10 @@ package com.cps.web.controller.system;
 
 import com.cps.common.utils.ServletUtils;
 import com.cps.system.service.ISysUserService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,7 +49,25 @@ public class SysRegisterController extends BaseController
         {
             return error("当前系统没有开启注册功能！");
         }
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getLoginName(), user.getPassword(), false);
         String msg = registerService.register(user);
-        return StringUtils.isEmpty(msg) ? success() : error(msg);
+        Subject subject = SecurityUtils.getSubject();
+        if(StringUtils.isEmpty(msg)){
+            try
+            {
+                subject.login(token);
+                return success();
+            }
+            catch (AuthenticationException e)
+            {
+                if (StringUtils.isNotEmpty(e.getMessage()))
+                {
+                    msg = e.getMessage();
+                }
+                return error(msg);
+            }
+        }
+
+        return error(msg);
     }
 }
