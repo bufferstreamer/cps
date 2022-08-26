@@ -222,6 +222,7 @@
         <module>cps-user</module>
         <module>cps-audit</module>
         <module>cps-cp</module>
+        <module>cps-submit</module>
     </modules>
     <packaging>pom</packaging>
 

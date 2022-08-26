@@ -3,21 +3,23 @@ package com.cps.system.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import javax.validation.Validator;
 
-import com.cps.common.utils.ServletUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+
 import com.cps.common.annotation.DataScope;
 import com.cps.common.constant.UserConstants;
 import com.cps.common.core.domain.entity.SysRole;
 import com.cps.common.core.domain.entity.SysUser;
 import com.cps.common.core.text.Convert;
 import com.cps.common.exception.ServiceException;
+import com.cps.common.utils.ServletUtils;
 import com.cps.common.utils.ShiroUtils;
 import com.cps.common.utils.StringUtils;
 import com.cps.common.utils.bean.BeanValidators;
