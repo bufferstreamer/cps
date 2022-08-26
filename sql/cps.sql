@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : ln
-Source Server Version : 80027
+Source Server         : localhost_3306
+Source Server Version : 80012
 Source Host           : localhost:3306
 Source Database       : cps
 
 Target Server Type    : MYSQL
-Target Server Version : 80027
+Target Server Version : 80012
 File Encoding         : 65001
 
-Date: 2022-08-24 18:04:24
+Date: 2022-08-26 20:56:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,14 +20,14 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `area_code`;
 CREATE TABLE `area_code` (
-  `id` int NOT NULL COMMENT '地区id',
+  `id` int(11) NOT NULL COMMENT '地区id',
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '地区名称',
-  `pid` int NOT NULL COMMENT '父地区id',
-  `area_code` int DEFAULT NULL COMMENT '地区编码',
-  `visible` int DEFAULT NULL COMMENT '是否可见',
-  `displayorder` int DEFAULT NULL COMMENT '是否支持配送',
+  `pid` int(11) NOT NULL COMMENT '父地区id',
+  `area_code` int(11) DEFAULT NULL COMMENT '地区编码',
+  `visible` int(11) DEFAULT NULL COMMENT '是否可见',
+  `displayorder` int(11) DEFAULT NULL COMMENT '是否支持配送',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of area_code
@@ -3615,11 +3615,12 @@ CREATE TABLE `audit_business_credit_evaluation_info` (
   `fr_criminal_record` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '法人犯罪记录信息jpg照片',
   `create_datetime` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`business_credit_evaluation_audit_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='小商超信用评价审核信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='小商超信用评价审核信息表';
 
 -- ----------------------------
 -- Records of audit_business_credit_evaluation_info
 -- ----------------------------
+INSERT INTO `audit_business_credit_evaluation_info` VALUES ('3c3d4fe74f1d453fb85a8d59b2fba6da', '2166140910629500056', '小商超1', '', '2022-08-25 14:31:46');
 INSERT INTO `audit_business_credit_evaluation_info` VALUES ('c18c08b5a0e0475d894a6bc79ffe1f47', '2166117484203500023', '123', '', '2022-08-22 21:27:22');
 
 -- ----------------------------
@@ -3648,7 +3649,7 @@ CREATE TABLE `audit_business_license_info` (
   `contact_email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '联系人邮箱',
   `create_datetime` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`business_audit_document_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='小商超审核信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='小商超审核信息表';
 
 -- ----------------------------
 -- Records of audit_business_license_info
@@ -3659,22 +3660,23 @@ CREATE TABLE `audit_business_license_info` (
 -- ----------------------------
 DROP TABLE IF EXISTS `audit_documents`;
 CREATE TABLE `audit_documents` (
-  `user_id` bigint unsigned NOT NULL COMMENT '用户id',
+  `user_id` bigint(20) unsigned NOT NULL COMMENT '用户id',
   `checklist_id` varchar(19) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '审核单id',
   `audit_type` char(1) DEFAULT '1' COMMENT '审核类型（1供应商 2小商超）',
   `audit_status` char(1) DEFAULT '1' COMMENT '审核状态（1未审核 2审核通过）',
-  `admin_id` bigint unsigned NOT NULL COMMENT '管理员id',
+  `admin_id` bigint(20) unsigned NOT NULL COMMENT '管理员id',
   `audit_result` varchar(500) DEFAULT NULL COMMENT '审核结果（备注）',
   `create_datetime` datetime DEFAULT NULL COMMENT '创建时间',
   `update_datetime` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`checklist_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='审核单据表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='审核单据表';
 
 -- ----------------------------
 -- Records of audit_documents
 -- ----------------------------
 INSERT INTO `audit_documents` VALUES ('1', '1166117486330100070', '1', '1', '1', null, '2022-08-22 21:27:43', '2022-08-22 21:27:43');
 INSERT INTO `audit_documents` VALUES ('1', '2166117484203500023', '2', '1', '1', null, '2022-08-22 21:27:22', '2022-08-22 21:27:22');
+INSERT INTO `audit_documents` VALUES ('1', '2166140910629500056', '2', '1', '1', null, '2022-08-25 14:31:46', '2022-08-25 14:31:46');
 
 -- ----------------------------
 -- Table structure for audit_supplier_credit_evaluation_info
@@ -3689,7 +3691,7 @@ CREATE TABLE `audit_supplier_credit_evaluation_info` (
   `fr_criminal_record` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '' COMMENT '法人犯罪记录信息jpg照片',
   `create_datetime` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`supplier_credit_evaluation_audit_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='供应商评价审核信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='供应商评价审核信息表';
 
 -- ----------------------------
 -- Records of audit_supplier_credit_evaluation_info
@@ -3719,7 +3721,7 @@ CREATE TABLE `audit_supplier_license_info` (
   `emergency_contact_phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '公司紧急联系人手机',
   `create_datetime` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`checklist_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='供应商营业执照审核信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='供应商营业执照审核信息表';
 
 -- ----------------------------
 -- Records of audit_supplier_license_info
@@ -3745,7 +3747,7 @@ CREATE TABLE `audit_tax_and_bank_info` (
   `bank_account_open_license` varchar(100) DEFAULT '' COMMENT '银行开户许可证电子版jpg',
   `create_datetime` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`tax_and_bank_audit_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='税务及银行审核信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='税务及银行审核信息表';
 
 -- ----------------------------
 -- Records of audit_tax_and_bank_info
@@ -3762,7 +3764,7 @@ CREATE TABLE `bid_winning_candidates_announcement` (
   `publicity_time` datetime NOT NULL COMMENT '公示时间',
   `deadline_time` datetime NOT NULL COMMENT '公示截止时间',
   PRIMARY KEY (`bid_winning_candidates_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='中标候选人公示公告';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='中标候选人公示公告';
 
 -- ----------------------------
 -- Records of bid_winning_candidates_announcement
@@ -3777,7 +3779,7 @@ CREATE TABLE `bid_winning_results_announcement` (
   `bid_winning_results_announcement_document` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '文件存储位置',
   `tender_id` varchar(22) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标书ID',
   PRIMARY KEY (`bid_winning_results_announcement_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='中标结果公告';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='中标结果公告';
 
 -- ----------------------------
 -- Records of bid_winning_results_announcement
@@ -3790,12 +3792,12 @@ DROP TABLE IF EXISTS `centralized_purchase_record`;
 CREATE TABLE `centralized_purchase_record` (
   `centralized_purchase_record_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '集中采购记录ID',
   `tender_id` varchar(22) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标书ID',
-  `supply_id` bigint unsigned NOT NULL COMMENT '供应商ID',
+  `supply_id` bigint(20) unsigned NOT NULL COMMENT '供应商ID',
   `tender_document` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '投标文件存储信息',
   `centralized_purchase_record_time` datetime NOT NULL COMMENT '时间',
   `is_bid` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '是否中标“0”否 “1”是',
   PRIMARY KEY (`centralized_purchase_record_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='集中采购记录';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='集中采购记录';
 
 -- ----------------------------
 -- Records of centralized_purchase_record
@@ -3811,7 +3813,7 @@ CREATE TABLE `change_announcement` (
   `tender_id` varchar(22) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标书ID',
   `change_time` datetime NOT NULL COMMENT '变更时间',
   PRIMARY KEY (`change_announcement_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='变更公告';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='变更公告';
 
 -- ----------------------------
 -- Records of change_announcement
@@ -3830,7 +3832,7 @@ CREATE TABLE `contract` (
   `signature_b` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0' COMMENT '乙方是否签名0未签1签',
   `contract_time` datetime NOT NULL COMMENT '合同签定时间',
   PRIMARY KEY (`contract_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='合同';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='合同';
 
 -- ----------------------------
 -- Records of contract
@@ -3850,7 +3852,7 @@ CREATE TABLE `cooperative` (
   `register_time` datetime DEFAULT NULL COMMENT '注册时间',
   `last_login` datetime DEFAULT NULL COMMENT '上次登陆时间',
   PRIMARY KEY (`gxs_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='供销社角色';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='供销社角色';
 
 -- ----------------------------
 -- Records of cooperative
@@ -3863,7 +3865,7 @@ INSERT INTO `cooperative` VALUES ('2166082309210848213', '供销社2', '供销�
 -- ----------------------------
 DROP TABLE IF EXISTS `gen_table`;
 CREATE TABLE `gen_table` (
-  `table_id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `table_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `table_name` varchar(200) DEFAULT '' COMMENT '表名称',
   `table_comment` varchar(500) DEFAULT '' COMMENT '表描述',
   `sub_table_name` varchar(64) DEFAULT NULL COMMENT '关联子表的表名',
@@ -3890,14 +3892,14 @@ CREATE TABLE `gen_table` (
 -- Records of gen_table
 -- ----------------------------
 INSERT INTO `gen_table` VALUES ('1', 'audit_documents', '审核单据表', '', null, 'AuditDocuments', 'crud', 'com.cps.audit', 'audit', 'auditDocumentsManage', '审核单据管理', 'fmy', '0', '/', '{\"parentMenuId\":\"2000\",\"treeName\":\"\",\"treeParentCode\":\"\",\"parentMenuName\":\"审核管理\",\"treeCode\":\"\"}', 'admin', '2022-08-14 00:23:42', '', '2022-08-15 23:59:55', '');
-INSERT INTO `gen_table` VALUES ('2', 'audit_business_credit_evaluation_info', '小商超信用评价审核信息表', '', null, 'BusinessCreditEvaluationInfo', 'crud', 'com.cps.audit', 'audit', 'businessCreditEvaluationManage', '小商超信用评价审核管理', 'fmy', '0', '/', '{\"parentMenuId\":\"100\",\"treeName\":\"\",\"treeParentCode\":\"\",\"parentMenuName\":\"用户管理\",\"treeCode\":\"\"}', 'admin', '2022-08-14 10:07:00', '', '2022-08-24 09:53:23', '');
-INSERT INTO `gen_table` VALUES ('3', 'audit_business_license_info', '小商超审核信息表', '', null, 'BusinessLicenseInfo', 'crud', 'com.cps.audit', 'audit', 'businessLicenseManage', '小商超审核管理', 'fmy', '0', '/', '{\"parentMenuId\":\"2000\",\"treeName\":\"\",\"treeParentCode\":\"\",\"parentMenuName\":\"审核管理\",\"treeCode\":\"\"}', 'admin', '2022-08-14 10:07:00', '', '2022-08-15 23:58:56', '');
-INSERT INTO `gen_table` VALUES ('4', 'audit_supplier_credit_evaluation_info', '供应商评价审核信息表', '', null, 'SupplierCreditEvaluationInfo', 'crud', 'com.cps.audit', 'audit', 'supplierCreditEvaluationManage', '供应商评价审核管理', 'fmy', '0', '/', '{\"parentMenuId\":\"2000\",\"treeName\":\"\",\"treeParentCode\":\"\",\"parentMenuName\":\"审核管理\",\"treeCode\":\"\"}', 'admin', '2022-08-14 10:07:00', '', '2022-08-15 23:59:18', '');
-INSERT INTO `gen_table` VALUES ('5', 'audit_supplier_license_info', '供应商营业执照审核信息表', '', null, 'SupplierLicenseInfo', 'crud', 'com.cps.audit', 'audit', 'supplierLicenseManage', '供应商营业执照审核管理', 'fmy', '0', '/', '{\"parentMenuId\":\"2000\",\"treeName\":\"\",\"treeParentCode\":\"\",\"parentMenuName\":\"审核管理\",\"treeCode\":\"\"}', 'admin', '2022-08-14 10:07:00', '', '2022-08-15 23:59:36', '');
+INSERT INTO `gen_table` VALUES ('2', 'audit_business_credit_evaluation_info', '小商超信用评价审核信息表', '', null, 'BusinessCreditEvaluationInfo', 'crud', 'com.cps.audit', 'audit', 'businessCreditEvaluationManage', '小商超信用评价审核管理', 'fmy', '0', '/', '{\"parentMenuId\":\"2258\",\"treeName\":\"\",\"treeParentCode\":\"\",\"parentMenuName\":\"提交相关材料\",\"treeCode\":\"\"}', 'admin', '2022-08-14 10:07:00', '', '2022-08-25 14:20:24', '');
+INSERT INTO `gen_table` VALUES ('3', 'audit_business_license_info', '小商超审核信息表', '', null, 'BusinessLicenseInfo', 'crud', 'com.cps.audit', 'audit', 'businessLicenseManage', '小商超营业执照审核管理', 'fmy', '0', '/', '{\"parentMenuId\":\"2258\",\"treeName\":\"\",\"treeParentCode\":\"\",\"parentMenuName\":\"提交相关材料\",\"treeCode\":\"\"}', 'admin', '2022-08-14 10:07:00', '', '2022-08-25 14:20:34', '');
+INSERT INTO `gen_table` VALUES ('4', 'audit_supplier_credit_evaluation_info', '供应商评价审核信息表', '', null, 'SupplierCreditEvaluationInfo', 'crud', 'com.cps.audit', 'audit', 'supplierCreditEvaluationManage', '供应商评价审核管理', 'fmy', '0', '/', '{\"parentMenuId\":\"2258\",\"treeName\":\"\",\"treeParentCode\":\"\",\"parentMenuName\":\"提交相关材料\",\"treeCode\":\"\"}', 'admin', '2022-08-14 10:07:00', '', '2022-08-25 14:20:46', '');
+INSERT INTO `gen_table` VALUES ('5', 'audit_supplier_license_info', '供应商营业执照审核信息表', '', null, 'SupplierLicenseInfo', 'crud', 'com.cps.audit', 'audit', 'supplierLicenseManage', '供应商营业执照审核管理', 'fmy', '0', '/', '{\"parentMenuId\":\"2258\",\"treeName\":\"\",\"treeParentCode\":\"\",\"parentMenuName\":\"提交相关材料\",\"treeCode\":\"\"}', 'admin', '2022-08-14 10:07:00', '', '2022-08-25 14:21:41', '');
 INSERT INTO `gen_table` VALUES ('6', 'audit_tax_and_bank_info', '税务及银行审核信息表', '', null, 'TaxAndBankInfo', 'crud', 'com.cps.audit', 'audit', 'taxAndBankManage', '税务及银行审核管理', 'fmy', '0', '/', '{\"parentMenuId\":\"2000\",\"treeName\":\"\",\"treeParentCode\":\"\",\"parentMenuName\":\"审核管理\",\"treeCode\":\"\"}', 'admin', '2022-08-14 10:07:00', '', '2022-08-15 23:59:47', '');
 INSERT INTO `gen_table` VALUES ('18', 'cooperative', '供销社角色', '', '', 'Cooperative', 'crud', 'com.cps.user', 'user', 'cooperative', '供销社角色', 'cps', '0', '/', '{\"parentMenuId\":\"100\",\"treeName\":\"\",\"treeParentCode\":\"\",\"parentMenuName\":\"用户管理\",\"treeCode\":\"\"}', 'admin', '2022-08-18 13:01:14', '', '2022-08-24 09:58:46', '');
 INSERT INTO `gen_table` VALUES ('19', 'manager', '管理员角色', '', '', 'Manager', 'crud', 'com.cps.user', 'user', 'manager', '管理员角色', 'cps', '0', '/', '{\"parentMenuId\":\"100\",\"treeName\":\"\",\"treeParentCode\":\"\",\"parentMenuName\":\"用户管理\",\"treeCode\":\"\"}', 'admin', '2022-08-18 13:01:14', '', '2022-08-24 09:54:33', '');
-INSERT INTO `gen_table` VALUES ('20', 'supermarket', '超市角色', '', '', 'Supermarket', 'crud', 'com.cps.user', 'user', 'supermarket', '超市角色', 'cps', '0', '/', '{\"parentMenuId\":\"100\",\"treeName\":\"\",\"treeParentCode\":\"\",\"parentMenuName\":\"用户管理\",\"treeCode\":\"\"}', 'admin', '2022-08-18 13:01:14', '', '2022-08-24 09:53:54', '');
+INSERT INTO `gen_table` VALUES ('20', 'supermarket', '超市角色', '', '', 'Supermarket', 'crud', 'com.cps.submit', 'submit', 'supermarket', '超市角色', 'cps', '0', '/', '{\"parentMenuId\":\"100\",\"treeName\":\"\",\"treeParentCode\":\"\",\"parentMenuName\":\"用户管理\",\"treeCode\":\"\"}', 'admin', '2022-08-18 13:01:14', '', '2022-08-26 11:09:41', '');
 INSERT INTO `gen_table` VALUES ('21', 'supplier', '供应商角色', '', '', 'Supplier', 'crud', 'com.cps.user', 'user', 'supplier', '供应商角色', 'cps', '0', '/', '{\"parentMenuId\":\"100\",\"treeName\":\"\",\"treeParentCode\":\"\",\"parentMenuName\":\"用户管理\",\"treeCode\":\"\"}', 'admin', '2022-08-18 13:01:14', '', '2022-08-24 09:54:24', '');
 
 -- ----------------------------
@@ -3905,7 +3907,7 @@ INSERT INTO `gen_table` VALUES ('21', 'supplier', '供应商角色', '', '', 'Su
 -- ----------------------------
 DROP TABLE IF EXISTS `gen_table_column`;
 CREATE TABLE `gen_table_column` (
-  `column_id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `column_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
   `table_id` varchar(64) DEFAULT NULL COMMENT '归属表编号',
   `column_name` varchar(200) DEFAULT NULL COMMENT '列名称',
   `column_comment` varchar(500) DEFAULT NULL COMMENT '列描述',
@@ -3922,7 +3924,7 @@ CREATE TABLE `gen_table_column` (
   `query_type` varchar(200) DEFAULT 'EQ' COMMENT '查询方式（等于、不等于、大于、小于、范围）',
   `html_type` varchar(200) DEFAULT NULL COMMENT '显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件）',
   `dict_type` varchar(200) DEFAULT '' COMMENT '字典类型',
-  `sort` int DEFAULT NULL COMMENT '排序',
+  `sort` int(11) DEFAULT NULL COMMENT '排序',
   `create_by` varchar(64) DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(64) DEFAULT '' COMMENT '更新者',
@@ -3941,55 +3943,55 @@ INSERT INTO `gen_table_column` VALUES ('5', '1', 'admin_id', '管理员id', 'big
 INSERT INTO `gen_table_column` VALUES ('6', '1', 'audit_result', '审核结果（备注）', 'varchar(500)', 'String', 'auditResult', '0', '0', null, '1', '1', '1', '1', 'EQ', 'textarea', '', '6', 'admin', '2022-08-14 00:23:42', null, '2022-08-15 23:59:55');
 INSERT INTO `gen_table_column` VALUES ('7', '1', 'create_datetime', '创建时间', 'datetime', 'Date', 'createDatetime', '0', '0', null, '1', '1', '1', '1', 'EQ', 'datetime', '', '7', 'admin', '2022-08-14 00:23:42', null, '2022-08-15 23:59:55');
 INSERT INTO `gen_table_column` VALUES ('8', '1', 'update_datetime', '更新时间', 'datetime', 'Date', 'updateDatetime', '0', '0', null, '1', '1', '1', '1', 'EQ', 'datetime', '', '8', 'admin', '2022-08-14 00:23:42', null, '2022-08-15 23:59:55');
-INSERT INTO `gen_table_column` VALUES ('9', '2', 'business_credit_evaluation_audit_id', '审核id（uuid）', 'varchar(32)', 'String', 'businessCreditEvaluationAuditId', '1', '0', null, '1', null, null, null, 'EQ', 'input', '', '1', 'admin', '2022-08-14 10:07:00', null, '2022-08-24 09:53:23');
-INSERT INTO `gen_table_column` VALUES ('10', '2', 'checklist_id', '审核单id', 'varchar(19)', 'String', 'checklistId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', '2', 'admin', '2022-08-14 10:07:00', null, '2022-08-24 09:53:23');
-INSERT INTO `gen_table_column` VALUES ('11', '2', 'fr_name', '法人姓名', 'varchar(30)', 'String', 'frName', '0', '0', null, '1', '1', '1', '1', 'LIKE', 'input', '', '3', 'admin', '2022-08-14 10:07:00', null, '2022-08-24 09:53:23');
-INSERT INTO `gen_table_column` VALUES ('12', '2', 'fr_criminal_record', '法人犯罪记录信息jpg照片', 'varchar(100)', 'String', 'frCriminalRecord', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '4', 'admin', '2022-08-14 10:07:00', null, '2022-08-24 09:53:23');
-INSERT INTO `gen_table_column` VALUES ('13', '2', 'create_datetime', '创建时间', 'datetime', 'Date', 'createDatetime', '0', '0', null, '1', '1', '1', '1', 'EQ', 'datetime', '', '5', 'admin', '2022-08-14 10:07:00', null, '2022-08-24 09:53:23');
-INSERT INTO `gen_table_column` VALUES ('14', '3', 'business_audit_document_id', '审核单id', 'varchar(19)', 'String', 'businessAuditDocumentId', '1', '0', null, '1', null, null, null, 'EQ', 'input', '', '1', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('15', '3', 'business_license', '个体工商户营业执照jpg照片', 'varchar(100)', 'String', 'businessLicense', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '2', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('16', '3', 'business_license_number', '个体工商户营业执照号码', 'varchar(18)', 'String', 'businessLicenseNumber', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', '3', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('17', '3', 'manager_name', '经营者', 'varchar(30)', 'String', 'managerName', '0', '0', null, '1', '1', '1', '1', 'LIKE', 'input', '', '4', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('18', '3', 'business_name', '小商超名称', 'varchar(50)', 'String', 'businessName', '0', '0', null, '1', '1', '1', '1', 'LIKE', 'input', '', '5', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('19', '3', 'business_place', '经营场所位置', 'varchar(200)', 'String', 'businessPlace', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '6', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('20', '3', 'business_form', '组成形式（1个人经营 2家庭经营）', 'char(1)', 'String', 'businessForm', '0', '0', null, '1', '1', '1', '1', 'EQ', 'select', '', '7', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('21', '3', 'register_date', '注册日期', 'datetime', 'Date', 'registerDate', '0', '0', null, '1', '1', '1', '1', 'EQ', 'datetime', '', '8', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('22', '3', 'business_scope', '经营范围', 'varchar(500)', 'String', 'businessScope', '0', '0', null, '1', '1', '1', '1', 'EQ', 'textarea', '', '9', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('23', '3', 'business_certificate', '经营许可证.jpg', 'varchar(100)', 'String', 'businessCertificate', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '10', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('24', '3', 'username', '用户名', 'varchar(30)', 'String', 'username', '0', '0', null, '1', '1', '1', '1', 'LIKE', 'input', '', '11', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('25', '3', 'password', '密码', 'varchar(50)', 'String', 'password', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '12', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('26', '3', 'contact_person', '联系人姓名', 'varchar(30)', 'String', 'contactPerson', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '13', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('27', '3', 'contact_card_type', '联系人证件类型: 1身份证 2港澳居民来往内地通行证 3台湾居民来往大陆通行证 4普通护照 5外国人永久居留身份证', 'char(1)', 'String', 'contactCardType', '0', '0', null, '1', '1', '1', '1', 'EQ', 'select', '', '14', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('28', '3', 'id_number', '联系人证件号', 'varchar(18)', 'String', 'idNumber', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', '15', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('29', '3', 'front_photo', '联系人证件正面jpg照片', 'varchar(100)', 'String', 'frontPhoto', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '16', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('30', '3', 'back_photo', '联系人证件反面jpg照片', 'varchar(100)', 'String', 'backPhoto', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '17', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('31', '3', 'contact_phone', '联系人手机号', 'varchar(11)', 'String', 'contactPhone', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '18', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('32', '3', 'contact_email', '联系人邮箱', 'varchar(50)', 'String', 'contactEmail', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '19', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('33', '3', 'create_datetime', '创建时间', 'datetime', 'Date', 'createDatetime', '0', '0', null, '1', '1', '1', '1', 'EQ', 'datetime', '', '20', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:58:56');
-INSERT INTO `gen_table_column` VALUES ('34', '4', 'supplier_credit_evaluation_audit_id', '审核id（uuid）', 'varchar(32)', 'String', 'supplierCreditEvaluationAuditId', '1', '0', null, '1', null, null, null, 'EQ', 'input', '', '1', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:18');
-INSERT INTO `gen_table_column` VALUES ('35', '4', 'checklist_id', '审核单id', 'varchar(19)', 'String', 'checklistId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', '2', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:18');
-INSERT INTO `gen_table_column` VALUES ('36', '4', 'corporate_name', '公司名称', 'varchar(50)', 'String', 'corporateName', '0', '0', null, '1', '1', '1', '1', 'LIKE', 'input', '', '3', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:18');
-INSERT INTO `gen_table_column` VALUES ('37', '4', 'corporate_credit_info', '公司征信信息jpg照片', 'varchar(100)', 'String', 'corporateCreditInfo', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '4', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:18');
-INSERT INTO `gen_table_column` VALUES ('38', '4', 'fr_name', '法人姓名', 'varchar(30)', 'String', 'frName', '0', '0', null, '1', '1', '1', '1', 'LIKE', 'input', '', '5', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:18');
-INSERT INTO `gen_table_column` VALUES ('39', '4', 'fr_criminal_record', '法人犯罪记录信息jpg照片', 'varchar(100)', 'String', 'frCriminalRecord', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '6', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:18');
-INSERT INTO `gen_table_column` VALUES ('40', '4', 'create_datetime', '创建时间', 'datetime', 'Date', 'createDatetime', '0', '0', null, '1', '1', '1', '1', 'EQ', 'datetime', '', '7', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:18');
-INSERT INTO `gen_table_column` VALUES ('41', '5', 'checklist_id', '审核单id', 'varchar(19)', 'String', 'checklistId', '1', '0', null, '1', null, null, null, 'EQ', 'input', '', '1', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:36');
-INSERT INTO `gen_table_column` VALUES ('42', '5', 'corporate_name', '公司名称', 'varchar(100)', 'String', 'corporateName', '0', '0', null, '1', '1', '1', '1', 'LIKE', 'input', '', '2', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:36');
-INSERT INTO `gen_table_column` VALUES ('43', '5', 'registration_number', '全国信息代码号', 'varchar(18)', 'String', 'registrationNumber', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', '3', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:36');
-INSERT INTO `gen_table_column` VALUES ('44', '5', 'fr_name', '法人姓名', 'varchar(30)', 'String', 'frName', '0', '0', null, '1', '1', '1', '1', 'LIKE', 'input', '', '4', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:36');
-INSERT INTO `gen_table_column` VALUES ('45', '5', 'id_number', '法人身份证号码', 'varchar(18)', 'String', 'idNumber', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '5', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:36');
-INSERT INTO `gen_table_column` VALUES ('46', '5', 'front_photo', '法人身份证正面jpg照片', 'varchar(100)', 'String', 'frontPhoto', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '6', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:36');
-INSERT INTO `gen_table_column` VALUES ('47', '5', 'back_photo', '法人身份证反面jpg照片', 'varchar(100)', 'String', 'backPhoto', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '7', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:36');
-INSERT INTO `gen_table_column` VALUES ('48', '5', 'business_license_location', '营业执照所在地', 'varchar(50)', 'String', 'businessLicenseLocation', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '8', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:36');
-INSERT INTO `gen_table_column` VALUES ('49', '5', 'business_license_address', '营业执照详细地址', 'varchar(200)', 'String', 'businessLicenseAddress', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '9', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:36');
-INSERT INTO `gen_table_column` VALUES ('50', '5', 'incorporation_date', '成立日期', 'datetime', 'Date', 'incorporationDate', '0', '0', null, '1', '1', '1', '1', 'EQ', 'datetime', '', '10', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:36');
-INSERT INTO `gen_table_column` VALUES ('51', '5', 'registered_capital', '注册资本', 'decimal(18,2)', 'BigDecimal', 'registeredCapital', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '11', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:36');
-INSERT INTO `gen_table_column` VALUES ('52', '5', 'business_scope', '营业范围', 'varchar(500)', 'String', 'businessScope', '0', '0', null, '1', '1', '1', '1', 'EQ', 'textarea', '', '12', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:36');
-INSERT INTO `gen_table_column` VALUES ('53', '5', 'business_license', '营业执照jpg照片', 'varchar(100)', 'String', 'businessLicense', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '13', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:36');
-INSERT INTO `gen_table_column` VALUES ('54', '5', 'office_phone', '公司电话', 'varchar(11)', 'String', 'officePhone', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '14', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:36');
-INSERT INTO `gen_table_column` VALUES ('55', '5', 'emergency_contact', '公司紧急联系人', 'varchar(30)', 'String', 'emergencyContact', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '15', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:36');
-INSERT INTO `gen_table_column` VALUES ('56', '5', 'emergency_contact_phone', '公司紧急联系人手机', 'varchar(11)', 'String', 'emergencyContactPhone', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '16', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:36');
-INSERT INTO `gen_table_column` VALUES ('57', '5', 'create_datetime', '创建时间', 'datetime', 'Date', 'createDatetime', '0', '0', null, '1', '1', '1', '1', 'EQ', 'datetime', '', '17', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:36');
+INSERT INTO `gen_table_column` VALUES ('9', '2', 'business_credit_evaluation_audit_id', '审核id（uuid）', 'varchar(32)', 'String', 'businessCreditEvaluationAuditId', '1', '0', null, '1', null, null, null, 'EQ', 'input', '', '1', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:24');
+INSERT INTO `gen_table_column` VALUES ('10', '2', 'checklist_id', '审核单id', 'varchar(19)', 'String', 'checklistId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', '2', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:24');
+INSERT INTO `gen_table_column` VALUES ('11', '2', 'fr_name', '法人姓名', 'varchar(30)', 'String', 'frName', '0', '0', null, '1', '1', '1', '1', 'LIKE', 'input', '', '3', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:24');
+INSERT INTO `gen_table_column` VALUES ('12', '2', 'fr_criminal_record', '法人犯罪记录信息jpg照片', 'varchar(100)', 'String', 'frCriminalRecord', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '4', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:24');
+INSERT INTO `gen_table_column` VALUES ('13', '2', 'create_datetime', '创建时间', 'datetime', 'Date', 'createDatetime', '0', '0', null, '1', '1', '1', '1', 'EQ', 'datetime', '', '5', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:24');
+INSERT INTO `gen_table_column` VALUES ('14', '3', 'business_audit_document_id', '审核单id', 'varchar(19)', 'String', 'businessAuditDocumentId', '1', '0', null, '1', null, null, null, 'EQ', 'input', '', '1', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('15', '3', 'business_license', '个体工商户营业执照jpg照片', 'varchar(100)', 'String', 'businessLicense', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '2', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('16', '3', 'business_license_number', '个体工商户营业执照号码', 'varchar(18)', 'String', 'businessLicenseNumber', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', '3', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('17', '3', 'manager_name', '经营者', 'varchar(30)', 'String', 'managerName', '0', '0', null, '1', '1', '1', '1', 'LIKE', 'input', '', '4', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('18', '3', 'business_name', '小商超名称', 'varchar(50)', 'String', 'businessName', '0', '0', null, '1', '1', '1', '1', 'LIKE', 'input', '', '5', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('19', '3', 'business_place', '经营场所位置', 'varchar(200)', 'String', 'businessPlace', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '6', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('20', '3', 'business_form', '组成形式（1个人经营 2家庭经营）', 'char(1)', 'String', 'businessForm', '0', '0', null, '1', '1', '1', '1', 'EQ', 'select', '', '7', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('21', '3', 'register_date', '注册日期', 'datetime', 'Date', 'registerDate', '0', '0', null, '1', '1', '1', '1', 'EQ', 'datetime', '', '8', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('22', '3', 'business_scope', '经营范围', 'varchar(500)', 'String', 'businessScope', '0', '0', null, '1', '1', '1', '1', 'EQ', 'textarea', '', '9', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('23', '3', 'business_certificate', '经营许可证.jpg', 'varchar(100)', 'String', 'businessCertificate', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '10', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('24', '3', 'username', '用户名', 'varchar(30)', 'String', 'username', '0', '0', null, '1', '1', '1', '1', 'LIKE', 'input', '', '11', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('25', '3', 'password', '密码', 'varchar(50)', 'String', 'password', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '12', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('26', '3', 'contact_person', '联系人姓名', 'varchar(30)', 'String', 'contactPerson', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '13', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('27', '3', 'contact_card_type', '联系人证件类型: 1身份证 2港澳居民来往内地通行证 3台湾居民来往大陆通行证 4普通护照 5外国人永久居留身份证', 'char(1)', 'String', 'contactCardType', '0', '0', null, '1', '1', '1', '1', 'EQ', 'select', '', '14', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('28', '3', 'id_number', '联系人证件号', 'varchar(18)', 'String', 'idNumber', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', '15', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('29', '3', 'front_photo', '联系人证件正面jpg照片', 'varchar(100)', 'String', 'frontPhoto', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '16', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('30', '3', 'back_photo', '联系人证件反面jpg照片', 'varchar(100)', 'String', 'backPhoto', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '17', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('31', '3', 'contact_phone', '联系人手机号', 'varchar(11)', 'String', 'contactPhone', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '18', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('32', '3', 'contact_email', '联系人邮箱', 'varchar(50)', 'String', 'contactEmail', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '19', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('33', '3', 'create_datetime', '创建时间', 'datetime', 'Date', 'createDatetime', '0', '0', null, '1', '1', '1', '1', 'EQ', 'datetime', '', '20', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:34');
+INSERT INTO `gen_table_column` VALUES ('34', '4', 'supplier_credit_evaluation_audit_id', '审核id（uuid）', 'varchar(32)', 'String', 'supplierCreditEvaluationAuditId', '1', '0', null, '1', null, null, null, 'EQ', 'input', '', '1', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:46');
+INSERT INTO `gen_table_column` VALUES ('35', '4', 'checklist_id', '审核单id', 'varchar(19)', 'String', 'checklistId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', '2', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:46');
+INSERT INTO `gen_table_column` VALUES ('36', '4', 'corporate_name', '公司名称', 'varchar(50)', 'String', 'corporateName', '0', '0', null, '1', '1', '1', '1', 'LIKE', 'input', '', '3', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:46');
+INSERT INTO `gen_table_column` VALUES ('37', '4', 'corporate_credit_info', '公司征信信息jpg照片', 'varchar(100)', 'String', 'corporateCreditInfo', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '4', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:46');
+INSERT INTO `gen_table_column` VALUES ('38', '4', 'fr_name', '法人姓名', 'varchar(30)', 'String', 'frName', '0', '0', null, '1', '1', '1', '1', 'LIKE', 'input', '', '5', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:46');
+INSERT INTO `gen_table_column` VALUES ('39', '4', 'fr_criminal_record', '法人犯罪记录信息jpg照片', 'varchar(100)', 'String', 'frCriminalRecord', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '6', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:46');
+INSERT INTO `gen_table_column` VALUES ('40', '4', 'create_datetime', '创建时间', 'datetime', 'Date', 'createDatetime', '0', '0', null, '1', '1', '1', '1', 'EQ', 'datetime', '', '7', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:20:46');
+INSERT INTO `gen_table_column` VALUES ('41', '5', 'checklist_id', '审核单id', 'varchar(19)', 'String', 'checklistId', '1', '0', null, '1', null, null, null, 'EQ', 'input', '', '1', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:21:41');
+INSERT INTO `gen_table_column` VALUES ('42', '5', 'corporate_name', '公司名称', 'varchar(100)', 'String', 'corporateName', '0', '0', null, '1', '1', '1', '1', 'LIKE', 'input', '', '2', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:21:41');
+INSERT INTO `gen_table_column` VALUES ('43', '5', 'registration_number', '全国信息代码号', 'varchar(18)', 'String', 'registrationNumber', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', '3', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:21:41');
+INSERT INTO `gen_table_column` VALUES ('44', '5', 'fr_name', '法人姓名', 'varchar(30)', 'String', 'frName', '0', '0', null, '1', '1', '1', '1', 'LIKE', 'input', '', '4', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:21:41');
+INSERT INTO `gen_table_column` VALUES ('45', '5', 'id_number', '法人身份证号码', 'varchar(18)', 'String', 'idNumber', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '5', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:21:41');
+INSERT INTO `gen_table_column` VALUES ('46', '5', 'front_photo', '法人身份证正面jpg照片', 'varchar(100)', 'String', 'frontPhoto', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '6', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:21:41');
+INSERT INTO `gen_table_column` VALUES ('47', '5', 'back_photo', '法人身份证反面jpg照片', 'varchar(100)', 'String', 'backPhoto', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '7', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:21:41');
+INSERT INTO `gen_table_column` VALUES ('48', '5', 'business_license_location', '营业执照所在地', 'varchar(50)', 'String', 'businessLicenseLocation', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '8', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:21:41');
+INSERT INTO `gen_table_column` VALUES ('49', '5', 'business_license_address', '营业执照详细地址', 'varchar(200)', 'String', 'businessLicenseAddress', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '9', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:21:41');
+INSERT INTO `gen_table_column` VALUES ('50', '5', 'incorporation_date', '成立日期', 'datetime', 'Date', 'incorporationDate', '0', '0', null, '1', '1', '1', '1', 'EQ', 'datetime', '', '10', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:21:41');
+INSERT INTO `gen_table_column` VALUES ('51', '5', 'registered_capital', '注册资本', 'decimal(18,2)', 'BigDecimal', 'registeredCapital', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '11', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:21:41');
+INSERT INTO `gen_table_column` VALUES ('52', '5', 'business_scope', '营业范围', 'varchar(500)', 'String', 'businessScope', '0', '0', null, '1', '1', '1', '1', 'EQ', 'textarea', '', '12', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:21:41');
+INSERT INTO `gen_table_column` VALUES ('53', '5', 'business_license', '营业执照jpg照片', 'varchar(100)', 'String', 'businessLicense', '0', '0', null, '1', '1', '1', '1', 'EQ', 'upload', '', '13', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:21:41');
+INSERT INTO `gen_table_column` VALUES ('54', '5', 'office_phone', '公司电话', 'varchar(11)', 'String', 'officePhone', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '14', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:21:41');
+INSERT INTO `gen_table_column` VALUES ('55', '5', 'emergency_contact', '公司紧急联系人', 'varchar(30)', 'String', 'emergencyContact', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '15', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:21:41');
+INSERT INTO `gen_table_column` VALUES ('56', '5', 'emergency_contact_phone', '公司紧急联系人手机', 'varchar(11)', 'String', 'emergencyContactPhone', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '16', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:21:41');
+INSERT INTO `gen_table_column` VALUES ('57', '5', 'create_datetime', '创建时间', 'datetime', 'Date', 'createDatetime', '0', '0', null, '1', '1', '1', '1', 'EQ', 'datetime', '', '17', 'admin', '2022-08-14 10:07:00', null, '2022-08-25 14:21:41');
 INSERT INTO `gen_table_column` VALUES ('58', '6', 'tax_and_bank_audit_id', '审核id（uuid）', 'varchar(32)', 'String', 'taxAndBankAuditId', '1', '0', null, '1', null, null, null, 'EQ', 'input', '', '1', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:47');
 INSERT INTO `gen_table_column` VALUES ('59', '6', 'checklist_id', '审核单id', 'varchar(19)', 'String', 'checklistId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', '2', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:47');
 INSERT INTO `gen_table_column` VALUES ('60', '6', 'taxpayer_id_number', '纳税人识别号', 'varchar(20)', 'String', 'taxpayerIdNumber', '0', '0', null, '1', '1', '1', '1', 'EQ', 'input', '', '3', 'admin', '2022-08-14 10:07:00', null, '2022-08-15 23:59:47');
@@ -4023,19 +4025,19 @@ INSERT INTO `gen_table_column` VALUES ('225', '19', 'contact_phone_number', '联
 INSERT INTO `gen_table_column` VALUES ('226', '19', 'register_time', '注册时间', 'datetime', 'Date', 'registerTime', '0', '0', null, null, null, '1', null, 'EQ', 'datetime', '', '9', 'admin', '2022-08-18 13:01:14', null, '2022-08-24 09:54:33');
 INSERT INTO `gen_table_column` VALUES ('227', '19', 'last_login', '上次登录时间', 'datetime', 'Date', 'lastLogin', '0', '0', null, null, null, '1', null, 'EQ', 'datetime', '', '10', 'admin', '2022-08-18 13:01:14', null, '2022-08-24 09:54:33');
 INSERT INTO `gen_table_column` VALUES ('228', '19', 'manage_state', '角色状态', 'char(1)', 'String', 'manageState', '0', '0', null, null, '1', '1', null, 'EQ', 'select', 'sys_common_status', '11', 'admin', '2022-08-18 13:01:14', null, '2022-08-24 09:54:33');
-INSERT INTO `gen_table_column` VALUES ('229', '20', 'shop_id', '', 'bigint(20) unsigned', 'Long', 'shopId', '1', '0', null, '1', null, null, null, 'EQ', 'input', '', '1', 'admin', '2022-08-18 13:01:14', null, '2022-08-24 09:53:54');
-INSERT INTO `gen_table_column` VALUES ('230', '20', 'shop_name', '超市名称', 'varchar(255)', 'String', 'shopName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', '2', 'admin', '2022-08-18 13:01:14', null, '2022-08-24 09:53:54');
-INSERT INTO `gen_table_column` VALUES ('231', '20', 'nickname', '昵称', 'varchar(255)', 'String', 'nickname', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', '3', 'admin', '2022-08-18 13:01:14', null, '2022-08-24 09:53:54');
-INSERT INTO `gen_table_column` VALUES ('232', '20', 'username', '用户名', 'varchar(255)', 'String', 'username', '0', '0', '1', '1', null, null, null, 'LIKE', 'input', '', '4', 'admin', '2022-08-18 13:01:14', null, '2022-08-24 09:53:54');
-INSERT INTO `gen_table_column` VALUES ('233', '20', 'password', '密码', 'varchar(255)', 'String', 'password', '0', '0', '1', '1', '1', null, null, 'EQ', 'input', '', '5', 'admin', '2022-08-18 13:01:14', null, '2022-08-24 09:53:54');
-INSERT INTO `gen_table_column` VALUES ('234', '20', 'contact_person', '联系人姓名', 'varchar(255)', 'String', 'contactPerson', '0', '0', '1', '1', '1', '1', null, 'EQ', 'input', '', '6', 'admin', '2022-08-18 13:01:14', null, '2022-08-24 09:53:54');
-INSERT INTO `gen_table_column` VALUES ('235', '20', 'contact_card_type', '证件类型', 'char(1)', 'String', 'contactCardType', '0', '0', '1', '1', null, null, null, 'EQ', 'select', 'con_card_type', '7', 'admin', '2022-08-18 13:01:14', null, '2022-08-24 09:53:54');
-INSERT INTO `gen_table_column` VALUES ('236', '20', 'card_id', '证件号', 'varchar(18)', 'String', 'cardId', '0', '0', '1', '1', null, null, null, 'EQ', 'input', '', '8', 'admin', '2022-08-18 13:01:14', null, '2022-08-24 09:53:54');
-INSERT INTO `gen_table_column` VALUES ('237', '20', 'contact_phone', '联系人电话', 'varchar(11)', 'String', 'contactPhone', '0', '0', '1', '1', '1', '1', null, 'EQ', 'input', '', '9', 'admin', '2022-08-18 13:01:14', null, '2022-08-24 09:53:54');
-INSERT INTO `gen_table_column` VALUES ('238', '20', 'contact_email', '联系人邮箱', 'varchar(255)', 'String', 'contactEmail', '0', '0', '1', '1', '1', '1', null, 'EQ', 'input', '', '10', 'admin', '2022-08-18 13:01:14', null, '2022-08-24 09:53:54');
-INSERT INTO `gen_table_column` VALUES ('239', '20', 'register_time', '注册时间', 'datetime', 'Date', 'registerTime', '0', '0', null, null, null, '1', null, 'EQ', 'datetime', '', '11', 'admin', '2022-08-18 13:01:14', null, '2022-08-24 09:53:54');
-INSERT INTO `gen_table_column` VALUES ('240', '20', 'last_login', '上次登陆时间', 'datetime', 'Date', 'lastLogin', '0', '0', null, null, null, '1', null, 'EQ', 'datetime', '', '12', 'admin', '2022-08-18 13:01:14', null, '2022-08-24 09:53:54');
-INSERT INTO `gen_table_column` VALUES ('241', '20', 'shop_state', '角色状态', 'char(1)', 'String', 'shopState', '0', '0', null, null, '1', '1', null, 'EQ', 'select', 'sys_common_status', '13', 'admin', '2022-08-18 13:01:14', null, '2022-08-24 09:53:54');
+INSERT INTO `gen_table_column` VALUES ('229', '20', 'shop_id', '', 'bigint(20) unsigned', 'Long', 'shopId', '1', '0', null, '1', null, null, null, 'EQ', 'input', '', '1', 'admin', '2022-08-18 13:01:14', null, '2022-08-26 11:09:41');
+INSERT INTO `gen_table_column` VALUES ('230', '20', 'shop_name', '超市名称', 'varchar(255)', 'String', 'shopName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', '2', 'admin', '2022-08-18 13:01:14', null, '2022-08-26 11:09:41');
+INSERT INTO `gen_table_column` VALUES ('231', '20', 'nickname', '昵称', 'varchar(255)', 'String', 'nickname', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', '3', 'admin', '2022-08-18 13:01:14', null, '2022-08-26 11:09:41');
+INSERT INTO `gen_table_column` VALUES ('232', '20', 'username', '用户名', 'varchar(255)', 'String', 'username', '0', '0', '1', '1', null, null, null, 'LIKE', 'input', '', '4', 'admin', '2022-08-18 13:01:14', null, '2022-08-26 11:09:41');
+INSERT INTO `gen_table_column` VALUES ('233', '20', 'password', '密码', 'varchar(255)', 'String', 'password', '0', '0', '1', '1', '1', null, null, 'EQ', 'input', '', '5', 'admin', '2022-08-18 13:01:14', null, '2022-08-26 11:09:41');
+INSERT INTO `gen_table_column` VALUES ('234', '20', 'contact_person', '联系人姓名', 'varchar(255)', 'String', 'contactPerson', '0', '0', '1', '1', '1', '1', null, 'EQ', 'input', '', '6', 'admin', '2022-08-18 13:01:14', null, '2022-08-26 11:09:41');
+INSERT INTO `gen_table_column` VALUES ('235', '20', 'contact_card_type', '证件类型', 'char(1)', 'String', 'contactCardType', '0', '0', '1', '1', null, null, null, 'EQ', 'select', 'con_card_type', '7', 'admin', '2022-08-18 13:01:14', null, '2022-08-26 11:09:41');
+INSERT INTO `gen_table_column` VALUES ('236', '20', 'card_id', '证件号', 'varchar(18)', 'String', 'cardId', '0', '0', '1', '1', null, null, null, 'EQ', 'input', '', '8', 'admin', '2022-08-18 13:01:14', null, '2022-08-26 11:09:41');
+INSERT INTO `gen_table_column` VALUES ('237', '20', 'contact_phone', '联系人电话', 'varchar(11)', 'String', 'contactPhone', '0', '0', '1', '1', '1', '1', null, 'EQ', 'input', '', '9', 'admin', '2022-08-18 13:01:14', null, '2022-08-26 11:09:41');
+INSERT INTO `gen_table_column` VALUES ('238', '20', 'contact_email', '联系人邮箱', 'varchar(255)', 'String', 'contactEmail', '0', '0', '1', '1', '1', '1', null, 'EQ', 'input', '', '10', 'admin', '2022-08-18 13:01:14', null, '2022-08-26 11:09:41');
+INSERT INTO `gen_table_column` VALUES ('239', '20', 'register_time', '注册时间', 'datetime', 'Date', 'registerTime', '0', '0', null, null, null, '1', null, 'EQ', 'datetime', '', '11', 'admin', '2022-08-18 13:01:14', null, '2022-08-26 11:09:41');
+INSERT INTO `gen_table_column` VALUES ('240', '20', 'last_login', '上次登陆时间', 'datetime', 'Date', 'lastLogin', '0', '0', null, null, null, '1', null, 'EQ', 'datetime', '', '12', 'admin', '2022-08-18 13:01:14', null, '2022-08-26 11:09:41');
+INSERT INTO `gen_table_column` VALUES ('241', '20', 'shop_state', '角色状态', 'char(1)', 'String', 'shopState', '0', '0', null, null, '1', '1', null, 'EQ', 'select', 'sys_common_status', '13', 'admin', '2022-08-18 13:01:14', null, '2022-08-26 11:09:41');
 INSERT INTO `gen_table_column` VALUES ('242', '21', 'supply_id', '', 'bigint(20) unsigned', 'Long', 'supplyId', '1', '0', null, '1', null, null, null, 'EQ', 'input', '', '1', 'admin', '2022-08-18 13:01:14', null, '2022-08-24 09:54:24');
 INSERT INTO `gen_table_column` VALUES ('243', '21', 'nickname', '昵称', 'varchar(255)', 'String', 'nickname', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', '2', 'admin', '2022-08-18 13:01:14', null, '2022-08-24 09:54:24');
 INSERT INTO `gen_table_column` VALUES ('244', '21', 'company_name', '公司名称', 'varchar(255)', 'String', 'companyName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', '3', 'admin', '2022-08-18 13:01:15', null, '2022-08-24 09:54:24');
@@ -4061,19 +4063,19 @@ DROP TABLE IF EXISTS `goods`;
 CREATE TABLE `goods` (
   `goods_id` varchar(26) NOT NULL COMMENT '商品ID',
   `goods_name` varchar(64) NOT NULL COMMENT '商品名称',
-  `sales` int NOT NULL COMMENT '销量',
+  `sales` int(11) NOT NULL COMMENT '销量',
   `goods_status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '状态（1正常 -1删除 0下架）',
   `category_id` varchar(10) NOT NULL COMMENT '商品类别id',
   `highest_id` varchar(2) NOT NULL COMMENT '顶层商品类别id',
   `goods_content` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品内容',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `stock` int NOT NULL COMMENT '库存',
+  `stock` int(11) NOT NULL COMMENT '库存',
   `price` decimal(10,2) NOT NULL COMMENT '商品价格',
-  `supplier_id` bigint NOT NULL COMMENT '厂家ID',
+  `supplier_id` bigint(20) NOT NULL COMMENT '厂家ID',
   `tender_id` varchar(22) NOT NULL COMMENT '标书ID',
   PRIMARY KEY (`goods_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='商品表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品表';
 
 -- ----------------------------
 -- Records of goods
@@ -4089,7 +4091,7 @@ CREATE TABLE `goods_category` (
   `superior_id` varchar(10) NOT NULL COMMENT '父类',
   `category_name` varchar(64) DEFAULT '' COMMENT '名称',
   PRIMARY KEY (`category_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='商品分类';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品分类';
 
 -- ----------------------------
 -- Records of goods_category
@@ -4105,11 +4107,11 @@ CREATE TABLE `goods_traffic_record` (
   `express_delivery_number` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '快递单号',
   `category_id` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品类别id',
   `goods_id` varchar(26) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品编号',
-  `goods_quantity` int NOT NULL COMMENT '商品数量',
-  `batch` int NOT NULL COMMENT '批次',
+  `goods_quantity` int(11) NOT NULL COMMENT '商品数量',
+  `batch` int(11) NOT NULL COMMENT '批次',
   `centralized_purchase_record_time` datetime NOT NULL COMMENT '时间',
   PRIMARY KEY (`goods_traffic_record_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='货运记录';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='货运记录';
 
 -- ----------------------------
 -- Records of goods_traffic_record
@@ -4126,10 +4128,10 @@ CREATE TABLE `inventory_quantity` (
   `area_num` char(1) NOT NULL COMMENT '区域号',
   `shelve_num` varchar(3) NOT NULL COMMENT '货架',
   `layer_num` char(1) NOT NULL COMMENT '层号',
-  `quantity` int NOT NULL COMMENT '数量',
+  `quantity` int(11) NOT NULL COMMENT '数量',
   `goods_id` varchar(26) NOT NULL COMMENT '商品ID',
   PRIMARY KEY (`inventory_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='在库记录表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='在库记录表';
 
 -- ----------------------------
 -- Records of inventory_quantity
@@ -4148,11 +4150,11 @@ CREATE TABLE `inventory_records` (
   `area_num` char(1) NOT NULL,
   `shelve_num` varchar(3) NOT NULL COMMENT '货架',
   `layer_num` char(1) NOT NULL COMMENT '层号',
-  `quantity` int NOT NULL COMMENT '数量',
+  `quantity` int(11) NOT NULL COMMENT '数量',
   `storehouse_id` varchar(32) NOT NULL COMMENT '仓库ID',
   `principal_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '负责人名称',
   PRIMARY KEY (`record_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='库存记录信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='库存记录信息表';
 
 -- ----------------------------
 -- Records of inventory_records
@@ -4175,7 +4177,7 @@ CREATE TABLE `manager` (
   `last_login` datetime DEFAULT NULL COMMENT '上次登录时间',
   `manage_state` char(1) DEFAULT NULL COMMENT '角色状态（0正常 1停用）',
   PRIMARY KEY (`manager_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='管理员角色';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='管理员角色';
 
 -- ----------------------------
 -- Records of manager
@@ -4189,11 +4191,11 @@ DROP TABLE IF EXISTS `price_quality`;
 CREATE TABLE `price_quality` (
   `pq_id` varchar(32) NOT NULL COMMENT '比质比价ID',
   `tender_id` varchar(22) NOT NULL COMMENT '标书ID',
-  `product_number` int DEFAULT NULL COMMENT '产品编号',
-  `supplier_id` bigint NOT NULL COMMENT '供应商',
+  `product_number` int(11) DEFAULT NULL COMMENT '产品编号',
+  `supplier_id` bigint(20) NOT NULL COMMENT '供应商',
   `scores` varchar(5) DEFAULT '' COMMENT '分数',
   PRIMARY KEY (`pq_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='比质比价得分表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='比质比价得分表';
 
 -- ----------------------------
 -- Records of price_quality
@@ -4259,9 +4261,9 @@ CREATE TABLE `qrtz_fired_triggers` (
   `trigger_name` varchar(200) NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
   `trigger_group` varchar(200) NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
   `instance_name` varchar(200) NOT NULL COMMENT '调度器实例名',
-  `fired_time` bigint NOT NULL COMMENT '触发的时间',
-  `sched_time` bigint NOT NULL COMMENT '定时器制定的时间',
-  `priority` int NOT NULL COMMENT '优先级',
+  `fired_time` bigint(20) NOT NULL COMMENT '触发的时间',
+  `sched_time` bigint(20) NOT NULL COMMENT '定时器制定的时间',
+  `priority` int(11) NOT NULL COMMENT '优先级',
   `state` varchar(16) NOT NULL COMMENT '状态',
   `job_name` varchar(200) DEFAULT NULL COMMENT '任务名称',
   `job_group` varchar(200) DEFAULT NULL COMMENT '任务组名',
@@ -4331,8 +4333,8 @@ DROP TABLE IF EXISTS `qrtz_scheduler_state`;
 CREATE TABLE `qrtz_scheduler_state` (
   `sched_name` varchar(120) NOT NULL COMMENT '调度名称',
   `instance_name` varchar(200) NOT NULL COMMENT '实例名称',
-  `last_checkin_time` bigint NOT NULL COMMENT '上次检查时间',
-  `checkin_interval` bigint NOT NULL COMMENT '检查间隔时间',
+  `last_checkin_time` bigint(20) NOT NULL COMMENT '上次检查时间',
+  `checkin_interval` bigint(20) NOT NULL COMMENT '检查间隔时间',
   PRIMARY KEY (`sched_name`,`instance_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='调度器状态表';
 
@@ -4348,9 +4350,9 @@ CREATE TABLE `qrtz_simple_triggers` (
   `sched_name` varchar(120) NOT NULL COMMENT '调度名称',
   `trigger_name` varchar(200) NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
   `trigger_group` varchar(200) NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
-  `repeat_count` bigint NOT NULL COMMENT '重复的次数统计',
-  `repeat_interval` bigint NOT NULL COMMENT '重复的间隔时间',
-  `times_triggered` bigint NOT NULL COMMENT '已经触发的次数',
+  `repeat_count` bigint(20) NOT NULL COMMENT '重复的次数统计',
+  `repeat_interval` bigint(20) NOT NULL COMMENT '重复的间隔时间',
+  `times_triggered` bigint(20) NOT NULL COMMENT '已经触发的次数',
   PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`),
   CONSTRAINT `qrtz_simple_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `trigger_name`, `trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='简单触发器的信息表';
@@ -4370,10 +4372,10 @@ CREATE TABLE `qrtz_simprop_triggers` (
   `str_prop_1` varchar(512) DEFAULT NULL COMMENT 'String类型的trigger的第一个参数',
   `str_prop_2` varchar(512) DEFAULT NULL COMMENT 'String类型的trigger的第二个参数',
   `str_prop_3` varchar(512) DEFAULT NULL COMMENT 'String类型的trigger的第三个参数',
-  `int_prop_1` int DEFAULT NULL COMMENT 'int类型的trigger的第一个参数',
-  `int_prop_2` int DEFAULT NULL COMMENT 'int类型的trigger的第二个参数',
-  `long_prop_1` bigint DEFAULT NULL COMMENT 'long类型的trigger的第一个参数',
-  `long_prop_2` bigint DEFAULT NULL COMMENT 'long类型的trigger的第二个参数',
+  `int_prop_1` int(11) DEFAULT NULL COMMENT 'int类型的trigger的第一个参数',
+  `int_prop_2` int(11) DEFAULT NULL COMMENT 'int类型的trigger的第二个参数',
+  `long_prop_1` bigint(20) DEFAULT NULL COMMENT 'long类型的trigger的第一个参数',
+  `long_prop_2` bigint(20) DEFAULT NULL COMMENT 'long类型的trigger的第二个参数',
   `dec_prop_1` decimal(13,4) DEFAULT NULL COMMENT 'decimal类型的trigger的第一个参数',
   `dec_prop_2` decimal(13,4) DEFAULT NULL COMMENT 'decimal类型的trigger的第二个参数',
   `bool_prop_1` varchar(1) DEFAULT NULL COMMENT 'Boolean类型的trigger的第一个参数',
@@ -4397,15 +4399,15 @@ CREATE TABLE `qrtz_triggers` (
   `job_name` varchar(200) NOT NULL COMMENT 'qrtz_job_details表job_name的外键',
   `job_group` varchar(200) NOT NULL COMMENT 'qrtz_job_details表job_group的外键',
   `description` varchar(250) DEFAULT NULL COMMENT '相关介绍',
-  `next_fire_time` bigint DEFAULT NULL COMMENT '上一次触发时间（毫秒）',
-  `prev_fire_time` bigint DEFAULT NULL COMMENT '下一次触发时间（默认为-1表示不触发）',
-  `priority` int DEFAULT NULL COMMENT '优先级',
+  `next_fire_time` bigint(20) DEFAULT NULL COMMENT '上一次触发时间（毫秒）',
+  `prev_fire_time` bigint(20) DEFAULT NULL COMMENT '下一次触发时间（默认为-1表示不触发）',
+  `priority` int(11) DEFAULT NULL COMMENT '优先级',
   `trigger_state` varchar(16) NOT NULL COMMENT '触发器状态',
   `trigger_type` varchar(8) NOT NULL COMMENT '触发器的类型',
-  `start_time` bigint NOT NULL COMMENT '开始时间',
-  `end_time` bigint DEFAULT NULL COMMENT '结束时间',
+  `start_time` bigint(20) NOT NULL COMMENT '开始时间',
+  `end_time` bigint(20) DEFAULT NULL COMMENT '结束时间',
   `calendar_name` varchar(200) DEFAULT NULL COMMENT '日程表名称',
-  `misfire_instr` smallint DEFAULT NULL COMMENT '补偿执行的策略',
+  `misfire_instr` smallint(6) DEFAULT NULL COMMENT '补偿执行的策略',
   `job_data` blob COMMENT '存放持久化job对象',
   PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`),
   KEY `sched_name` (`sched_name`,`job_name`,`job_group`),
@@ -4422,7 +4424,7 @@ CREATE TABLE `qrtz_triggers` (
 DROP TABLE IF EXISTS `qualification_review`;
 CREATE TABLE `qualification_review` (
   `qualification_review_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '资质审核ID',
-  `supply_id` bigint NOT NULL COMMENT '供应商ID',
+  `supply_id` bigint(20) NOT NULL COMMENT '供应商ID',
   `qualification_review_document` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '资质审核文件存储位置',
   `goods_id` varchar(26) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品编号',
   `tender_id` varchar(22) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标书id',
@@ -4430,7 +4432,7 @@ CREATE TABLE `qualification_review` (
   `audit_explanation` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '审核说明',
   `submit_time` datetime NOT NULL COMMENT '提交时间',
   PRIMARY KEY (`qualification_review_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='资质审核';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='资质审核';
 
 -- ----------------------------
 -- Records of qualification_review
@@ -4447,7 +4449,7 @@ CREATE TABLE `shipping_information` (
   `principal` varchar(32) NOT NULL COMMENT '负责人名称',
   `phone` varchar(11) NOT NULL COMMENT '联系电话',
   PRIMARY KEY (`shipping_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='货运信息';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='货运信息';
 
 -- ----------------------------
 -- Records of shipping_information
@@ -4461,11 +4463,11 @@ CREATE TABLE `storehouse` (
   `storehouse_id` varchar(32) NOT NULL COMMENT '仓库ID',
   `principal` varchar(32) NOT NULL COMMENT '负责人名称',
   `phone` varchar(11) NOT NULL COMMENT '联系电话',
-  `shelves_num` int NOT NULL COMMENT '货架量',
+  `shelves_num` int(11) NOT NULL COMMENT '货架量',
   `acreage` decimal(12,4) NOT NULL COMMENT '面积',
   `position` varchar(500) NOT NULL COMMENT '位置',
   PRIMARY KEY (`storehouse_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='仓库表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='仓库表';
 
 -- ----------------------------
 -- Records of storehouse
@@ -4476,7 +4478,7 @@ CREATE TABLE `storehouse` (
 -- ----------------------------
 DROP TABLE IF EXISTS `supermarket`;
 CREATE TABLE `supermarket` (
-  `shop_id` bigint NOT NULL,
+  `shop_id` bigint(20) NOT NULL,
   `shop_name` varchar(255) DEFAULT NULL COMMENT '超市名称',
   `nickname` varchar(255) DEFAULT NULL COMMENT '昵称',
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '用户名',
@@ -4490,7 +4492,7 @@ CREATE TABLE `supermarket` (
   `last_login` datetime DEFAULT NULL COMMENT '上次登陆时间',
   `shop_state` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '角色状态（0正常 1停用）',
   PRIMARY KEY (`shop_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='超市角色';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='超市角色';
 
 -- ----------------------------
 -- Records of supermarket
@@ -4521,7 +4523,7 @@ CREATE TABLE `supplier` (
   `last_login` datetime DEFAULT NULL COMMENT '上次登陆时间',
   `supply_state` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '供应商状态（0正常 1停用）',
   PRIMARY KEY (`supply_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='供应商角色';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='供应商角色';
 
 -- ----------------------------
 -- Records of supplier
@@ -4533,7 +4535,7 @@ INSERT INTO `supplier` VALUES ('1166082321923960199', '供应商1', '供应商1'
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_config`;
 CREATE TABLE `sys_config` (
-  `config_id` int NOT NULL AUTO_INCREMENT COMMENT '参数主键',
+  `config_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '参数主键',
   `config_name` varchar(100) DEFAULT '' COMMENT '参数名称',
   `config_key` varchar(100) DEFAULT '' COMMENT '参数键名',
   `config_value` varchar(500) DEFAULT '' COMMENT '参数键值',
@@ -4552,7 +4554,7 @@ CREATE TABLE `sys_config` (
 INSERT INTO `sys_config` VALUES ('1', '主框架页-默认皮肤样式名称', 'sys.index.skinName', 'skin-blue', 'Y', 'admin', '2022-08-18 19:11:50', '', null, '蓝色 skin-blue、绿色 skin-green、紫色 skin-purple、红色 skin-red、黄色 skin-yellow');
 INSERT INTO `sys_config` VALUES ('2', '用户管理-账号初始密码', 'sys.user.initPassword', '123456', 'Y', 'admin', '2022-08-18 19:11:50', '', null, '初始化密码 123456');
 INSERT INTO `sys_config` VALUES ('3', '主框架页-侧边栏主题', 'sys.index.sideTheme', 'theme-dark', 'Y', 'admin', '2022-08-18 19:11:50', '', null, '深黑主题theme-dark，浅色主题theme-light，深蓝主题theme-blue');
-INSERT INTO `sys_config` VALUES ('4', '账号自助-是否开启用户注册功能', 'sys.account.registerUser', 'false', 'Y', 'admin', '2022-08-18 19:11:50', '', null, '是否开启注册用户功能（true开启，false关闭）');
+INSERT INTO `sys_config` VALUES ('4', '账号自助-是否开启用户注册功能', 'sys.account.registerUser', 'true', 'Y', 'admin', '2022-08-18 19:11:50', '', null, '是否开启注册用户功能（true开启，false关闭）');
 INSERT INTO `sys_config` VALUES ('5', '用户管理-密码字符范围', 'sys.account.chrtype', '0', 'Y', 'admin', '2022-08-18 19:11:50', '', null, '默认任意字符范围，0任意（密码可以输入任意字符），1数字（密码只能为0-9数字），2英文字母（密码只能为a-z和A-Z字母），3字母和数字（密码必须包含字母，数字）,4字母数字和特殊字符（目前支持的特殊字符包括：~!@#$%^&*()-=_+）');
 INSERT INTO `sys_config` VALUES ('6', '用户管理-初始密码修改策略', 'sys.account.initPasswordModify', '0', 'Y', 'admin', '2022-08-18 19:11:50', '', null, '0：初始密码修改策略关闭，没有任何提示，1：提醒用户，如果未修改初始密码，则在登录时就会提醒修改密码对话框');
 INSERT INTO `sys_config` VALUES ('7', '用户管理-账号密码更新周期', 'sys.account.passwordValidateDays', '0', 'Y', 'admin', '2022-08-18 19:11:50', '', null, '密码更新周期（填写数字，数据初始化值为0不限制，若修改必须为大于0小于365的正整数），如果超过这个周期登录系统时，则在登录时就会提醒修改密码对话框');
@@ -4565,11 +4567,11 @@ INSERT INTO `sys_config` VALUES ('10', '主框架页-是否开启页签', 'sys.i
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE `sys_dept` (
-  `dept_id` bigint NOT NULL AUTO_INCREMENT COMMENT '部门id',
-  `parent_id` bigint DEFAULT '0' COMMENT '父部门id',
+  `dept_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '部门id',
+  `parent_id` bigint(20) DEFAULT '0' COMMENT '父部门id',
   `ancestors` varchar(50) DEFAULT '' COMMENT '祖级列表',
   `dept_name` varchar(30) DEFAULT '' COMMENT '部门名称',
-  `order_num` int DEFAULT '0' COMMENT '显示顺序',
+  `order_num` int(11) DEFAULT '0' COMMENT '显示顺序',
   `leader` varchar(20) DEFAULT NULL COMMENT '负责人',
   `phone` varchar(11) DEFAULT NULL COMMENT '联系电话',
   `email` varchar(50) DEFAULT NULL COMMENT '邮箱',
@@ -4601,8 +4603,8 @@ INSERT INTO `sys_dept` VALUES ('109', '102', '0,100,102', '财务部门', '2', '
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_data`;
 CREATE TABLE `sys_dict_data` (
-  `dict_code` bigint NOT NULL AUTO_INCREMENT COMMENT '字典编码',
-  `dict_sort` int DEFAULT '0' COMMENT '字典排序',
+  `dict_code` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '字典编码',
+  `dict_sort` int(11) DEFAULT '0' COMMENT '字典排序',
   `dict_label` varchar(100) DEFAULT '' COMMENT '字典标签',
   `dict_value` varchar(100) DEFAULT '' COMMENT '字典键值',
   `dict_type` varchar(100) DEFAULT '' COMMENT '字典类型',
@@ -4616,7 +4618,7 @@ CREATE TABLE `sys_dict_data` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`dict_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='字典数据表';
+) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='字典数据表';
 
 -- ----------------------------
 -- Records of sys_dict_data
@@ -4665,20 +4667,13 @@ INSERT INTO `sys_dict_data` VALUES ('111', '1', '国有企业', '0', 'company_ty
 INSERT INTO `sys_dict_data` VALUES ('112', '2', '集体所有制企业', '1', 'company_type', '', '', 'Y', '0', 'admin', '2022-08-16 20:08:41', '', '2022-08-18 19:30:24', '');
 INSERT INTO `sys_dict_data` VALUES ('113', '3', '私营企业', '2', 'company_type', '', '', 'Y', '0', 'admin', '2022-08-16 20:08:55', '', '2022-08-18 19:30:27', '');
 INSERT INTO `sys_dict_data` VALUES ('114', '4', '股份制企业', '3', 'company_type', '', '', 'Y', '0', 'admin', '2022-08-16 20:09:28', '', '2022-08-18 19:30:30', '');
-INSERT INTO `sys_dict_data` VALUES ('200', '1', '供应商与供销社', '0', 'contract_type', '', '', 'Y', '0', 'admin', '2022-08-16 19:45:02', 'admin', '2022-08-16 19:46:52', '');
-INSERT INTO `sys_dict_data` VALUES ('201', '2', '小商超与供销社', '1', 'contract_type', '', '', 'Y', '0', 'admin', '2022-08-16 19:46:31', 'admin', '2022-08-16 19:47:21', '');
-INSERT INTO `sys_dict_data` VALUES ('202', '1', '否', '0', 'contract_signature', null, null, 'Y', '0', 'admin', '2022-08-16 19:49:44', '', null, null);
-INSERT INTO `sys_dict_data` VALUES ('203', '2', '是', '1', 'contract_signature', null, null, 'Y', '0', 'admin', '2022-08-16 19:49:52', '', null, null);
-INSERT INTO `sys_dict_data` VALUES ('204', '1', '未审核', '0', 'audit_status', null, null, 'Y', '0', 'admin', '2022-08-16 20:27:08', '', null, null);
-INSERT INTO `sys_dict_data` VALUES ('205', '2', '审核通过', '1', 'audit_status', null, null, 'Y', '0', 'admin', '2022-08-16 20:27:29', '', null, null);
-INSERT INTO `sys_dict_data` VALUES ('206', '3', '审核未通过', '2', 'audit_status', null, null, 'Y', '0', 'admin', '2022-08-16 20:28:40', '', null, null);
 
 -- ----------------------------
 -- Table structure for sys_dict_type
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_type`;
 CREATE TABLE `sys_dict_type` (
-  `dict_id` bigint NOT NULL AUTO_INCREMENT COMMENT '字典主键',
+  `dict_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '字典主键',
   `dict_name` varchar(100) DEFAULT '' COMMENT '字典名称',
   `dict_type` varchar(100) DEFAULT '' COMMENT '字典类型',
   `status` char(1) DEFAULT '0' COMMENT '状态（0正常 1停用）',
@@ -4708,16 +4703,13 @@ INSERT INTO `sys_dict_type` VALUES ('100', '审核状态', 'sys_examine_status',
 INSERT INTO `sys_dict_type` VALUES ('101', '证件类型', 'con_card_type', '0', 'admin', '2022-08-16 19:38:49', 'admin', '2022-08-16 19:39:47', '证件类型列表');
 INSERT INTO `sys_dict_type` VALUES ('102', '公司性质', 'company_pro', '0', 'admin', '2022-08-16 20:05:19', 'admin', '2022-08-18 19:33:17', '公司性质列表');
 INSERT INTO `sys_dict_type` VALUES ('103', '企业类型', 'company_type', '0', 'admin', '2022-08-16 20:08:00', 'admin', '2022-08-18 19:33:45', '企业类型列表');
-INSERT INTO `sys_dict_type` VALUES ('104', '合同类别', 'contract_type', '0', 'admin', '2022-08-16 19:42:11', '', null, null);
-INSERT INTO `sys_dict_type` VALUES ('105', '是否签名', 'contract_signature', '0', 'admin', '2022-08-16 19:49:23', 'admin', '2022-08-24 15:58:26', '合同签名');
-INSERT INTO `sys_dict_type` VALUES ('106', '审核状态', 'audit_status', '0', 'admin', '2022-08-16 20:26:14', 'admin', '2022-08-24 15:58:35', '资质审核状态');
 
 -- ----------------------------
 -- Table structure for sys_job
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_job`;
 CREATE TABLE `sys_job` (
-  `job_id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务ID',
+  `job_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '任务ID',
   `job_name` varchar(64) NOT NULL DEFAULT '' COMMENT '任务名称',
   `job_group` varchar(64) NOT NULL DEFAULT 'DEFAULT' COMMENT '任务组名',
   `invoke_target` varchar(500) NOT NULL COMMENT '调用目标字符串',
@@ -4745,7 +4737,7 @@ INSERT INTO `sys_job` VALUES ('3', '系统默认（多参）', 'DEFAULT', 'ryTas
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_job_log`;
 CREATE TABLE `sys_job_log` (
-  `job_log_id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务日志ID',
+  `job_log_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '任务日志ID',
   `job_name` varchar(64) NOT NULL COMMENT '任务名称',
   `job_group` varchar(64) NOT NULL COMMENT '任务组名',
   `invoke_target` varchar(500) NOT NULL COMMENT '调用目标字符串',
@@ -4765,7 +4757,7 @@ CREATE TABLE `sys_job_log` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_logininfor`;
 CREATE TABLE `sys_logininfor` (
-  `info_id` bigint NOT NULL AUTO_INCREMENT COMMENT '访问ID',
+  `info_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '访问ID',
   `login_name` varchar(50) DEFAULT '' COMMENT '登录账号',
   `ipaddr` varchar(128) DEFAULT '' COMMENT '登录IP地址',
   `login_location` varchar(255) DEFAULT '' COMMENT '登录地点',
@@ -4775,7 +4767,7 @@ CREATE TABLE `sys_logininfor` (
   `msg` varchar(255) DEFAULT '' COMMENT '提示消息',
   `login_time` datetime DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`info_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统访问记录';
+) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统访问记录';
 
 -- ----------------------------
 -- Records of sys_logininfor
@@ -4792,16 +4784,111 @@ INSERT INTO `sys_logininfor` VALUES ('108', 'admin', '127.0.0.1', '内网IP', 'F
 INSERT INTO `sys_logininfor` VALUES ('109', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-24 09:55:22');
 INSERT INTO `sys_logininfor` VALUES ('110', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-24 09:55:33');
 INSERT INTO `sys_logininfor` VALUES ('111', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-24 09:55:49');
+INSERT INTO `sys_logininfor` VALUES ('112', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-24 17:52:20');
+INSERT INTO `sys_logininfor` VALUES ('113', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 09:58:17');
+INSERT INTO `sys_logininfor` VALUES ('114', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 10:09:23');
+INSERT INTO `sys_logininfor` VALUES ('115', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 11:07:01');
+INSERT INTO `sys_logininfor` VALUES ('116', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 11:32:58');
+INSERT INTO `sys_logininfor` VALUES ('117', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '1', '密码输入错误1次', '2022-08-25 11:39:53');
+INSERT INTO `sys_logininfor` VALUES ('118', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '1', '密码输入错误2次', '2022-08-25 11:40:59');
+INSERT INTO `sys_logininfor` VALUES ('119', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 11:44:04');
+INSERT INTO `sys_logininfor` VALUES ('120', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 11:44:24');
+INSERT INTO `sys_logininfor` VALUES ('121', '小商超1', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '注册成功', '2022-08-25 11:45:32');
+INSERT INTO `sys_logininfor` VALUES ('122', '小商超1', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 11:45:41');
+INSERT INTO `sys_logininfor` VALUES ('123', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 11:46:20');
+INSERT INTO `sys_logininfor` VALUES ('124', '供应商1', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '注册成功', '2022-08-25 11:54:09');
+INSERT INTO `sys_logininfor` VALUES ('125', '供应商1', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 11:54:20');
+INSERT INTO `sys_logininfor` VALUES ('126', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 11:54:54');
+INSERT INTO `sys_logininfor` VALUES ('127', '小商超1', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 12:06:54');
+INSERT INTO `sys_logininfor` VALUES ('128', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 12:10:07');
+INSERT INTO `sys_logininfor` VALUES ('129', '测试1', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '注册成功', '2022-08-25 12:52:54');
+INSERT INTO `sys_logininfor` VALUES ('130', '测试1', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 12:59:43');
+INSERT INTO `sys_logininfor` VALUES ('131', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 13:00:15');
+INSERT INTO `sys_logininfor` VALUES ('132', '测试1', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 13:01:56');
+INSERT INTO `sys_logininfor` VALUES ('133', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 13:02:44');
+INSERT INTO `sys_logininfor` VALUES ('134', '小商超测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '注册成功', '2022-08-25 13:05:20');
+INSERT INTO `sys_logininfor` VALUES ('135', '供应商测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '注册成功', '2022-08-25 13:06:08');
+INSERT INTO `sys_logininfor` VALUES ('136', '小商超测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 13:06:16');
+INSERT INTO `sys_logininfor` VALUES ('137', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 13:07:39');
+INSERT INTO `sys_logininfor` VALUES ('138', '供应商测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 13:10:13');
+INSERT INTO `sys_logininfor` VALUES ('139', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 13:14:05');
+INSERT INTO `sys_logininfor` VALUES ('140', '小商超测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 13:16:26');
+INSERT INTO `sys_logininfor` VALUES ('141', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 13:19:14');
+INSERT INTO `sys_logininfor` VALUES ('142', '小商超测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 13:28:32');
+INSERT INTO `sys_logininfor` VALUES ('143', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '1', '密码输入错误1次', '2022-08-25 13:29:27');
+INSERT INTO `sys_logininfor` VALUES ('144', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 13:29:31');
+INSERT INTO `sys_logininfor` VALUES ('145', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 13:37:58');
+INSERT INTO `sys_logininfor` VALUES ('146', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 13:38:17');
+INSERT INTO `sys_logininfor` VALUES ('147', '供应商1', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '1', '用户不存在/密码错误', '2022-08-25 14:26:30');
+INSERT INTO `sys_logininfor` VALUES ('148', '小商超测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 14:26:50');
+INSERT INTO `sys_logininfor` VALUES ('149', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '1', '密码输入错误1次', '2022-08-25 14:27:13');
+INSERT INTO `sys_logininfor` VALUES ('150', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 14:27:16');
+INSERT INTO `sys_logininfor` VALUES ('151', '小商超测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 14:27:37');
+INSERT INTO `sys_logininfor` VALUES ('152', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 14:28:00');
+INSERT INTO `sys_logininfor` VALUES ('153', '小商超测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 14:31:07');
+INSERT INTO `sys_logininfor` VALUES ('154', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 14:32:02');
+INSERT INTO `sys_logininfor` VALUES ('155', '小商超测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 14:34:24');
+INSERT INTO `sys_logininfor` VALUES ('156', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 14:38:27');
+INSERT INTO `sys_logininfor` VALUES ('157', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-25 15:04:41');
+INSERT INTO `sys_logininfor` VALUES ('158', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 09:12:20');
+INSERT INTO `sys_logininfor` VALUES ('159', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 09:30:41');
+INSERT INTO `sys_logininfor` VALUES ('160', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 09:41:16');
+INSERT INTO `sys_logininfor` VALUES ('161', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 09:44:01');
+INSERT INTO `sys_logininfor` VALUES ('162', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 09:46:33');
+INSERT INTO `sys_logininfor` VALUES ('163', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 09:54:45');
+INSERT INTO `sys_logininfor` VALUES ('164', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 10:07:40');
+INSERT INTO `sys_logininfor` VALUES ('165', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 10:20:43');
+INSERT INTO `sys_logininfor` VALUES ('166', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 10:22:48');
+INSERT INTO `sys_logininfor` VALUES ('167', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 10:32:34');
+INSERT INTO `sys_logininfor` VALUES ('168', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 10:32:56');
+INSERT INTO `sys_logininfor` VALUES ('169', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 10:33:27');
+INSERT INTO `sys_logininfor` VALUES ('170', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 10:42:16');
+INSERT INTO `sys_logininfor` VALUES ('171', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 10:43:18');
+INSERT INTO `sys_logininfor` VALUES ('172', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 10:51:10');
+INSERT INTO `sys_logininfor` VALUES ('173', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 11:00:49');
+INSERT INTO `sys_logininfor` VALUES ('174', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 11:01:13');
+INSERT INTO `sys_logininfor` VALUES ('175', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 11:02:12');
+INSERT INTO `sys_logininfor` VALUES ('176', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 11:02:55');
+INSERT INTO `sys_logininfor` VALUES ('177', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 11:04:17');
+INSERT INTO `sys_logininfor` VALUES ('178', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 11:04:48');
+INSERT INTO `sys_logininfor` VALUES ('179', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 11:13:47');
+INSERT INTO `sys_logininfor` VALUES ('180', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 11:19:41');
+INSERT INTO `sys_logininfor` VALUES ('181', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 11:26:17');
+INSERT INTO `sys_logininfor` VALUES ('182', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 11:30:41');
+INSERT INTO `sys_logininfor` VALUES ('183', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 11:31:27');
+INSERT INTO `sys_logininfor` VALUES ('184', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 11:32:25');
+INSERT INTO `sys_logininfor` VALUES ('185', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 11:32:51');
+INSERT INTO `sys_logininfor` VALUES ('186', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 11:33:23');
+INSERT INTO `sys_logininfor` VALUES ('187', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 11:35:32');
+INSERT INTO `sys_logininfor` VALUES ('188', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 11:38:41');
+INSERT INTO `sys_logininfor` VALUES ('189', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 11:47:35');
+INSERT INTO `sys_logininfor` VALUES ('190', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 12:17:42');
+INSERT INTO `sys_logininfor` VALUES ('191', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 12:19:40');
+INSERT INTO `sys_logininfor` VALUES ('192', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 12:35:32');
+INSERT INTO `sys_logininfor` VALUES ('193', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 13:09:49');
+INSERT INTO `sys_logininfor` VALUES ('194', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 13:52:35');
+INSERT INTO `sys_logininfor` VALUES ('195', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 13:57:53');
+INSERT INTO `sys_logininfor` VALUES ('196', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 14:06:10');
+INSERT INTO `sys_logininfor` VALUES ('197', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 14:25:41');
+INSERT INTO `sys_logininfor` VALUES ('198', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 14:42:53');
+INSERT INTO `sys_logininfor` VALUES ('199', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 16:11:16');
+INSERT INTO `sys_logininfor` VALUES ('200', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 16:17:39');
+INSERT INTO `sys_logininfor` VALUES ('201', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 16:22:44');
+INSERT INTO `sys_logininfor` VALUES ('202', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 17:01:54');
+INSERT INTO `sys_logininfor` VALUES ('203', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 17:02:48');
+INSERT INTO `sys_logininfor` VALUES ('204', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 17:47:15');
+INSERT INTO `sys_logininfor` VALUES ('205', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 20:03:10');
+INSERT INTO `sys_logininfor` VALUES ('206', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 20:22:30');
 
 -- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
-  `menu_id` bigint NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
+  `menu_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
   `menu_name` varchar(50) NOT NULL COMMENT '菜单名称',
-  `parent_id` bigint DEFAULT '0' COMMENT '父菜单ID',
-  `order_num` int DEFAULT '0' COMMENT '显示顺序',
+  `parent_id` bigint(20) DEFAULT '0' COMMENT '父菜单ID',
+  `order_num` int(11) DEFAULT '0' COMMENT '显示顺序',
   `url` varchar(200) DEFAULT '#' COMMENT '请求地址',
   `target` varchar(20) DEFAULT '' COMMENT '打开方式（menuItem页签 menuBlank新窗口）',
   `menu_type` char(1) DEFAULT '' COMMENT '菜单类型（M目录 C菜单 F按钮）',
@@ -4815,7 +4902,7 @@ CREATE TABLE `sys_menu` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3239 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=2288 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单权限表';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -4823,7 +4910,7 @@ CREATE TABLE `sys_menu` (
 INSERT INTO `sys_menu` VALUES ('1', '系统管理', '0', '1', '#', '', 'M', '0', '1', '', 'fa fa-gear', 'admin', '2022-08-18 19:11:49', '', null, '系统管理目录');
 INSERT INTO `sys_menu` VALUES ('2', '系统监控', '0', '2', '#', '', 'M', '0', '1', '', 'fa fa-video-camera', 'admin', '2022-08-18 19:11:49', '', null, '系统监控目录');
 INSERT INTO `sys_menu` VALUES ('3', '系统工具', '0', '3', '#', '', 'M', '0', '1', '', 'fa fa-bars', 'admin', '2022-08-18 19:11:49', '', null, '系统工具目录');
-INSERT INTO `sys_menu` VALUES ('4', '若依官网', '0', '4', 'https://www.dlut.edu.cn/', 'menuBlank', 'C', '1', '1', '', 'fa fa-location-arrow', 'admin', '2022-08-18 19:11:49', 'admin', '2022-08-18 19:50:54', '若依官网地址');
+INSERT INTO `sys_menu` VALUES ('4', '若依官网', '0', '4', 'https://www.dlut.edu.cn/', 'menuBlank', 'C', '1', '1', '', 'fa fa-location-arrow', 'admin', '2022-08-18 19:11:49', 'admin', '2022-08-25 14:19:38', '若依官网地址');
 INSERT INTO `sys_menu` VALUES ('100', '用户管理', '1', '1', '/system/user', '', 'C', '0', '1', 'system:user:view', 'fa fa-user-o', 'admin', '2022-08-18 19:11:49', '', null, '用户管理菜单');
 INSERT INTO `sys_menu` VALUES ('101', '角色管理', '1', '2', '/system/role', '', 'C', '0', '1', 'system:role:view', 'fa fa-user-secret', 'admin', '2022-08-18 19:11:49', '', null, '角色管理菜单');
 INSERT INTO `sys_menu` VALUES ('102', '菜单管理', '1', '3', '/system/menu', '', 'C', '0', '1', 'system:menu:view', 'fa fa-th-list', 'admin', '2022-08-18 19:11:49', '', null, '菜单管理菜单');
@@ -4912,7 +4999,7 @@ INSERT INTO `sys_menu` VALUES ('2076', '审核单据管理新增', '2074', '2', 
 INSERT INTO `sys_menu` VALUES ('2077', '审核单据管理修改', '2074', '3', '#', '', 'F', '0', '1', 'audit:auditDocumentsManage:edit', '#', 'admin', '2022-08-15 23:49:10', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2078', '审核单据管理删除', '2074', '4', '#', '', 'F', '0', '1', 'audit:auditDocumentsManage:remove', '#', 'admin', '2022-08-15 23:49:10', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2079', '审核单据管理导出', '2074', '5', '#', '', 'F', '0', '1', 'audit:auditDocumentsManage:export', '#', 'admin', '2022-08-15 23:49:10', '', null, '');
-INSERT INTO `sys_menu` VALUES ('2080', '小商超信用评价审核', '2073', '1', '/audit/businessCreditEvaluationManage', 'menuItem', 'C', '0', '1', 'audit:businessCreditEvaluationManage:view', '#', 'admin', '2022-08-15 23:49:36', 'admin', '2022-08-23 16:22:13', '小商超信用评价审核管理菜单');
+INSERT INTO `sys_menu` VALUES ('2080', '小商超信用评价审核', '2073', '1', '/audit/businessCreditEvaluationManage', 'menuItem', 'C', '0', '1', 'audit:businessCreditEvaluationManage:view', '#', 'admin', '2022-08-15 23:49:36', 'admin', '2022-08-25 13:50:56', '小商超信用评价审核管理菜单');
 INSERT INTO `sys_menu` VALUES ('2081', '小商超信用评价审核管理查询', '2080', '1', '#', '', 'F', '0', '1', 'audit:businessCreditEvaluationManage:list', '#', 'admin', '2022-08-15 23:49:37', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2082', '小商超信用评价审核管理新增', '2080', '2', '#', '', 'F', '0', '1', 'audit:businessCreditEvaluationManage:add', '#', 'admin', '2022-08-15 23:49:37', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2083', '小商超信用评价审核管理修改', '2080', '3', '#', '', 'F', '0', '1', 'audit:businessCreditEvaluationManage:edit', '#', 'admin', '2022-08-15 23:49:37', '', null, '');
@@ -4924,7 +5011,7 @@ INSERT INTO `sys_menu` VALUES ('2088', '供应商评价审核管理新增', '208
 INSERT INTO `sys_menu` VALUES ('2089', '供应商评价审核管理修改', '2086', '3', '#', '', 'F', '0', '1', 'audit:supplierCreditEvaluationManage:edit', '#', 'admin', '2022-08-15 23:50:52', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2090', '供应商评价审核管理删除', '2086', '4', '#', '', 'F', '0', '1', 'audit:supplierCreditEvaluationManage:remove', '#', 'admin', '2022-08-15 23:50:53', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2091', '供应商评价审核管理导出', '2086', '5', '#', '', 'F', '0', '1', 'audit:supplierCreditEvaluationManage:export', '#', 'admin', '2022-08-15 23:50:53', '', null, '');
-INSERT INTO `sys_menu` VALUES ('2092', '小商超营业执照审核', '2073', '1', '/audit/businessLicenseManage', 'menuItem', 'C', '0', '1', 'audit:businessLicenseManage:view', '#', 'admin', '2022-08-15 23:51:02', 'admin', '2022-08-23 16:22:38', '小商超审核管理菜单');
+INSERT INTO `sys_menu` VALUES ('2092', '小商超营业执照审核', '2073', '1', '/audit/businessLicenseManage', 'menuItem', 'C', '0', '1', 'audit:businessLicenseManage:view', '#', 'admin', '2022-08-15 23:51:02', 'admin', '2022-08-25 14:03:03', '小商超审核管理菜单');
 INSERT INTO `sys_menu` VALUES ('2093', '小商超审核管理查询', '2092', '1', '#', '', 'F', '0', '1', 'audit:businessLicenseManage:list', '#', 'admin', '2022-08-15 23:51:02', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2094', '小商超审核管理新增', '2092', '2', '#', '', 'F', '0', '1', 'audit:businessLicenseManage:add', '#', 'admin', '2022-08-15 23:51:02', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2095', '小商超审核管理修改', '2092', '3', '#', '', 'F', '0', '1', 'audit:businessLicenseManage:edit', '#', 'admin', '2022-08-15 23:51:02', '', null, '');
@@ -4966,64 +5053,14 @@ INSERT INTO `sys_menu` VALUES ('2210', '供销社角色新增', '2208', '2', '#'
 INSERT INTO `sys_menu` VALUES ('2211', '供销社角色修改', '2208', '3', '#', '', 'F', '0', '1', 'user:cooperative:edit', '#', 'admin', '2022-08-24 10:00:07', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2212', '供销社角色删除', '2208', '4', '#', '', 'F', '0', '1', 'user:cooperative:remove', '#', 'admin', '2022-08-24 10:00:07', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2213', '供销社角色导出', '2208', '5', '#', '', 'F', '0', '1', 'user:cooperative:export', '#', 'admin', '2022-08-24 10:00:07', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3184', '集采', '0', '7', '#', 'menuItem', 'M', '0', '1', null, 'fa fa-cart-plus', 'admin', '2022-08-24 11:28:49', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3185', '招标&竞价', '3184', '1', '#', 'menuItem', 'M', '0', '1', null, 'fa fa-legal', 'admin', '2022-08-24 11:29:51', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3188', '公告', '3184', '3', '#', 'menuItem', 'M', '0', '1', null, 'fa fa-bank', 'admin', '2022-08-24 11:32:20', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3191', '招标', '3185', '1', '/cp/tender1', '', 'C', '0', '1', 'cp:tender1:view', '#', 'admin', '2022-08-24 11:38:59', '', null, '招标菜单');
-INSERT INTO `sys_menu` VALUES ('3192', '招标查询', '3191', '1', '#', '', 'F', '0', '1', 'cp:tender1:list', '#', 'admin', '2022-08-24 11:38:59', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3193', '招标新增', '3191', '2', '#', '', 'F', '0', '1', 'cp:tender1:add', '#', 'admin', '2022-08-24 11:38:59', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3194', '招标修改', '3191', '3', '#', '', 'F', '0', '1', 'cp:tender1:edit', '#', 'admin', '2022-08-24 11:38:59', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3195', '招标删除', '3191', '4', '#', '', 'F', '0', '1', 'cp:tender1:remove', '#', 'admin', '2022-08-24 11:38:59', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3196', '招标导出', '3191', '5', '#', '', 'F', '0', '1', 'cp:tender1:export', '#', 'admin', '2022-08-24 11:38:59', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3197', '竞价', '3185', '1', '/cp/tender2', '', 'C', '0', '1', 'cp:tender2:view', '#', 'admin', '2022-08-24 11:40:42', '', null, '竞价菜单');
-INSERT INTO `sys_menu` VALUES ('3198', '竞价查询', '3197', '1', '#', '', 'F', '0', '1', 'cp:tender2:list', '#', 'admin', '2022-08-24 11:40:42', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3199', '竞价新增', '3197', '2', '#', '', 'F', '0', '1', 'cp:tender2:add', '#', 'admin', '2022-08-24 11:40:42', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3200', '竞价修改', '3197', '3', '#', '', 'F', '0', '1', 'cp:tender2:edit', '#', 'admin', '2022-08-24 11:40:42', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3201', '竞价删除', '3197', '4', '#', '', 'F', '0', '1', 'cp:tender2:remove', '#', 'admin', '2022-08-24 11:40:42', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3202', '竞价导出', '3197', '5', '#', '', 'F', '0', '1', 'cp:tender2:export', '#', 'admin', '2022-08-24 11:40:42', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3203', '资质审核', '3184', '2', '/cp/qualificationReview', 'menuItem', 'C', '0', '1', 'cp:qualificationReview:view', '#', 'admin', '2022-08-24 11:43:14', 'admin', '2022-08-24 11:46:07', '资质审核菜单');
-INSERT INTO `sys_menu` VALUES ('3204', '资质审核查询', '3203', '1', '#', '', 'F', '0', '1', 'cp:qualificationReview:list', '#', 'admin', '2022-08-24 11:43:14', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3205', '资质审核新增', '3203', '2', '#', '', 'F', '0', '1', 'cp:qualificationReview:add', '#', 'admin', '2022-08-24 11:43:14', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3206', '资质审核修改', '3203', '3', '#', '', 'F', '0', '1', 'cp:qualificationReview:edit', '#', 'admin', '2022-08-24 11:43:14', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3207', '资质审核删除', '3203', '4', '#', '', 'F', '0', '1', 'cp:qualificationReview:remove', '#', 'admin', '2022-08-24 11:43:14', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3208', '资质审核导出', '3203', '5', '#', '', 'F', '0', '1', 'cp:qualificationReview:export', '#', 'admin', '2022-08-24 11:43:14', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3209', '中标候选人公示公告', '3188', '1', '/cp/bidWinningCandidates', '', 'C', '0', '1', 'cp:bidWinningCandidates:view', '#', 'admin', '2022-08-24 11:49:31', '', null, '中标候选人公示公告菜单');
-INSERT INTO `sys_menu` VALUES ('3210', '中标候选人公示公告查询', '3209', '1', '#', '', 'F', '0', '1', 'cp:bidWinningCandidates:list', '#', 'admin', '2022-08-24 11:49:31', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3211', '中标候选人公示公告新增', '3209', '2', '#', '', 'F', '0', '1', 'cp:bidWinningCandidates:add', '#', 'admin', '2022-08-24 11:49:31', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3212', '中标候选人公示公告修改', '3209', '3', '#', '', 'F', '0', '1', 'cp:bidWinningCandidates:edit', '#', 'admin', '2022-08-24 11:49:31', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3213', '中标候选人公示公告删除', '3209', '4', '#', '', 'F', '0', '1', 'cp:bidWinningCandidates:remove', '#', 'admin', '2022-08-24 11:49:31', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3214', '中标候选人公示公告导出', '3209', '5', '#', '', 'F', '0', '1', 'cp:bidWinningCandidates:export', '#', 'admin', '2022-08-24 11:49:31', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3215', '中标结果公告', '3188', '1', '/cp/bidWinningResultsAnnouncement', '', 'C', '0', '1', 'cp:bidWinningResultsAnnouncement:view', '#', 'admin', '2022-08-24 11:51:28', '', null, '中标结果公告菜单');
-INSERT INTO `sys_menu` VALUES ('3216', '中标结果公告查询', '3215', '1', '#', '', 'F', '0', '1', 'cp:bidWinningResultsAnnouncement:list', '#', 'admin', '2022-08-24 11:51:28', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3217', '中标结果公告新增', '3215', '2', '#', '', 'F', '0', '1', 'cp:bidWinningResultsAnnouncement:add', '#', 'admin', '2022-08-24 11:51:28', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3218', '中标结果公告修改', '3215', '3', '#', '', 'F', '0', '1', 'cp:bidWinningResultsAnnouncement:edit', '#', 'admin', '2022-08-24 11:51:28', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3219', '中标结果公告删除', '3215', '4', '#', '', 'F', '0', '1', 'cp:bidWinningResultsAnnouncement:remove', '#', 'admin', '2022-08-24 11:51:28', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3220', '中标结果公告导出', '3215', '5', '#', '', 'F', '0', '1', 'cp:bidWinningResultsAnnouncement:export', '#', 'admin', '2022-08-24 11:51:28', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3221', '变更公告', '3188', '1', '/cp/changeAnnouncement', '', 'C', '0', '1', 'cp:changeAnnouncement:view', '#', 'admin', '2022-08-24 11:52:53', '', null, '变更公告菜单');
-INSERT INTO `sys_menu` VALUES ('3222', '变更公告查询', '3221', '1', '#', '', 'F', '0', '1', 'cp:changeAnnouncement:list', '#', 'admin', '2022-08-24 11:52:53', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3223', '变更公告新增', '3221', '2', '#', '', 'F', '0', '1', 'cp:changeAnnouncement:add', '#', 'admin', '2022-08-24 11:52:53', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3224', '变更公告修改', '3221', '3', '#', '', 'F', '0', '1', 'cp:changeAnnouncement:edit', '#', 'admin', '2022-08-24 11:52:53', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3225', '变更公告删除', '3221', '4', '#', '', 'F', '0', '1', 'cp:changeAnnouncement:remove', '#', 'admin', '2022-08-24 11:52:53', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3226', '变更公告导出', '3221', '5', '#', '', 'F', '0', '1', 'cp:changeAnnouncement:export', '#', 'admin', '2022-08-24 11:52:53', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3227', '终止公告', '3188', '1', '/cp/terminationAnnouncement', '', 'C', '0', '1', 'cp:terminationAnnouncement:view', '#', 'admin', '2022-08-24 11:54:57', '', null, '终止公告菜单');
-INSERT INTO `sys_menu` VALUES ('3228', '终止公告查询', '3227', '1', '#', '', 'F', '0', '1', 'cp:terminationAnnouncement:list', '#', 'admin', '2022-08-24 11:54:57', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3229', '终止公告新增', '3227', '2', '#', '', 'F', '0', '1', 'cp:terminationAnnouncement:add', '#', 'admin', '2022-08-24 11:54:57', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3230', '终止公告修改', '3227', '3', '#', '', 'F', '0', '1', 'cp:terminationAnnouncement:edit', '#', 'admin', '2022-08-24 11:54:57', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3231', '终止公告删除', '3227', '4', '#', '', 'F', '0', '1', 'cp:terminationAnnouncement:remove', '#', 'admin', '2022-08-24 11:54:57', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3232', '终止公告导出', '3227', '5', '#', '', 'F', '0', '1', 'cp:terminationAnnouncement:export', '#', 'admin', '2022-08-24 11:54:57', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3233', '合同', '3184', '4', '/cp/contract', 'menuItem', 'C', '0', '1', 'cp:contract:view', 'fa fa-handshake-o', 'admin', '2022-08-24 11:56:15', 'admin', '2022-08-24 11:56:40', '合同菜单');
-INSERT INTO `sys_menu` VALUES ('3234', '合同查询', '3233', '1', '#', '', 'F', '0', '1', 'cp:contract:list', '#', 'admin', '2022-08-24 11:56:15', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3235', '合同新增', '3233', '2', '#', '', 'F', '0', '1', 'cp:contract:add', '#', 'admin', '2022-08-24 11:56:15', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3236', '合同修改', '3233', '3', '#', '', 'F', '0', '1', 'cp:contract:edit', '#', 'admin', '2022-08-24 11:56:15', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3237', '合同删除', '3233', '4', '#', '', 'F', '0', '1', 'cp:contract:remove', '#', 'admin', '2022-08-24 11:56:15', '', null, '');
-INSERT INTO `sys_menu` VALUES ('3238', '合同导出', '3233', '5', '#', '', 'F', '0', '1', 'cp:contract:export', '#', 'admin', '2022-08-24 11:56:15', '', null, '');
+INSERT INTO `sys_menu` VALUES ('2284', '小商场提交审核材料', '0', '6', '/submit/supermarket', 'menuItem', 'C', '0', '1', 'submit:supermarket:view', '#', 'admin', '2022-08-26 09:28:03', 'admin', '2022-08-26 11:14:10', '');
 
 -- ----------------------------
 -- Table structure for sys_notice
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_notice`;
 CREATE TABLE `sys_notice` (
-  `notice_id` int NOT NULL AUTO_INCREMENT COMMENT '公告ID',
+  `notice_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '公告ID',
   `notice_title` varchar(50) NOT NULL COMMENT '公告标题',
   `notice_type` char(1) NOT NULL COMMENT '公告类型（1通知 2公告）',
   `notice_content` varchar(2000) DEFAULT NULL COMMENT '公告内容',
@@ -5047,12 +5084,12 @@ INSERT INTO `sys_notice` VALUES ('2', '维护通知：2018-07-01 若依系统凌
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_oper_log`;
 CREATE TABLE `sys_oper_log` (
-  `oper_id` bigint NOT NULL AUTO_INCREMENT COMMENT '日志主键',
+  `oper_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '日志主键',
   `title` varchar(50) DEFAULT '' COMMENT '模块标题',
-  `business_type` int DEFAULT '0' COMMENT '业务类型（0其它 1新增 2修改 3删除）',
+  `business_type` int(11) DEFAULT '0' COMMENT '业务类型（0其它 1新增 2修改 3删除）',
   `method` varchar(100) DEFAULT '' COMMENT '方法名称',
   `request_method` varchar(10) DEFAULT '' COMMENT '请求方式',
-  `operator_type` int DEFAULT '0' COMMENT '操作类别（0其它 1后台用户 2手机端用户）',
+  `operator_type` int(11) DEFAULT '0' COMMENT '操作类别（0其它 1后台用户 2手机端用户）',
   `oper_name` varchar(50) DEFAULT '' COMMENT '操作人员',
   `dept_name` varchar(50) DEFAULT '' COMMENT '部门名称',
   `oper_url` varchar(255) DEFAULT '' COMMENT '请求URL',
@@ -5060,11 +5097,11 @@ CREATE TABLE `sys_oper_log` (
   `oper_location` varchar(255) DEFAULT '' COMMENT '操作地点',
   `oper_param` varchar(2000) DEFAULT '' COMMENT '请求参数',
   `json_result` varchar(2000) DEFAULT '' COMMENT '返回参数',
-  `status` int DEFAULT '0' COMMENT '操作状态（0正常 1异常）',
+  `status` int(11) DEFAULT '0' COMMENT '操作状态（0正常 1异常）',
   `error_msg` varchar(2000) DEFAULT '' COMMENT '错误消息',
   `oper_time` datetime DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`oper_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='操作日志记录';
+) ENGINE=InnoDB AUTO_INCREMENT=246 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='操作日志记录';
 
 -- ----------------------------
 -- Records of sys_oper_log
@@ -5122,16 +5159,109 @@ INSERT INTO `sys_oper_log` VALUES ('149', '代码生成', '2', 'com.cps.generato
 INSERT INTO `sys_oper_log` VALUES ('150', '代码生成', '8', 'com.cps.generator.controller.GenController.batchGenCode()', 'GET', '1', 'admin', '研发部门', '/cps/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{\"tables\":[\"cooperative,manager,supermarket,supplier\"]}', null, '0', null, '2022-08-24 09:56:03');
 INSERT INTO `sys_oper_log` VALUES ('151', '代码生成', '2', 'com.cps.generator.controller.GenController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/tool/gen/edit', '127.0.0.1', '内网IP', '{\"tableId\":[\"18\"],\"tableName\":[\"cooperative\"],\"tableComment\":[\"供销社角色\"],\"className\":[\"Cooperative\"],\"functionAuthor\":[\"cps\"],\"remark\":[\"\"],\"columns[0].columnId\":[\"210\"],\"columns[0].sort\":[\"1\"],\"columns[0].columnComment\":[\"供销社id\"],\"columns[0].javaType\":[\"Long\"],\"columns[0].javaField\":[\"gxsId\"],\"columns[0].isInsert\":[\"1\"],\"columns[0].queryType\":[\"EQ\"],\"columns[0].htmlType\":[\"input\"],\"columns[0].dictType\":[\"\"],\"columns[1].columnId\":[\"211\"],\"columns[1].sort\":[\"2\"],\"columns[1].columnComment\":[\"供销社名称\"],\"columns[1].javaType\":[\"String\"],\"columns[1].javaField\":[\"gxsName\"],\"columns[1].isInsert\":[\"1\"],\"columns[1].isEdit\":[\"1\"],\"columns[1].isList\":[\"1\"],\"columns[1].isQuery\":[\"1\"],\"columns[1].queryType\":[\"LIKE\"],\"columns[1].isRequired\":[\"1\"],\"columns[1].htmlType\":[\"input\"],\"columns[1].dictType\":[\"\"],\"columns[2].columnId\":[\"212\"],\"columns[2].sort\":[\"3\"],\"columns[2].columnComment\":[\"昵称\"],\"columns[2].javaType\":[\"String\"],\"columns[2].javaField\":[\"nickname\"],\"columns[2].isInsert\":[\"1\"],\"columns[2].isEdit\":[\"1\"],\"columns[2].isList\":[\"1\"],\"columns[2].isQuery\":[\"1\"],\"columns[2].queryType\":[\"LIKE\"],\"columns[2].isRequired\":[\"1\"],\"columns[2].htmlType\":[\"input\"],\"columns[2].dictType\":[\"\"],\"columns[3].columnId\":[\"213\"],\"columns[3].sort\":[\"4\"],\"columns[3].columnComment\":[\"用户名\"],\"columns[3].javaType\":[\"String\"],\"columns[3].javaField\":[\"username\"],\"columns[3].isInsert\":[\"1\"],\"columns[3].isEdit\":[\"1\"],\"columns[3].isQuery\":[\"1\"],\"columns[3].queryType\":[\"LIKE\"],\"columns[3].isRequired\":[\"1\"],\"columns[3].htmlType\":[\"input\"],\"columns[3].dictType\":[\"\"],\"columns[4].columnId\":[\"214\"],\"columns[4].sort\":[\"5\"],\"columns[4].columnComment\":[\"密码\"],\"columns[4].javaType\":[\"String\"],\"columns[4].javaField\":[\"password\"],\"columns[4].isInsert\":[\"1\"],\"columns[4].isEdit\":[\"1\"],\"columns[4].queryType\":[\"EQ\"],\"columns[4].isRequired\":[\"1\"],\"columns[4].htmlType\":[\"input\"],\"columns[4].dictType\":[\"\"],\"columns[5].columnId\":[\"215\"],\"columns[5].sort\":[\"6\"],\"columns[5].columnComment\":[\"供销社状态\"],\"columns[5].javaType\":[\"String\"],\"col', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-24 09:58:46');
 INSERT INTO `sys_oper_log` VALUES ('152', '代码生成', '8', 'com.cps.generator.controller.GenController.batchGenCode()', 'GET', '1', 'admin', '研发部门', '/cps/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{\"tables\":[\"cooperative\"]}', null, '0', null, '2022-08-24 09:59:34');
+INSERT INTO `sys_oper_log` VALUES ('153', '菜单管理', '1', 'com.cps.web.controller.system.SysMenuController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"2202\"],\"menuType\":[\"F\"],\"menuName\":[\"信用评价审核\"],\"url\":[\"\"],\"target\":[\"menuItem\"],\"perms\":[\"user:supplier:exam\"],\"orderNum\":[\"6\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 10:08:48');
+INSERT INTO `sys_oper_log` VALUES ('154', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2214\"],\"parentId\":[\"2202\"],\"menuType\":[\"F\"],\"menuName\":[\"信用评价审核\"],\"url\":[\"#\"],\"target\":[\"menuItem\"],\"perms\":[\"user:supplier:exam\"],\"orderNum\":[\"6\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 10:11:56');
+INSERT INTO `sys_oper_log` VALUES ('155', '菜单管理', '1', 'com.cps.web.controller.system.SysMenuController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"2202\"],\"menuType\":[\"F\"],\"menuName\":[\"营业执照审核\"],\"url\":[\"\"],\"target\":[\"menuItem\"],\"perms\":[\"user:supplier:exam\"],\"orderNum\":[\"7\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 10:16:30');
+INSERT INTO `sys_oper_log` VALUES ('156', '菜单管理', '1', 'com.cps.web.controller.system.SysMenuController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"109\"],\"menuType\":[\"F\"],\"menuName\":[\"测试按钮\"],\"url\":[\"\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"4\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 10:18:22');
+INSERT INTO `sys_oper_log` VALUES ('157', '菜单管理', '3', 'com.cps.web.controller.system.SysMenuController.remove()', 'GET', '1', 'admin', '研发部门', '/cps/system/menu/remove/2216', '127.0.0.1', '内网IP', '2216', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 10:21:13');
+INSERT INTO `sys_oper_log` VALUES ('158', '菜单管理', '3', 'com.cps.web.controller.system.SysMenuController.remove()', 'GET', '1', 'admin', '研发部门', '/cps/system/menu/remove/2215', '127.0.0.1', '内网IP', '2215', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 11:16:54');
+INSERT INTO `sys_oper_log` VALUES ('159', '菜单管理', '3', 'com.cps.web.controller.system.SysMenuController.remove()', 'GET', '1', 'admin', '研发部门', '/cps/system/menu/remove/2214', '127.0.0.1', '内网IP', '2214', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 11:17:05');
+INSERT INTO `sys_oper_log` VALUES ('160', '角色管理', '2', 'com.cps.web.controller.system.SysRoleController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"102\"],\"roleName\":[\"超市\"],\"roleKey\":[\"Supermarket\"],\"roleSort\":[\"4\"],\"status\":[\"0\"],\"remark\":[\"小超市\"],\"menuIds\":[\"1,100,2196,2198,2199\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 11:56:50');
+INSERT INTO `sys_oper_log` VALUES ('161', '角色管理', '2', 'com.cps.web.controller.system.SysRoleController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"102\"],\"roleName\":[\"超市\"],\"roleKey\":[\"Supermarket\"],\"roleSort\":[\"4\"],\"status\":[\"0\"],\"remark\":[\"小超市\"],\"menuIds\":[\"1,100,2196,2198,2199,2073,2080,2082,2092,2094\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 11:57:16');
+INSERT INTO `sys_oper_log` VALUES ('162', '角色管理', '2', 'com.cps.web.controller.system.SysRoleController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"103\"],\"roleName\":[\"供应商\"],\"roleKey\":[\"Supplier\"],\"roleSort\":[\"5\"],\"status\":[\"0\"],\"remark\":[\"供应商角色\"],\"menuIds\":[\"1,100,2202,2204,2205,2073,2098,2100,2086,2088\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 13:01:33');
+INSERT INTO `sys_oper_log` VALUES ('163', '角色管理', '2', 'com.cps.web.controller.system.SysRoleController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"103\"],\"roleName\":[\"供应商\"],\"roleKey\":[\"Supplier\"],\"roleSort\":[\"5\"],\"status\":[\"0\"],\"remark\":[\"供应商角色\"],\"menuIds\":[\"2073,2098,2100,2086,2088\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 13:03:52');
+INSERT INTO `sys_oper_log` VALUES ('164', '角色管理', '2', 'com.cps.web.controller.system.SysRoleController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"102\"],\"roleName\":[\"超市\"],\"roleKey\":[\"Supermarket\"],\"roleSort\":[\"4\"],\"status\":[\"0\"],\"remark\":[\"小超市\"],\"menuIds\":[\"2073,2080,2082,2092,2094\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 13:03:56');
+INSERT INTO `sys_oper_log` VALUES ('165', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2080\"],\"parentId\":[\"2073\"],\"menuType\":[\"C\"],\"menuName\":[\"提交小商超信用评价\"],\"url\":[\"/audit/businessCreditEvaluationManage\"],\"target\":[\"menuItem\"],\"perms\":[\"audit:businessCreditEvaluationManage:view\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 13:23:49');
+INSERT INTO `sys_oper_log` VALUES ('166', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2092\"],\"parentId\":[\"2073\"],\"menuType\":[\"C\"],\"menuName\":[\"提交小商超营业执照\"],\"url\":[\"/audit/businessLicenseManage\"],\"target\":[\"menuItem\"],\"perms\":[\"audit:businessLicenseManage:view\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 13:26:27');
+INSERT INTO `sys_oper_log` VALUES ('167', '菜单管理', '1', 'com.cps.web.controller.system.SysMenuController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"0\"],\"menuType\":[\"M\"],\"menuName\":[\"提交相关材料\"],\"url\":[\"\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"6\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 13:47:18');
+INSERT INTO `sys_oper_log` VALUES ('168', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2080\"],\"parentId\":[\"2073\"],\"menuType\":[\"C\"],\"menuName\":[\"小商超迎接执照审核\"],\"url\":[\"/audit/businessCreditEvaluationManage\"],\"target\":[\"menuItem\"],\"perms\":[\"audit:businessCreditEvaluationManage:view\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 13:48:59');
+INSERT INTO `sys_oper_log` VALUES ('169', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2080\"],\"parentId\":[\"2073\"],\"menuType\":[\"C\"],\"menuName\":[\"小商超信用审核\"],\"url\":[\"/audit/businessCreditEvaluationManage\"],\"target\":[\"menuItem\"],\"perms\":[\"audit:businessCreditEvaluationManage:view\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 13:50:01');
+INSERT INTO `sys_oper_log` VALUES ('170', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2080\"],\"parentId\":[\"2073\"],\"menuType\":[\"C\"],\"menuName\":[\"小商超信用评价审核\"],\"url\":[\"/audit/businessCreditEvaluationManage\"],\"target\":[\"menuItem\"],\"perms\":[\"audit:businessCreditEvaluationManage:view\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 13:50:56');
+INSERT INTO `sys_oper_log` VALUES ('171', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2092\"],\"parentId\":[\"2073\"],\"menuType\":[\"C\"],\"menuName\":[\"小商超迎接执照审核\"],\"url\":[\"/audit/businessLicenseManage\"],\"target\":[\"menuItem\"],\"perms\":[\"audit:businessLicenseManage:view\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 13:51:11');
+INSERT INTO `sys_oper_log` VALUES ('172', '菜单管理', '1', 'com.cps.web.controller.system.SysMenuController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"2217\"],\"menuType\":[\"F\"],\"menuName\":[\"测试按钮\"],\"url\":[\"\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"7\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 13:52:18');
+INSERT INTO `sys_oper_log` VALUES ('173', '菜单管理', '3', 'com.cps.web.controller.system.SysMenuController.remove()', 'GET', '1', 'admin', '研发部门', '/cps/system/menu/remove/2218', '127.0.0.1', '内网IP', '2218', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 13:52:37');
+INSERT INTO `sys_oper_log` VALUES ('174', '代码生成', '2', 'com.cps.generator.controller.GenController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/tool/gen/edit', '127.0.0.1', '内网IP', '{\"tableId\":[\"2\"],\"tableName\":[\"audit_business_credit_evaluation_info\"],\"tableComment\":[\"小商超信用评价审核信息表\"],\"className\":[\"BusinessCreditEvaluationInfo\"],\"functionAuthor\":[\"fmy\"],\"remark\":[\"\"],\"columns[0].columnId\":[\"9\"],\"columns[0].sort\":[\"1\"],\"columns[0].columnComment\":[\"审核id（uuid）\"],\"columns[0].javaType\":[\"String\"],\"columns[0].javaField\":[\"businessCreditEvaluationAuditId\"],\"columns[0].isInsert\":[\"1\"],\"columns[0].queryType\":[\"EQ\"],\"columns[0].htmlType\":[\"input\"],\"columns[0].dictType\":[\"\"],\"columns[1].columnId\":[\"10\"],\"columns[1].sort\":[\"2\"],\"columns[1].columnComment\":[\"审核单id\"],\"columns[1].javaType\":[\"String\"],\"columns[1].javaField\":[\"checklistId\"],\"columns[1].isInsert\":[\"1\"],\"columns[1].isEdit\":[\"1\"],\"columns[1].isList\":[\"1\"],\"columns[1].isQuery\":[\"1\"],\"columns[1].queryType\":[\"EQ\"],\"columns[1].isRequired\":[\"1\"],\"columns[1].htmlType\":[\"input\"],\"columns[1].dictType\":[\"\"],\"columns[2].columnId\":[\"11\"],\"columns[2].sort\":[\"3\"],\"columns[2].columnComment\":[\"法人姓名\"],\"columns[2].javaType\":[\"String\"],\"columns[2].javaField\":[\"frName\"],\"columns[2].isInsert\":[\"1\"],\"columns[2].isEdit\":[\"1\"],\"columns[2].isList\":[\"1\"],\"columns[2].isQuery\":[\"1\"],\"columns[2].queryType\":[\"LIKE\"],\"columns[2].htmlType\":[\"input\"],\"columns[2].dictType\":[\"\"],\"columns[3].columnId\":[\"12\"],\"columns[3].sort\":[\"4\"],\"columns[3].columnComment\":[\"法人犯罪记录信息jpg照片\"],\"columns[3].javaType\":[\"String\"],\"columns[3].javaField\":[\"frCriminalRecord\"],\"columns[3].isInsert\":[\"1\"],\"columns[3].isEdit\":[\"1\"],\"columns[3].isList\":[\"1\"],\"columns[3].isQuery\":[\"1\"],\"columns[3].queryType\":[\"EQ\"],\"columns[3].htmlType\":[\"upload\"],\"columns[3].dictType\":[\"\"],\"columns[4].columnId\":[\"13\"],\"columns[4].sort\":[\"5\"],\"columns[4].columnComment\":[\"创建时间\"],\"columns[4].javaType\":[\"Date\"],\"columns[4].javaField\":[\"createDatetime\"],\"columns[4].isInsert\":[\"1\"],\"columns[4].isEdit\":[\"1\"],\"columns[4].isList\":[\"1\"],\"columns[4].isQuery\":[\"1\"],\"columns[4].queryType\":[\"EQ\"],\"columns[4].htmlType\":[\"datetime\"],\"columns[4].dictType\":[\"\"],\"tplCategory\":[\"crud\"],\"packageName', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 13:54:32');
+INSERT INTO `sys_oper_log` VALUES ('175', '代码生成', '2', 'com.cps.generator.controller.GenController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/tool/gen/edit', '127.0.0.1', '内网IP', '{\"tableId\":[\"3\"],\"tableName\":[\"audit_business_license_info\"],\"tableComment\":[\"小商超审核信息表\"],\"className\":[\"BusinessLicenseInfo\"],\"functionAuthor\":[\"fmy\"],\"remark\":[\"\"],\"columns[0].columnId\":[\"14\"],\"columns[0].sort\":[\"1\"],\"columns[0].columnComment\":[\"审核单id\"],\"columns[0].javaType\":[\"String\"],\"columns[0].javaField\":[\"businessAuditDocumentId\"],\"columns[0].isInsert\":[\"1\"],\"columns[0].queryType\":[\"EQ\"],\"columns[0].htmlType\":[\"input\"],\"columns[0].dictType\":[\"\"],\"columns[1].columnId\":[\"15\"],\"columns[1].sort\":[\"2\"],\"columns[1].columnComment\":[\"个体工商户营业执照jpg照片\"],\"columns[1].javaType\":[\"String\"],\"columns[1].javaField\":[\"businessLicense\"],\"columns[1].isInsert\":[\"1\"],\"columns[1].isEdit\":[\"1\"],\"columns[1].isList\":[\"1\"],\"columns[1].isQuery\":[\"1\"],\"columns[1].queryType\":[\"EQ\"],\"columns[1].htmlType\":[\"upload\"],\"columns[1].dictType\":[\"\"],\"columns[2].columnId\":[\"16\"],\"columns[2].sort\":[\"3\"],\"columns[2].columnComment\":[\"个体工商户营业执照号码\"],\"columns[2].javaType\":[\"String\"],\"columns[2].javaField\":[\"businessLicenseNumber\"],\"columns[2].isInsert\":[\"1\"],\"columns[2].isEdit\":[\"1\"],\"columns[2].isList\":[\"1\"],\"columns[2].isQuery\":[\"1\"],\"columns[2].queryType\":[\"EQ\"],\"columns[2].isRequired\":[\"1\"],\"columns[2].htmlType\":[\"input\"],\"columns[2].dictType\":[\"\"],\"columns[3].columnId\":[\"17\"],\"columns[3].sort\":[\"4\"],\"columns[3].columnComment\":[\"经营者\"],\"columns[3].javaType\":[\"String\"],\"columns[3].javaField\":[\"managerName\"],\"columns[3].isInsert\":[\"1\"],\"columns[3].isEdit\":[\"1\"],\"columns[3].isList\":[\"1\"],\"columns[3].isQuery\":[\"1\"],\"columns[3].queryType\":[\"LIKE\"],\"columns[3].htmlType\":[\"input\"],\"columns[3].dictType\":[\"\"],\"columns[4].columnId\":[\"18\"],\"columns[4].sort\":[\"5\"],\"columns[4].columnComment\":[\"小商超名称\"],\"columns[4].javaType\":[\"String\"],\"columns[4].javaField\":[\"businessName\"],\"columns[4].isInsert\":[\"1\"],\"columns[4].isEdit\":[\"1\"],\"columns[4].isList\":[\"1\"],\"columns[4].isQuery\":[\"1\"],\"columns[4].queryType\":[\"LIKE\"],\"columns[4].htmlType\":[\"input\"],\"columns[4].dictType\":[\"\"],\"columns[5].columnId\":[\"19\"],\"columns[5].sort\":[\"6', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 13:54:53');
+INSERT INTO `sys_oper_log` VALUES ('176', '代码生成', '2', 'com.cps.generator.controller.GenController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/tool/gen/edit', '127.0.0.1', '内网IP', '{\"tableId\":[\"4\"],\"tableName\":[\"audit_supplier_credit_evaluation_info\"],\"tableComment\":[\"供应商评价审核信息表\"],\"className\":[\"SupplierCreditEvaluationInfo\"],\"functionAuthor\":[\"fmy\"],\"remark\":[\"\"],\"columns[0].columnId\":[\"34\"],\"columns[0].sort\":[\"1\"],\"columns[0].columnComment\":[\"审核id（uuid）\"],\"columns[0].javaType\":[\"String\"],\"columns[0].javaField\":[\"supplierCreditEvaluationAuditId\"],\"columns[0].isInsert\":[\"1\"],\"columns[0].queryType\":[\"EQ\"],\"columns[0].htmlType\":[\"input\"],\"columns[0].dictType\":[\"\"],\"columns[1].columnId\":[\"35\"],\"columns[1].sort\":[\"2\"],\"columns[1].columnComment\":[\"审核单id\"],\"columns[1].javaType\":[\"String\"],\"columns[1].javaField\":[\"checklistId\"],\"columns[1].isInsert\":[\"1\"],\"columns[1].isEdit\":[\"1\"],\"columns[1].isList\":[\"1\"],\"columns[1].isQuery\":[\"1\"],\"columns[1].queryType\":[\"EQ\"],\"columns[1].isRequired\":[\"1\"],\"columns[1].htmlType\":[\"input\"],\"columns[1].dictType\":[\"\"],\"columns[2].columnId\":[\"36\"],\"columns[2].sort\":[\"3\"],\"columns[2].columnComment\":[\"公司名称\"],\"columns[2].javaType\":[\"String\"],\"columns[2].javaField\":[\"corporateName\"],\"columns[2].isInsert\":[\"1\"],\"columns[2].isEdit\":[\"1\"],\"columns[2].isList\":[\"1\"],\"columns[2].isQuery\":[\"1\"],\"columns[2].queryType\":[\"LIKE\"],\"columns[2].htmlType\":[\"input\"],\"columns[2].dictType\":[\"\"],\"columns[3].columnId\":[\"37\"],\"columns[3].sort\":[\"4\"],\"columns[3].columnComment\":[\"公司征信信息jpg照片\"],\"columns[3].javaType\":[\"String\"],\"columns[3].javaField\":[\"corporateCreditInfo\"],\"columns[3].isInsert\":[\"1\"],\"columns[3].isEdit\":[\"1\"],\"columns[3].isList\":[\"1\"],\"columns[3].isQuery\":[\"1\"],\"columns[3].queryType\":[\"EQ\"],\"columns[3].htmlType\":[\"upload\"],\"columns[3].dictType\":[\"\"],\"columns[4].columnId\":[\"38\"],\"columns[4].sort\":[\"5\"],\"columns[4].columnComment\":[\"法人姓名\"],\"columns[4].javaType\":[\"String\"],\"columns[4].javaField\":[\"frName\"],\"columns[4].isInsert\":[\"1\"],\"columns[4].isEdit\":[\"1\"],\"columns[4].isList\":[\"1\"],\"columns[4].isQuery\":[\"1\"],\"columns[4].queryType\":[\"LIKE\"],\"columns[4].htmlType\":[\"input\"],\"columns[4].dictType\":[\"\"],\"columns[5].columnId\":[\"39\"],\"colum', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 13:55:10');
+INSERT INTO `sys_oper_log` VALUES ('177', '代码生成', '2', 'com.cps.generator.controller.GenController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/tool/gen/edit', '127.0.0.1', '内网IP', '{\"tableId\":[\"5\"],\"tableName\":[\"audit_supplier_license_info\"],\"tableComment\":[\"供应商营业执照审核信息表\"],\"className\":[\"SupplierLicenseInfo\"],\"functionAuthor\":[\"fmy\"],\"remark\":[\"\"],\"columns[0].columnId\":[\"41\"],\"columns[0].sort\":[\"1\"],\"columns[0].columnComment\":[\"审核单id\"],\"columns[0].javaType\":[\"String\"],\"columns[0].javaField\":[\"checklistId\"],\"columns[0].isInsert\":[\"1\"],\"columns[0].queryType\":[\"EQ\"],\"columns[0].htmlType\":[\"input\"],\"columns[0].dictType\":[\"\"],\"columns[1].columnId\":[\"42\"],\"columns[1].sort\":[\"2\"],\"columns[1].columnComment\":[\"公司名称\"],\"columns[1].javaType\":[\"String\"],\"columns[1].javaField\":[\"corporateName\"],\"columns[1].isInsert\":[\"1\"],\"columns[1].isEdit\":[\"1\"],\"columns[1].isList\":[\"1\"],\"columns[1].isQuery\":[\"1\"],\"columns[1].queryType\":[\"LIKE\"],\"columns[1].htmlType\":[\"input\"],\"columns[1].dictType\":[\"\"],\"columns[2].columnId\":[\"43\"],\"columns[2].sort\":[\"3\"],\"columns[2].columnComment\":[\"全国信息代码号\"],\"columns[2].javaType\":[\"String\"],\"columns[2].javaField\":[\"registrationNumber\"],\"columns[2].isInsert\":[\"1\"],\"columns[2].isEdit\":[\"1\"],\"columns[2].isList\":[\"1\"],\"columns[2].isQuery\":[\"1\"],\"columns[2].queryType\":[\"EQ\"],\"columns[2].isRequired\":[\"1\"],\"columns[2].htmlType\":[\"input\"],\"columns[2].dictType\":[\"\"],\"columns[3].columnId\":[\"44\"],\"columns[3].sort\":[\"4\"],\"columns[3].columnComment\":[\"法人姓名\"],\"columns[3].javaType\":[\"String\"],\"columns[3].javaField\":[\"frName\"],\"columns[3].isInsert\":[\"1\"],\"columns[3].isEdit\":[\"1\"],\"columns[3].isList\":[\"1\"],\"columns[3].isQuery\":[\"1\"],\"columns[3].queryType\":[\"LIKE\"],\"columns[3].htmlType\":[\"input\"],\"columns[3].dictType\":[\"\"],\"columns[4].columnId\":[\"45\"],\"columns[4].sort\":[\"5\"],\"columns[4].columnComment\":[\"法人身份证号码\"],\"columns[4].javaType\":[\"String\"],\"columns[4].javaField\":[\"idNumber\"],\"columns[4].isInsert\":[\"1\"],\"columns[4].isEdit\":[\"1\"],\"columns[4].isList\":[\"1\"],\"columns[4].isQuery\":[\"1\"],\"columns[4].queryType\":[\"EQ\"],\"columns[4].htmlType\":[\"input\"],\"columns[4].dictType\":[\"\"],\"columns[5].columnId\":[\"46\"],\"columns[5].sort\":[\"6\"],\"columns[5].columnComment\":[\"法人', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 13:55:25');
+INSERT INTO `sys_oper_log` VALUES ('178', '代码生成', '8', 'com.cps.generator.controller.GenController.batchGenCode()', 'GET', '1', 'admin', '研发部门', '/cps/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{\"tables\":[\"audit_business_credit_evaluation_info,audit_business_license_info,audit_supplier_credit_evaluation_info,audit_supplier_license_info\"]}', null, '0', null, '2022-08-25 13:55:47');
+INSERT INTO `sys_oper_log` VALUES ('179', '代码生成', '2', 'com.cps.generator.controller.GenController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/tool/gen/edit', '127.0.0.1', '内网IP', '{\"tableId\":[\"3\"],\"tableName\":[\"audit_business_license_info\"],\"tableComment\":[\"小商超审核信息表\"],\"className\":[\"BusinessLicenseInfo\"],\"functionAuthor\":[\"fmy\"],\"remark\":[\"\"],\"columns[0].columnId\":[\"14\"],\"columns[0].sort\":[\"1\"],\"columns[0].columnComment\":[\"审核单id\"],\"columns[0].javaType\":[\"String\"],\"columns[0].javaField\":[\"businessAuditDocumentId\"],\"columns[0].isInsert\":[\"1\"],\"columns[0].queryType\":[\"EQ\"],\"columns[0].htmlType\":[\"input\"],\"columns[0].dictType\":[\"\"],\"columns[1].columnId\":[\"15\"],\"columns[1].sort\":[\"2\"],\"columns[1].columnComment\":[\"个体工商户营业执照jpg照片\"],\"columns[1].javaType\":[\"String\"],\"columns[1].javaField\":[\"businessLicense\"],\"columns[1].isInsert\":[\"1\"],\"columns[1].isEdit\":[\"1\"],\"columns[1].isList\":[\"1\"],\"columns[1].isQuery\":[\"1\"],\"columns[1].queryType\":[\"EQ\"],\"columns[1].htmlType\":[\"upload\"],\"columns[1].dictType\":[\"\"],\"columns[2].columnId\":[\"16\"],\"columns[2].sort\":[\"3\"],\"columns[2].columnComment\":[\"个体工商户营业执照号码\"],\"columns[2].javaType\":[\"String\"],\"columns[2].javaField\":[\"businessLicenseNumber\"],\"columns[2].isInsert\":[\"1\"],\"columns[2].isEdit\":[\"1\"],\"columns[2].isList\":[\"1\"],\"columns[2].isQuery\":[\"1\"],\"columns[2].queryType\":[\"EQ\"],\"columns[2].isRequired\":[\"1\"],\"columns[2].htmlType\":[\"input\"],\"columns[2].dictType\":[\"\"],\"columns[3].columnId\":[\"17\"],\"columns[3].sort\":[\"4\"],\"columns[3].columnComment\":[\"经营者\"],\"columns[3].javaType\":[\"String\"],\"columns[3].javaField\":[\"managerName\"],\"columns[3].isInsert\":[\"1\"],\"columns[3].isEdit\":[\"1\"],\"columns[3].isList\":[\"1\"],\"columns[3].isQuery\":[\"1\"],\"columns[3].queryType\":[\"LIKE\"],\"columns[3].htmlType\":[\"input\"],\"columns[3].dictType\":[\"\"],\"columns[4].columnId\":[\"18\"],\"columns[4].sort\":[\"5\"],\"columns[4].columnComment\":[\"小商超名称\"],\"columns[4].javaType\":[\"String\"],\"columns[4].javaField\":[\"businessName\"],\"columns[4].isInsert\":[\"1\"],\"columns[4].isEdit\":[\"1\"],\"columns[4].isList\":[\"1\"],\"columns[4].isQuery\":[\"1\"],\"columns[4].queryType\":[\"LIKE\"],\"columns[4].htmlType\":[\"input\"],\"columns[4].dictType\":[\"\"],\"columns[5].columnId\":[\"19\"],\"columns[5].sort\":[\"6', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:02:48');
+INSERT INTO `sys_oper_log` VALUES ('180', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2092\"],\"parentId\":[\"2073\"],\"menuType\":[\"C\"],\"menuName\":[\"小商超营业执照审核\"],\"url\":[\"/audit/businessLicenseManage\"],\"target\":[\"menuItem\"],\"perms\":[\"audit:businessLicenseManage:view\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:03:03');
+INSERT INTO `sys_oper_log` VALUES ('181', '菜单管理', '1', 'com.cps.web.controller.system.SysMenuController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"2217\"],\"menuType\":[\"F\"],\"menuName\":[\"测试\"],\"url\":[\"\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"1\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:03:55');
+INSERT INTO `sys_oper_log` VALUES ('182', '菜单管理', '3', 'com.cps.web.controller.system.SysMenuController.remove()', 'GET', '1', 'admin', '研发部门', '/cps/system/menu/remove/2249', '127.0.0.1', '内网IP', '2249', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:04:30');
+INSERT INTO `sys_oper_log` VALUES ('183', '菜单管理', '3', 'com.cps.web.controller.system.SysMenuController.remove()', 'GET', '1', 'admin', '研发部门', '/cps/system/menu/remove/2220', '127.0.0.1', '内网IP', '2220', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:04:39');
+INSERT INTO `sys_oper_log` VALUES ('184', '菜单管理', '3', 'com.cps.web.controller.system.SysMenuController.remove()', 'GET', '1', 'admin', '研发部门', '/cps/system/menu/remove/2222', '127.0.0.1', '内网IP', '2222', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:04:51');
+INSERT INTO `sys_oper_log` VALUES ('185', '菜单管理', '3', 'com.cps.web.controller.system.SysMenuController.remove()', 'GET', '1', 'admin', '研发部门', '/cps/system/menu/remove/2223', '127.0.0.1', '内网IP', '2223', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:04:58');
+INSERT INTO `sys_oper_log` VALUES ('186', '菜单管理', '3', 'com.cps.web.controller.system.SysMenuController.remove()', 'GET', '1', 'admin', '研发部门', '/cps/system/menu/remove/2224', '127.0.0.1', '内网IP', '2224', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:05:03');
+INSERT INTO `sys_oper_log` VALUES ('187', '菜单管理', '1', 'com.cps.web.controller.system.SysMenuController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"提交各种材料\"],\"url\":[\"\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"6\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:10:59');
+INSERT INTO `sys_oper_log` VALUES ('188', '代码生成', '2', 'com.cps.generator.controller.GenController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/tool/gen/edit', '127.0.0.1', '内网IP', '{\"tableId\":[\"2\"],\"tableName\":[\"audit_business_credit_evaluation_info\"],\"tableComment\":[\"小商超信用评价审核信息表\"],\"className\":[\"BusinessCreditEvaluationInfo\"],\"functionAuthor\":[\"fmy\"],\"remark\":[\"\"],\"columns[0].columnId\":[\"9\"],\"columns[0].sort\":[\"1\"],\"columns[0].columnComment\":[\"审核id（uuid）\"],\"columns[0].javaType\":[\"String\"],\"columns[0].javaField\":[\"businessCreditEvaluationAuditId\"],\"columns[0].isInsert\":[\"1\"],\"columns[0].queryType\":[\"EQ\"],\"columns[0].htmlType\":[\"input\"],\"columns[0].dictType\":[\"\"],\"columns[1].columnId\":[\"10\"],\"columns[1].sort\":[\"2\"],\"columns[1].columnComment\":[\"审核单id\"],\"columns[1].javaType\":[\"String\"],\"columns[1].javaField\":[\"checklistId\"],\"columns[1].isInsert\":[\"1\"],\"columns[1].isEdit\":[\"1\"],\"columns[1].isList\":[\"1\"],\"columns[1].isQuery\":[\"1\"],\"columns[1].queryType\":[\"EQ\"],\"columns[1].isRequired\":[\"1\"],\"columns[1].htmlType\":[\"input\"],\"columns[1].dictType\":[\"\"],\"columns[2].columnId\":[\"11\"],\"columns[2].sort\":[\"3\"],\"columns[2].columnComment\":[\"法人姓名\"],\"columns[2].javaType\":[\"String\"],\"columns[2].javaField\":[\"frName\"],\"columns[2].isInsert\":[\"1\"],\"columns[2].isEdit\":[\"1\"],\"columns[2].isList\":[\"1\"],\"columns[2].isQuery\":[\"1\"],\"columns[2].queryType\":[\"LIKE\"],\"columns[2].htmlType\":[\"input\"],\"columns[2].dictType\":[\"\"],\"columns[3].columnId\":[\"12\"],\"columns[3].sort\":[\"4\"],\"columns[3].columnComment\":[\"法人犯罪记录信息jpg照片\"],\"columns[3].javaType\":[\"String\"],\"columns[3].javaField\":[\"frCriminalRecord\"],\"columns[3].isInsert\":[\"1\"],\"columns[3].isEdit\":[\"1\"],\"columns[3].isList\":[\"1\"],\"columns[3].isQuery\":[\"1\"],\"columns[3].queryType\":[\"EQ\"],\"columns[3].htmlType\":[\"upload\"],\"columns[3].dictType\":[\"\"],\"columns[4].columnId\":[\"13\"],\"columns[4].sort\":[\"5\"],\"columns[4].columnComment\":[\"创建时间\"],\"columns[4].javaType\":[\"Date\"],\"columns[4].javaField\":[\"createDatetime\"],\"columns[4].isInsert\":[\"1\"],\"columns[4].isEdit\":[\"1\"],\"columns[4].isList\":[\"1\"],\"columns[4].isQuery\":[\"1\"],\"columns[4].queryType\":[\"EQ\"],\"columns[4].htmlType\":[\"datetime\"],\"columns[4].dictType\":[\"\"],\"tplCategory\":[\"crud\"],\"packageName', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:11:29');
+INSERT INTO `sys_oper_log` VALUES ('189', '代码生成', '8', 'com.cps.generator.controller.GenController.batchGenCode()', 'GET', '1', 'admin', '研发部门', '/cps/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{\"tables\":[\"audit_business_credit_evaluation_info\"]}', null, '0', null, '2022-08-25 14:11:33');
+INSERT INTO `sys_oper_log` VALUES ('190', '菜单管理', '1', 'com.cps.web.controller.system.SysMenuController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"0\"],\"menuType\":[\"F\"],\"menuName\":[\"测试\"],\"url\":[\"\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"1\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:17:53');
+INSERT INTO `sys_oper_log` VALUES ('191', '菜单管理', '3', 'com.cps.web.controller.system.SysMenuController.remove()', 'GET', '1', 'admin', '研发部门', '/cps/system/menu/remove/2257', '127.0.0.1', '内网IP', '2257', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:18:46');
+INSERT INTO `sys_oper_log` VALUES ('192', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"4\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"若依官网\"],\"url\":[\"https://www.dlut.edu.cn/\"],\"target\":[\"menuBlank\"],\"perms\":[\"\"],\"orderNum\":[\"4\"],\"icon\":[\"fa fa-location-arrow\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:19:20');
+INSERT INTO `sys_oper_log` VALUES ('193', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"4\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"若依官网\"],\"url\":[\"https://www.dlut.edu.cn/\"],\"target\":[\"menuBlank\"],\"perms\":[\"\"],\"orderNum\":[\"4\"],\"icon\":[\"fa fa-location-arrow\"],\"visible\":[\"1\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:19:38');
+INSERT INTO `sys_oper_log` VALUES ('194', '菜单管理', '1', 'com.cps.web.controller.system.SysMenuController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"0\"],\"menuType\":[\"M\"],\"menuName\":[\"提交相关材料\"],\"url\":[\"\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"6\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:20:07');
+INSERT INTO `sys_oper_log` VALUES ('195', '代码生成', '2', 'com.cps.generator.controller.GenController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/tool/gen/edit', '127.0.0.1', '内网IP', '{\"tableId\":[\"2\"],\"tableName\":[\"audit_business_credit_evaluation_info\"],\"tableComment\":[\"小商超信用评价审核信息表\"],\"className\":[\"BusinessCreditEvaluationInfo\"],\"functionAuthor\":[\"fmy\"],\"remark\":[\"\"],\"columns[0].columnId\":[\"9\"],\"columns[0].sort\":[\"1\"],\"columns[0].columnComment\":[\"审核id（uuid）\"],\"columns[0].javaType\":[\"String\"],\"columns[0].javaField\":[\"businessCreditEvaluationAuditId\"],\"columns[0].isInsert\":[\"1\"],\"columns[0].queryType\":[\"EQ\"],\"columns[0].htmlType\":[\"input\"],\"columns[0].dictType\":[\"\"],\"columns[1].columnId\":[\"10\"],\"columns[1].sort\":[\"2\"],\"columns[1].columnComment\":[\"审核单id\"],\"columns[1].javaType\":[\"String\"],\"columns[1].javaField\":[\"checklistId\"],\"columns[1].isInsert\":[\"1\"],\"columns[1].isEdit\":[\"1\"],\"columns[1].isList\":[\"1\"],\"columns[1].isQuery\":[\"1\"],\"columns[1].queryType\":[\"EQ\"],\"columns[1].isRequired\":[\"1\"],\"columns[1].htmlType\":[\"input\"],\"columns[1].dictType\":[\"\"],\"columns[2].columnId\":[\"11\"],\"columns[2].sort\":[\"3\"],\"columns[2].columnComment\":[\"法人姓名\"],\"columns[2].javaType\":[\"String\"],\"columns[2].javaField\":[\"frName\"],\"columns[2].isInsert\":[\"1\"],\"columns[2].isEdit\":[\"1\"],\"columns[2].isList\":[\"1\"],\"columns[2].isQuery\":[\"1\"],\"columns[2].queryType\":[\"LIKE\"],\"columns[2].htmlType\":[\"input\"],\"columns[2].dictType\":[\"\"],\"columns[3].columnId\":[\"12\"],\"columns[3].sort\":[\"4\"],\"columns[3].columnComment\":[\"法人犯罪记录信息jpg照片\"],\"columns[3].javaType\":[\"String\"],\"columns[3].javaField\":[\"frCriminalRecord\"],\"columns[3].isInsert\":[\"1\"],\"columns[3].isEdit\":[\"1\"],\"columns[3].isList\":[\"1\"],\"columns[3].isQuery\":[\"1\"],\"columns[3].queryType\":[\"EQ\"],\"columns[3].htmlType\":[\"upload\"],\"columns[3].dictType\":[\"\"],\"columns[4].columnId\":[\"13\"],\"columns[4].sort\":[\"5\"],\"columns[4].columnComment\":[\"创建时间\"],\"columns[4].javaType\":[\"Date\"],\"columns[4].javaField\":[\"createDatetime\"],\"columns[4].isInsert\":[\"1\"],\"columns[4].isEdit\":[\"1\"],\"columns[4].isList\":[\"1\"],\"columns[4].isQuery\":[\"1\"],\"columns[4].queryType\":[\"EQ\"],\"columns[4].htmlType\":[\"datetime\"],\"columns[4].dictType\":[\"\"],\"tplCategory\":[\"crud\"],\"packageName', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:20:24');
+INSERT INTO `sys_oper_log` VALUES ('196', '代码生成', '2', 'com.cps.generator.controller.GenController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/tool/gen/edit', '127.0.0.1', '内网IP', '{\"tableId\":[\"3\"],\"tableName\":[\"audit_business_license_info\"],\"tableComment\":[\"小商超审核信息表\"],\"className\":[\"BusinessLicenseInfo\"],\"functionAuthor\":[\"fmy\"],\"remark\":[\"\"],\"columns[0].columnId\":[\"14\"],\"columns[0].sort\":[\"1\"],\"columns[0].columnComment\":[\"审核单id\"],\"columns[0].javaType\":[\"String\"],\"columns[0].javaField\":[\"businessAuditDocumentId\"],\"columns[0].isInsert\":[\"1\"],\"columns[0].queryType\":[\"EQ\"],\"columns[0].htmlType\":[\"input\"],\"columns[0].dictType\":[\"\"],\"columns[1].columnId\":[\"15\"],\"columns[1].sort\":[\"2\"],\"columns[1].columnComment\":[\"个体工商户营业执照jpg照片\"],\"columns[1].javaType\":[\"String\"],\"columns[1].javaField\":[\"businessLicense\"],\"columns[1].isInsert\":[\"1\"],\"columns[1].isEdit\":[\"1\"],\"columns[1].isList\":[\"1\"],\"columns[1].isQuery\":[\"1\"],\"columns[1].queryType\":[\"EQ\"],\"columns[1].htmlType\":[\"upload\"],\"columns[1].dictType\":[\"\"],\"columns[2].columnId\":[\"16\"],\"columns[2].sort\":[\"3\"],\"columns[2].columnComment\":[\"个体工商户营业执照号码\"],\"columns[2].javaType\":[\"String\"],\"columns[2].javaField\":[\"businessLicenseNumber\"],\"columns[2].isInsert\":[\"1\"],\"columns[2].isEdit\":[\"1\"],\"columns[2].isList\":[\"1\"],\"columns[2].isQuery\":[\"1\"],\"columns[2].queryType\":[\"EQ\"],\"columns[2].isRequired\":[\"1\"],\"columns[2].htmlType\":[\"input\"],\"columns[2].dictType\":[\"\"],\"columns[3].columnId\":[\"17\"],\"columns[3].sort\":[\"4\"],\"columns[3].columnComment\":[\"经营者\"],\"columns[3].javaType\":[\"String\"],\"columns[3].javaField\":[\"managerName\"],\"columns[3].isInsert\":[\"1\"],\"columns[3].isEdit\":[\"1\"],\"columns[3].isList\":[\"1\"],\"columns[3].isQuery\":[\"1\"],\"columns[3].queryType\":[\"LIKE\"],\"columns[3].htmlType\":[\"input\"],\"columns[3].dictType\":[\"\"],\"columns[4].columnId\":[\"18\"],\"columns[4].sort\":[\"5\"],\"columns[4].columnComment\":[\"小商超名称\"],\"columns[4].javaType\":[\"String\"],\"columns[4].javaField\":[\"businessName\"],\"columns[4].isInsert\":[\"1\"],\"columns[4].isEdit\":[\"1\"],\"columns[4].isList\":[\"1\"],\"columns[4].isQuery\":[\"1\"],\"columns[4].queryType\":[\"LIKE\"],\"columns[4].htmlType\":[\"input\"],\"columns[4].dictType\":[\"\"],\"columns[5].columnId\":[\"19\"],\"columns[5].sort\":[\"6', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:20:34');
+INSERT INTO `sys_oper_log` VALUES ('197', '代码生成', '2', 'com.cps.generator.controller.GenController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/tool/gen/edit', '127.0.0.1', '内网IP', '{\"tableId\":[\"4\"],\"tableName\":[\"audit_supplier_credit_evaluation_info\"],\"tableComment\":[\"供应商评价审核信息表\"],\"className\":[\"SupplierCreditEvaluationInfo\"],\"functionAuthor\":[\"fmy\"],\"remark\":[\"\"],\"columns[0].columnId\":[\"34\"],\"columns[0].sort\":[\"1\"],\"columns[0].columnComment\":[\"审核id（uuid）\"],\"columns[0].javaType\":[\"String\"],\"columns[0].javaField\":[\"supplierCreditEvaluationAuditId\"],\"columns[0].isInsert\":[\"1\"],\"columns[0].queryType\":[\"EQ\"],\"columns[0].htmlType\":[\"input\"],\"columns[0].dictType\":[\"\"],\"columns[1].columnId\":[\"35\"],\"columns[1].sort\":[\"2\"],\"columns[1].columnComment\":[\"审核单id\"],\"columns[1].javaType\":[\"String\"],\"columns[1].javaField\":[\"checklistId\"],\"columns[1].isInsert\":[\"1\"],\"columns[1].isEdit\":[\"1\"],\"columns[1].isList\":[\"1\"],\"columns[1].isQuery\":[\"1\"],\"columns[1].queryType\":[\"EQ\"],\"columns[1].isRequired\":[\"1\"],\"columns[1].htmlType\":[\"input\"],\"columns[1].dictType\":[\"\"],\"columns[2].columnId\":[\"36\"],\"columns[2].sort\":[\"3\"],\"columns[2].columnComment\":[\"公司名称\"],\"columns[2].javaType\":[\"String\"],\"columns[2].javaField\":[\"corporateName\"],\"columns[2].isInsert\":[\"1\"],\"columns[2].isEdit\":[\"1\"],\"columns[2].isList\":[\"1\"],\"columns[2].isQuery\":[\"1\"],\"columns[2].queryType\":[\"LIKE\"],\"columns[2].htmlType\":[\"input\"],\"columns[2].dictType\":[\"\"],\"columns[3].columnId\":[\"37\"],\"columns[3].sort\":[\"4\"],\"columns[3].columnComment\":[\"公司征信信息jpg照片\"],\"columns[3].javaType\":[\"String\"],\"columns[3].javaField\":[\"corporateCreditInfo\"],\"columns[3].isInsert\":[\"1\"],\"columns[3].isEdit\":[\"1\"],\"columns[3].isList\":[\"1\"],\"columns[3].isQuery\":[\"1\"],\"columns[3].queryType\":[\"EQ\"],\"columns[3].htmlType\":[\"upload\"],\"columns[3].dictType\":[\"\"],\"columns[4].columnId\":[\"38\"],\"columns[4].sort\":[\"5\"],\"columns[4].columnComment\":[\"法人姓名\"],\"columns[4].javaType\":[\"String\"],\"columns[4].javaField\":[\"frName\"],\"columns[4].isInsert\":[\"1\"],\"columns[4].isEdit\":[\"1\"],\"columns[4].isList\":[\"1\"],\"columns[4].isQuery\":[\"1\"],\"columns[4].queryType\":[\"LIKE\"],\"columns[4].htmlType\":[\"input\"],\"columns[4].dictType\":[\"\"],\"columns[5].columnId\":[\"39\"],\"colum', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:20:46');
+INSERT INTO `sys_oper_log` VALUES ('198', '代码生成', '2', 'com.cps.generator.controller.GenController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/tool/gen/edit', '127.0.0.1', '内网IP', '{\"tableId\":[\"5\"],\"tableName\":[\"audit_supplier_license_info\"],\"tableComment\":[\"供应商营业执照审核信息表\"],\"className\":[\"SupplierLicenseInfo\"],\"functionAuthor\":[\"fmy\"],\"remark\":[\"\"],\"columns[0].columnId\":[\"41\"],\"columns[0].sort\":[\"1\"],\"columns[0].columnComment\":[\"审核单id\"],\"columns[0].javaType\":[\"String\"],\"columns[0].javaField\":[\"checklistId\"],\"columns[0].isInsert\":[\"1\"],\"columns[0].queryType\":[\"EQ\"],\"columns[0].htmlType\":[\"input\"],\"columns[0].dictType\":[\"\"],\"columns[1].columnId\":[\"42\"],\"columns[1].sort\":[\"2\"],\"columns[1].columnComment\":[\"公司名称\"],\"columns[1].javaType\":[\"String\"],\"columns[1].javaField\":[\"corporateName\"],\"columns[1].isInsert\":[\"1\"],\"columns[1].isEdit\":[\"1\"],\"columns[1].isList\":[\"1\"],\"columns[1].isQuery\":[\"1\"],\"columns[1].queryType\":[\"LIKE\"],\"columns[1].htmlType\":[\"input\"],\"columns[1].dictType\":[\"\"],\"columns[2].columnId\":[\"43\"],\"columns[2].sort\":[\"3\"],\"columns[2].columnComment\":[\"全国信息代码号\"],\"columns[2].javaType\":[\"String\"],\"columns[2].javaField\":[\"registrationNumber\"],\"columns[2].isInsert\":[\"1\"],\"columns[2].isEdit\":[\"1\"],\"columns[2].isList\":[\"1\"],\"columns[2].isQuery\":[\"1\"],\"columns[2].queryType\":[\"EQ\"],\"columns[2].isRequired\":[\"1\"],\"columns[2].htmlType\":[\"input\"],\"columns[2].dictType\":[\"\"],\"columns[3].columnId\":[\"44\"],\"columns[3].sort\":[\"4\"],\"columns[3].columnComment\":[\"法人姓名\"],\"columns[3].javaType\":[\"String\"],\"columns[3].javaField\":[\"frName\"],\"columns[3].isInsert\":[\"1\"],\"columns[3].isEdit\":[\"1\"],\"columns[3].isList\":[\"1\"],\"columns[3].isQuery\":[\"1\"],\"columns[3].queryType\":[\"LIKE\"],\"columns[3].htmlType\":[\"input\"],\"columns[3].dictType\":[\"\"],\"columns[4].columnId\":[\"45\"],\"columns[4].sort\":[\"5\"],\"columns[4].columnComment\":[\"法人身份证号码\"],\"columns[4].javaType\":[\"String\"],\"columns[4].javaField\":[\"idNumber\"],\"columns[4].isInsert\":[\"1\"],\"columns[4].isEdit\":[\"1\"],\"columns[4].isList\":[\"1\"],\"columns[4].isQuery\":[\"1\"],\"columns[4].queryType\":[\"EQ\"],\"columns[4].htmlType\":[\"input\"],\"columns[4].dictType\":[\"\"],\"columns[5].columnId\":[\"46\"],\"columns[5].sort\":[\"6\"],\"columns[5].columnComment\":[\"法人', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:21:13');
+INSERT INTO `sys_oper_log` VALUES ('199', '代码生成', '2', 'com.cps.generator.controller.GenController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/tool/gen/edit', '127.0.0.1', '内网IP', '{\"tableId\":[\"5\"],\"tableName\":[\"audit_supplier_license_info\"],\"tableComment\":[\"供应商营业执照审核信息表\"],\"className\":[\"SupplierLicenseInfo\"],\"functionAuthor\":[\"fmy\"],\"remark\":[\"\"],\"columns[0].columnId\":[\"41\"],\"columns[0].sort\":[\"1\"],\"columns[0].columnComment\":[\"审核单id\"],\"columns[0].javaType\":[\"String\"],\"columns[0].javaField\":[\"checklistId\"],\"columns[0].isInsert\":[\"1\"],\"columns[0].queryType\":[\"EQ\"],\"columns[0].htmlType\":[\"input\"],\"columns[0].dictType\":[\"\"],\"columns[1].columnId\":[\"42\"],\"columns[1].sort\":[\"2\"],\"columns[1].columnComment\":[\"公司名称\"],\"columns[1].javaType\":[\"String\"],\"columns[1].javaField\":[\"corporateName\"],\"columns[1].isInsert\":[\"1\"],\"columns[1].isEdit\":[\"1\"],\"columns[1].isList\":[\"1\"],\"columns[1].isQuery\":[\"1\"],\"columns[1].queryType\":[\"LIKE\"],\"columns[1].htmlType\":[\"input\"],\"columns[1].dictType\":[\"\"],\"columns[2].columnId\":[\"43\"],\"columns[2].sort\":[\"3\"],\"columns[2].columnComment\":[\"全国信息代码号\"],\"columns[2].javaType\":[\"String\"],\"columns[2].javaField\":[\"registrationNumber\"],\"columns[2].isInsert\":[\"1\"],\"columns[2].isEdit\":[\"1\"],\"columns[2].isList\":[\"1\"],\"columns[2].isQuery\":[\"1\"],\"columns[2].queryType\":[\"EQ\"],\"columns[2].isRequired\":[\"1\"],\"columns[2].htmlType\":[\"input\"],\"columns[2].dictType\":[\"\"],\"columns[3].columnId\":[\"44\"],\"columns[3].sort\":[\"4\"],\"columns[3].columnComment\":[\"法人姓名\"],\"columns[3].javaType\":[\"String\"],\"columns[3].javaField\":[\"frName\"],\"columns[3].isInsert\":[\"1\"],\"columns[3].isEdit\":[\"1\"],\"columns[3].isList\":[\"1\"],\"columns[3].isQuery\":[\"1\"],\"columns[3].queryType\":[\"LIKE\"],\"columns[3].htmlType\":[\"input\"],\"columns[3].dictType\":[\"\"],\"columns[4].columnId\":[\"45\"],\"columns[4].sort\":[\"5\"],\"columns[4].columnComment\":[\"法人身份证号码\"],\"columns[4].javaType\":[\"String\"],\"columns[4].javaField\":[\"idNumber\"],\"columns[4].isInsert\":[\"1\"],\"columns[4].isEdit\":[\"1\"],\"columns[4].isList\":[\"1\"],\"columns[4].isQuery\":[\"1\"],\"columns[4].queryType\":[\"EQ\"],\"columns[4].htmlType\":[\"input\"],\"columns[4].dictType\":[\"\"],\"columns[5].columnId\":[\"46\"],\"columns[5].sort\":[\"6\"],\"columns[5].columnComment\":[\"法人', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:21:41');
+INSERT INTO `sys_oper_log` VALUES ('200', '代码生成', '8', 'com.cps.generator.controller.GenController.batchGenCode()', 'GET', '1', 'admin', '研发部门', '/cps/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{\"tables\":[\"audit_business_credit_evaluation_info,audit_business_license_info,audit_supplier_credit_evaluation_info,audit_supplier_license_info\"]}', null, '0', null, '2022-08-25 14:21:56');
+INSERT INTO `sys_oper_log` VALUES ('201', '角色管理', '2', 'com.cps.web.controller.system.SysRoleController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"103\"],\"roleName\":[\"供应商\"],\"roleKey\":[\"Supplier\"],\"roleSort\":[\"5\"],\"status\":[\"0\"],\"remark\":[\"供应商角色\"],\"menuIds\":[\"2258,2271,2272,2273,2274,2275,2276,2277,2278,2279,2280,2281,2282\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:25:43');
+INSERT INTO `sys_oper_log` VALUES ('202', '角色管理', '2', 'com.cps.web.controller.system.SysRoleController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"102\"],\"roleName\":[\"超市\"],\"roleKey\":[\"Supermarket\"],\"roleSort\":[\"4\"],\"status\":[\"0\"],\"remark\":[\"小超市\"],\"menuIds\":[\"2258,2259,2260,2261,2262,2263,2264,2265,2266,2267,2268,2269,2270\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:25:51');
+INSERT INTO `sys_oper_log` VALUES ('203', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2258\"],\"parentId\":[\"0\"],\"menuType\":[\"M\"],\"menuName\":[\"提交相关材料\"],\"url\":[\"#\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"6\"],\"icon\":[\"#\"],\"visible\":[\"1\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:26:01');
+INSERT INTO `sys_oper_log` VALUES ('204', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2258\"],\"parentId\":[\"0\"],\"menuType\":[\"M\"],\"menuName\":[\"提交相关材料\"],\"url\":[\"#\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"6\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:27:27');
+INSERT INTO `sys_oper_log` VALUES ('205', '角色管理', '2', 'com.cps.web.controller.system.SysRoleController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"103\"],\"roleName\":[\"供应商\"],\"roleKey\":[\"Supplier\"],\"roleSort\":[\"5\"],\"status\":[\"0\"],\"remark\":[\"供应商角色\"],\"menuIds\":[\"2258,2271,2273,2277,2279\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:28:27');
+INSERT INTO `sys_oper_log` VALUES ('206', '角色管理', '2', 'com.cps.web.controller.system.SysRoleController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"102\"],\"roleName\":[\"超市\"],\"roleKey\":[\"Supermarket\"],\"roleSort\":[\"4\"],\"status\":[\"0\"],\"remark\":[\"小超市\"],\"menuIds\":[\"2258,2259,2261,2265,2267\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:30:30');
+INSERT INTO `sys_oper_log` VALUES ('207', '角色管理', '2', 'com.cps.web.controller.system.SysRoleController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"102\"],\"roleName\":[\"超市\"],\"roleKey\":[\"Supermarket\"],\"roleSort\":[\"4\"],\"status\":[\"0\"],\"remark\":[\"小超市\"],\"menuIds\":[\"2258,2259,2261,2265,2267\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:30:43');
+INSERT INTO `sys_oper_log` VALUES ('208', '角色管理', '2', 'com.cps.web.controller.system.SysRoleController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"103\"],\"roleName\":[\"供应商\"],\"roleKey\":[\"Supplier\"],\"roleSort\":[\"5\"],\"status\":[\"0\"],\"remark\":[\"供应商角色\"],\"menuIds\":[\"2258,2271,2273,2277,2279\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:30:55');
+INSERT INTO `sys_oper_log` VALUES ('209', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', '小商超测试', null, '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"1223\"],\"frName\":[\"小商超1\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-25\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:31:46');
+INSERT INTO `sys_oper_log` VALUES ('210', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2259\"],\"parentId\":[\"2258\"],\"menuType\":[\"C\"],\"menuName\":[\"提交小商超信用评价\"],\"url\":[\"/audit/businessCreditEvaluationManage\"],\"target\":[\"menuItem\"],\"perms\":[\"audit:businessCreditEvaluationManage:view\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:33:04');
+INSERT INTO `sys_oper_log` VALUES ('211', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2265\"],\"parentId\":[\"2258\"],\"menuType\":[\"C\"],\"menuName\":[\"提交小商超营业执照\"],\"url\":[\"/audit/businessLicenseManage\"],\"target\":[\"menuItem\"],\"perms\":[\"audit:businessLicenseManage:view\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:33:30');
+INSERT INTO `sys_oper_log` VALUES ('212', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2271\"],\"parentId\":[\"2258\"],\"menuType\":[\"C\"],\"menuName\":[\"提交供应商信用评价\"],\"url\":[\"/audit/supplierCreditEvaluationManage\"],\"target\":[\"menuItem\"],\"perms\":[\"audit:supplierCreditEvaluationManage:view\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:33:50');
+INSERT INTO `sys_oper_log` VALUES ('213', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2277\"],\"parentId\":[\"2258\"],\"menuType\":[\"C\"],\"menuName\":[\"提交供应商营业执照\"],\"url\":[\"/audit/supplierLicenseManage\"],\"target\":[\"menuItem\"],\"perms\":[\"audit:supplierLicenseManage:view\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 14:34:09');
+INSERT INTO `sys_oper_log` VALUES ('214', '菜单管理', '1', 'com.cps.web.controller.system.SysMenuController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"2258\"],\"menuType\":[\"C\"],\"menuName\":[\"测试\"],\"url\":[\"\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"5\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 15:39:52');
+INSERT INTO `sys_oper_log` VALUES ('215', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2283\"],\"parentId\":[\"2258\"],\"menuType\":[\"C\"],\"menuName\":[\"/audit/test\"],\"url\":[\"#\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"5\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 15:40:55');
+INSERT INTO `sys_oper_log` VALUES ('216', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2283\"],\"parentId\":[\"2258\"],\"menuType\":[\"C\"],\"menuName\":[\"测试\"],\"url\":[\"/audit/test\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"5\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 15:41:09');
+INSERT INTO `sys_oper_log` VALUES ('217', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2283\"],\"parentId\":[\"2258\"],\"menuType\":[\"C\"],\"menuName\":[\"测试\"],\"url\":[\"/audit/businessCreditEvaluationManage\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"5\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 15:43:30');
+INSERT INTO `sys_oper_log` VALUES ('218', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2283\"],\"parentId\":[\"2258\"],\"menuType\":[\"C\"],\"menuName\":[\"测试\"],\"url\":[\"/audit/businessCreditEvaluationManage\"],\"target\":[\"menuBlank\"],\"perms\":[\"\"],\"orderNum\":[\"5\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 15:44:06');
+INSERT INTO `sys_oper_log` VALUES ('219', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2283\"],\"parentId\":[\"2258\"],\"menuType\":[\"C\"],\"menuName\":[\"测试\"],\"url\":[\"/audit/test\"],\"target\":[\"menuBlank\"],\"perms\":[\"\"],\"orderNum\":[\"5\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-25 15:45:20');
+INSERT INTO `sys_oper_log` VALUES ('220', '菜单管理', '3', 'com.cps.web.controller.system.SysMenuController.remove()', 'GET', '1', 'admin', '研发部门', '/cps/system/menu/remove/2258', '127.0.0.1', '内网IP', '2258', '{\"msg\":\"存在子菜单,不允许删除\",\"code\":301}', '0', null, '2022-08-26 09:14:40');
+INSERT INTO `sys_oper_log` VALUES ('221', '菜单管理', '3', 'com.cps.web.controller.system.SysMenuController.remove()', 'GET', '1', 'admin', '研发部门', '/cps/system/menu/remove/2283', '127.0.0.1', '内网IP', '2283', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 09:14:47');
+INSERT INTO `sys_oper_log` VALUES ('222', '角色管理', '2', 'com.cps.web.controller.system.SysRoleController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"103\"],\"roleName\":[\"供应商\"],\"roleKey\":[\"Supplier\"],\"roleSort\":[\"5\"],\"status\":[\"0\"],\"remark\":[\"供应商角色\"],\"menuIds\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 09:15:31');
+INSERT INTO `sys_oper_log` VALUES ('223', '角色管理', '2', 'com.cps.web.controller.system.SysRoleController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"102\"],\"roleName\":[\"超市\"],\"roleKey\":[\"Supermarket\"],\"roleSort\":[\"4\"],\"status\":[\"0\"],\"remark\":[\"小超市\"],\"menuIds\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 09:15:35');
+INSERT INTO `sys_oper_log` VALUES ('224', '菜单管理', '1', 'com.cps.web.controller.system.SysMenuController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"小商场提交审核材料\"],\"url\":[\"/submit/supermarket\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"6\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 09:28:03');
+INSERT INTO `sys_oper_log` VALUES ('225', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2284\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"小商场提交审核材料\"],\"url\":[\"/submit/supermarket\"],\"target\":[\"menuItem\"],\"perms\":[\"submit:supermarket:view\"],\"orderNum\":[\"6\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 09:31:39');
+INSERT INTO `sys_oper_log` VALUES ('226', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2284\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"小商场提交审核材料\"],\"url\":[\"supermarketsubmit\"],\"target\":[\"menuItem\"],\"perms\":[\"submit:supermarket:view\"],\"orderNum\":[\"6\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 09:45:21');
+INSERT INTO `sys_oper_log` VALUES ('227', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2284\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"小商场提交审核材料\"],\"url\":[\"/supermarketsubmit\"],\"target\":[\"menuItem\"],\"perms\":[\"submit:supermarket:view\"],\"orderNum\":[\"6\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 09:45:44');
+INSERT INTO `sys_oper_log` VALUES ('228', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2284\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"小商场提交审核材料\"],\"url\":[\"/supermarketsubmit\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"6\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 09:46:43');
+INSERT INTO `sys_oper_log` VALUES ('229', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2284\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"小商场提交审核材料\"],\"url\":[\"/submit/supermarket\"],\"target\":[\"menuItem\"],\"perms\":[\"submit:supermarket:view\"],\"orderNum\":[\"6\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 10:08:29');
+INSERT INTO `sys_oper_log` VALUES ('230', '菜单管理', '1', 'com.cps.web.controller.system.SysMenuController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"0\"],\"menuType\":[\"M\"],\"menuName\":[\"提交相关材料\"],\"url\":[\"\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"7\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 10:37:26');
+INSERT INTO `sys_oper_log` VALUES ('231', '菜单管理', '1', 'com.cps.web.controller.system.SysMenuController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"2285\"],\"menuType\":[\"C\"],\"menuName\":[\"小商场\"],\"url\":[\"/submit/supermarket\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"1\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 10:37:57');
+INSERT INTO `sys_oper_log` VALUES ('232', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2286\"],\"parentId\":[\"2285\"],\"menuType\":[\"C\"],\"menuName\":[\"小商场\"],\"url\":[\"/submit/supermarket\"],\"target\":[\"menuItem\"],\"perms\":[\"submit:supermarket:view\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 10:38:24');
+INSERT INTO `sys_oper_log` VALUES ('233', '菜单管理', '3', 'com.cps.web.controller.system.SysMenuController.remove()', 'GET', '1', 'admin', '研发部门', '/cps/system/menu/remove/2286', '127.0.0.1', '内网IP', '2286', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 10:41:04');
+INSERT INTO `sys_oper_log` VALUES ('234', '菜单管理', '3', 'com.cps.web.controller.system.SysMenuController.remove()', 'GET', '1', 'admin', '研发部门', '/cps/system/menu/remove/2285', '127.0.0.1', '内网IP', '2285', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 10:41:06');
+INSERT INTO `sys_oper_log` VALUES ('235', '代码生成', '2', 'com.cps.generator.controller.GenController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/tool/gen/edit', '127.0.0.1', '内网IP', '{\"tableId\":[\"20\"],\"tableName\":[\"supermarket\"],\"tableComment\":[\"超市角色\"],\"className\":[\"Supermarket\"],\"functionAuthor\":[\"cps\"],\"remark\":[\"\"],\"columns[0].columnId\":[\"229\"],\"columns[0].sort\":[\"1\"],\"columns[0].columnComment\":[\"\"],\"columns[0].javaType\":[\"Long\"],\"columns[0].javaField\":[\"shopId\"],\"columns[0].isInsert\":[\"1\"],\"columns[0].queryType\":[\"EQ\"],\"columns[0].htmlType\":[\"input\"],\"columns[0].dictType\":[\"\"],\"columns[1].columnId\":[\"230\"],\"columns[1].sort\":[\"2\"],\"columns[1].columnComment\":[\"超市名称\"],\"columns[1].javaType\":[\"String\"],\"columns[1].javaField\":[\"shopName\"],\"columns[1].isInsert\":[\"1\"],\"columns[1].isEdit\":[\"1\"],\"columns[1].isList\":[\"1\"],\"columns[1].isQuery\":[\"1\"],\"columns[1].queryType\":[\"LIKE\"],\"columns[1].isRequired\":[\"1\"],\"columns[1].htmlType\":[\"input\"],\"columns[1].dictType\":[\"\"],\"columns[2].columnId\":[\"231\"],\"columns[2].sort\":[\"3\"],\"columns[2].columnComment\":[\"昵称\"],\"columns[2].javaType\":[\"String\"],\"columns[2].javaField\":[\"nickname\"],\"columns[2].isInsert\":[\"1\"],\"columns[2].isEdit\":[\"1\"],\"columns[2].isList\":[\"1\"],\"columns[2].isQuery\":[\"1\"],\"columns[2].queryType\":[\"LIKE\"],\"columns[2].isRequired\":[\"1\"],\"columns[2].htmlType\":[\"input\"],\"columns[2].dictType\":[\"\"],\"columns[3].columnId\":[\"232\"],\"columns[3].sort\":[\"4\"],\"columns[3].columnComment\":[\"用户名\"],\"columns[3].javaType\":[\"String\"],\"columns[3].javaField\":[\"username\"],\"columns[3].isInsert\":[\"1\"],\"columns[3].queryType\":[\"LIKE\"],\"columns[3].isRequired\":[\"1\"],\"columns[3].htmlType\":[\"input\"],\"columns[3].dictType\":[\"\"],\"columns[4].columnId\":[\"233\"],\"columns[4].sort\":[\"5\"],\"columns[4].columnComment\":[\"密码\"],\"columns[4].javaType\":[\"String\"],\"columns[4].javaField\":[\"password\"],\"columns[4].isInsert\":[\"1\"],\"columns[4].isEdit\":[\"1\"],\"columns[4].queryType\":[\"EQ\"],\"columns[4].isRequired\":[\"1\"],\"columns[4].htmlType\":[\"input\"],\"columns[4].dictType\":[\"\"],\"columns[5].columnId\":[\"234\"],\"columns[5].sort\":[\"6\"],\"columns[5].columnComment\":[\"联系人姓名\"],\"columns[5].javaType\":[\"String\"],\"columns[5].javaField\":[\"contactPerson\"],\"columns[5].isInsert\"', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 10:47:30');
+INSERT INTO `sys_oper_log` VALUES ('236', '代码生成', '8', 'com.cps.generator.controller.GenController.batchGenCode()', 'GET', '1', 'admin', '研发部门', '/cps/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{\"tables\":[\"supermarket\"]}', null, '0', null, '2022-08-26 10:47:42');
+INSERT INTO `sys_oper_log` VALUES ('237', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2284\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"小商场提交审核材料\"],\"url\":[\"/supermarketsubmit\"],\"target\":[\"menuItem\"],\"perms\":[\"supermarketsubmit:view\"],\"orderNum\":[\"6\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 11:03:18');
+INSERT INTO `sys_oper_log` VALUES ('238', '代码生成', '2', 'com.cps.generator.controller.GenController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/tool/gen/edit', '127.0.0.1', '内网IP', '{\"tableId\":[\"20\"],\"tableName\":[\"supermarket\"],\"tableComment\":[\"超市角色\"],\"className\":[\"Supermarket\"],\"functionAuthor\":[\"cps\"],\"remark\":[\"\"],\"columns[0].columnId\":[\"229\"],\"columns[0].sort\":[\"1\"],\"columns[0].columnComment\":[\"\"],\"columns[0].javaType\":[\"Long\"],\"columns[0].javaField\":[\"shopId\"],\"columns[0].isInsert\":[\"1\"],\"columns[0].queryType\":[\"EQ\"],\"columns[0].htmlType\":[\"input\"],\"columns[0].dictType\":[\"\"],\"columns[1].columnId\":[\"230\"],\"columns[1].sort\":[\"2\"],\"columns[1].columnComment\":[\"超市名称\"],\"columns[1].javaType\":[\"String\"],\"columns[1].javaField\":[\"shopName\"],\"columns[1].isInsert\":[\"1\"],\"columns[1].isEdit\":[\"1\"],\"columns[1].isList\":[\"1\"],\"columns[1].isQuery\":[\"1\"],\"columns[1].queryType\":[\"LIKE\"],\"columns[1].isRequired\":[\"1\"],\"columns[1].htmlType\":[\"input\"],\"columns[1].dictType\":[\"\"],\"columns[2].columnId\":[\"231\"],\"columns[2].sort\":[\"3\"],\"columns[2].columnComment\":[\"昵称\"],\"columns[2].javaType\":[\"String\"],\"columns[2].javaField\":[\"nickname\"],\"columns[2].isInsert\":[\"1\"],\"columns[2].isEdit\":[\"1\"],\"columns[2].isList\":[\"1\"],\"columns[2].isQuery\":[\"1\"],\"columns[2].queryType\":[\"LIKE\"],\"columns[2].isRequired\":[\"1\"],\"columns[2].htmlType\":[\"input\"],\"columns[2].dictType\":[\"\"],\"columns[3].columnId\":[\"232\"],\"columns[3].sort\":[\"4\"],\"columns[3].columnComment\":[\"用户名\"],\"columns[3].javaType\":[\"String\"],\"columns[3].javaField\":[\"username\"],\"columns[3].isInsert\":[\"1\"],\"columns[3].queryType\":[\"LIKE\"],\"columns[3].isRequired\":[\"1\"],\"columns[3].htmlType\":[\"input\"],\"columns[3].dictType\":[\"\"],\"columns[4].columnId\":[\"233\"],\"columns[4].sort\":[\"5\"],\"columns[4].columnComment\":[\"密码\"],\"columns[4].javaType\":[\"String\"],\"columns[4].javaField\":[\"password\"],\"columns[4].isInsert\":[\"1\"],\"columns[4].isEdit\":[\"1\"],\"columns[4].queryType\":[\"EQ\"],\"columns[4].isRequired\":[\"1\"],\"columns[4].htmlType\":[\"input\"],\"columns[4].dictType\":[\"\"],\"columns[5].columnId\":[\"234\"],\"columns[5].sort\":[\"6\"],\"columns[5].columnComment\":[\"联系人姓名\"],\"columns[5].javaType\":[\"String\"],\"columns[5].javaField\":[\"contactPerson\"],\"columns[5].isInsert\"', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 11:07:29');
+INSERT INTO `sys_oper_log` VALUES ('239', '代码生成', '8', 'com.cps.generator.controller.GenController.batchGenCode()', 'GET', '1', 'admin', '研发部门', '/cps/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{\"tables\":[\"supermarket\"]}', null, '0', null, '2022-08-26 11:07:37');
+INSERT INTO `sys_oper_log` VALUES ('240', '代码生成', '2', 'com.cps.generator.controller.GenController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/tool/gen/edit', '127.0.0.1', '内网IP', '{\"tableId\":[\"20\"],\"tableName\":[\"supermarket\"],\"tableComment\":[\"超市角色\"],\"className\":[\"Supermarket\"],\"functionAuthor\":[\"cps\"],\"remark\":[\"\"],\"columns[0].columnId\":[\"229\"],\"columns[0].sort\":[\"1\"],\"columns[0].columnComment\":[\"\"],\"columns[0].javaType\":[\"Long\"],\"columns[0].javaField\":[\"shopId\"],\"columns[0].isInsert\":[\"1\"],\"columns[0].queryType\":[\"EQ\"],\"columns[0].htmlType\":[\"input\"],\"columns[0].dictType\":[\"\"],\"columns[1].columnId\":[\"230\"],\"columns[1].sort\":[\"2\"],\"columns[1].columnComment\":[\"超市名称\"],\"columns[1].javaType\":[\"String\"],\"columns[1].javaField\":[\"shopName\"],\"columns[1].isInsert\":[\"1\"],\"columns[1].isEdit\":[\"1\"],\"columns[1].isList\":[\"1\"],\"columns[1].isQuery\":[\"1\"],\"columns[1].queryType\":[\"LIKE\"],\"columns[1].isRequired\":[\"1\"],\"columns[1].htmlType\":[\"input\"],\"columns[1].dictType\":[\"\"],\"columns[2].columnId\":[\"231\"],\"columns[2].sort\":[\"3\"],\"columns[2].columnComment\":[\"昵称\"],\"columns[2].javaType\":[\"String\"],\"columns[2].javaField\":[\"nickname\"],\"columns[2].isInsert\":[\"1\"],\"columns[2].isEdit\":[\"1\"],\"columns[2].isList\":[\"1\"],\"columns[2].isQuery\":[\"1\"],\"columns[2].queryType\":[\"LIKE\"],\"columns[2].isRequired\":[\"1\"],\"columns[2].htmlType\":[\"input\"],\"columns[2].dictType\":[\"\"],\"columns[3].columnId\":[\"232\"],\"columns[3].sort\":[\"4\"],\"columns[3].columnComment\":[\"用户名\"],\"columns[3].javaType\":[\"String\"],\"columns[3].javaField\":[\"username\"],\"columns[3].isInsert\":[\"1\"],\"columns[3].queryType\":[\"LIKE\"],\"columns[3].isRequired\":[\"1\"],\"columns[3].htmlType\":[\"input\"],\"columns[3].dictType\":[\"\"],\"columns[4].columnId\":[\"233\"],\"columns[4].sort\":[\"5\"],\"columns[4].columnComment\":[\"密码\"],\"columns[4].javaType\":[\"String\"],\"columns[4].javaField\":[\"password\"],\"columns[4].isInsert\":[\"1\"],\"columns[4].isEdit\":[\"1\"],\"columns[4].queryType\":[\"EQ\"],\"columns[4].isRequired\":[\"1\"],\"columns[4].htmlType\":[\"input\"],\"columns[4].dictType\":[\"\"],\"columns[5].columnId\":[\"234\"],\"columns[5].sort\":[\"6\"],\"columns[5].columnComment\":[\"联系人姓名\"],\"columns[5].javaType\":[\"String\"],\"columns[5].javaField\":[\"contactPerson\"],\"columns[5].isInsert\"', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 11:09:41');
+INSERT INTO `sys_oper_log` VALUES ('241', '代码生成', '8', 'com.cps.generator.controller.GenController.batchGenCode()', 'GET', '1', 'admin', '研发部门', '/cps/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{\"tables\":[\"supermarket\"]}', null, '0', null, '2022-08-26 11:09:45');
+INSERT INTO `sys_oper_log` VALUES ('242', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2284\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"小商场提交审核材料\"],\"url\":[\"/submit/supermarket\"],\"target\":[\"menuItem\"],\"perms\":[\"submit:supermarket:view\"],\"orderNum\":[\"6\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 11:14:10');
+INSERT INTO `sys_oper_log` VALUES ('243', '菜单管理', '1', 'com.cps.web.controller.system.SysMenuController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"2284\"],\"menuType\":[\"F\"],\"menuName\":[\"提交\"],\"url\":[\"\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"1\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 13:20:32');
+INSERT INTO `sys_oper_log` VALUES ('244', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2287\"],\"parentId\":[\"2284\"],\"menuType\":[\"F\"],\"menuName\":[\"提交\"],\"url\":[\"#\"],\"target\":[\"menuItem\"],\"perms\":[\"submit:supermarket:add\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 13:53:48');
+INSERT INTO `sys_oper_log` VALUES ('245', '菜单管理', '3', 'com.cps.web.controller.system.SysMenuController.remove()', 'GET', '1', 'admin', '研发部门', '/cps/system/menu/remove/2287', '127.0.0.1', '内网IP', '2287', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 14:19:32');
 
 -- ----------------------------
 -- Table structure for sys_post
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_post`;
 CREATE TABLE `sys_post` (
-  `post_id` bigint NOT NULL AUTO_INCREMENT COMMENT '岗位ID',
+  `post_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '岗位ID',
   `post_code` varchar(64) NOT NULL COMMENT '岗位编码',
   `post_name` varchar(50) NOT NULL COMMENT '岗位名称',
-  `post_sort` int NOT NULL COMMENT '显示顺序',
+  `post_sort` int(11) NOT NULL COMMENT '显示顺序',
   `status` char(1) NOT NULL COMMENT '状态（0正常 1停用）',
   `create_by` varchar(64) DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
@@ -5154,10 +5284,10 @@ INSERT INTO `sys_post` VALUES ('4', 'user', '普通员工', '4', '0', 'admin', '
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
-  `role_id` bigint NOT NULL AUTO_INCREMENT COMMENT '角色ID',
+  `role_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '角色ID',
   `role_name` varchar(30) NOT NULL COMMENT '角色名称',
   `role_key` varchar(100) NOT NULL COMMENT '角色权限字符串',
-  `role_sort` int NOT NULL COMMENT '显示顺序',
+  `role_sort` int(11) NOT NULL COMMENT '显示顺序',
   `data_scope` char(1) DEFAULT '1' COMMENT '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）',
   `status` char(1) NOT NULL COMMENT '角色状态（0正常 1停用）',
   `del_flag` char(1) DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
@@ -5175,16 +5305,16 @@ CREATE TABLE `sys_role` (
 INSERT INTO `sys_role` VALUES ('1', '超级管理员', 'admin', '1', '1', '0', '0', 'admin', '2022-08-15 23:03:57', '', null, '超级管理员');
 INSERT INTO `sys_role` VALUES ('100', '供销社', 'Cooperative', '2', '1', '0', '0', 'admin', '2022-08-17 14:54:19', 'admin', '2022-08-17 14:54:45', '供销社角色');
 INSERT INTO `sys_role` VALUES ('101', '管理员', 'Manager', '3', '1', '0', '0', 'admin', '2022-08-17 14:55:44', 'admin', '2022-08-17 14:56:13', '管理员角色');
-INSERT INTO `sys_role` VALUES ('102', '超市', 'Supermarket', '4', '1', '0', '0', 'admin', '2022-08-17 14:58:07', '', null, '小超市');
-INSERT INTO `sys_role` VALUES ('103', '供应商', 'Supplier', '5', '1', '0', '0', 'admin', '2022-08-17 14:58:53', '', null, '供应商角色');
+INSERT INTO `sys_role` VALUES ('102', '超市', 'Supermarket', '4', '1', '0', '0', 'admin', '2022-08-17 14:58:07', 'admin', '2022-08-26 09:15:35', '小超市');
+INSERT INTO `sys_role` VALUES ('103', '供应商', 'Supplier', '5', '1', '0', '0', 'admin', '2022-08-17 14:58:53', 'admin', '2022-08-26 09:15:31', '供应商角色');
 
 -- ----------------------------
 -- Table structure for sys_role_dept
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_dept`;
 CREATE TABLE `sys_role_dept` (
-  `role_id` bigint NOT NULL COMMENT '角色ID',
-  `dept_id` bigint NOT NULL COMMENT '部门ID',
+  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
+  `dept_id` bigint(20) NOT NULL COMMENT '部门ID',
   PRIMARY KEY (`role_id`,`dept_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色和部门关联表';
 
@@ -5197,8 +5327,8 @@ CREATE TABLE `sys_role_dept` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu` (
-  `role_id` bigint NOT NULL COMMENT '角色ID',
-  `menu_id` bigint NOT NULL COMMENT '菜单ID',
+  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
+  `menu_id` bigint(20) NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`role_id`,`menu_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色和菜单关联表';
 
@@ -5211,8 +5341,8 @@ CREATE TABLE `sys_role_menu` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
-  `user_id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-  `dept_id` bigint DEFAULT NULL COMMENT '部门ID',
+  `user_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  `dept_id` bigint(20) DEFAULT NULL COMMENT '部门ID',
   `login_name` varchar(30) NOT NULL COMMENT '登录账号',
   `user_name` varchar(30) DEFAULT '' COMMENT '用户昵称',
   `user_type` varchar(2) DEFAULT '00' COMMENT '用户类型（00系统用户 01注册用户）',
@@ -5233,13 +5363,15 @@ CREATE TABLE `sys_user` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户信息表';
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '/profile/avatar/2022/08/23/blob_20220823152834A001.png', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2022-08-24 09:55:49', '2022-08-18 19:11:49', 'admin', '2022-08-18 19:11:49', '', '2022-08-24 09:55:49', '管理员');
+INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '/profile/avatar/2022/08/23/blob_20220823152834A001.png', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2022-08-26 20:22:30', '2022-08-18 19:11:49', 'admin', '2022-08-18 19:11:49', '', '2022-08-26 20:22:30', '管理员');
 INSERT INTO `sys_user` VALUES ('2', '105', 'ry', '若依', '00', 'ry@qq.com', '15666666666', '1', '', '8e6d98b90472783cc73c17047ddccf36', '222222', '0', '2', '127.0.0.1', '2022-08-18 19:11:49', '2022-08-18 19:11:49', 'admin', '2022-08-18 19:11:49', '', null, '测试员');
+INSERT INTO `sys_user` VALUES ('103', null, '小商超测试', '小商超测试', '01', '', '', '0', '', '6b7f20816cd783ee74b045f44c2c8135', 'da2d12', '0', '0', '127.0.0.1', '2022-08-25 14:34:25', '2022-08-25 13:05:20', '', '2022-08-25 13:05:20', '', '2022-08-25 14:34:24', null);
+INSERT INTO `sys_user` VALUES ('104', null, '供应商测试', '供应商测试', '01', '', '', '0', '', 'd9d2029c7143571bcaf654758aecb0b2', 'cb6e2e', '0', '0', '127.0.0.1', '2022-08-25 13:10:13', '2022-08-25 13:06:08', '', '2022-08-25 13:06:07', '', '2022-08-25 13:10:13', null);
 
 -- ----------------------------
 -- Table structure for sys_user_online
@@ -5256,23 +5388,22 @@ CREATE TABLE `sys_user_online` (
   `status` varchar(10) DEFAULT '' COMMENT '在线状态on_line在线off_line离线',
   `start_timestamp` datetime DEFAULT NULL COMMENT 'session创建时间',
   `last_access_time` datetime DEFAULT NULL COMMENT 'session最后访问时间',
-  `expire_time` int DEFAULT '0' COMMENT '超时时间，单位为分钟',
+  `expire_time` int(11) DEFAULT '0' COMMENT '超时时间，单位为分钟',
   PRIMARY KEY (`sessionId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='在线用户记录';
 
 -- ----------------------------
 -- Records of sys_user_online
 -- ----------------------------
-INSERT INTO `sys_user_online` VALUES ('5dc1b575-4961-4b5e-a58a-5a5ac3cb68f9', 'admin', '研发部门', '127.0.0.1', '内网IP', 'Chrome 10', 'Windows 10', 'on_line', '2022-08-24 17:35:20', '2022-08-24 18:03:57', '1800000');
-INSERT INTO `sys_user_online` VALUES ('f4acc75c-1e7e-4066-8c2a-daf7ff2ee7c4', 'admin', '研发部门', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', 'on_line', '2022-08-24 09:47:06', '2022-08-24 09:59:34', '1800000');
+INSERT INTO `sys_user_online` VALUES ('c554a570-0356-41d2-b64c-5f03cd95de62', 'admin', '研发部门', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', 'on_line', '2022-08-26 20:03:09', '2022-08-26 20:51:34', '1800000');
 
 -- ----------------------------
 -- Table structure for sys_user_post
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_post`;
 CREATE TABLE `sys_user_post` (
-  `user_id` bigint NOT NULL COMMENT '用户ID',
-  `post_id` bigint NOT NULL COMMENT '岗位ID',
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `post_id` bigint(20) NOT NULL COMMENT '岗位ID',
   PRIMARY KEY (`user_id`,`post_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户与岗位关联表';
 
@@ -5286,8 +5417,8 @@ INSERT INTO `sys_user_post` VALUES ('1', '1');
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role` (
-  `user_id` bigint NOT NULL COMMENT '用户ID',
-  `role_id` bigint NOT NULL COMMENT '角色ID',
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`user_id`,`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户和角色关联表';
 
@@ -5295,6 +5426,8 @@ CREATE TABLE `sys_user_role` (
 -- Records of sys_user_role
 -- ----------------------------
 INSERT INTO `sys_user_role` VALUES ('1', '1');
+INSERT INTO `sys_user_role` VALUES ('103', '102');
+INSERT INTO `sys_user_role` VALUES ('104', '103');
 
 -- ----------------------------
 -- Table structure for tender
@@ -5303,18 +5436,18 @@ DROP TABLE IF EXISTS `tender`;
 CREATE TABLE `tender` (
   `tender_id` varchar(22) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标书ID',
   `project_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '项目名称',
-  `gxs_id` bigint NOT NULL COMMENT '供销社id',
+  `gxs_id` bigint(20) NOT NULL COMMENT '供销社id',
   `contact` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '联系人',
   `phone_of_contact` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '联系人手机号',
   `tender_document` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标书存储位置',
-  `bid_number` int unsigned NOT NULL DEFAULT '1' COMMENT '竞标次数:1代表招标，大于1代表竞价',
+  `bid_number` int(10) unsigned NOT NULL DEFAULT '1' COMMENT '竞标次数:1代表招标，大于1代表竞价',
   `create_datetime` datetime NOT NULL COMMENT '创建时间',
   `dealine_for_qualification_review` datetime NOT NULL COMMENT '资质审核截止时间',
   `bid_start_time` datetime NOT NULL COMMENT '竞标开始时间',
   `bid_end_time` datetime NOT NULL COMMENT '竞标结束时间',
   `publish_time` datetime NOT NULL COMMENT '公布时间',
   PRIMARY KEY (`tender_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='集中采购标书';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='集中采购标书';
 
 -- ----------------------------
 -- Records of tender
@@ -5330,7 +5463,7 @@ CREATE TABLE `termination_announcement` (
   `tender_id` varchar(22) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标书ID',
   `termination_time` datetime DEFAULT NULL COMMENT '时间',
   PRIMARY KEY (`termination_announcement_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC COMMENT='终止公告';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='终止公告';
 
 -- ----------------------------
 -- Records of termination_announcement
