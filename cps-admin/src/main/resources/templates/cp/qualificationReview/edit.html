@@ -51,15 +51,15 @@
                     <textarea name="auditExplanation" class="form-control" required>[[*{auditExplanation}]]</textarea>
                 </div>
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">提交时间：</label>
-                <div class="col-sm-8">
-                    <div class="input-group date">
-                        <input name="submitTime" th:value="${#dates.format(qualificationReview.submitTime, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="form-group">    -->
+<!--                <label class="col-sm-3 control-label is-required">提交时间：</label>-->
+<!--                <div class="col-sm-8">-->
+<!--                    <div class="input-group date">-->
+<!--                        <input name="submitTime" th:value="${#dates.format(qualificationReview.submitTime, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text" required>-->
+<!--                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </form>
     </div>
     <th:block th:include="include :: footer" />

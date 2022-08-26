@@ -1,7 +1,11 @@
 package com.cps.cp.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.uuid.IdUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,7 @@ import com.cps.common.core.controller.BaseController;
 import com.cps.common.core.domain.AjaxResult;
 import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.core.page.TableDataInfo;
+import java.text.SimpleDateFormat;
 
 /**
  * 资质审核Controller
@@ -111,8 +116,10 @@ public class QualificationReviewController extends BaseController
     @Log(title = "资质审核", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(QualificationReview qualificationReview)
-    {
+    public AjaxResult editSave(QualificationReview qualificationReview) throws ParseException {
+//        SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd ");
+//        Date date = formatter.parse(DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS));
+        qualificationReview.setSubmitTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS,DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
         return toAjax(qualificationReviewService.updateQualificationReview(qualificationReview));
     }
 
