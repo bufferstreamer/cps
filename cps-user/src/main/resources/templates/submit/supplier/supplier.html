@@ -2,7 +2,7 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 
 <head>
-	<th:block th:include="include :: header('超市提交审核材料')" />
+	<th:block th:include="include :: header('供应商提交审核材料')" />
 </head>
 
 <body>
@@ -28,7 +28,7 @@
         	var select=document.getElementById("seleteType");
         	var selectedIndex=select.selectedIndex;
         	if(selectedIndex==0){
-        		$.modal.open("提交信用审查","audit/businessCreditEvaluationManage/add",1024,768,function(index, layero) {
+        		$.modal.open("提交信用审查","audit/supplierCreditEvaluationManage/add",1024,768,function(index, layero) {
                     var iframeWin = layero.find('iframe')[0];
                     iframeWin.contentWindow.submitHandler(index, layero);
                     
@@ -36,7 +36,7 @@
                 });
         	}
         	else if(selectedIndex==1){
-        		$.modal.open("提交营业执照","audit/businessLicenseManage/add",1024,768,function(index, layero) {
+        		$.modal.open("提交营业执照","audit/supplierLicenseManage/add",1024,768,function(index, layero) {
                     var iframeWin = layero.find('iframe')[0];
                     iframeWin.contentWindow.submitHandler(index, layero);
                     

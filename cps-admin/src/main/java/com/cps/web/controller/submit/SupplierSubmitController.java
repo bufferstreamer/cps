@@ -7,22 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cps.common.core.controller.BaseController;
 
-/**
- * 超市角色Controller
- * 
- * @author cps
- * @date 2022-08-26
- */
 @Controller
-@RequestMapping("/submit/supermarket")
-public class SupermarketSubmitController extends BaseController
-{
-    private String prefix = "submit/supermarket";
+@RequestMapping("/submit/supplier")
+public class SupplierSubmitController extends BaseController {
+    private String prefix = "submit/supplier";
 
-    @RequiresPermissions({"audit:businessCreditEvaluationManage:add","audit:businessLicenseManage:add"})
+    @RequiresPermissions({"audit:supplierLicenseManage:add","audit:supplierCreditEvaluationManage:add"})
     @GetMapping()
     public String supermarket()
     {
-        return prefix + "/supermarket";
+        return prefix + "/supplier";
     }
 }

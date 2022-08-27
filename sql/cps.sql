@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80012
 File Encoding         : 65001
 
-Date: 2022-08-26 20:56:03
+Date: 2022-08-27 13:10:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -3620,8 +3620,12 @@ CREATE TABLE `audit_business_credit_evaluation_info` (
 -- ----------------------------
 -- Records of audit_business_credit_evaluation_info
 -- ----------------------------
-INSERT INTO `audit_business_credit_evaluation_info` VALUES ('3c3d4fe74f1d453fb85a8d59b2fba6da', '2166140910629500056', '小商超1', '', '2022-08-25 14:31:46');
-INSERT INTO `audit_business_credit_evaluation_info` VALUES ('c18c08b5a0e0475d894a6bc79ffe1f47', '2166117484203500023', '123', '', '2022-08-22 21:27:22');
+INSERT INTO `audit_business_credit_evaluation_info` VALUES ('026544f00b524811b115df5460e16cb3', '2166157647924000089', '小商超测试', '', '2022-08-27 13:01:19');
+INSERT INTO `audit_business_credit_evaluation_info` VALUES ('107a630a80684e5c9491e31342ea94c0', '2166157370292100069', '小商超2', '', '2022-08-27 12:15:02');
+INSERT INTO `audit_business_credit_evaluation_info` VALUES ('33616263a2294a0eaa9236c8d9267243', '2166157437436100035', '小商超3', '', '2022-08-27 12:26:14');
+INSERT INTO `audit_business_credit_evaluation_info` VALUES ('4a2e1a510eea4be88bcfc700084d0acb', '2166157439740900093', '小商超4', '', '2022-08-27 12:26:37');
+INSERT INTO `audit_business_credit_evaluation_info` VALUES ('770b4de26d31455b9233e1afcff49ea0', '2166157612023000062', '小商超测试', '', '2022-08-27 12:55:20');
+INSERT INTO `audit_business_credit_evaluation_info` VALUES ('f07a9954e41045e3a9a4ad56a5f7235b', '2166157367956100098', '小商超测试1', '', '2022-08-27 12:14:39');
 
 -- ----------------------------
 -- Table structure for audit_business_license_info
@@ -3654,6 +3658,8 @@ CREATE TABLE `audit_business_license_info` (
 -- ----------------------------
 -- Records of audit_business_license_info
 -- ----------------------------
+INSERT INTO `audit_business_license_info` VALUES ('2166157447843000080', '', '8451231', '小商超1', '小商超1', '小商超1', '1', '2022-08-27 00:00:00', '无', '', '小商超1', '小商超1', '小商超1', '1', '165632', '', '', '453453', '343434', '2022-08-27 12:27:58');
+INSERT INTO `audit_business_license_info` VALUES ('2166157646613200057', '', '12313123', '小商超测试', '小商超测试', '小商超测试', '1', '2022-08-27 00:00:00', '小商超测试', '', '小商超测试', '123456', '小商超测试', '1', '56123313', '', '', '512313164', '4612313', '2022-08-27 13:01:06');
 
 -- ----------------------------
 -- Table structure for audit_documents
@@ -3675,8 +3681,32 @@ CREATE TABLE `audit_documents` (
 -- Records of audit_documents
 -- ----------------------------
 INSERT INTO `audit_documents` VALUES ('1', '1166117486330100070', '1', '1', '1', null, '2022-08-22 21:27:43', '2022-08-22 21:27:43');
+INSERT INTO `audit_documents` VALUES ('1', '1166157505131400077', '1', '1', '1', null, '2022-08-27 12:37:31', '2022-08-27 12:37:31');
+INSERT INTO `audit_documents` VALUES ('1', '1166157517261200083', '1', '1', '1', null, '2022-08-27 12:39:32', '2022-08-27 12:39:32');
+INSERT INTO `audit_documents` VALUES ('1', '1166157522791100010', '1', '1', '1', null, '2022-08-27 12:40:27', '2022-08-27 12:40:27');
+INSERT INTO `audit_documents` VALUES ('1', '1166157662374000045', '1', '1', '1', null, '2022-08-27 13:03:43', '2022-08-27 13:03:43');
+INSERT INTO `audit_documents` VALUES ('1', '1166157688222100029', '1', '1', '1', null, '2022-08-27 13:08:02', '2022-08-27 13:08:02');
 INSERT INTO `audit_documents` VALUES ('1', '2166117484203500023', '2', '1', '1', null, '2022-08-22 21:27:22', '2022-08-22 21:27:22');
 INSERT INTO `audit_documents` VALUES ('1', '2166140910629500056', '2', '1', '1', null, '2022-08-25 14:31:46', '2022-08-25 14:31:46');
+INSERT INTO `audit_documents` VALUES ('1', '2166152132708500051', '2', '1', '1', null, '2022-08-26 21:42:07', '2022-08-26 21:42:07');
+INSERT INTO `audit_documents` VALUES ('1', '2166156914309000053', '2', '1', '1', null, '2022-08-27 10:59:03', '2022-08-27 10:59:03');
+INSERT INTO `audit_documents` VALUES ('1', '2166156914601100068', '2', '1', '1', null, '2022-08-27 10:59:06', '2022-08-27 10:59:06');
+INSERT INTO `audit_documents` VALUES ('1', '2166156961945300053', '2', '1', '1', null, '2022-08-27 11:06:59', '2022-08-27 11:06:59');
+INSERT INTO `audit_documents` VALUES ('1', '2166156963400100067', '2', '1', '1', null, '2022-08-27 11:07:14', '2022-08-27 11:07:14');
+INSERT INTO `audit_documents` VALUES ('1', '2166156974746300030', '2', '1', '1', null, '2022-08-27 11:09:07', '2022-08-27 11:09:07');
+INSERT INTO `audit_documents` VALUES ('1', '2166156983446000066', '2', '1', '1', null, '2022-08-27 11:10:34', '2022-08-27 11:10:34');
+INSERT INTO `audit_documents` VALUES ('1', '2166157319266800094', '2', '1', '1', null, '2022-08-27 12:06:32', '2022-08-27 12:06:32');
+INSERT INTO `audit_documents` VALUES ('1', '2166157346713200090', '2', '1', '1', null, '2022-08-27 12:11:07', '2022-08-27 12:11:07');
+INSERT INTO `audit_documents` VALUES ('1', '2166157356351400032', '2', '1', '1', null, '2022-08-27 12:12:43', '2022-08-27 12:12:43');
+INSERT INTO `audit_documents` VALUES ('1', '2166157360780900018', '2', '1', '1', null, '2022-08-27 12:13:27', '2022-08-27 12:13:27');
+INSERT INTO `audit_documents` VALUES ('1', '2166157367956100098', '2', '1', '1', null, '2022-08-27 12:14:39', '2022-08-27 12:14:39');
+INSERT INTO `audit_documents` VALUES ('1', '2166157370292100069', '2', '1', '1', null, '2022-08-27 12:15:02', '2022-08-27 12:15:02');
+INSERT INTO `audit_documents` VALUES ('1', '2166157437436100035', '2', '1', '1', null, '2022-08-27 12:26:14', '2022-08-27 12:26:14');
+INSERT INTO `audit_documents` VALUES ('1', '2166157439740900093', '2', '1', '1', null, '2022-08-27 12:26:37', '2022-08-27 12:26:37');
+INSERT INTO `audit_documents` VALUES ('1', '2166157447843000080', '2', '1', '1', null, '2022-08-27 12:27:58', '2022-08-27 12:27:58');
+INSERT INTO `audit_documents` VALUES ('1', '2166157612023000062', '2', '1', '1', null, '2022-08-27 12:55:20', '2022-08-27 12:55:20');
+INSERT INTO `audit_documents` VALUES ('1', '2166157646613200057', '2', '1', '1', null, '2022-08-27 13:01:06', '2022-08-27 13:01:06');
+INSERT INTO `audit_documents` VALUES ('1', '2166157647924000089', '2', '1', '1', null, '2022-08-27 13:01:19', '2022-08-27 13:01:19');
 
 -- ----------------------------
 -- Table structure for audit_supplier_credit_evaluation_info
@@ -3697,6 +3727,8 @@ CREATE TABLE `audit_supplier_credit_evaluation_info` (
 -- Records of audit_supplier_credit_evaluation_info
 -- ----------------------------
 INSERT INTO `audit_supplier_credit_evaluation_info` VALUES ('037a1c72c8a346868d5e092fdb05f413', '1166117486330100070', '123', '', '123', '', '2022-08-22 21:27:43');
+INSERT INTO `audit_supplier_credit_evaluation_info` VALUES ('0a6515bee0bf4437a7aec41db2c8b467', '1166157505131400077', '供应商', '', '供应商', '', '2022-08-27 12:37:31');
+INSERT INTO `audit_supplier_credit_evaluation_info` VALUES ('49c8a47955304328b4c87c88ab814da6', '1166157662374000045', '供应商测试', '', '供应商测试', '', '2022-08-27 13:03:43');
 
 -- ----------------------------
 -- Table structure for audit_supplier_license_info
@@ -3726,6 +3758,9 @@ CREATE TABLE `audit_supplier_license_info` (
 -- ----------------------------
 -- Records of audit_supplier_license_info
 -- ----------------------------
+INSERT INTO `audit_supplier_license_info` VALUES ('1166157517261200083', '供应商', '8451213', '供应商', '供应商', '', '', '供应商', '供应商', '2022-08-27 00:00:00', '8794123123.00', '561231', '', '供应商', '供应商', '供应商', '2022-08-27 12:39:32');
+INSERT INTO `audit_supplier_license_info` VALUES ('1166157522791100010', '供应商2', '8974123123', '供应商2', '451316324654', '', '', '供应商2', '供应商2', '2022-08-27 00:00:00', '6232332.00', '供应商2', '', '5123230', '供应商2', '25133', '2022-08-27 12:40:27');
+INSERT INTO `audit_supplier_license_info` VALUES ('1166157688222100029', '供应商测试', '84512131', '供应商测试', '5612312', '', '', '供应商测试', '供应商测试', '2022-08-27 00:00:00', '4520.00', '供应商测试', '', '56132', '供应商测试', '512316', '2022-08-27 13:08:02');
 
 -- ----------------------------
 -- Table structure for audit_tax_and_bank_info
@@ -4767,7 +4802,7 @@ CREATE TABLE `sys_logininfor` (
   `msg` varchar(255) DEFAULT '' COMMENT '提示消息',
   `login_time` datetime DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`info_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统访问记录';
+) ENGINE=InnoDB AUTO_INCREMENT=241 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统访问记录';
 
 -- ----------------------------
 -- Records of sys_logininfor
@@ -4879,6 +4914,40 @@ INSERT INTO `sys_logininfor` VALUES ('203', 'admin', '127.0.0.1', '内网IP', 'F
 INSERT INTO `sys_logininfor` VALUES ('204', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 17:47:15');
 INSERT INTO `sys_logininfor` VALUES ('205', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 20:03:10');
 INSERT INTO `sys_logininfor` VALUES ('206', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 20:22:30');
+INSERT INTO `sys_logininfor` VALUES ('207', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 21:33:40');
+INSERT INTO `sys_logininfor` VALUES ('208', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 21:41:23');
+INSERT INTO `sys_logininfor` VALUES ('209', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 21:43:06');
+INSERT INTO `sys_logininfor` VALUES ('210', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 22:02:41');
+INSERT INTO `sys_logininfor` VALUES ('211', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-26 22:08:09');
+INSERT INTO `sys_logininfor` VALUES ('212', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 09:35:21');
+INSERT INTO `sys_logininfor` VALUES ('213', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 10:08:41');
+INSERT INTO `sys_logininfor` VALUES ('214', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 10:09:14');
+INSERT INTO `sys_logininfor` VALUES ('215', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 10:15:20');
+INSERT INTO `sys_logininfor` VALUES ('216', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 10:17:43');
+INSERT INTO `sys_logininfor` VALUES ('217', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 10:21:23');
+INSERT INTO `sys_logininfor` VALUES ('218', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 10:26:58');
+INSERT INTO `sys_logininfor` VALUES ('219', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 10:27:46');
+INSERT INTO `sys_logininfor` VALUES ('220', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 10:53:32');
+INSERT INTO `sys_logininfor` VALUES ('221', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 12:06:07');
+INSERT INTO `sys_logininfor` VALUES ('222', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 12:33:33');
+INSERT INTO `sys_logininfor` VALUES ('223', '小商超1', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '1', '用户不存在/密码错误', '2022-08-27 12:41:30');
+INSERT INTO `sys_logininfor` VALUES ('224', '小商超测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 12:41:50');
+INSERT INTO `sys_logininfor` VALUES ('225', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 12:45:58');
+INSERT INTO `sys_logininfor` VALUES ('226', '小商超测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '1', '密码输入错误1次', '2022-08-27 12:47:26');
+INSERT INTO `sys_logininfor` VALUES ('227', '小商超测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '1', '密码输入错误2次', '2022-08-27 12:47:31');
+INSERT INTO `sys_logininfor` VALUES ('228', '小商超测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 12:47:35');
+INSERT INTO `sys_logininfor` VALUES ('229', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 12:50:35');
+INSERT INTO `sys_logininfor` VALUES ('230', '小商超测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 12:51:03');
+INSERT INTO `sys_logininfor` VALUES ('231', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 12:52:03');
+INSERT INTO `sys_logininfor` VALUES ('232', '小商超测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 12:55:02');
+INSERT INTO `sys_logininfor` VALUES ('233', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 12:55:31');
+INSERT INTO `sys_logininfor` VALUES ('234', '小商超测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 12:57:03');
+INSERT INTO `sys_logininfor` VALUES ('235', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 12:57:55');
+INSERT INTO `sys_logininfor` VALUES ('236', '小商超测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 12:58:35');
+INSERT INTO `sys_logininfor` VALUES ('237', '小商超测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 13:00:19');
+INSERT INTO `sys_logininfor` VALUES ('238', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 13:01:26');
+INSERT INTO `sys_logininfor` VALUES ('239', '供应商测试', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 13:03:21');
+INSERT INTO `sys_logininfor` VALUES ('240', 'admin', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', '0', '登录成功', '2022-08-27 13:08:12');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -4902,7 +4971,7 @@ CREATE TABLE `sys_menu` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2288 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=2289 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单权限表';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -5053,7 +5122,8 @@ INSERT INTO `sys_menu` VALUES ('2210', '供销社角色新增', '2208', '2', '#'
 INSERT INTO `sys_menu` VALUES ('2211', '供销社角色修改', '2208', '3', '#', '', 'F', '0', '1', 'user:cooperative:edit', '#', 'admin', '2022-08-24 10:00:07', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2212', '供销社角色删除', '2208', '4', '#', '', 'F', '0', '1', 'user:cooperative:remove', '#', 'admin', '2022-08-24 10:00:07', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2213', '供销社角色导出', '2208', '5', '#', '', 'F', '0', '1', 'user:cooperative:export', '#', 'admin', '2022-08-24 10:00:07', '', null, '');
-INSERT INTO `sys_menu` VALUES ('2284', '小商场提交审核材料', '0', '6', '/submit/supermarket', 'menuItem', 'C', '0', '1', 'submit:supermarket:view', '#', 'admin', '2022-08-26 09:28:03', 'admin', '2022-08-26 11:14:10', '');
+INSERT INTO `sys_menu` VALUES ('2284', '小超市提交审核材料', '0', '6', '/submit/supermarket', 'menuItem', 'C', '0', '1', 'audit:businessCreditEvaluationManage:add,audit:businessLicenseManage:add', '#', 'admin', '2022-08-26 09:28:03', 'admin', '2022-08-27 12:56:29', '');
+INSERT INTO `sys_menu` VALUES ('2288', '供应商提交审核材料', '0', '7', '/submit/supplier', 'menuItem', 'C', '0', '1', 'audit:supplierLicenseManage:add,audit:supplierCreditEvaluationManage:add', '#', 'admin', '2022-08-27 12:30:16', 'admin', '2022-08-27 13:02:26', '');
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -5101,7 +5171,7 @@ CREATE TABLE `sys_oper_log` (
   `error_msg` varchar(2000) DEFAULT '' COMMENT '错误消息',
   `oper_time` datetime DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`oper_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=246 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='操作日志记录';
+) ENGINE=InnoDB AUTO_INCREMENT=285 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='操作日志记录';
 
 -- ----------------------------
 -- Records of sys_oper_log
@@ -5252,6 +5322,45 @@ INSERT INTO `sys_oper_log` VALUES ('242', '菜单管理', '2', 'com.cps.web.cont
 INSERT INTO `sys_oper_log` VALUES ('243', '菜单管理', '1', 'com.cps.web.controller.system.SysMenuController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"2284\"],\"menuType\":[\"F\"],\"menuName\":[\"提交\"],\"url\":[\"\"],\"target\":[\"menuItem\"],\"perms\":[\"\"],\"orderNum\":[\"1\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 13:20:32');
 INSERT INTO `sys_oper_log` VALUES ('244', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2287\"],\"parentId\":[\"2284\"],\"menuType\":[\"F\"],\"menuName\":[\"提交\"],\"url\":[\"#\"],\"target\":[\"menuItem\"],\"perms\":[\"submit:supermarket:add\"],\"orderNum\":[\"1\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 13:53:48');
 INSERT INTO `sys_oper_log` VALUES ('245', '菜单管理', '3', 'com.cps.web.controller.system.SysMenuController.remove()', 'GET', '1', 'admin', '研发部门', '/cps/system/menu/remove/2287', '127.0.0.1', '内网IP', '2287', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 14:19:32');
+INSERT INTO `sys_oper_log` VALUES ('246', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"123456\"],\"frName\":[\"法人测试\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-26\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-26 21:42:07');
+INSERT INTO `sys_oper_log` VALUES ('247', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2284\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"小商场提交审核材料\"],\"url\":[\"/audit/supermarket\"],\"target\":[\"menuItem\"],\"perms\":[\"audit:supermarket:view\"],\"orderNum\":[\"6\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 10:14:51');
+INSERT INTO `sys_oper_log` VALUES ('248', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2284\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"小商场提交审核材料\"],\"url\":[\"/supermarketsubmit\"],\"target\":[\"menuItem\"],\"perms\":[\"supermarketsubmit:view\"],\"orderNum\":[\"6\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 10:16:36');
+INSERT INTO `sys_oper_log` VALUES ('249', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2284\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"小商场提交审核材料\"],\"url\":[\"/audit/supermarket\"],\"target\":[\"menuItem\"],\"perms\":[\"/audit/supermarket:view\"],\"orderNum\":[\"6\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 10:20:00');
+INSERT INTO `sys_oper_log` VALUES ('250', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2284\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"小商场提交审核材料\"],\"url\":[\"/audit/supermarket\"],\"target\":[\"menuItem\"],\"perms\":[\"audit:supermarket:view\"],\"orderNum\":[\"6\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 10:20:12');
+INSERT INTO `sys_oper_log` VALUES ('251', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2284\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"小商场提交审核材料\"],\"url\":[\"/submit/supermarket\"],\"target\":[\"menuItem\"],\"perms\":[\"submit:supermarket:view\"],\"orderNum\":[\"6\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 10:52:54');
+INSERT INTO `sys_oper_log` VALUES ('252', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"894561\"],\"frName\":[\"测试1\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 10:59:03');
+INSERT INTO `sys_oper_log` VALUES ('253', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"894561\"],\"frName\":[\"测试1\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 10:59:06');
+INSERT INTO `sys_oper_log` VALUES ('254', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"76453\"],\"frName\":[\"测试2\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 11:06:59');
+INSERT INTO `sys_oper_log` VALUES ('255', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"76453\"],\"frName\":[\"测试2\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 11:07:14');
+INSERT INTO `sys_oper_log` VALUES ('256', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"434\"],\"frName\":[\"测试3\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 11:09:07');
+INSERT INTO `sys_oper_log` VALUES ('257', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"963214\"],\"frName\":[\"小商超测试\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 11:10:34');
+INSERT INTO `sys_oper_log` VALUES ('258', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"453\"],\"frName\":[\"小商超测试\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:06:32');
+INSERT INTO `sys_oper_log` VALUES ('259', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"643\"],\"frName\":[\"\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:11:07');
+INSERT INTO `sys_oper_log` VALUES ('260', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"423\"],\"frName\":[\"4756\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:12:43');
+INSERT INTO `sys_oper_log` VALUES ('261', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"876\"],\"frName\":[\"233786\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:13:27');
+INSERT INTO `sys_oper_log` VALUES ('262', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"85412\"],\"frName\":[\"小商超测试1\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:14:39');
+INSERT INTO `sys_oper_log` VALUES ('263', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"834543633\"],\"frName\":[\"小商超2\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:15:03');
+INSERT INTO `sys_oper_log` VALUES ('264', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"5634\"],\"frName\":[\"小商超3\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:26:14');
+INSERT INTO `sys_oper_log` VALUES ('265', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"563413546\"],\"frName\":[\"小商超4\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:26:37');
+INSERT INTO `sys_oper_log` VALUES ('266', '小商超审核管理', '1', 'com.cps.audit.controller.BusinessLicenseInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/businessLicenseManage/add', '127.0.0.1', '内网IP', '{\"businessLicense\":[\"\"],\"businessLicenseNumber\":[\"8451231\"],\"managerName\":[\"小商超1\"],\"businessName\":[\"小商超1\"],\"businessPlace\":[\"小商超1\"],\"businessForm\":[\"1\"],\"registerDate\":[\"2022-08-27\"],\"businessScope\":[\"无\"],\"businessCertificate\":[\"\"],\"username\":[\"小商超1\"],\"contactPerson\":[\"小商超1\"],\"contactCardType\":[\"1\"],\"idNumber\":[\"165632\"],\"frontPhoto\":[\"\"],\"backPhoto\":[\"\"],\"contactPhone\":[\"453453\"],\"contactEmail\":[\"343434\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:27:58');
+INSERT INTO `sys_oper_log` VALUES ('267', '菜单管理', '1', 'com.cps.web.controller.system.SysMenuController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/add', '127.0.0.1', '内网IP', '{\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"供应商提交审核材料\"],\"url\":[\"/submit/supplier\"],\"target\":[\"menuItem\"],\"perms\":[\"submit:supplier:view\"],\"orderNum\":[\"7\"],\"icon\":[\"\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:30:16');
+INSERT INTO `sys_oper_log` VALUES ('268', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2288\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"供应商提交审核材料\"],\"url\":[\"/submit/supplier\"],\"target\":[\"menuItem\"],\"perms\":[\"submit:supplier:view\"],\"orderNum\":[\"7\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:36:04');
+INSERT INTO `sys_oper_log` VALUES ('269', '供应商评价审核管理', '1', 'com.cps.audit.controller.SupplierCreditEvaluationInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/supplierCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"845531\"],\"corporateName\":[\"供应商\"],\"corporateCreditInfo\":[\"\"],\"frName\":[\"供应商\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:37:31');
+INSERT INTO `sys_oper_log` VALUES ('270', '供应商营业执照审核管理', '1', 'com.cps.audit.controller.SupplierLicenseInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/supplierLicenseManage/add', '127.0.0.1', '内网IP', '{\"corporateName\":[\"供应商\"],\"registrationNumber\":[\"8451213\"],\"frName\":[\"供应商\"],\"idNumber\":[\"供应商\"],\"frontPhoto\":[\"\"],\"backPhoto\":[\"\"],\"businessLicenseLocation\":[\"供应商\"],\"businessLicenseAddress\":[\"供应商\"],\"incorporationDate\":[\"2022-08-27\"],\"registeredCapital\":[\"8794123123\"],\"businessScope\":[\"561231\"],\"businessLicense\":[\"\"],\"officePhone\":[\"供应商\"],\"emergencyContact\":[\"供应商\"],\"emergencyContactPhone\":[\"供应商\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:39:32');
+INSERT INTO `sys_oper_log` VALUES ('271', '供应商营业执照审核管理', '1', 'com.cps.audit.controller.SupplierLicenseInfoController.addSave()', 'POST', '1', 'admin', '研发部门', '/cps/audit/supplierLicenseManage/add', '127.0.0.1', '内网IP', '{\"corporateName\":[\"供应商2\"],\"registrationNumber\":[\"8974123123\"],\"frName\":[\"供应商2\"],\"idNumber\":[\"451316324654\"],\"frontPhoto\":[\"\"],\"backPhoto\":[\"\"],\"businessLicenseLocation\":[\"供应商2\"],\"businessLicenseAddress\":[\"供应商2\"],\"incorporationDate\":[\"2022-08-27\"],\"registeredCapital\":[\"6232332\"],\"businessScope\":[\"供应商2\"],\"businessLicense\":[\"\"],\"officePhone\":[\"5123230\"],\"emergencyContact\":[\"供应商2\"],\"emergencyContactPhone\":[\"25133\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:40:28');
+INSERT INTO `sys_oper_log` VALUES ('272', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2284\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"小超市提交审核材料\"],\"url\":[\"/submit/supermarket\"],\"target\":[\"menuItem\"],\"perms\":[\"submit:supermarket:view\"],\"orderNum\":[\"6\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:41:00');
+INSERT INTO `sys_oper_log` VALUES ('273', '角色管理', '2', 'com.cps.web.controller.system.SysRoleController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"102\"],\"roleName\":[\"超市\"],\"roleKey\":[\"Supermarket\"],\"roleSort\":[\"4\"],\"status\":[\"0\"],\"remark\":[\"小超市\"],\"menuIds\":[\"2284\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:41:08');
+INSERT INTO `sys_oper_log` VALUES ('274', '角色管理', '2', 'com.cps.web.controller.system.SysRoleController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"103\"],\"roleName\":[\"供应商\"],\"roleKey\":[\"Supplier\"],\"roleSort\":[\"5\"],\"status\":[\"0\"],\"remark\":[\"供应商角色\"],\"menuIds\":[\"2288\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:41:18');
+INSERT INTO `sys_oper_log` VALUES ('275', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2284\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"小超市提交审核材料\"],\"url\":[\"/submit/supermarket\"],\"target\":[\"menuItem\"],\"perms\":[\"audit:businessCreditEvaluationManage:add\"],\"orderNum\":[\"6\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:54:06');
+INSERT INTO `sys_oper_log` VALUES ('276', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', '小商超测试', null, '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"845123321\"],\"frName\":[\"小商超测试\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:55:20');
+INSERT INTO `sys_oper_log` VALUES ('277', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2284\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"小超市提交审核材料\"],\"url\":[\"/submit/supermarket\"],\"target\":[\"menuItem\"],\"perms\":[\"audit:businessCreditEvaluationManage:add,audit:businessLicenseManage:add\"],\"orderNum\":[\"6\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:56:29');
+INSERT INTO `sys_oper_log` VALUES ('278', '角色管理', '2', 'com.cps.web.controller.system.SysRoleController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/role/edit', '127.0.0.1', '内网IP', '{\"roleId\":[\"102\"],\"roleName\":[\"超市\"],\"roleKey\":[\"Supermarket\"],\"roleSort\":[\"4\"],\"status\":[\"0\"],\"remark\":[\"小超市\"],\"menuIds\":[\"2284\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 12:58:13');
+INSERT INTO `sys_oper_log` VALUES ('279', '小商超审核管理', '1', 'com.cps.audit.controller.BusinessLicenseInfoController.addSave()', 'POST', '1', '小商超测试', null, '/cps/audit/businessLicenseManage/add', '127.0.0.1', '内网IP', '{\"businessLicense\":[\"\"],\"businessLicenseNumber\":[\"12313123\"],\"managerName\":[\"小商超测试\"],\"businessName\":[\"小商超测试\"],\"businessPlace\":[\"小商超测试\"],\"businessForm\":[\"1\"],\"registerDate\":[\"2022-08-27\"],\"businessScope\":[\"小商超测试\"],\"businessCertificate\":[\"\"],\"username\":[\"小商超测试\"],\"contactPerson\":[\"小商超测试\"],\"contactCardType\":[\"1\"],\"idNumber\":[\"56123313\"],\"frontPhoto\":[\"\"],\"backPhoto\":[\"\"],\"contactPhone\":[\"512313164\"],\"contactEmail\":[\"4612313\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 13:01:06');
+INSERT INTO `sys_oper_log` VALUES ('280', '小商超信用评价审核管理', '1', 'com.cps.audit.controller.BusinessCreditEvaluationInfoController.addSave()', 'POST', '1', '小商超测试', null, '/cps/audit/businessCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"541321164\"],\"frName\":[\"小商超测试\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 13:01:19');
+INSERT INTO `sys_oper_log` VALUES ('281', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2288\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"供应商提交审核材料\"],\"url\":[\"/submit/supplier\"],\"target\":[\"menuItem\"],\"perms\":[\"audit:supplierLicenseManage:add\"],\"orderNum\":[\"7\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 13:02:06');
+INSERT INTO `sys_oper_log` VALUES ('282', '菜单管理', '2', 'com.cps.web.controller.system.SysMenuController.editSave()', 'POST', '1', 'admin', '研发部门', '/cps/system/menu/edit', '127.0.0.1', '内网IP', '{\"menuId\":[\"2288\"],\"parentId\":[\"0\"],\"menuType\":[\"C\"],\"menuName\":[\"供应商提交审核材料\"],\"url\":[\"/submit/supplier\"],\"target\":[\"menuItem\"],\"perms\":[\"audit:supplierLicenseManage:add,audit:supplierCreditEvaluationManage:add\"],\"orderNum\":[\"7\"],\"icon\":[\"#\"],\"visible\":[\"0\"],\"isRefresh\":[\"1\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 13:02:26');
+INSERT INTO `sys_oper_log` VALUES ('283', '供应商评价审核管理', '1', 'com.cps.audit.controller.SupplierCreditEvaluationInfoController.addSave()', 'POST', '1', '供应商测试', null, '/cps/audit/supplierCreditEvaluationManage/add', '127.0.0.1', '内网IP', '{\"checklistId\":[\"供应商测试\"],\"corporateName\":[\"供应商测试\"],\"corporateCreditInfo\":[\"\"],\"frName\":[\"供应商测试\"],\"frCriminalRecord\":[\"\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 13:03:43');
+INSERT INTO `sys_oper_log` VALUES ('284', '供应商营业执照审核管理', '1', 'com.cps.audit.controller.SupplierLicenseInfoController.addSave()', 'POST', '1', '供应商测试', null, '/cps/audit/supplierLicenseManage/add', '127.0.0.1', '内网IP', '{\"corporateName\":[\"供应商测试\"],\"registrationNumber\":[\"84512131\"],\"frName\":[\"供应商测试\"],\"idNumber\":[\"5612312\"],\"frontPhoto\":[\"\"],\"backPhoto\":[\"\"],\"businessLicenseLocation\":[\"供应商测试\"],\"businessLicenseAddress\":[\"供应商测试\"],\"incorporationDate\":[\"2022-08-27\"],\"registeredCapital\":[\"4520\"],\"businessScope\":[\"供应商测试\"],\"businessLicense\":[\"\"],\"officePhone\":[\"56132\"],\"emergencyContact\":[\"供应商测试\"],\"emergencyContactPhone\":[\"512316\"],\"createDatetime\":[\"2022-08-27\"]}', '{\"msg\":\"操作成功\",\"code\":0}', '0', null, '2022-08-27 13:08:02');
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -5305,8 +5414,8 @@ CREATE TABLE `sys_role` (
 INSERT INTO `sys_role` VALUES ('1', '超级管理员', 'admin', '1', '1', '0', '0', 'admin', '2022-08-15 23:03:57', '', null, '超级管理员');
 INSERT INTO `sys_role` VALUES ('100', '供销社', 'Cooperative', '2', '1', '0', '0', 'admin', '2022-08-17 14:54:19', 'admin', '2022-08-17 14:54:45', '供销社角色');
 INSERT INTO `sys_role` VALUES ('101', '管理员', 'Manager', '3', '1', '0', '0', 'admin', '2022-08-17 14:55:44', 'admin', '2022-08-17 14:56:13', '管理员角色');
-INSERT INTO `sys_role` VALUES ('102', '超市', 'Supermarket', '4', '1', '0', '0', 'admin', '2022-08-17 14:58:07', 'admin', '2022-08-26 09:15:35', '小超市');
-INSERT INTO `sys_role` VALUES ('103', '供应商', 'Supplier', '5', '1', '0', '0', 'admin', '2022-08-17 14:58:53', 'admin', '2022-08-26 09:15:31', '供应商角色');
+INSERT INTO `sys_role` VALUES ('102', '超市', 'Supermarket', '4', '1', '0', '0', 'admin', '2022-08-17 14:58:07', 'admin', '2022-08-27 12:58:13', '小超市');
+INSERT INTO `sys_role` VALUES ('103', '供应商', 'Supplier', '5', '1', '0', '0', 'admin', '2022-08-17 14:58:53', 'admin', '2022-08-27 12:41:18', '供应商角色');
 
 -- ----------------------------
 -- Table structure for sys_role_dept
@@ -5335,6 +5444,8 @@ CREATE TABLE `sys_role_menu` (
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
+INSERT INTO `sys_role_menu` VALUES ('102', '2284');
+INSERT INTO `sys_role_menu` VALUES ('103', '2288');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -5368,10 +5479,10 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '/profile/avatar/2022/08/23/blob_20220823152834A001.png', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2022-08-26 20:22:30', '2022-08-18 19:11:49', 'admin', '2022-08-18 19:11:49', '', '2022-08-26 20:22:30', '管理员');
+INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '/profile/avatar/2022/08/23/blob_20220823152834A001.png', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2022-08-27 13:08:12', '2022-08-18 19:11:49', 'admin', '2022-08-18 19:11:49', '', '2022-08-27 13:08:12', '管理员');
 INSERT INTO `sys_user` VALUES ('2', '105', 'ry', '若依', '00', 'ry@qq.com', '15666666666', '1', '', '8e6d98b90472783cc73c17047ddccf36', '222222', '0', '2', '127.0.0.1', '2022-08-18 19:11:49', '2022-08-18 19:11:49', 'admin', '2022-08-18 19:11:49', '', null, '测试员');
-INSERT INTO `sys_user` VALUES ('103', null, '小商超测试', '小商超测试', '01', '', '', '0', '', '6b7f20816cd783ee74b045f44c2c8135', 'da2d12', '0', '0', '127.0.0.1', '2022-08-25 14:34:25', '2022-08-25 13:05:20', '', '2022-08-25 13:05:20', '', '2022-08-25 14:34:24', null);
-INSERT INTO `sys_user` VALUES ('104', null, '供应商测试', '供应商测试', '01', '', '', '0', '', 'd9d2029c7143571bcaf654758aecb0b2', 'cb6e2e', '0', '0', '127.0.0.1', '2022-08-25 13:10:13', '2022-08-25 13:06:08', '', '2022-08-25 13:06:07', '', '2022-08-25 13:10:13', null);
+INSERT INTO `sys_user` VALUES ('103', null, '小商超测试', '小商超测试', '01', '', '', '0', '', '6b7f20816cd783ee74b045f44c2c8135', 'da2d12', '0', '0', '127.0.0.1', '2022-08-27 13:00:19', '2022-08-25 13:05:20', '', '2022-08-25 13:05:20', '', '2022-08-27 13:00:19', null);
+INSERT INTO `sys_user` VALUES ('104', null, '供应商测试', '供应商测试', '01', '', '', '0', '', 'd9d2029c7143571bcaf654758aecb0b2', 'cb6e2e', '0', '0', '127.0.0.1', '2022-08-27 13:03:22', '2022-08-25 13:06:08', '', '2022-08-25 13:06:07', '', '2022-08-27 13:03:21', null);
 
 -- ----------------------------
 -- Table structure for sys_user_online
@@ -5395,7 +5506,7 @@ CREATE TABLE `sys_user_online` (
 -- ----------------------------
 -- Records of sys_user_online
 -- ----------------------------
-INSERT INTO `sys_user_online` VALUES ('c554a570-0356-41d2-b64c-5f03cd95de62', 'admin', '研发部门', '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', 'on_line', '2022-08-26 20:03:09', '2022-08-26 20:51:34', '1800000');
+INSERT INTO `sys_user_online` VALUES ('1b639b62-bc83-44c5-bb3f-58af49dbd778', '供应商测试', null, '127.0.0.1', '内网IP', 'Firefox 10', 'Windows 10', 'on_line', '2022-08-27 12:06:00', '2022-08-27 13:08:12', '1800000');
 
 -- ----------------------------
 -- Table structure for sys_user_post
