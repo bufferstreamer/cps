@@ -196,7 +196,6 @@
                 <artifactId>cps-common</artifactId>
                 <version>${cps.version}</version>
             </dependency>
-
             <!-- 审核模块-->
             <dependency>
                 <groupId>com.cps</groupId>
@@ -211,7 +210,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <modules>
         <module>cps-admin</module>
         <module>cps-framework</module>
@@ -222,7 +220,6 @@
         <module>cps-user</module>
         <module>cps-audit</module>
         <module>cps-cp</module>
-        <module>cps-submit</module>
     </modules>
     <packaging>pom</packaging>
 

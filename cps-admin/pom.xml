@@ -86,8 +86,8 @@
             <artifactId>cps-cp</artifactId>
             <version>${cps.version}</version>
         </dependency>
-    </dependencies>
 
+    </dependencies>
     <build>
         <plugins>
             <plugin>

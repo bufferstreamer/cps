@@ -36,7 +36,7 @@
 					</div>
 				</form>
 			</div>
-			
+
 	       <div class="btn-group-sm" id="toolbar" role="group">
 	            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:dict:add">
 	                <i class="fa fa-plus"></i> 新增
@@ -54,7 +54,7 @@
 		            <i class="fa fa-refresh"></i> 刷新缓存
 		        </a>
 	        </div>
-	        
+
 	        <div class="col-sm-12 select-table table-striped">
 			    <table id="bootstrap-table"></table>
 			</div>
@@ -138,7 +138,7 @@
 		    var url = prefix + '/detail/' + dictId;
 		    $.modal.openTab("字典数据", url);
 		}
-		
+
 		/** 刷新字典缓存 */
         function refreshCache() {
             $.operate.get(prefix + "/refreshCache");
