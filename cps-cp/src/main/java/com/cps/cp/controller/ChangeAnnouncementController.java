@@ -2,6 +2,7 @@ package com.cps.cp.controller;
 
 import java.util.List;
 
+import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.uuid.IdUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +89,7 @@ public class ChangeAnnouncementController extends BaseController
     @ResponseBody
     public AjaxResult addSave(ChangeAnnouncement changeAnnouncement)
     {
+        changeAnnouncement.setChangeTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS,DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
         changeAnnouncement.setChangeAnnouncementId(IdUtils.fastSimpleUUID());
         return toAjax(changeAnnouncementService.insertChangeAnnouncement(changeAnnouncement));
     }
@@ -127,4 +129,12 @@ public class ChangeAnnouncementController extends BaseController
     {
         return toAjax(changeAnnouncementService.deleteChangeAnnouncementByChangeAnnouncementIds(ids));
     }
+
+    // 查询标书
+    @RequestMapping("/search/")
+    public String queryTender()
+    {
+        return prefix + "/search";
+    }
+
 }

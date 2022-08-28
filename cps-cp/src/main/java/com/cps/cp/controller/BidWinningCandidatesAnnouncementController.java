@@ -2,6 +2,7 @@ package com.cps.cp.controller;
 
 import java.util.List;
 
+import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.uuid.IdUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +89,7 @@ public class BidWinningCandidatesAnnouncementController extends BaseController
     @ResponseBody
     public AjaxResult addSave(BidWinningCandidatesAnnouncement bidWinningCandidatesAnnouncement)
     {
+        bidWinningCandidatesAnnouncement.setPublicityTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS,DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
         bidWinningCandidatesAnnouncement.setBidWinningCandidatesAnnouncementId(IdUtils.fastSimpleUUID());
         return toAjax(bidWinningCandidatesAnnouncementService.insertBidWinningCandidatesAnnouncement(bidWinningCandidatesAnnouncement));
     }
@@ -126,5 +128,12 @@ public class BidWinningCandidatesAnnouncementController extends BaseController
     public AjaxResult remove(String ids)
     {
         return toAjax(bidWinningCandidatesAnnouncementService.deleteBidWinningCandidatesAnnouncementByBidWinningCandidatesAnnouncementIds(ids));
+    }
+
+    // 查询标书
+    @RequestMapping("/search/")
+    public String queryTender()
+    {
+        return prefix + "/search";
     }
 }

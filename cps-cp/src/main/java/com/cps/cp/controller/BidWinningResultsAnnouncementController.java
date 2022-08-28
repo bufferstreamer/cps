@@ -127,4 +127,11 @@ public class BidWinningResultsAnnouncementController extends BaseController
     {
         return toAjax(bidWinningResultsAnnouncementService.deleteBidWinningResultsAnnouncementByBidWinningResultsAnnouncementIds(ids));
     }
+
+    // 查询标书
+    @RequestMapping("/search/")
+    public String queryTender()
+    {
+        return prefix + "/search";
+    }
 }

@@ -2,6 +2,7 @@ package com.cps.cp.controller;
 
 import java.util.List;
 
+import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.uuid.IdUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +89,7 @@ public class ContractController extends BaseController
     @ResponseBody
     public AjaxResult addSave(Contract contract)
     {
+        contract.setContractTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS,DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
         contract.setContractId(IdUtils.fastSimpleUUID());
         return toAjax(contractService.insertContract(contract));
     }
@@ -134,5 +136,12 @@ public class ContractController extends BaseController
     {
         mmap.put("contract", contractService.selectContractByContractId(contractId));
         return prefix + "/detail";
+    }
+
+    // 查询标书
+    @RequestMapping("/search/")
+    public String queryTender()
+    {
+        return prefix + "/search";
     }
 }
