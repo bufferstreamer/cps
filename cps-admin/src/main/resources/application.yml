@@ -11,7 +11,7 @@ cps:
   # 文件路径 示例（ Windows配置D:/cps/uploadPath，Linux配置 /home/cps/uploadPath）
   profile: D:/cps/uploadPath
   # 获取ip地址开关
-  addressEnabled: false
+  addressEnabled: true
 
 # 开发环境配置
 server:
@@ -30,7 +30,6 @@ server:
       max: 800
       # Tomcat启动初始化的线程数，默认值10
       min-spare: 100
- 
 # 日志配置
 logging:
   level:
@@ -122,7 +121,7 @@ shiro:
     # 相隔多久检查一次session的有效性，默认就是10分钟
     validationInterval: 10
     # 同一个用户最大会话数，比如2的意思是同一个账号允许最多同时两个人登录（默认-1不限制）
-    maxSession: 1
+    maxSession: 5
     # 踢出之前登录的/之后登录的用户，默认踢出之前登录的用户
     kickoutAfter: false
   rememberMe:
