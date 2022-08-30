@@ -1,6 +1,8 @@
 package com.cps.cp.controller;
 
 import java.util.List;
+
+import com.cps.common.utils.DateUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -86,6 +88,7 @@ public class Tender2Controller extends BaseController
     @ResponseBody
     public AjaxResult addSave(Tender tender)
     {
+        tender.setCreateDatetime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS,DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
         return toAjax(tenderService.insertTender(tender));
     }
 

@@ -115,6 +115,7 @@ public class ContractController extends BaseController
     @ResponseBody
     public AjaxResult editSave(Contract contract)
     {
+        contract.setContractTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS,DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
         return toAjax(contractService.updateContract(contract));
     }
 

@@ -3793,7 +3793,7 @@ CREATE TABLE `audit_tax_and_bank_info` (
 -- ----------------------------
 DROP TABLE IF EXISTS `bid_winning_candidates_announcement`;
 CREATE TABLE `bid_winning_candidates_announcement` (
-  `bid_winning_candidates_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '中标候选人公示公告',
+  `bid_winning_candidates_announcement_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '中标候选人公示公告',
   `bid_winning_candidates_document` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '文件',
   `tender_id` varchar(22) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标书ID',
   `publicity_time` datetime NOT NULL COMMENT '公示时间',

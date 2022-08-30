@@ -3,6 +3,7 @@ package com.cps.cp.controller;
 import java.util.List;
 
 import com.cps.common.constant.Constants;
+import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.StringUtils;
 import com.cps.common.utils.file.FileUtils;
 import com.cps.common.utils.uuid.IdUtils;
@@ -95,7 +96,8 @@ public class Tender1Controller extends BaseController
     @ResponseBody
     public AjaxResult addSave(Tender tender)
     {
-        tender.setTenderId("101");
+        tender.setTenderId("7835749267894163340175");
+        tender.setCreateDatetime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS,DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
         return toAjax(tenderService.insertTender(tender));
     }
 

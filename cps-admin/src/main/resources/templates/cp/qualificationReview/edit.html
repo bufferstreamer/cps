@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
-    <th:block th:include="include :: header('修改资质审核')" />
+    <th:block th:include="include :: header('资质审核')" />
     <th:block th:include="include :: datetimepicker-css" />
     <th:block th:include="include :: bootstrap-fileinput-css"/>
 </head>
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">审核状态“0”未审核“1”通过“2”未通过：</label>
+                <label class="col-sm-3 control-label is-required">审核状态</label>
                 <div class="col-sm-8">
                     <div class="radio-box" th:each="dict : ${@dict.getType('audit_status')}">
                         <input type="radio" th:id="${'auditStatus_' + dict.dictCode}" name="auditStatus" th:value="${dict.dictValue}" th:field="*{auditStatus}" required>
