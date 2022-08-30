@@ -9,9 +9,9 @@
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-supplierLicenseManage-add">
             <div class="form-group">    
-                <label class="col-sm-3 control-label">公司名称：</label>
+                <label class="col-sm-3 control-label is-required">公司名称：</label>
                 <div class="col-sm-8">
-                    <input name="corporateName" class="form-control" type="text">
+                    <input name="corporateName" class="form-control" type="text" required>
                 </div>
             </div>
             <div class="form-group">    
@@ -21,102 +21,93 @@
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">法人姓名：</label>
+                <label class="col-sm-3 control-label is-required">法人姓名：</label>
                 <div class="col-sm-8">
-                    <input name="frName" class="form-control" type="text">
+                    <input name="frName" class="form-control" type="text" required>
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">法人身份证号码：</label>
+                <label class="col-sm-3 control-label is-required">法人身份证号码：</label>
                 <div class="col-sm-8">
-                    <input name="idNumber" class="form-control" type="text">
+                    <input name="idNumber" class="form-control" type="text" required>
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">法人身份证正面jpg照片：</label>
+                <label class="col-sm-3 control-label is-required">法人身份证正面：</label>
                 <div class="col-sm-8">
                     <input type="hidden" name="frontPhoto">
                     <div class="file-loading">
-                        <input class="form-control file-upload" id="frontPhoto" name="file" type="file">
+                        <input class="form-control file-upload" id="frontPhoto" name="file1" type="file" required>
                     </div>
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">法人身份证反面jpg照片：</label>
+                <label class="col-sm-3 control-label is-required">法人身份证反面：</label>
                 <div class="col-sm-8">
                     <input type="hidden" name="backPhoto">
                     <div class="file-loading">
-                        <input class="form-control file-upload" id="backPhoto" name="file" type="file">
+                        <input class="form-control file-upload" id="backPhoto" name="file2" type="file" required>
                     </div>
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">营业执照所在地：</label>
+                <label class="col-sm-3 control-label is-required">营业执照所在地：</label>
                 <div class="col-sm-8">
-                    <input name="businessLicenseLocation" class="form-control" type="text">
+                    <input name="businessLicenseLocation" class="form-control" type="text" required>
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">营业执照详细地址：</label>
+                <label class="col-sm-3 control-label is-required">营业执照详细地址：</label>
                 <div class="col-sm-8">
-                    <input name="businessLicenseAddress" class="form-control" type="text">
+                    <input name="businessLicenseAddress" class="form-control" type="text" required>
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">成立日期：</label>
+                <label class="col-sm-3 control-label is-required">成立日期：</label>
                 <div class="col-sm-8">
                     <div class="input-group date">
-                        <input name="incorporationDate" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                        <input name="incorporationDate" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     </div>
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">注册资本：</label>
+                <label class="col-sm-3 control-label is-required">注册资本：</label>
                 <div class="col-sm-8">
-                    <input name="registeredCapital" class="form-control" type="text">
+                    <input name="registeredCapital" class="form-control" type="text" required>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label">营业范围：</label>
+                <label class="col-sm-3 control-label is-required">营业范围：</label>
                 <div class="col-sm-8">
-                    <textarea name="businessScope" class="form-control"></textarea>
+                    <textarea name="businessScope" class="form-control" required></textarea>
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">营业执照jpg照片：</label>
+                <label class="col-sm-3 control-label is-required">营业执照：</label>
                 <div class="col-sm-8">
                     <input type="hidden" name="businessLicense">
                     <div class="file-loading">
-                        <input class="form-control file-upload" id="businessLicense" name="file" type="file">
+                        <input class="form-control file-upload" id="businessLicense" name="file3" type="file" required>
                     </div>
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">公司电话：</label>
+                <label class="col-sm-3 control-label is-required">公司电话：</label>
                 <div class="col-sm-8">
-                    <input name="officePhone" class="form-control" type="text">
+                    <input name="officePhone" class="form-control" type="text" required>
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">公司紧急联系人：</label>
+                <label class="col-sm-3 control-label is-required">公司紧急联系人：</label>
                 <div class="col-sm-8">
-                    <input name="emergencyContact" class="form-control" type="text">
+                    <input name="emergencyContact" class="form-control" type="text" required>
                 </div>
             </div>
             <div class="form-group">    
-                <label class="col-sm-3 control-label">公司紧急联系人手机：</label>
+                <label class="col-sm-3 control-label is-required">公司紧急联系人手机：</label>
                 <div class="col-sm-8">
-                    <input name="emergencyContactPhone" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">创建时间：</label>
-                <div class="col-sm-8">
-                    <div class="input-group date">
-                        <input name="createDatetime" class="form-control" placeholder="yyyy-MM-dd" type="text">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    </div>
+                    <input name="emergencyContactPhone" class="form-control" type="text" required>
                 </div>
             </div>
         </form>
@@ -127,7 +118,26 @@
     <script th:inline="javascript">
         var prefix = ctx + "audit/supplierLicenseManage"
         $("#form-supplierLicenseManage-add").validate({
-            focusCleanup: true
+            focusCleanup: true,
+            rules: {
+            	corporateName:{
+            		isName:true,
+            		maxlength:5
+            	},
+            	registrationNumber:"digits",
+            	frName:"isName",
+            	idNumber:"isIdentity",
+            	businessLicenseLocation:"isName",
+            	businessLicenseAddress:"isAddress",
+            	registeredCapital:"digits",
+            	businessScope:"isBusinessScope",
+            	officePhone:"isTel",
+            	emergencyContact:"isName",
+            	emergencyContactPhone:"isPhone"
+            },
+            messages: {
+            	corporateName:"请输入公司名称，长度2-5位"
+            }
         });
 
         function submitHandler() {
@@ -137,12 +147,6 @@
         }
 
         $("input[name='incorporationDate']").datetimepicker({
-            format: "yyyy-mm-dd",
-            minView: "month",
-            autoclose: true
-        });
-
-        $("input[name='createDatetime']").datetimepicker({
             format: "yyyy-mm-dd",
             minView: "month",
             autoclose: true

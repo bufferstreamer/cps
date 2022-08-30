@@ -111,10 +111,10 @@
                 },
                 {
                     field: 'businessLicense',
-                    title: '个体工商户营业执照jpg照片',
+                    title: '个体工商户营业执照',
                     formatter: function(value, row, index) {
                         var actions = [];
-                        actions.push('<img alt="个体工商户营业执照jpg照片" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.businessLicense +'">');
+                        actions.push('<img alt="个体工商户营业执照" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.businessLicense +'">');
                         return actions.join('');
                     }
                 },
@@ -158,7 +158,7 @@
                 },
                 {
                     field: 'businessCertificate',
-                    title: '经营许可证.jpg',
+                    title: '经营许可证',
                     formatter: function(value, row, index) {
                         var actions = [];
                         actions.push('<img alt="经营许可证" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.businessCertificate +'">');
@@ -179,7 +179,7 @@
                 },
                 {
                     field: 'contactCardType',
-                    title: '联系人证件类型: 1身份证 2港澳居民来往内地通行证 3台湾居民来往大陆通行证 4普通护照 5外国人永久居留身份证',
+                    title: '联系人证件类型: ',
                     formatter: function (value, row) {
                         switch (value) {
                             case '1':
@@ -203,7 +203,7 @@
                 },
                 {
                     field: 'frontPhoto',
-                    title: '联系人证件正面jpg照片',
+                    title: '联系人证件正面',
                     formatter: function(value, row, index) {
                         var actions = [];
                         actions.push('<img alt="联系人证件正面jpg照片" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.frontPhoto +'">');
@@ -212,10 +212,10 @@
                 },
                 {
                     field: 'backPhoto',
-                    title: '联系人证件反面jpg照片',
+                    title: '联系人证件反面',
                     formatter: function(value, row, index) {
                         var actions = [];
-                        actions.push('<img alt="联系人证件反面jpg照片" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.backPhoto +'">');
+                        actions.push('<img alt="联系人证件反面" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.backPhoto +'">');
                         return actions.join('');
                     }
                 },

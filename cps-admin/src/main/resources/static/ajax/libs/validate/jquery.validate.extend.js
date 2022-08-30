@@ -5,6 +5,19 @@ $(document).ready(function(){
 		 		form.submit();    
 		}       
 	});  
+	jQuery.validator.addMethod("isBusinessScope",function(value,element){
+		var businessScope=/(^[\u4e00-\u9fa5][\u4e00-\u9fa5，]*[\u4e00-\u9fa5]$)|^[\u4e00-\u9fa5]$/;
+		return this.optional(element) || (businessScope.test(value));
+	},"请填写经营范围，只能填写汉字和逗号");	 
+	jQuery.validator.addMethod("isAddress",function(value,element){
+		var address=/^(?=.*?[\u4E00-\u9FA5])[\d\u4E00-\u9FA5]/;
+		return this.optional(element) || (address.test(value));
+	},"请填写地址，只能填汉字和数字");
+	//地址验证：只能输入汉字和数字
+	jQuery.validator.addMethod("isAddress",function(value,element){
+		var address=/^(?=.*?[\u4E00-\u9FA5])[\d\u4E00-\u9FA5]/;
+		return this.optional(element) || (address.test(value));
+	},"请填写地址，只能填汉字和数字");
 	//手机号码验证身份证正则合并：(^\d{15}$)|(^\d{17}([0-9]|X)$)
 	jQuery.validator.addMethod("isPhone",function(value,element){
 		var length = value.length;
