@@ -54,6 +54,7 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('audit:businessCreditEvaluationManage:edit')}]];
         var removeFlag = [[${@permission.hasPermi('audit:businessCreditEvaluationManage:remove')}]];
+        var auditStateDatas = [[${@dict.getType('sys_examine_status')}]];
         var prefix = ctx + "audit/businessCreditEvaluationManage";
 
         $(function() {
@@ -67,6 +68,26 @@
                 modalName: "小商超信用评价审核管理",
                 columns: [{
                     checkbox: true
+                },
+                {
+                    field: 'checklistId',
+                    title:'审核状态',
+                    formatter: function(value, row, index) {
+                        let auditStatus = "1";
+                        let data = {"checklistId":value};
+                        $.ajax({
+                            url:ctx+"audit/auditDocumentsManage/search-status",
+                            type:"post",
+                            dataType:"json",
+                            data:data,
+                            async:false,
+                            success:function (result){
+                                auditStatus = result;
+                            }
+                        })
+                        auditStatus -= 1;
+                        return $.table.selectDictLabel(auditStateDatas, auditStatus);
+                    }
                 },
                 {
                     field: 'businessCreditEvaluationAuditId',

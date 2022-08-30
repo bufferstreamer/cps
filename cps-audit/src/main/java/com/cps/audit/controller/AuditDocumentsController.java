@@ -127,4 +127,13 @@ public class AuditDocumentsController extends BaseController
     {
         return toAjax(auditDocumentsService.deleteAuditDocumentsByChecklistIds(ids));
     }
+
+    /**
+     * 根据审核单id查询审核状态
+     */
+    @PostMapping("search-status")
+    @ResponseBody
+    public String selectAuditStatusByChecklistId(String checklistId){
+        return auditDocumentsService.selectAuditDocumentsByChecklistId(checklistId).getAuditStatus();
+    }
 }

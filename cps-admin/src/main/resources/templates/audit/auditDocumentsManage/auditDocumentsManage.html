@@ -58,6 +58,7 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('audit:auditDocumentsManage:edit')}]];
         var removeFlag = [[${@permission.hasPermi('audit:auditDocumentsManage:remove')}]];
+        var auditStateDatas = [[${@dict.getType('sys_examine_status')}]];
         var prefix = ctx + "audit/auditDocumentsManage";
 
         $(function() {
@@ -72,13 +73,20 @@
                     checkbox: true
                 },
                 {
-                    field: 'userId',
-                    title: '用户id'
+                    field: 'auditStatus',
+                    title: '审核状态',
+                    formatter: function(value, row, index){
+                        let auditStatus = value - 1;
+                        return $.table.selectDictLabel(auditStateDatas,auditStatus);
+                    }
                 },
                 {
                     field: 'checklistId',
-                    title: '审核单id',
-                    visible: false
+                    title: '审核单id'
+                },
+                {
+                    field: 'userId',
+                    title: '用户id'
                 },
                 {
                     field: 'auditType',
@@ -91,20 +99,6 @@
                                 return '小商超'
                             default:
                                 return '供应商'
-                        }
-                    }
-                },
-                {
-                    field: 'auditStatus',
-                    title: '审核状态',
-                    formatter: function (value, row) {
-                        switch (value) {
-                            case '1':
-                                return '未审核'
-                            case '2':
-                                return '审核通过'
-                            default:
-                                return '未审核'
                         }
                     }
                 },

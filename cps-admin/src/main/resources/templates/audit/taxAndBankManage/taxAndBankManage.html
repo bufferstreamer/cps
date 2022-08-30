@@ -35,7 +35,7 @@
                                 <input type="text" name="bankBranchName"/>
                             </li>
                             <li>
-                                <label>开户银行支行联行号(3位银行代码+4位城市代码+4位银行编号+1位校验位)：</label>
+                                <label>开户银行支行联行号</label>
                                 <input type="text" name="bankBranchNumber"/>
                             </li>
                             <li>
@@ -78,6 +78,7 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('audit:taxAndBankManage:edit')}]];
         var removeFlag = [[${@permission.hasPermi('audit:taxAndBankManage:remove')}]];
+        var auditStateDatas = [[${@dict.getType('sys_examine_status')}]];
         var prefix = ctx + "audit/taxAndBankManage";
 
         $(function() {
@@ -91,6 +92,26 @@
                 modalName: "税务及银行审核管理",
                 columns: [{
                     checkbox: true
+                },
+                {
+                    field: 'checklistId',
+                    title:'审核状态',
+                    formatter: function(value, row, index) {
+                        let auditStatus = "1";
+                        let data = {"checklistId":value};
+                        $.ajax({
+                            url:ctx+"audit/auditDocumentsManage/search-status",
+                            type:"post",
+                            dataType:"json",
+                            data:data,
+                            async:false,
+                            success:function (result){
+                                auditStatus = result;
+                            }
+                        })
+                        auditStatus -= 1;
+                        return $.table.selectDictLabel(auditStateDatas, auditStatus);
+                    }
                 },
                 {
                     field: 'taxAndBankAuditId',
@@ -127,7 +148,7 @@
                 },
                 {
                     field: 'taxRegistrationCertificate',
-                    title: '税务登记证电子版.jpg',
+                    title: '税务登记证电子版',
                     formatter: function(value, row, index) {
                         var actions = [];
                         actions.push('<img alt="税务登记证电子版.jpg" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.taxRegistrationCertificate +'">');
@@ -136,7 +157,7 @@
                 },
                 {
                     field: 'generalTaxpayerQualificationCertificate',
-                    title: '一般纳税人资格证电子版.jpg',
+                    title: '一般纳税人资格证电子版',
                     formatter: function(value, row, index) {
                         var actions = [];
                         actions.push('<img alt="一般纳税人资格证电子版.jpg" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.generalTaxpayerQualificationCertificate +'">');
@@ -157,7 +178,7 @@
                 },
                 {
                     field: 'bankBranchNumber',
-                    title: '开户银行支行联行号(3位银行代码+4位城市代码+4位银行编号+1位校验位)'
+                    title: '开户银行支行联行号'
                 },
                 {
                     field: 'bankBranchLocation',
@@ -165,7 +186,7 @@
                 },
                 {
                     field: 'bankAccountOpenLicense',
-                    title: '银行开户许可证电子版jpg',
+                    title: '银行开户许可证电子版',
                     formatter: function(value, row, index) {
                         var actions = [];
                         actions.push('<img alt="银行开户许可证电子版jpg" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.bankAccountOpenLicense +'">');
