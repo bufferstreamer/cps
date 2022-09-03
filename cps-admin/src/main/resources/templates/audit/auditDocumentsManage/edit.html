@@ -73,7 +73,6 @@
     <th:block th:include="include :: datetimepicker-js" />
     <script th:inline="javascript">
         $("#auditStatus option[value="+ [[${auditDocuments.auditStatus}]] +"]").prop('selected',true);
-        console.log([[${auditStatus}]]);
         var prefix = ctx + "audit/auditDocumentsManage";
         $("#form-auditDocumentsManage-edit").validate({
             focusCleanup: true

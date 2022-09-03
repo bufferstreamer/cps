@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import com.cps.system.service.ISysConfigService;
 
 /**
- * cps首创 html调用 thymeleaf 实现参数管理
+ * html调用 thymeleaf 实现参数管理
  * 
  * @author cps
  */

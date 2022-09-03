@@ -8,7 +8,7 @@ import com.cps.system.service.ISysDictDataService;
 import com.cps.system.service.ISysDictTypeService;
 
 /**
- * cps首创 html调用 thymeleaf 实现字典读取
+ * html调用 thymeleaf 实现字典读取
  * 
  * @author cps
  */

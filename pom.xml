@@ -196,16 +196,25 @@
                 <artifactId>cps-common</artifactId>
                 <version>${cps.version}</version>
             </dependency>
+
             <!-- 审核模块-->
             <dependency>
                 <groupId>com.cps</groupId>
                 <artifactId>cps-audit</artifactId>
                 <version>${cps.version}</version>
             </dependency>
+
             <!--标书&公告模块-->
             <dependency>
                 <groupId>com.cps</groupId>
                 <artifactId>cps-cp</artifactId>
+                <version>${cps.version}</version>
+            </dependency>
+
+            <!--产品模块-->
+            <dependency>
+                <groupId>com.cps</groupId>
+                <artifactId>cps-product</artifactId>
                 <version>${cps.version}</version>
             </dependency>
         </dependencies>
@@ -220,6 +229,7 @@
         <module>cps-user</module>
         <module>cps-audit</module>
         <module>cps-cp</module>
+        <module>cps-product</module>
     </modules>
     <packaging>pom</packaging>
 

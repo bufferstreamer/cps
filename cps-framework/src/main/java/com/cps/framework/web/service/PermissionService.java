@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.cps.common.utils.StringUtils;
 
 /**
- * cps首创 js调用 thymeleaf 实现按钮权限可见性
+ * js调用 thymeleaf 实现按钮权限可见性
  * 
  * @author cps
  */
