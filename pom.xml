@@ -217,6 +217,13 @@
                 <artifactId>cps-product</artifactId>
                 <version>${cps.version}</version>
             </dependency>
+
+            <!--bid模块-->
+            <dependency>
+                <groupId>com.cps</groupId>
+                <artifactId>cps-bid</artifactId>
+                <version>${cps.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <modules>
@@ -230,6 +237,7 @@
         <module>cps-audit</module>
         <module>cps-cp</module>
         <module>cps-bid</module>
+        <module>cps-product</module>
     </modules>
     <packaging>pom</packaging>
 

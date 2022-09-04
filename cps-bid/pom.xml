@@ -11,5 +11,12 @@
 
     <artifactId>cps-bid</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-common</artifactId>
+            <version>${cps.version}</version>
+        </dependency>
 
+    </dependencies>
 </project>
