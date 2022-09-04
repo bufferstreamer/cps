@@ -16,6 +16,11 @@
             <groupId>com.cps</groupId>
             <artifactId>cps-common</artifactId>
         </dependency>
+        <dependency>
+        	<groupId>com.cps</groupId>
+        	<artifactId>cps-audit</artifactId>
+        	<version>4.7.4</version>
+        </dependency>
     </dependencies>
 
 </project>

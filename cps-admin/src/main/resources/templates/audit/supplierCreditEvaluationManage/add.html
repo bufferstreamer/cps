@@ -44,7 +44,7 @@
     <th:block th:include="include :: datetimepicker-js" />
     <th:block th:include="include :: bootstrap-fileinput-js"/>
     <script th:inline="javascript">
-        var prefix = ctx + "audit/supplierCreditEvaluationManage"
+        var prefix = ctx + "audit/supplierCreditEvaluationManage";
         $("#form-supplierCreditEvaluationManage-add").validate({
             focusCleanup: true,
             rules: {
@@ -62,6 +62,9 @@
         function submitHandler() {
             if ($.validate.form()) {
                 $.operate.save(prefix + "/add", $('#form-supplierCreditEvaluationManage-add').serialize());
+                $.modal.msgSuccess("提交成功！");
+                $.modal.close();
+                $.modal.closeTab();
             }
         }
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cps.audit.domain.AuditDocuments;
 import com.cps.audit.mapper.AuditDocumentsMapper;
+import com.cps.common.utils.ShiroUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cps.audit.mapper.SupplierLicenseInfoMapper;
@@ -65,7 +66,7 @@ public class SupplierLicenseInfoServiceImpl implements ISupplierLicenseInfoServi
         auditDocuments.setCreateDatetime(supplierLicenseInfo.getCreateDatetime());
         auditDocuments.setUpdateDatetime(supplierLicenseInfo.getCreateDatetime());
         auditDocuments.setAdminId(1L);//待定
-        auditDocuments.setUserId(1L);//待定
+        auditDocuments.setUserId(ShiroUtils.getUserId());
         int res = 0;
         try{
             res = supplierLicenseInfoMapper.insertSupplierLicenseInfo(supplierLicenseInfo);

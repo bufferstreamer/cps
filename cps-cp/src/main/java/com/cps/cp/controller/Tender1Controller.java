@@ -2,12 +2,12 @@ package com.cps.cp.controller;
 
 import java.util.List;
 
-import com.cps.common.constant.Constants;
+import com.cps.audit.domain.AuditDocuments;
+import com.cps.audit.service.IAuditDocumentsService;
 import com.cps.common.utils.DateUtils;
-import com.cps.common.utils.StringUtils;
-import com.cps.common.utils.file.FileUtils;
-import com.cps.common.utils.uuid.IdUtils;
-import jdk.nashorn.internal.objects.Global;
+import com.cps.common.utils.ShiroUtils;
+import com.cps.cp.domain.QualificationReview;
+import com.cps.cp.service.IQualificationReviewService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,9 +26,6 @@ import com.cps.common.core.domain.AjaxResult;
 import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.core.page.TableDataInfo;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * 招标Controller
  * 
@@ -44,10 +41,27 @@ public class Tender1Controller extends BaseController
     @Autowired
     private ITenderService tenderService;
 
+    @Autowired
+    private IQualificationReviewService qualificationReviewService;
+
     @RequiresPermissions("cp:tender1:view")
     @GetMapping()
-    public String tender1()
+    public String tender1(ModelMap map)
     {
+        boolean canQualificationReview=CanQualificationReview();
+        map.put("canQualificationReview",canQualificationReview);
+        if (canQualificationReview){
+            List<Tender> list = tenderService.selectTender1List(null);
+            System.out.println(list.size());
+            boolean[] canPurchaseArr=new boolean[list.size()];
+            for (int i=0;i<list.size();i++){
+                String tenderId = list.get(i).getTenderId();
+                QualificationReview review = qualificationReviewService.selectQualificationReviewByTenderIdAndSupplyId(tenderId, ShiroUtils.getUserId().toString());
+                canPurchaseArr[i]=(review!=null&&review.getAuditStatus().equals("1"));
+            }
+
+            map.put("canPurchaseArr",canPurchaseArr);
+        }
         return prefix + "/tender1";
     }
 
@@ -61,6 +75,7 @@ public class Tender1Controller extends BaseController
     {
         startPage();
         List<Tender> list = tenderService.selectTender1List(tender);
+
         return getDataTable(list);
     }
 
@@ -144,5 +159,41 @@ public class Tender1Controller extends BaseController
     {
         mmap.put("tender", tenderService.selectTenderByTenderId(tenderId));
         return prefix + "/detail";
+    }
+
+    @RequestMapping("/qualificationReview/{tenderId}")
+    public String qualificationReview(@PathVariable("tenderId") String tenderId, ModelMap mmap)
+    {
+        QualificationReview review = qualificationReviewService.selectQualificationReviewByTenderIdAndSupplyId(tenderId, ShiroUtils.getUserId().toString());
+
+        if (review==null){
+            mmap.put("tenderId", tenderId);
+            return "cp/qualificationReview/add";
+        }
+        else {
+            mmap.put("qualificationReview", review);
+            return "cp/qualificationReview/update";
+        }
+    }
+
+    @Autowired
+    private IAuditDocumentsService mAuditDocumentsService;
+
+    private boolean CanQualificationReview() {
+        List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
+        if (tempList == null) {
+            return false;
+        }
+        if (tempList.size() < 2) {
+            return false;
+        }
+
+        for (AuditDocuments temp : tempList
+        ) {
+            if (temp.getAuditStatus().equals("1"))
+                return false;
+        }
+
+        return true;
     }
 }

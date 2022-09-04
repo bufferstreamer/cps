@@ -34,6 +34,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectSupplierCreditEvaluationInfoVo"/>
         where supplier_credit_evaluation_audit_id = #{supplierCreditEvaluationAuditId}
     </select>
+
+    <select id="selectSupplierCreditEvaluationInfoByChecklistId" parameterType="String" resultMap="SupplierCreditEvaluationInfoResult">
+        <include refid="selectSupplierCreditEvaluationInfoVo"/>
+        where checklist_id = #{checklistId}
+    </select>
         
     <insert id="insertSupplierCreditEvaluationInfo" parameterType="SupplierCreditEvaluationInfo">
         insert into audit_supplier_credit_evaluation_info

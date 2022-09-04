@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cps.audit.domain.AuditDocuments;
 import com.cps.audit.mapper.AuditDocumentsMapper;
+import com.cps.common.utils.ShiroUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cps.audit.mapper.SupplierCreditEvaluationInfoMapper;
@@ -38,6 +39,11 @@ public class SupplierCreditEvaluationInfoServiceImpl implements ISupplierCreditE
         return supplierCreditEvaluationInfoMapper.selectSupplierCreditEvaluationInfoBySupplierCreditEvaluationAuditId(supplierCreditEvaluationAuditId);
     }
 
+    @Override
+    public SupplierCreditEvaluationInfo selectSupplierCreditEvaluationInfoByChecklistId(String checklistId) {
+        return supplierCreditEvaluationInfoMapper.selectSupplierCreditEvaluationInfoByChecklistId(checklistId);
+    }
+
     /**
      * 查询供应商评价审核管理列表
      * 
@@ -65,7 +71,7 @@ public class SupplierCreditEvaluationInfoServiceImpl implements ISupplierCreditE
         auditDocuments.setCreateDatetime(supplierCreditEvaluationInfo.getCreateDatetime());
         auditDocuments.setUpdateDatetime(supplierCreditEvaluationInfo.getCreateDatetime());
         auditDocuments.setAdminId(1L);//待定
-        auditDocuments.setUserId(1L);//待定
+        auditDocuments.setUserId(ShiroUtils.getUserId());
         int res = 0;
         try{
             res = supplierCreditEvaluationInfoMapper.insertSupplierCreditEvaluationInfo(supplierCreditEvaluationInfo);

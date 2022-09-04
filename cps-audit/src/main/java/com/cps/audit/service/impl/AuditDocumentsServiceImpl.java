@@ -1,6 +1,7 @@
 package com.cps.audit.service.impl;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cps.audit.mapper.AuditDocumentsMapper;
@@ -19,7 +20,6 @@ public class AuditDocumentsServiceImpl implements IAuditDocumentsService
 {
     @Autowired
     private AuditDocumentsMapper auditDocumentsMapper;
-
     /**
      * 查询审核单据管理
      * 
@@ -42,6 +42,11 @@ public class AuditDocumentsServiceImpl implements IAuditDocumentsService
     public List<AuditDocuments> selectAuditDocumentsList(AuditDocuments auditDocuments)
     {
         return auditDocumentsMapper.selectAuditDocumentsList(auditDocuments);
+    }
+
+    @Override
+    public List<AuditDocuments> selectAuditDocumentsByUserId(Long userId){
+        return auditDocumentsMapper.selectAuditDocumentsByUserId(userId);
     }
 
     /**

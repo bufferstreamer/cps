@@ -30,7 +30,7 @@
     <th:block th:include="include :: bootstrap-fileinput-js"/>
     
     <script th:inline="javascript">
-        var prefix = ctx + "audit/businessCreditEvaluationManage"
+        var prefix = ctx + "audit/businessCreditEvaluationManage";
         $("#form-businessCreditEvaluationManage-add").validate({  
         	focusCleanup: true,
             rules: {
@@ -40,11 +40,10 @@
 
         function submitHandler() {
             if ($.validate.form()) {
-            	var txtName=document.getElementById("txtName");
-            	console.log(txtName.value);
-            
-            	
                 $.operate.save(prefix + "/add", $('#form-businessCreditEvaluationManage-add').serialize());
+                $.modal.msgSuccess("提交成功！");
+                $.modal.close();
+                $.modal.closeTab();
             }
         }
 

@@ -36,6 +36,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectAuditDocumentsVo"/>
         where checklist_id = #{checklistId}
     </select>
+
+    <select id="selectAuditDocumentsByUserId" parameterType="Long" resultMap="AuditDocumentsResult">
+        <include refid="selectAuditDocumentsVo"/>
+        where user_id = #{userId}
+    </select>
         
     <insert id="insertAuditDocuments" parameterType="AuditDocuments">
         insert into audit_documents

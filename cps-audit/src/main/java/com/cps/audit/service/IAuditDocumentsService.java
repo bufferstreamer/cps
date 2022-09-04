@@ -27,6 +27,8 @@ public interface IAuditDocumentsService
      */
     public List<AuditDocuments> selectAuditDocumentsList(AuditDocuments auditDocuments);
 
+    //根据用户ID查询审核单
+    public List<AuditDocuments> selectAuditDocumentsByUserId(Long userId);
     /**
      * 新增审核单据管理
      * 

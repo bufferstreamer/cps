@@ -46,15 +46,27 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('cp:tender1:edit')}]];
         var removeFlag = [[${@permission.hasPermi('cp:tender1:remove')}]];
-        var downloadFlag = [[${@permission.hasPermi('cp:tender1:downloadFlag')}]];
+        var downloadFlag = [[${@permission.hasPermi('cp:tender1:download')}]];
         var prefix = ctx + "cp/tender1";
         var detailFlag = [[${@permission.hasPermi('cp:tender1:detail')}]];
+        var qualificationReviewFlag=[[${@permission.hasPermi('cp:tender1:qualificationReview')}]];
+        var centralizedPurchaseFlag=[[${@permission.hasPermi('cp:tender1:centralizedPurchase')}]];
         function downloadFile(value){
             console.log("文件名");
             console.log("value");
             window.location.href = ctx + "common/download/resource?resource=" + value;
         }
         function detl( id) {  $.modal.openFull("Dtail",ctx+"cp/tender1/detail/"+id); }
+
+        function qualificationReview(tenderId){
+            $.modal.open("提交资质审核",ctx+"cp/tender1/qualificationReview/"+tenderId);
+        }
+
+        function centralizedPurchase(tenderId){
+            $.modal.open("提交资质审核",ctx+"bid/tender1/add/"+tenderId);
+        }
+
+        //function submitPrice()
         $(function() {
             var options = {
                 url: prefix + "/list",
@@ -125,6 +137,16 @@
                         actions.push('<a class="btn btn-info btn-xs ' + downloadFlag + '" href="javascript:void(0)" onclick="downloadFile(\'' + row.tenderDocument + '\')"><i class="fa fa-download"></i>下载</a>');
                         // actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.tenderId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.tenderId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        if([[${canQualificationReview}]]){
+                            actions.push('<a class="btn btn-success btn-xs ' +qualificationReviewFlag + '" href="javascript:void(0)" onclick="qualificationReview(\'' + row.tenderId + '\')"><i class="fa fa-review"></i>资质审核</a> ');
+                            console.log([[${canPurchaseArr}]][index]);
+                            if([[${canPurchaseArr}]][index]){
+                                actions.push('<a class="btn btn-info btn-xs ' +centralizedPurchaseFlag + '" href="javascript:void(0)" onclick="centralizedPurchase(\'' + row.tenderId + '\')"><i class="fa fa-review"></i>参与竞价</a> ');
+                            }
+                        }
+                        console.log("value:"+value);
+                        console.log("row:"+row);
+                        console.log(index);
                         return actions.join('');
                     }
                 }]

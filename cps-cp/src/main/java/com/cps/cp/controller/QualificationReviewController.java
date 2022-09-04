@@ -7,6 +7,8 @@ import java.util.List;
 
 import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.uuid.IdUtils;
+import com.cps.cp.domain.Tender;
+import com.cps.cp.service.ITenderService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,6 +42,9 @@ public class QualificationReviewController extends BaseController
 
     @Autowired
     private IQualificationReviewService qualificationReviewService;
+
+    @Autowired
+    private ITenderService mTenderService;
 
     @RequiresPermissions("cp:qualificationReview:view")
     @GetMapping()
@@ -93,8 +98,16 @@ public class QualificationReviewController extends BaseController
     @ResponseBody
     public AjaxResult addSave(QualificationReview qualificationReview)
     {
+        //if (qualificationReview.getTenderId())
         qualificationReview.setQualificationReviewId(IdUtils.fastSimpleUUID());
         return toAjax(qualificationReviewService.insertQualificationReview(qualificationReview));
+    }
+
+    private boolean ContainsTender(String tenderId){
+        Tender tender = mTenderService.selectTenderByTenderId(tenderId);
+        List<Tender> tenderList=mTenderService.selectTender1List(tender);
+
+        return tenderList.size()!=0;
     }
 
     /**
@@ -121,6 +134,14 @@ public class QualificationReviewController extends BaseController
 //        Date date = formatter.parse(DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS));
         qualificationReview.setSubmitTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS,DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
         return toAjax(qualificationReviewService.updateQualificationReview(qualificationReview));
+    }
+
+    @PostMapping("/update")
+    @ResponseBody
+    public AjaxResult update(QualificationReview qualificationReview) throws ParseException {
+        qualificationReview.setAuditStatus("0");
+        qualificationReview.setAuditExplanation("");
+        return editSave(qualificationReview);
     }
 
     /**

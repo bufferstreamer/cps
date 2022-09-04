@@ -27,6 +27,8 @@ public interface AuditDocumentsMapper
      */
     public List<AuditDocuments> selectAuditDocumentsList(AuditDocuments auditDocuments);
 
+    //根据用户ID查询单据
+    public List<AuditDocuments> selectAuditDocumentsByUserId(Long userId);
     /**
      * 新增审核单据管理
      * 

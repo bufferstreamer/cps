@@ -19,6 +19,8 @@ public interface IBusinessCreditEvaluationInfoService
      */
     public BusinessCreditEvaluationInfo selectBusinessCreditEvaluationInfoByBusinessCreditEvaluationAuditId(String businessCreditEvaluationAuditId);
 
+    public BusinessCreditEvaluationInfo selectBusinessCreditEvaluationInfoChecklistId(String checklistId);
+
     /**
      * 查询小商超信用评价审核管理列表
      * 

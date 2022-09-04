@@ -19,6 +19,8 @@ public interface IQualificationReviewService
      */
     public QualificationReview selectQualificationReviewByQualificationReviewId(String qualificationReviewId);
 
+    public QualificationReview selectQualificationReviewByTenderIdAndSupplyId(String tenderId, String supplyId);
+
     /**
      * 查询资质审核列表
      * 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cps.audit.domain.AuditDocuments;
 import com.cps.audit.mapper.AuditDocumentsMapper;
+import com.cps.common.utils.ShiroUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cps.audit.mapper.BusinessCreditEvaluationInfoMapper;
@@ -38,6 +39,11 @@ public class BusinessCreditEvaluationInfoServiceImpl implements IBusinessCreditE
         return businessCreditEvaluationInfoMapper.selectBusinessCreditEvaluationInfoByBusinessCreditEvaluationAuditId(businessCreditEvaluationAuditId);
     }
 
+    @Override
+    public BusinessCreditEvaluationInfo selectBusinessCreditEvaluationInfoChecklistId(String checklistId) {
+        return businessCreditEvaluationInfoMapper.selectBusinessCreditEvaluationInfoChecklistId(checklistId);
+    }
+
     /**
      * 查询小商超信用评价审核管理列表
      * 
@@ -65,7 +71,7 @@ public class BusinessCreditEvaluationInfoServiceImpl implements IBusinessCreditE
         auditDocuments.setCreateDatetime(businessCreditEvaluationInfo.getCreateDatetime());
         auditDocuments.setUpdateDatetime(businessCreditEvaluationInfo.getCreateDatetime());
         auditDocuments.setAdminId(1L);//待定
-        auditDocuments.setUserId(1L);//待定
+        auditDocuments.setUserId(ShiroUtils.getUserId());
         int res = 0;
         try{
             res = businessCreditEvaluationInfoMapper.insertBusinessCreditEvaluationInfo(businessCreditEvaluationInfo);

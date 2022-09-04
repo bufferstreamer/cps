@@ -77,15 +77,13 @@
         <dependency>
             <groupId>com.cps</groupId>
             <artifactId>cps-audit</artifactId>
-            <version>${cps.version}</version>
-        </dependency>
+            </dependency>
 
         <!-- 标书&公告模块-->
         <dependency>
             <groupId>com.cps</groupId>
             <artifactId>cps-cp</artifactId>
-            <version>${cps.version}</version>
-        </dependency>
+            </dependency>
 
         <!--产品模块-->
         <dependency>

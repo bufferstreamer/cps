@@ -19,6 +19,8 @@ public interface ISupplierCreditEvaluationInfoService
      */
     public SupplierCreditEvaluationInfo selectSupplierCreditEvaluationInfoBySupplierCreditEvaluationAuditId(String supplierCreditEvaluationAuditId);
 
+    public SupplierCreditEvaluationInfo selectSupplierCreditEvaluationInfoByChecklistId(String checklistId);
+
     /**
      * 查询供应商评价审核管理列表
      * 

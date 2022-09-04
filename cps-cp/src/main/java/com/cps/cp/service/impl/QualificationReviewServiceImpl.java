@@ -1,6 +1,10 @@
 package com.cps.cp.service.impl;
 
 import java.util.List;
+
+import com.cps.common.utils.DateUtils;
+import com.cps.common.utils.ShiroUtils;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cps.cp.mapper.QualificationReviewMapper;
@@ -32,6 +36,10 @@ public class QualificationReviewServiceImpl implements IQualificationReviewServi
         return qualificationReviewMapper.selectQualificationReviewByQualificationReviewId(qualificationReviewId);
     }
 
+    public QualificationReview selectQualificationReviewByTenderIdAndSupplyId(String tenderId, String supplyId){
+        return qualificationReviewMapper.selectQualificationReviewByTenderIdAndSupplyId(tenderId,supplyId);
+    }
+
     /**
      * 查询资质审核列表
      * 
@@ -53,6 +61,9 @@ public class QualificationReviewServiceImpl implements IQualificationReviewServi
     @Override
     public int insertQualificationReview(QualificationReview qualificationReview)
     {
+        qualificationReview.setSupplyId(ShiroUtils.getUserId());
+        qualificationReview.setSubmitTime(DateUtils.getNowDate());
+        qualificationReview.setAuditStatus("0");
         return qualificationReviewMapper.insertQualificationReview(qualificationReview);
     }
 

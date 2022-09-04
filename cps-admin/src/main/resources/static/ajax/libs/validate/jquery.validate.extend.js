@@ -4,11 +4,23 @@ $(document).ready(function(){
 		  submitHandler: function(form) {    
 		 		form.submit();    
 		}       
-	});  
-	jQuery.validator.addMethod("isBusinessScope",function(value,element){
-		var businessScope=/(^[\u4e00-\u9fa5][\u4e00-\u9fa5，]*[\u4e00-\u9fa5]$)|^[\u4e00-\u9fa5]$/;
-		return this.optional(element) || (businessScope.test(value));
-	},"请填写经营范围，只能填写汉字和逗号");	 
+	});
+	jQuery.validator.addMethod("isPRCard",function(value,element){
+		var reg=/^[A-Z]{3}[0-9]{12}$/;
+		return this.optional(element) || (reg.test(value));
+	},"外国人永久居留身份证号码不合规");
+	jQuery.validator.addMethod("isPassPortCard",function(value,element){
+		var reg=/^([a-zA-z]|[0-9]){5,17}$/;
+		return this.optional(element) || (reg.test(value));
+	},"护照号码不合规");
+	jQuery.validator.addMethod("isTWCard",function(value,element){
+		var reg=/^\d{8}|^[a-zA-Z0-9]{10}|^\d{18}$/;
+		return this.optional(element) || (reg.test(value));
+	},"台湾居民来往大陆通行证号码不合规");
+	jQuery.validator.addMethod("isHKCard",function(value,element){
+		var reg=/^([A-Z]\d{6,10}(\(\w{1}\))?)$/;
+		return this.optional(element) || (reg.test(value));
+	},"港澳居民来往内地通行证号码不合规");
 	jQuery.validator.addMethod("isAddress",function(value,element){
 		var address=/^(?=.*?[\u4E00-\u9FA5])[\d\u4E00-\u9FA5]/;
 		return this.optional(element) || (address.test(value));
@@ -31,7 +43,7 @@ $(document).ready(function(){
 	},"请填写正确的座机号码");
 	//姓名校验
 	jQuery.validator.addMethod("isName",function(value,element){
-		var name=/^[\u4e00-\u9fa5]{2,6}$/;
+		var name=/^[\u4e00-\u9fa5]{2,4}$/;
 		return this.optional(element) || (name.test(value));
 	},"姓名只能用汉字,长度2-4位");
 	//校验用户名

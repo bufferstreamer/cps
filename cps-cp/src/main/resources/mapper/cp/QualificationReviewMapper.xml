@@ -21,14 +21,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectQualificationReviewList" parameterType="QualificationReview" resultMap="QualificationReviewResult">
         <include refid="selectQualificationReviewVo"/>
-        <where>  
-            <if test="qualificationReviewId != null  and qualificationReviewId != ''"> and qualification_review_id = #{qualificationReviewId}</if>
+        <where>
+            <if test="tenderId != null  and tenderId != ''"> and tender_id = #{tenderId}</if>
         </where>
     </select>
     
     <select id="selectQualificationReviewByQualificationReviewId" parameterType="String" resultMap="QualificationReviewResult">
         <include refid="selectQualificationReviewVo"/>
         where qualification_review_id = #{qualificationReviewId}
+    </select>
+
+    <select id="selectQualificationReviewByTenderIdAndSupplyId" resultMap="QualificationReviewResult">
+        select *
+        from qualification_review
+        where supply_id = #{supply_id} and tender_id = #{tender_id}
     </select>
         
     <insert id="insertQualificationReview" parameterType="QualificationReview">

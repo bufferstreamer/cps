@@ -30,6 +30,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectBusinessCreditEvaluationInfoVo"/>
         where business_credit_evaluation_audit_id = #{businessCreditEvaluationAuditId}
     </select>
+
+    <select id="selectBusinessCreditEvaluationInfoChecklistId" parameterType="String" resultMap="BusinessCreditEvaluationInfoResult">
+        <include refid="selectBusinessCreditEvaluationInfoVo"/>
+        where checklist_id = #{checklistId}
+    </select>
         
     <insert id="insertBusinessCreditEvaluationInfo" parameterType="BusinessCreditEvaluationInfo">
         insert into audit_business_credit_evaluation_info

@@ -116,26 +116,32 @@
     <th:block th:include="include :: datetimepicker-js" />
     <th:block th:include="include :: bootstrap-fileinput-js"/>
     <script th:inline="javascript">
-        var prefix = ctx + "audit/supplierLicenseManage"
+        var prefix = ctx + "audit/supplierLicenseManage";
         $("#form-supplierLicenseManage-add").validate({
             focusCleanup: true,
             rules: {
+                registrationNumber:{
+            		digits:true,
+            		rangelength:[18,18]
+            	},
             	corporateName:{
             		isName:true,
             		maxlength:5
             	},
-            	registrationNumber:"digits",
             	frName:"isName",
             	idNumber:"isIdentity",
             	businessLicenseLocation:"isName",
             	businessLicenseAddress:"isAddress",
             	registeredCapital:"digits",
-            	businessScope:"isBusinessScope",
+            	businessScope:{
+                    maxlength:50
+                },
             	officePhone:"isTel",
             	emergencyContact:"isName",
             	emergencyContactPhone:"isPhone"
             },
             messages: {
+            	registrationNumber:"输入不合法",
             	corporateName:"请输入公司名称，长度2-5位"
             }
         });
@@ -143,6 +149,9 @@
         function submitHandler() {
             if ($.validate.form()) {
                 $.operate.save(prefix + "/add", $('#form-supplierLicenseManage-add').serialize());
+                $.modal.msgSuccess("提交成功！");
+                $.modal.close();
+                $.modal.closeTab();
             }
         }
 

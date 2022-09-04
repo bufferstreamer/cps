@@ -2,6 +2,7 @@ package com.cps.cp.mapper;
 
 import java.util.List;
 import com.cps.cp.domain.QualificationReview;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 资质审核Mapper接口
@@ -18,6 +19,8 @@ public interface QualificationReviewMapper
      * @return 资质审核
      */
     public QualificationReview selectQualificationReviewByQualificationReviewId(String qualificationReviewId);
+
+    public QualificationReview selectQualificationReviewByTenderIdAndSupplyId(@Param("tender_id")String tenderId, @Param("supply_id") String supplyId);
 
     /**
      * 查询资质审核列表

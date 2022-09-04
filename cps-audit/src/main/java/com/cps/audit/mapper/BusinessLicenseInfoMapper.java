@@ -18,7 +18,6 @@ public interface BusinessLicenseInfoMapper
      * @return 小商超审核管理
      */
     public BusinessLicenseInfo selectBusinessLicenseInfoByBusinessAuditDocumentId(String businessAuditDocumentId);
-
     /**
      * 查询小商超审核管理列表
      * 
