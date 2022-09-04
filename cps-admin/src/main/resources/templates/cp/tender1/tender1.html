@@ -15,6 +15,18 @@
                                 <input type="text" name="tenderId"/>
                             </li>
                             <li>
+                                <label>项目名称：</label>
+                                <input type="text" name="projectName"/>
+                            </li>
+                            <li>
+                                <label>联系人：</label>
+                                <input type="text" name="contact"/>
+                            </li>
+                            <li>
+                                <label>联系人手机号：</label>
+                                <input type="text" name="phoneOfContact"/>
+                            </li>
+                            <li>
                                 <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
                                 <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
                             </li>
@@ -36,12 +48,18 @@
                 <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="cp:tender1:export">
                     <i class="fa fa-download"></i> 导出
                 </a>
+<!--                <a class="btn btn-info" onclick="downloadFile('http://localhost:8081/cps/profile/upload/template/zhaobiao.docx')" >-->
+<!--                    -->
+<!--                </a>-->
+                <a class="btn btn-info" href="http://localhost:80/cps/documentTemplate/zhaobiao.docx" download=""><i class="fa fa-download"></i> 下载招标模板</a>
             </div>
+
             <div class="col-sm-12 select-table table-striped">
                 <table id="bootstrap-table"></table>
             </div>
         </div>
     </div>
+
     <th:block th:include="include :: footer" />
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('cp:tender1:edit')}]];
@@ -52,8 +70,6 @@
         var qualificationReviewFlag=[[${@permission.hasPermi('cp:tender1:qualificationReview')}]];
         var centralizedPurchaseFlag=[[${@permission.hasPermi('cp:tender1:centralizedPurchase')}]];
         function downloadFile(value){
-            console.log("文件名");
-            console.log("value");
             window.location.href = ctx + "common/download/resource?resource=" + value;
         }
         function detl( id) {  $.modal.openFull("Dtail",ctx+"cp/tender1/detail/"+id); }

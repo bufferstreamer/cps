@@ -1,5 +1,10 @@
 package com.cps.cp.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import com.cps.audit.domain.AuditDocuments;
@@ -8,7 +13,14 @@ import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.ShiroUtils;
 import com.cps.cp.domain.QualificationReview;
 import com.cps.cp.service.IQualificationReviewService;
+import com.cps.common.utils.StringUtils;
+import com.cps.common.utils.file.FileUtils;
+import com.cps.common.utils.uuid.IdUtils;
+import jdk.nashorn.internal.objects.Global;
+import org.apache.poi.xwpf.usermodel.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,6 +38,10 @@ import com.cps.common.core.domain.AjaxResult;
 import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.core.page.TableDataInfo;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * 招标Controller
  * 
@@ -36,6 +52,7 @@ import com.cps.common.core.page.TableDataInfo;
 @RequestMapping("/cp/tender1")
 public class Tender1Controller extends BaseController
 {
+    private static final Logger logger = LoggerFactory.getLogger(Tender1Controller.class);
     private String prefix = "cp/tender1";
 
     @Autowired
@@ -75,7 +92,6 @@ public class Tender1Controller extends BaseController
     {
         startPage();
         List<Tender> list = tenderService.selectTender1List(tender);
-
         return getDataTable(list);
     }
 
@@ -91,6 +107,10 @@ public class Tender1Controller extends BaseController
         List<Tender> list = tenderService.selectTender1List(tender);
         ExcelUtil<Tender> util = new ExcelUtil<Tender>(Tender.class);
         return util.exportExcel(list, "招标数据");
+//        for(Tender tender1 :list){
+//            tender.getTenderDocument().replace("http://localhost:8081/cps/profile","D:/cps/uploadPath");
+//            logger.info(tender1.getTenderDocument());
+//        }
     }
 
     /**
@@ -109,10 +129,75 @@ public class Tender1Controller extends BaseController
     @Log(title = "招标", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(Tender tender)
-    {
-        tender.setTenderId("7835749267894163340175");
+    public AjaxResult addSave(Tender tender) throws IOException {
+        tender.setBidNumber(1);
+        tender.setTenderId(IdUtils.fastSimpleUUID().substring(0,22));
         tender.setCreateDatetime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS,DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
+//        String readFilePath = "G:\\Code\\Test\\zhaobiao.docx";
+        logger.info(tender.getTenderDocument());
+        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile","D:/cps/uploadPath");;
+        File file = new File(readFilePath);
+        FileInputStream fileInputStream = new FileInputStream(readFilePath);
+
+        XWPFDocument doc = new XWPFDocument(fileInputStream);
+
+//        List<XWPFTable> tables = doc.getTables();
+        List<XWPFParagraph> paras = doc.getParagraphs();
+        XWPFParagraph firstParas = paras.get(0);
+        tender.setProjectName(firstParas.getParagraphText());
+        for (XWPFParagraph graph:paras) {
+            String t = graph.getParagraphText();
+            if(t.startsWith("联系人：")){
+                tender.setContact(t.replace("联系人：","").trim());
+            }
+            if(t.startsWith("联系电话：")){
+                tender.setPhoneOfContact(t.replace("联系电话：","").trim());
+            }
+            if(t.startsWith("资质审核截止时间：")){
+                tender.setDealineForQualificationReview(DateUtils.dateTime(DateUtils.YYYY_MM_DD,t.replace("资质审核截止时间：","").trim()));
+            }
+            if(t.startsWith("竞标开始时间：")){
+                tender.setBidStartTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD,t.replace("竞标开始时间：","").trim()));
+            }
+            if(t.startsWith("竞标结束时间：")){
+                tender.setBidEndTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD,t.replace("竞标结束时间：","").trim()));
+            }
+            if(t.startsWith("公布时间：")){
+                tender.setPublishTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD,t.replace("公布时间：","").trim()));
+            }
+
+        }
+//        for(XWPFTable table : tables){
+//
+//            List<XWPFTableRow> rows = table.getRows();
+//            for(int i =1;i<=2;i++){
+//                XWPFTableRow row = rows.get(i);
+//                List<XWPFTableCell> cells = row.getTableCells();
+//                if(i==1){
+//                    tender.setContact(cells.get(1).getText());
+//                }
+//                if(i==2){
+//                    tender.setPhoneOfContact(cells.get(1).getText());
+//                }
+////                for(XWPFTableCell cell :cells){
+////                    String text =cell.getText();
+////                    System.out.println(text);
+////                }
+////                if(i==4){
+////                    tender.setDealineForQualificationReview(DateUtils.dateTime(DateUtils.YYYY_MM_DD,cells.get(1).getText()));
+////                }
+////                if(i==5){
+////                    tender.setBidStartTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD,cells.get(1).getText()));
+////                }
+////                if(i==6){
+////                    tender.setBidEndTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD,cells.get(1).getText()));
+////                }
+////                if(i==7){
+////                    tender.setPublishTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD,cells.get(1).getText()));
+////                }
+//            }
+//        }
+        fileInputStream.close();
         return toAjax(tenderService.insertTender(tender));
     }
 
@@ -196,4 +281,5 @@ public class Tender1Controller extends BaseController
 
         return true;
     }
+
 }

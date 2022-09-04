@@ -5605,17 +5605,17 @@ INSERT INTO `sys_user_role` VALUES ('104', '103');
 DROP TABLE IF EXISTS `tender`;
 CREATE TABLE `tender` (
   `tender_id` varchar(22) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标书ID',
-  `project_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '项目名称',
+  `project_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '项目名称',
   `gxs_id` bigint(20) NOT NULL COMMENT '供销社id',
   `contact` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '联系人',
   `phone_of_contact` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '联系人手机号',
   `tender_document` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '标书存储位置',
   `bid_number` int(10) unsigned NOT NULL DEFAULT '1' COMMENT '竞标次数:1代表招标，大于1代表竞价',
   `create_datetime` datetime NOT NULL COMMENT '创建时间',
-  `dealine_for_qualification_review` datetime NOT NULL COMMENT '资质审核截止时间',
-  `bid_start_time` datetime NOT NULL COMMENT '竞标开始时间',
-  `bid_end_time` datetime NOT NULL COMMENT '竞标结束时间',
-  `publish_time` datetime NOT NULL COMMENT '公布时间',
+  `dealine_for_qualification_review` date NOT NULL COMMENT '资质审核截止时间',
+  `bid_start_time` date NOT NULL COMMENT '竞标开始时间',
+  `bid_end_time` date NOT NULL COMMENT '竞标结束时间',
+  `publish_time` date NOT NULL COMMENT '公布时间',
   PRIMARY KEY (`tender_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='集中采购标书';
 

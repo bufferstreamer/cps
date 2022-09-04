@@ -34,7 +34,7 @@ public class Tender extends BaseEntity
 
     /** 竞标次数:1代表招标，大于1代表竞价 */
     @Excel(name = "竞标次数:1代表招标，大于1代表竞价")
-    private String bidNumber;
+    private Integer bidNumber;
 
     /** 联系人手机号 */
     @Excel(name = "联系人手机号")
@@ -105,12 +105,12 @@ public class Tender extends BaseEntity
     {
         return contact;
     }
-    public void setBidNumber(String bidNumber) 
+    public void setBidNumber(Integer bidNumber)
     {
         this.bidNumber = bidNumber;
     }
 
-    public String getBidNumber() 
+    public Integer getBidNumber()
     {
         return bidNumber;
     }

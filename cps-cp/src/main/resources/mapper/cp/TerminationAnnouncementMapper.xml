@@ -18,7 +18,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectTerminationAnnouncementList" parameterType="TerminationAnnouncement" resultMap="TerminationAnnouncementResult">
         <include refid="selectTerminationAnnouncementVo"/>
         <where>  
-            <if test="terminationAnnouncementId != null  and terminationAnnouncementId != ''"> and termination_announcement_id = #{terminationAnnouncementId}</if>
+            <if test="terminationAnnouncementId != null  and terminationAnnouncementId != ''"> and termination_announcement_id like concat('%', #{terminationAnnouncementId}, '%')</if>
+            <if test="tenderId != null  and tenderId != ''"> and tender_Id like concat('%', #{tenderId}, '%')</if>
         </where>
     </select>
     
