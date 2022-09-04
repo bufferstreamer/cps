@@ -1,23 +1,20 @@
-package com.cps.bidrecord.controller;
+package com.cps.web.controller.bid;
 
-import java.util.List;
+import com.cps.bid.domain.CentralizedPurchaseRecord;
+import com.cps.bid.service.ICentralizedPurchaseRecordService;
+import com.cps.common.annotation.Log;
+import com.cps.common.core.controller.BaseController;
+import com.cps.common.core.domain.AjaxResult;
+import com.cps.common.core.page.TableDataInfo;
+import com.cps.common.enums.BusinessType;
+import com.cps.common.utils.poi.ExcelUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import com.cps.common.annotation.Log;
-import com.cps.common.enums.BusinessType;
-import com.cps.bidrecord.domain.CentralizedPurchaseRecord;
-import com.cps.bidrecord.service.ICentralizedPurchaseRecordService;
-import com.cps.common.core.controller.BaseController;
-import com.cps.common.core.domain.AjaxResult;
-import com.cps.common.utils.poi.ExcelUtil;
-import com.cps.common.core.page.TableDataInfo;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 集中采购记录Controller
@@ -26,15 +23,15 @@ import com.cps.common.core.page.TableDataInfo;
  * @date 2022-09-03
  */
 @Controller
-@RequestMapping("/bidrecord/tender1")
+@RequestMapping("/bid/tender1")
 public class CentralizedPurchaseRecordController extends BaseController
 {
-    private String prefix = "bidrecord/tender1";
+    private String prefix = "bid/tender1";
 
     @Autowired
     private ICentralizedPurchaseRecordService centralizedPurchaseRecordService;
 
-    @RequiresPermissions("bidrecord:tender1:view")
+    @RequiresPermissions("bid:tender1:view")
     @GetMapping()
     public String tender1()
     {
@@ -44,7 +41,7 @@ public class CentralizedPurchaseRecordController extends BaseController
     /**
      * 查询集中采购记录列表
      */
-    @RequiresPermissions("bidrecord:tender1:list")
+    @RequiresPermissions("bid:tender1:list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo list(CentralizedPurchaseRecord centralizedPurchaseRecord)
@@ -57,7 +54,7 @@ public class CentralizedPurchaseRecordController extends BaseController
     /**
      * 导出集中采购记录列表
      */
-    @RequiresPermissions("bidrecord:tender1:export")
+    @RequiresPermissions("bid:tender1:export")
     @Log(title = "集中采购记录", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
@@ -71,16 +68,17 @@ public class CentralizedPurchaseRecordController extends BaseController
     /**
      * 新增集中采购记录
      */
-    @GetMapping("/add")
-    public String add()
+    @GetMapping("/add/{tenderId}")
+    public String add(@PathVariable("tenderId") String tenderId, ModelMap map)
     {
+        map.put("tenderId",tenderId);
         return prefix + "/add";
     }
 
     /**
      * 新增保存集中采购记录
      */
-    @RequiresPermissions("bidrecord:tender1:add")
+    @RequiresPermissions("bid:tender1:add")
     @Log(title = "集中采购记录", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
@@ -92,7 +90,7 @@ public class CentralizedPurchaseRecordController extends BaseController
     /**
      * 修改集中采购记录
      */
-    @RequiresPermissions("bidrecord:tender1:edit")
+    @RequiresPermissions("bid:tender1:edit")
     @GetMapping("/edit/{centralizedPurchaseRecordId}")
     public String edit(@PathVariable("centralizedPurchaseRecordId") String centralizedPurchaseRecordId, ModelMap mmap)
     {
@@ -104,7 +102,7 @@ public class CentralizedPurchaseRecordController extends BaseController
     /**
      * 修改保存集中采购记录
      */
-    @RequiresPermissions("bidrecord:tender1:edit")
+    @RequiresPermissions("bid:tender1:edit")
     @Log(title = "集中采购记录", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
@@ -116,7 +114,7 @@ public class CentralizedPurchaseRecordController extends BaseController
     /**
      * 删除集中采购记录
      */
-    @RequiresPermissions("bidrecord:tender1:remove")
+    @RequiresPermissions("bid:tender1:remove")
     @Log(title = "集中采购记录", businessType = BusinessType.DELETE)
     @PostMapping( "/remove")
     @ResponseBody
