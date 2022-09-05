@@ -37,7 +37,6 @@ public class SubmitSupermarketLicenseController extends BaseController {
     @GetMapping()
     public String supermarketLicense(Model model)
     {
-        System.out.println("营业执照:"+CanSubmit());
         model.addAttribute("result",CanSubmit());
         return prefix + "/supermarketLicense";
     }
@@ -51,7 +50,6 @@ public class SubmitSupermarketLicenseController extends BaseController {
         for (int i=0;i<tempList.size();i++){
             String id=tempList.get(i).getChecklistId();
             BusinessLicenseInfo info = mBusinessLicenseInfoService.selectBusinessLicenseInfoByBusinessAuditDocumentId(id);
-            System.out.println(info);
             if (info!=null){
                 return false;
             }

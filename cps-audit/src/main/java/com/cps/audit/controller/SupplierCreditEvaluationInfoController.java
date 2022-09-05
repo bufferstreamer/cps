@@ -131,4 +131,9 @@ public class SupplierCreditEvaluationInfoController extends BaseController
     {
         return toAjax(supplierCreditEvaluationInfoService.deleteSupplierCreditEvaluationInfoBySupplierCreditEvaluationAuditIds(ids));
     }
+
+    @GetMapping("/detail")
+    public String detail(ModelMap map){
+        return prefix+"/detail";
+    }
 }

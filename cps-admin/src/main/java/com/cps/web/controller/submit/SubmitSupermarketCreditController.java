@@ -39,7 +39,6 @@ public class SubmitSupermarketCreditController extends BaseController
     @GetMapping()
     public String supermarketCredit(Model model)
     {
-        System.out.println("信用审查:"+CanSubmit());
         model.addAttribute("result",CanSubmit());
         return prefix + "/supermarketCredit";
     }
@@ -53,7 +52,6 @@ public class SubmitSupermarketCreditController extends BaseController
         for (int i=0;i<tempList.size();i++){
             String id=tempList.get(i).getChecklistId();
             BusinessCreditEvaluationInfo info = mBusinessCreditEvaluationInfoService.selectBusinessCreditEvaluationInfoChecklistId(id);
-            System.out.println(info);
             if (info!=null){
                 return false;
             }

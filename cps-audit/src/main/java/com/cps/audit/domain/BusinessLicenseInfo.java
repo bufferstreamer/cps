@@ -6,6 +6,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.cps.common.annotation.Excel;
 import com.cps.common.core.domain.BaseEntity;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  * 小商超审核管理对象 audit_business_license_info

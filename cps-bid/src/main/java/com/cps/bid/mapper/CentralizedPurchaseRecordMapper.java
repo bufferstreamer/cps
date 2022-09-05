@@ -2,6 +2,7 @@ package com.cps.bid.mapper;
 
 import java.util.List;
 import com.cps.bid.domain.CentralizedPurchaseRecord;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 集中采购记录Mapper接口
@@ -18,6 +19,8 @@ public interface CentralizedPurchaseRecordMapper
      * @return 集中采购记录
      */
     public CentralizedPurchaseRecord selectCentralizedPurchaseRecordByCentralizedPurchaseRecordId(String centralizedPurchaseRecordId);
+
+    public List<CentralizedPurchaseRecord> selectCentralizedPurchaseRecordsByTenderIdAndSupplyId(@Param("tenderId") String tenderId, @Param("supplierId") String supplyId);
 
     /**
      * 查询集中采购记录列表

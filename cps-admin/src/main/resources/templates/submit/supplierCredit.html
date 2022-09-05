@@ -11,7 +11,7 @@
     if([[${result}]]){
         $.modal.open("供应商提交信用审查","audit/supplierCreditEvaluationManage/add");
     }else{
-        $.modal.alert("您已经提交过信用审核，如需修改，请联系管理员！")
+        $.modal.openFull("详细信息","audit/supplierCreditEvaluationManage/detail")
     }
     </script>
 </body>

@@ -41,7 +41,6 @@
         function submitHandler() {
             if ($.validate.form()) {
                 $.operate.save(prefix + "/add", $('#form-businessCreditEvaluationManage-add').serialize());
-                $.modal.msgSuccess("提交成功！");
                 $.modal.close();
                 $.modal.closeTab();
             }

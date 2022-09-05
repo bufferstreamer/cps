@@ -2,10 +2,14 @@ package com.cps.audit.controller;
 
 import java.util.List;
 
+import com.cps.audit.domain.AuditDocuments;
+import com.cps.audit.service.IAuditDocumentsService;
 import com.cps.common.utils.DateUtils;
+import com.cps.common.utils.ShiroUtils;
 import com.cps.common.utils.uuid.CpsIdUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -129,4 +133,36 @@ public class BusinessLicenseInfoController extends BaseController
     {
         return toAjax(businessLicenseInfoService.deleteBusinessLicenseInfoByBusinessAuditDocumentIds(ids));
     }
+
+    @Autowired
+    private IAuditDocumentsService auditDocumentsService;
+
+    @GetMapping("/detail")
+    public String detail(ModelMap map){
+        List<AuditDocuments> tempList = auditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
+
+        AuditDocuments documentsResult=null;
+
+//        BusinessLicenseInfo infoResult=null;
+
+        for (AuditDocuments temp:tempList
+        ) {
+            String id=temp.getChecklistId();
+            BusinessLicenseInfo info=businessLicenseInfoService.selectBusinessLicenseInfoByBusinessAuditDocumentId(id);
+            if (info!=null){
+                documentsResult=temp;
+                infoResult=info;
+            }
+        }
+
+        System.out.println(infoResult);
+        System.out.println(documentsResult);
+        map.put("info",infoResult);
+        map.put("auditStatus",documentsResult.getAuditStatus());
+        map.put("auditResult",documentsResult.getAuditResult());
+
+        return prefix+"/detail";
+    }
+
+    public BusinessLicenseInfo infoResult;
 }

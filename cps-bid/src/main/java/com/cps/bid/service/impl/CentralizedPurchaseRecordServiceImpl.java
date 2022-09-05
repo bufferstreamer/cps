@@ -36,6 +36,11 @@ public class CentralizedPurchaseRecordServiceImpl implements ICentralizedPurchas
         return centralizedPurchaseRecordMapper.selectCentralizedPurchaseRecordByCentralizedPurchaseRecordId(centralizedPurchaseRecordId);
     }
 
+    @Override
+    public List<CentralizedPurchaseRecord> selectCentralizedPurchaseRecordsByTenderIdAndSupplyId(String tenderId, String supplyId) {
+        return centralizedPurchaseRecordMapper.selectCentralizedPurchaseRecordsByTenderIdAndSupplyId(tenderId,supplyId);
+    }
+
     /**
      * 查询集中采购记录列表
      * 

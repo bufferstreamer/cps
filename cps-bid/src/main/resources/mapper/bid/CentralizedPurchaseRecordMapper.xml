@@ -25,6 +25,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
     
+    <select id="selectCentralizedPurchaseRecordsByTenderIdAndSupplyId" resultMap="CentralizedPurchaseRecordResult">
+        <include refid="selectCentralizedPurchaseRecordVo"/>
+        where tender_id = #{tenderId} and supplier_id = #{supplierId}
+    </select>
+
     <select id="selectCentralizedPurchaseRecordByCentralizedPurchaseRecordId" parameterType="String" resultMap="CentralizedPurchaseRecordResult">
         <include refid="selectCentralizedPurchaseRecordVo"/>
         where centralized_purchase_record_id = #{centralizedPurchaseRecordId}

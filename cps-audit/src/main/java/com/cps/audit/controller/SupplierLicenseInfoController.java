@@ -129,4 +129,9 @@ public class SupplierLicenseInfoController extends BaseController
     {
         return toAjax(supplierLicenseInfoService.deleteSupplierLicenseInfoByChecklistIds(ids));
     }
+
+    @GetMapping("/detail")
+    public String detail(ModelMap map){
+        return prefix+"/detail";
+    }
 }

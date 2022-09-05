@@ -92,7 +92,7 @@ public class QualificationReviewController extends BaseController
     /**
      * 新增保存资质审核
      */
-    @RequiresPermissions("cp:qualificationReview:add")
+    //@RequiresPermissions("cp:qualificationReview:add")
     @Log(title = "资质审核", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody

@@ -9,6 +9,8 @@ import java.util.List;
 
 import com.cps.audit.domain.AuditDocuments;
 import com.cps.audit.service.IAuditDocumentsService;
+import com.cps.bid.domain.CentralizedPurchaseRecord;
+import com.cps.bid.service.ICentralizedPurchaseRecordService;
 import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.ShiroUtils;
 import com.cps.cp.domain.QualificationReview;
@@ -65,20 +67,20 @@ public class Tender1Controller extends BaseController
     @GetMapping()
     public String tender1(ModelMap map)
     {
-        boolean canQualificationReview=CanQualificationReview();
-        map.put("canQualificationReview",canQualificationReview);
-        if (canQualificationReview){
-            List<Tender> list = tenderService.selectTender1List(null);
-            System.out.println(list.size());
-            boolean[] canPurchaseArr=new boolean[list.size()];
-            for (int i=0;i<list.size();i++){
-                String tenderId = list.get(i).getTenderId();
-                QualificationReview review = qualificationReviewService.selectQualificationReviewByTenderIdAndSupplyId(tenderId, ShiroUtils.getUserId().toString());
-                canPurchaseArr[i]=(review!=null&&review.getAuditStatus().equals("1"));
-            }
+        List<Tender> tempList = tenderService.selectTender1List(null);
+        boolean[] canQualificationReviewArr=new boolean[tempList.size()];
+        boolean[] canPurchaseArr=new boolean[tempList.size()];
 
-            map.put("canPurchaseArr",canPurchaseArr);
+        for (int i=0;i<tempList.size();i++){
+            String tenderId = tempList.get(i).getTenderId();
+            QualificationReview review = qualificationReviewService.selectQualificationReviewByTenderIdAndSupplyId(tenderId, ShiroUtils.getUserId().toString());
+            canQualificationReviewArr[i]=CanQualificationReview(review);
+            canPurchaseArr[i]=CanPurchase(review,tempList.get(i));
         }
+
+        map.put("canQualificationReviewArr",canQualificationReviewArr);
+        map.put("canPurchaseArr",canPurchaseArr);
+
         return prefix + "/tender1";
     }
 
@@ -264,7 +266,7 @@ public class Tender1Controller extends BaseController
     @Autowired
     private IAuditDocumentsService mAuditDocumentsService;
 
-    private boolean CanQualificationReview() {
+    private boolean CanQualificationReview(QualificationReview review) {
         List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
         if (tempList == null) {
             return false;
@@ -279,7 +281,24 @@ public class Tender1Controller extends BaseController
                 return false;
         }
 
+        if (review!=null&&review.getAuditStatus().equals("1")){
+            return false;
+        }
+
         return true;
     }
 
+    @Autowired
+    private ICentralizedPurchaseRecordService centralizedPurchaseRecordService;
+
+    private boolean CanPurchase(QualificationReview review, Tender tender){
+        if (review!=null&&review.getAuditStatus().equals("1")){
+            List<CentralizedPurchaseRecord> tempList = centralizedPurchaseRecordService.selectCentralizedPurchaseRecordsByTenderIdAndSupplyId(review.getTenderId(),ShiroUtils.getUserId().toString());
+            if (tempList.size()<Integer.valueOf(tender.getBidNumber())){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
