@@ -8,143 +8,15 @@
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
     <form class="form-horizontal m" id="form-businessLicenseManage-detail" th:object="${info}">
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label is-required">个体工商户营业执照：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                <input type="hidden" name="businessLicense" th:field="*{businessLicense}">-->
-<!--                <div class="file-loading">-->
-<!--                    <input class="form-control file-upload" id="businessLicense" name="file1" type="file" disabled>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label is-required">个体工商户营业执照号码：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                <input name="businessLicenseNumber" class="form-control" type="text" th:field="*{businessLicenseNumber}" disabled>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label is-required">经营者：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                <input name="managerName" class="form-control" type="text" disabled th:field="*{managerName}">-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label is-required">小商超名称：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                <input name="businessName" class="form-control" type="text" disabled th:field="*{businessName}">-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label is-required">经营场所位置：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                <input name="businessPlace" class="form-control" type="text" disabled th:field="*{businessPlace}">-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label is-required">组成形式：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                &lt;!&ndash;                    <input name="userId" class="form-control" type="text" required>&ndash;&gt;-->
-<!--                <select name="businessForm" class="form-control" disabled>-->
-<!--                    <option value="1" th:selected="${info.businessForm} eq '1'">个人经营</option>-->
-<!--                    <option value="2" th:selected="${info.businessForm} eq '2'">家庭经营</option>-->
-<!--                </select>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label is-required">注册日期：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                <div class="input-group date">-->
-<!--                    <input name="registerDate" class="form-control" placeholder="yyyy-MM-dd" type="text" disabled th:value="${#dates.format(info.registerDate, 'yyyy-MM-dd')}">-->
-<!--                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label is-required">经营范围：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                <textarea name="businessScope" class="form-control" disabled>[[*{info.businessScope}]]</textarea>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label is-required">经营许可证：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                <input type="hidden" name="businessCertificate" th:field="*{businessCertificate}">-->
-<!--                <div class="file-loading">-->
-<!--                    <input class="form-control file-upload" id="businessCertificate" name="file2" type="file" disabled>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label is-required">联系人姓名：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                <input name="contactPerson" class="form-control" type="text" disabled th:field="*{contactPerson}">-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label is-required">联系人证件类型：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                &lt;!&ndash;                    <input name="userId" class="form-control" type="text" required>&ndash;&gt;-->
-<!--                <select name="contactCardType" class="form-control" id="contactCardType"  disabled>-->
-<!--                    <option value="1" th:selected="${info.contactCardType} eq '1'">身份证</option>-->
-<!--                    <option value="2" th:selected="${info.contactCardType} eq '2'">港澳居民来往内地通行证</option>-->
-<!--                    <option value="3" th:selected="${info.contactCardType} eq '3'">台湾居民来往大陆通行证</option>-->
-<!--                    <option value="4" th:selected="${info.contactCardType} eq '4'">普通护照</option>-->
-<!--                    <option value="5" th:selected="${info.contactCardType} eq '5'">外国人永久居留身份证</option>-->
-<!--                </select>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label is-required">联系人证件号：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                <input name="idNumber" class="form-control" type="text" disabled th:field="*{idNumber}">-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label is-required">联系人证件正面：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                <input type="hidden" name="frontPhoto" th:field="*{frontPhoto}">-->
-<!--                <div class="file-loading">-->
-<!--                    <input class="form-control file-upload" id="frontPhoto" name="file3" type="file" disabled>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label is-required">联系人证件反面：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                <input type="hidden" name="backPhoto" th:field="*{backPhoto}">-->
-<!--                <div class="file-loading">-->
-<!--                    <input class="form-control file-upload" id="backPhoto" name="file4" type="file" disabled>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label is-required">联系人手机号：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                <input name="contactPhone" class="form-control" type="text" disabled th:field="*{contactPhone}">-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label is-required">联系人邮箱：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                <input name="contactEmail" class="form-control" type="email" disabled th:field="*{contactEmail}">-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label is-required">审核状态：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                <select name="auditStatus" id="auditStatus" class="form-control" disabled>-->
-<!--                    <option value="1" th:selected="${auditStatus} eq '1'">未审核</option>-->
-<!--                    <option value="2" th:selected="${auditStatus} eq '2'">审核通过</option>-->
-<!--                </select>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label">审核结果：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                <textarea name="auditResult" class="form-control" disabled>[[*{auditResult}]]</textarea>-->
-<!--            </div>-->
-<!--        </div>-->
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">法人姓名：</label>
+            <div class="col-sm-8">
+                <input name="frName" th:value="*{managerName}" class="form-control" type="text" id="txtName" disabled>
+            </div>
+        </div>
+
+
+
     </form>
 </div>
 <th:block th:include="include :: footer" />
