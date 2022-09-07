@@ -263,6 +263,17 @@ public class Tender1Controller extends BaseController
         }
     }
 
+    /**
+     * 比质比价
+     */
+    @GetMapping("/qpcs/{tenderId}")
+    public String qpcs(@PathVariable("tenderId") String tenderId, ModelMap mmap)
+    {
+//        Tender tender = tenderService.selectTenderByTenderId(tenderId);
+//        mmap.put("tender", tender);
+        return prefix + "/qpcs";
+    }
+
     @Autowired
     private IAuditDocumentsService mAuditDocumentsService;
 

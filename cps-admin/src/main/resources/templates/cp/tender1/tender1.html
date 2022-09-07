@@ -81,7 +81,9 @@
         function centralizedPurchase(tenderId){
             $.modal.open("参与竞标",ctx+"bid/tender1/add/"+tenderId);
         }
-
+        function openQpcs(tenderId){
+            $.modal.open("比质比价", prefix + "/qpcs/" + tenderId);
+        }
         //function submitPrice()
         $(function() {
             var options = {
@@ -159,6 +161,10 @@
                         if([[${canPurchaseArr}]][index]){
                             actions.push('<a class="btn btn-info btn-xs ' +centralizedPurchaseFlag + '" href="javascript:void(0)" onclick="centralizedPurchase(\'' + row.tenderId + '\')"><i class="fa fa-review"></i>参与竞价</a> ');
                         }
+                        actions.push('<a class="btn btn-success btn-xs ' + true + '" href="javascript:void(0)" onclick="openQpcs(\'' + row.tenderId + '\')"><i class="fa fa-edit"></i>比质比价</a> ');
+                        console.log("value:"+value);
+                        console.log("row:"+row);
+                        console.log(index);
                         return actions.join('');
                     }
                 }]
