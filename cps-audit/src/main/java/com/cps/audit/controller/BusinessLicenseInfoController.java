@@ -143,7 +143,7 @@ public class BusinessLicenseInfoController extends BaseController
 
         AuditDocuments documentsResult=null;
 
-//        BusinessLicenseInfo infoResult=null;
+        BusinessLicenseInfo infoResult=null;
 
         for (AuditDocuments temp:tempList
         ) {
@@ -155,14 +155,10 @@ public class BusinessLicenseInfoController extends BaseController
             }
         }
 
-        System.out.println(infoResult);
-        System.out.println(documentsResult);
         map.put("info",infoResult);
         map.put("auditStatus",documentsResult.getAuditStatus());
         map.put("auditResult",documentsResult.getAuditResult());
 
         return prefix+"/detail";
     }
-
-    public BusinessLicenseInfo infoResult;
 }

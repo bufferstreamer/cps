@@ -1,10 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:include="include :: header('查看供应商评价审核')" />
+    <th:block th:include="include :: datetimepicker-css" />
+    <th:block th:include="include :: bootstrap-fileinput-css"/>
 </head>
-<body>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-supplierCreditEvaluationManage-detail" th:object="${info}">
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">公司名称：</label>
+            <div class="col-sm-8">
+                <input name="corporateName" class="form-control" type="text" disabled th:value="*{corporateName}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">公司征信信息：</label>
+            <div class="col-sm-8">
+                <input type="hidden" name="corporateCreditInfo" th:value="*{corporateCreditInfo}">
+                <div class="file-loading">
+                    <input class="form-control file-upload" id="corporateCreditInfo" name="file" type="file" disabled>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">法人姓名：</label>
+            <div class="col-sm-8">
+                <input name="frName" class="form-control" type="text" disabled th:value="*{frName}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">法人犯罪记录信息：</label>
+            <div class="col-sm-8">
+                <input type="hidden" name="frCriminalRecord" th:value="*{frCriminalRecord}">
+                <div class="file-loading">
+                    <input class="form-control file-upload" id="frCriminalRecord" name="file" type="file" disabled>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">审核状态：</label>
+            <div class="col-sm-8">
+                <select name="auditStatus" id="auditStatus" class="form-control" disabled>
+                    <option value="1" th:selected="${auditStatus} eq '1'">未审核</option>
+                    <option value="2" th:selected="${auditStatus} eq '2'">审核通过</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">审核结果：</label>
+            <div class="col-sm-8">
+                <textarea name="auditResult" class="form-control" disabled>[[${auditResult}]]</textarea>
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: datetimepicker-js" />
+<th:block th:include="include :: bootstrap-fileinput-js"/>
+<script th:inline="javascript">
+    function submitHandler() {
+        if ($.validate.form()) {
+            console.log($("#corporateName").val());
+            $.modal.close();
+            $.modal.closeTab();
+        }
+    }
 
+    $(".file-upload").each(function (i) {
+        var val = $("input[name='" + this.id + "']").val()
+        $(this).fileinput({
+            'uploadUrl': ctx + 'common/upload',
+            initialPreviewAsData: true,
+            initialPreview: [val],
+            maxFileCount: 1,
+            autoReplace: true
+        }).on('fileuploaded', function (event, data, previewId, index) {
+            $("input[name='" + event.currentTarget.id + "']").val(data.response.url)
+        }).on('fileremoved', function (event, id, index) {
+            $("input[name='" + event.currentTarget.id + "']").val('')
+        })
+        $(this).fileinput('_initFileActions');
+    });
+</script>
 </body>
 </html>

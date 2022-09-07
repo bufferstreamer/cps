@@ -155,8 +155,7 @@ public class BusinessCreditEvaluationInfoController extends BaseController
             }
         }
 
-        map.put("frName",infoResult.getFrName());
-        map.put("frCriminalRecord",infoResult.getFrCriminalRecord());
+        map.put("info",infoResult);
         map.put("auditStatus",documentsResult.getAuditStatus());
         map.put("auditResult",documentsResult.getAuditResult());
 

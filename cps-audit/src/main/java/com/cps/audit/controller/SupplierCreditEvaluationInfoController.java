@@ -2,7 +2,10 @@ package com.cps.audit.controller;
 
 import java.util.List;
 
+import com.cps.audit.domain.AuditDocuments;
+import com.cps.audit.service.IAuditDocumentsService;
 import com.cps.common.utils.DateUtils;
+import com.cps.common.utils.ShiroUtils;
 import com.cps.common.utils.uuid.CpsIdUtils;
 import com.cps.common.utils.uuid.IdUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -132,8 +135,30 @@ public class SupplierCreditEvaluationInfoController extends BaseController
         return toAjax(supplierCreditEvaluationInfoService.deleteSupplierCreditEvaluationInfoBySupplierCreditEvaluationAuditIds(ids));
     }
 
+    @Autowired
+    private IAuditDocumentsService auditDocumentsService;
+
     @GetMapping("/detail")
     public String detail(ModelMap map){
+        List<AuditDocuments> tempList = auditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
+
+        AuditDocuments documentsResult=null;
+
+        SupplierCreditEvaluationInfo infoResult=null;
+
+        for (AuditDocuments temp:tempList
+        ) {
+            String id=temp.getChecklistId();
+            SupplierCreditEvaluationInfo info=supplierCreditEvaluationInfoService.selectSupplierCreditEvaluationInfoByChecklistId(id);
+            if (info!=null){
+                documentsResult=temp;
+                infoResult=info;
+            }
+        }
+
+        map.put("info",infoResult);
+        map.put("auditStatus",documentsResult.getAuditStatus());
+        map.put("auditResult",documentsResult.getAuditResult());
         return prefix+"/detail";
     }
 }
