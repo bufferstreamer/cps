@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import com.cps.audit.domain.AuditDocuments;
@@ -137,7 +139,7 @@ public class Tender1Controller extends BaseController
         tender.setCreateDatetime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS,DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
 //        String readFilePath = "G:\\Code\\Test\\zhaobiao.docx";
         logger.info(tender.getTenderDocument());
-        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile","D:/cps/uploadPath");;
+        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile","D:/cps/uploadPath");
         File file = new File(readFilePath);
         FileInputStream fileInputStream = new FileInputStream(readFilePath);
 
@@ -267,10 +269,51 @@ public class Tender1Controller extends BaseController
      * 比质比价
      */
     @GetMapping("/qpcs/{tenderId}")
-    public String qpcs(@PathVariable("tenderId") String tenderId, ModelMap mmap)
-    {
-//        Tender tender = tenderService.selectTenderByTenderId(tenderId);
+    public String qpcs(@PathVariable("tenderId") String tenderId, ModelMap mmap) throws IOException {
+        Tender tender = tenderService.selectTenderByTenderId(tenderId);
 //        mmap.put("tender", tender);
+        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile","D:/cps/uploadPath");
+//        String readFilePath = "G:/Code/Test/zhaobiao3.docx";
+
+        File file = new File(readFilePath);
+
+        FileInputStream fileInputStream = new FileInputStream(readFilePath);
+
+        XWPFDocument doc = new XWPFDocument(fileInputStream);
+
+
+        List<XWPFTable> tables = doc.getTables();
+        HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+        ArrayList<String> productNameList = new ArrayList<>();
+
+        for(XWPFTable table : tables){
+            List<XWPFTableRow> rows = table.getRows();
+            int productNum = (rows.size()-2)/10;
+
+            for(int i=0;i<productNum;i++){
+                ArrayList<String> arr = new ArrayList<>();
+                int productIndex = 2+i*10;
+                for(int j=0;j<10;j++){
+                    XWPFTableRow row= rows.get(productIndex+j);
+                    if(row.getTableCells().get(1).getText().equals("")){
+                        break;
+                    }else{
+                        arr.add(row.getTableCells().get(1).getText());
+                    }
+                }
+//                arr.add(rows.get(productIndex).getTableCells().get(5).getText());
+                String productName = rows.get(i*10+2).getTableCells().get(0).getText();
+                productNameList.add(productName);
+                map.put(productName,arr);
+            }
+        }
+
+        ArrayList<ArrayList> targetListList = new ArrayList<>();
+        for(String productN :productNameList){
+            targetListList.add(map.get(productN));
+        }
+        mmap.put("productNameList",productNameList);
+        mmap.put("targetListList",targetListList);
         return prefix + "/qpcs";
     }
 
