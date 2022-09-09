@@ -58,4 +58,13 @@ public interface IProductIndexInfoService
      * @return 结果
      */
     public int deleteProductIndexInfoByProductIndexId(String productIndexId);
+
+    /**
+     * 通过产品名和指标名查询指标排序信息
+     *
+     * @param productName 产品名
+     * @param indexName 指标名
+     * @return 排序信息（1值大优先， 2值小优先）
+     */
+    public char selectIndexSortByProductNameAndIndexName(String productName, String indexName);
 }

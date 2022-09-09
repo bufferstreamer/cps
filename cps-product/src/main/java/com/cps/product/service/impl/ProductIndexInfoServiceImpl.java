@@ -91,4 +91,9 @@ public class ProductIndexInfoServiceImpl implements IProductIndexInfoService
     {
         return productIndexInfoMapper.deleteProductIndexInfoByProductIndexId(productIndexId);
     }
+
+    @Override
+    public char selectIndexSortByProductNameAndIndexName(String productName, String indexName) {
+        return productIndexInfoMapper.selectIndexSortByProductNameAndIndexName(productName, indexName);
+    }
 }

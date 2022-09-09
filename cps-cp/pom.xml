@@ -25,6 +25,10 @@
             <groupId>com.cps</groupId>
             <artifactId>cps-bid</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-product</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
