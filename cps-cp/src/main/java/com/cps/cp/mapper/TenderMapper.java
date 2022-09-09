@@ -1,6 +1,8 @@
 package com.cps.cp.mapper;
 
 import java.util.List;
+
+import com.cps.bid.domain.CentralizedPurchaseRecord;
 import com.cps.cp.domain.Tender;
 
 /**
@@ -58,4 +60,12 @@ public interface TenderMapper
      * @return 结果
      */
     public int deleteTenderByTenderIds(String[] tenderIds);
+
+    /**
+     * 通过tenderId标书ID获取集中采购记录数据，返回List
+     *
+     * @param tenderId
+     * @return
+     */
+    public List<CentralizedPurchaseRecord> selectCentralizedPurchaseRecordList(String tenderId);
 }

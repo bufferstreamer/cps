@@ -19,8 +19,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="publishTime"    column="publish_time"    />
     </resultMap>
 
+    <resultMap type="CentralizedPurchaseRecord" id="CentralizedPurchaseRecordResult">
+        <result property="centralizedPurchaseRecordId"    column="centralized_purchase_record_id"    />
+        <result property="tenderId"    column="tender_id"    />
+        <result property="supplierId"    column="supplier_id"    />
+        <result property="tenderDocument"    column="tender_document"    />
+        <result property="centralizedPurchaseRecordTime"    column="centralized_purchase_record_time"    />
+        <result property="isBid"    column="is_bid"    />
+    </resultMap>
+
     <sql id="selectTenderVo">
         select tender_id, project_name, gxs_id, contact, bid_number, phone_of_contact, tender_document, create_datetime, dealine_for_qualification_review, bid_start_time, bid_end_time, publish_time from tender
+    </sql>
+
+    <sql id="selectCentralizedPurchaseRecordVo">
+        select centralized_purchase_record_id, tender_id, supplier_id, tender_document, centralized_purchase_record_time, is_bid from centralized_purchase_record
     </sql>
 
     <select id="selectTender1List" parameterType="Tender" resultMap="TenderResult">
@@ -44,6 +57,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!--            <if test="bidNumber > 1 and phoneOfContact != null  and phoneOfContact != ''"> and phone_Of_Contact like concat('%', #{phoneOfContact}, '%')</if>-->
 <!--        </where>-->
         where bid_number > 1
+    </select>
+
+    <select id="selectCentralizedPurchaseRecordList" parameterType="String" resultMap="CentralizedPurchaseRecordResult">
+        <include refid="selectCentralizedPurchaseRecordVo"/>
+        where tender_id = #{tenderId}
     </select>
 
     <select id="selectTenderByTenderId" parameterType="String" resultMap="TenderResult">

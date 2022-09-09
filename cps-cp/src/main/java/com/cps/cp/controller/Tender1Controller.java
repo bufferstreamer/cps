@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import com.cps.audit.domain.AuditDocuments;
@@ -46,14 +48,13 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 招标Controller
- * 
+ *
  * @author wxf
  * @date 2022-08-16
  */
 @Controller
 @RequestMapping("/cp/tender1")
-public class Tender1Controller extends BaseController
-{
+public class Tender1Controller extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(Tender1Controller.class);
     private String prefix = "cp/tender1";
 
@@ -65,21 +66,20 @@ public class Tender1Controller extends BaseController
 
     @RequiresPermissions("cp:tender1:view")
     @GetMapping()
-    public String tender1(ModelMap map)
-    {
+    public String tender1(ModelMap map) {
         List<Tender> tempList = tenderService.selectTender1List(null);
-        boolean[] canQualificationReviewArr=new boolean[tempList.size()];
-        boolean[] canPurchaseArr=new boolean[tempList.size()];
+        boolean[] canQualificationReviewArr = new boolean[tempList.size()];
+        boolean[] canPurchaseArr = new boolean[tempList.size()];
 
-        for (int i=0;i<tempList.size();i++){
+        for (int i = 0; i < tempList.size(); i++) {
             String tenderId = tempList.get(i).getTenderId();
             QualificationReview review = qualificationReviewService.selectQualificationReviewByTenderIdAndSupplyId(tenderId, ShiroUtils.getUserId().toString());
-            canQualificationReviewArr[i]=CanQualificationReview(review);
-            canPurchaseArr[i]=CanPurchase(review,tempList.get(i));
+            canQualificationReviewArr[i] = CanQualificationReview(review);
+            canPurchaseArr[i] = CanPurchase(review, tempList.get(i));
         }
 
-        map.put("canQualificationReviewArr",canQualificationReviewArr);
-        map.put("canPurchaseArr",canPurchaseArr);
+        map.put("canQualificationReviewArr", canQualificationReviewArr);
+        map.put("canPurchaseArr", canPurchaseArr);
 
         return prefix + "/tender1";
     }
@@ -90,8 +90,7 @@ public class Tender1Controller extends BaseController
     @RequiresPermissions("cp:tender1:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(Tender tender)
-    {
+    public TableDataInfo list(Tender tender) {
         startPage();
         List<Tender> list = tenderService.selectTender1List(tender);
         return getDataTable(list);
@@ -104,8 +103,7 @@ public class Tender1Controller extends BaseController
     @Log(title = "招标", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(Tender tender)
-    {
+    public AjaxResult export(Tender tender) {
         List<Tender> list = tenderService.selectTender1List(tender);
         ExcelUtil<Tender> util = new ExcelUtil<Tender>(Tender.class);
         return util.exportExcel(list, "招标数据");
@@ -119,8 +117,7 @@ public class Tender1Controller extends BaseController
      * 新增招标
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -133,11 +130,11 @@ public class Tender1Controller extends BaseController
     @ResponseBody
     public AjaxResult addSave(Tender tender) throws IOException {
         tender.setBidNumber(1);
-        tender.setTenderId(IdUtils.fastSimpleUUID().substring(0,22));
-        tender.setCreateDatetime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS,DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
+        tender.setTenderId(IdUtils.fastSimpleUUID().substring(0, 22));
+        tender.setCreateDatetime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
 //        String readFilePath = "G:\\Code\\Test\\zhaobiao.docx";
         logger.info(tender.getTenderDocument());
-        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile","D:/cps/uploadPath");;
+        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", "D:/cps/uploadPath");
         File file = new File(readFilePath);
         FileInputStream fileInputStream = new FileInputStream(readFilePath);
 
@@ -147,25 +144,25 @@ public class Tender1Controller extends BaseController
         List<XWPFParagraph> paras = doc.getParagraphs();
         XWPFParagraph firstParas = paras.get(0);
         tender.setProjectName(firstParas.getParagraphText());
-        for (XWPFParagraph graph:paras) {
+        for (XWPFParagraph graph : paras) {
             String t = graph.getParagraphText();
-            if(t.startsWith("联系人：")){
-                tender.setContact(t.replace("联系人：","").trim());
+            if (t.startsWith("联系人：")) {
+                tender.setContact(t.replace("联系人：", "").trim());
             }
-            if(t.startsWith("联系电话：")){
-                tender.setPhoneOfContact(t.replace("联系电话：","").trim());
+            if (t.startsWith("联系电话：")) {
+                tender.setPhoneOfContact(t.replace("联系电话：", "").trim());
             }
-            if(t.startsWith("资质审核截止时间：")){
-                tender.setDealineForQualificationReview(DateUtils.dateTime(DateUtils.YYYY_MM_DD,t.replace("资质审核截止时间：","").trim()));
+            if (t.startsWith("资质审核截止时间：")) {
+                tender.setDealineForQualificationReview(DateUtils.dateTime(DateUtils.YYYY_MM_DD, t.replace("资质审核截止时间：", "").trim()));
             }
-            if(t.startsWith("竞标开始时间：")){
-                tender.setBidStartTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD,t.replace("竞标开始时间：","").trim()));
+            if (t.startsWith("竞标开始时间：")) {
+                tender.setBidStartTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD, t.replace("竞标开始时间：", "").trim()));
             }
-            if(t.startsWith("竞标结束时间：")){
-                tender.setBidEndTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD,t.replace("竞标结束时间：","").trim()));
+            if (t.startsWith("竞标结束时间：")) {
+                tender.setBidEndTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD, t.replace("竞标结束时间：", "").trim()));
             }
-            if(t.startsWith("公布时间：")){
-                tender.setPublishTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD,t.replace("公布时间：","").trim()));
+            if (t.startsWith("公布时间：")) {
+                tender.setPublishTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD, t.replace("公布时间：", "").trim()));
             }
 
         }
@@ -208,8 +205,7 @@ public class Tender1Controller extends BaseController
      */
     @RequiresPermissions("cp:tender1:edit")
     @GetMapping("/edit/{tenderId}")
-    public String edit(@PathVariable("tenderId") String tenderId, ModelMap mmap)
-    {
+    public String edit(@PathVariable("tenderId") String tenderId, ModelMap mmap) {
         Tender tender = tenderService.selectTenderByTenderId(tenderId);
         mmap.put("tender", tender);
         return prefix + "/edit";
@@ -222,8 +218,7 @@ public class Tender1Controller extends BaseController
     @Log(title = "招标", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(Tender tender)
-    {
+    public AjaxResult editSave(Tender tender) {
         return toAjax(tenderService.updateTender(tender));
     }
 
@@ -233,31 +228,27 @@ public class Tender1Controller extends BaseController
      */
     @RequiresPermissions("cp:tender1:remove")
     @Log(title = "招标", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(tenderService.deleteTenderByTenderIds(ids));
     }
 
     // 查询详细方法
     @RequestMapping("/detail/{tenderId}")
-    public String detail(@PathVariable("tenderId") String tenderId, ModelMap mmap)
-    {
+    public String detail(@PathVariable("tenderId") String tenderId, ModelMap mmap) {
         mmap.put("tender", tenderService.selectTenderByTenderId(tenderId));
         return prefix + "/detail";
     }
 
     @RequestMapping("/qualificationReview/{tenderId}")
-    public String qualificationReview(@PathVariable("tenderId") String tenderId, ModelMap mmap)
-    {
+    public String qualificationReview(@PathVariable("tenderId") String tenderId, ModelMap mmap) {
         QualificationReview review = qualificationReviewService.selectQualificationReviewByTenderIdAndSupplyId(tenderId, ShiroUtils.getUserId().toString());
 
-        if (review==null){
+        if (review == null) {
             mmap.put("tenderId", tenderId);
             return "cp/qualificationReview/add";
-        }
-        else {
+        } else {
             mmap.put("qualificationReview", review);
             return "cp/qualificationReview/update";
         }
@@ -267,10 +258,101 @@ public class Tender1Controller extends BaseController
      * 比质比价
      */
     @GetMapping("/qpcs/{tenderId}")
-    public String qpcs(@PathVariable("tenderId") String tenderId, ModelMap mmap)
-    {
-//        Tender tender = tenderService.selectTenderByTenderId(tenderId);
+    public String qpcs(@PathVariable("tenderId") String tenderId, ModelMap mmap) throws IOException {
+        Tender tender = tenderService.selectTenderByTenderId(tenderId);
 //        mmap.put("tender", tender);
+        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", "D:/cps/uploadPath");
+//        String readFilePath = "G:/Code/Test/zhaobiao3.docx";
+
+        File file = new File(readFilePath);
+
+        FileInputStream fileInputStream = new FileInputStream(readFilePath);
+
+        XWPFDocument doc = new XWPFDocument(fileInputStream);
+
+
+        List<XWPFTable> tables = doc.getTables();
+        HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+        ArrayList<String> productNameList = new ArrayList<>();
+
+        int productNumber = 0;
+        for (XWPFTable table : tables) {
+            List<XWPFTableRow> rows = table.getRows();
+            int productNum = (rows.size() - 2) / 10;
+            productNumber = productNum;
+            for (int i = 0; i < productNum; i++) {
+                ArrayList<String> arr = new ArrayList<>();
+                int productIndex = 2 + i * 10;
+                for (int j = 0; j < 10; j++) {
+                    XWPFTableRow row = rows.get(productIndex + j);
+                    if (row.getTableCells().get(1).getText().equals("")) {
+                        break;
+                    } else {
+                        arr.add(row.getTableCells().get(1).getText());
+                    }
+                }
+//                arr.add(rows.get(productIndex).getTableCells().get(5).getText());
+                String productName = rows.get(i * 10 + 2).getTableCells().get(0).getText();
+                productNameList.add(productName);
+                map.put(productName, arr);
+            }
+        }
+
+        ArrayList<ArrayList> targetListList = new ArrayList<>();
+        for (String productN : productNameList) {
+            targetListList.add(map.get(productN));
+        }
+        //获取招标模版数据
+        mmap.put("productNameList", productNameList);
+        mmap.put("targetListList", targetListList);
+
+        List<CentralizedPurchaseRecord> centralizedPurchaseRecordList = tenderService.selectCentralizedPurchaseRecordList(tenderId);
+        ArrayList<HashMap<String, ArrayList>> providerInfoDictList = new ArrayList<>();
+
+        for (int i = 0; i < productNumber; i++) {
+            HashMap<String, ArrayList> gysDataMap = new HashMap<>();
+            for (CentralizedPurchaseRecord centralizedPurchaseRecord : centralizedPurchaseRecordList) {
+                String readCPRFilePath = centralizedPurchaseRecord.getTenderDocument().replace("http://localhost/cps/profile", "D:/cps/uploadPath");
+
+                FileInputStream fileInputStream1 = new FileInputStream(readCPRFilePath);
+
+                XWPFDocument doc1 = new XWPFDocument(fileInputStream1);
+                List<XWPFParagraph> paras1 = doc1.getParagraphs();
+                String gysName = "";
+                for (XWPFParagraph graph : paras1) {
+                    String t = graph.getParagraphText();
+                    if (t.startsWith("供应商名称")) {
+                        gysName = t.replace("供应商名称：", "").trim();
+                    }
+                }
+                ArrayList indexDataList = new ArrayList();
+                List<XWPFTable> tables1 = doc1.getTables();
+                for (XWPFTable table : tables1) {
+                    List<XWPFTableRow> rows = table.getRows();
+
+
+                    int productIndex1 = 2 + i * 10;
+                    for (int k = 0; k < 10; k++) {
+                        XWPFTableRow row = rows.get(productIndex1 + k);
+                        if (row.getTableCells().get(1).getText().equals("")) {
+                            break;
+                        } else {
+                            indexDataList.add(row.getTableCells().get(2).getText());
+                        }
+                    }
+
+                    XWPFTableRow rowPrice = rows.get(productIndex1);
+                    indexDataList.add(rowPrice.getTableCells().get(3).getText());
+//                arr.add(rows.get(productIndex).getTableCells().get(5).getText());
+//                        String productName = rows.get(i * 10 + 2).getTableCells().get(0).getText();
+
+                }
+                gysDataMap.put(gysName, indexDataList);
+            }
+            providerInfoDictList.add(gysDataMap);
+        }
+        mmap.put("providerInfoDictList", providerInfoDictList);
+        System.out.println(providerInfoDictList);
         return prefix + "/qpcs";
     }
 
@@ -292,7 +374,7 @@ public class Tender1Controller extends BaseController
                 return false;
         }
 
-        if (review!=null&&review.getAuditStatus().equals("1")){
+        if (review != null && review.getAuditStatus().equals("1")) {
             return false;
         }
 

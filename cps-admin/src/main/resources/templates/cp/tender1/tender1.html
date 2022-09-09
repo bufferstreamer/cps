@@ -37,7 +37,7 @@
 
             <div class="btn-group-sm" id="toolbar" role="group">
                 <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="cp:tender1:add">
-                    <i class="fa fa-plus"></i> 添加
+                    <i class="fa fa-plus"></i> 发布招标公告
                 </a>
 <!--                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="cp:tender1:edit">-->
 <!--                    <i class="fa fa-edit"></i> 修改-->
@@ -45,13 +45,14 @@
                 <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="cp:tender1:remove">
                     <i class="fa fa-remove"></i> 删除
                 </a>
-                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="cp:tender1:export">
-                    <i class="fa fa-download"></i> 导出
-                </a>
+<!--                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="cp:tender1:export">-->
+<!--                    <i class="fa fa-download"></i> 导出-->
+<!--                </a>-->
 <!--                <a class="btn btn-info" onclick="downloadFile('http://localhost:8081/cps/profile/upload/template/zhaobiao.docx')" >-->
 <!--                    -->
 <!--                </a>-->
-                <a class="btn btn-info" href="http://localhost:80/cps/documentTemplate/zhaobiao.docx" download=""><i class="fa fa-download"></i> 下载招标模板</a>
+                <a class="btn btn-info" href="http://localhost:80/cps/documentTemplate/zhaobiao3.docx" download=""><i class="fa fa-download"></i> 下载招标模板</a>
+                <a class="btn btn-warning" href="http://localhost:80/cps/documentTemplate/toubiao.docx" download=""><i class="fa fa-download"></i> 下载投标模板</a>
             </div>
 
             <div class="col-sm-12 select-table table-striped">
