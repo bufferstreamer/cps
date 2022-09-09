@@ -1,6 +1,8 @@
 package com.cps.cp.service.impl;
 
 import java.util.List;
+
+import com.cps.bid.domain.CentralizedPurchaseRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cps.cp.mapper.TenderMapper;
@@ -94,5 +96,16 @@ public class TenderServiceImpl implements ITenderService
     public int deleteTenderByTenderId(String tenderId)
     {
         return tenderMapper.deleteTenderByTenderId(tenderId);
+    }
+
+    /**
+     * 通过tenderId标书ID获取集中采购记录数据，返回List
+     *
+     * @param tenderId
+     * @return
+     */
+    @Override
+    public List<CentralizedPurchaseRecord> selectCentralizedPurchaseRecordList(String tenderId) {
+        return tenderMapper.selectCentralizedPurchaseRecordList(tenderId);
     }
 }
