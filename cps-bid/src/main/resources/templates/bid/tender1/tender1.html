@@ -28,9 +28,6 @@
             </div>
 
             <div class="btn-group-sm" id="toolbar" role="group">
-                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="bid:tender1:add">
-                    <i class="fa fa-plus"></i> 添加
-                </a>
                 <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="bid:tender1:edit">
                     <i class="fa fa-edit"></i> 修改
                 </a>
@@ -79,7 +76,12 @@
                 },
                 {
                     field: 'tenderDocument',
-                    title: '投标文件存储信息'
+                    title: '投标文件存储信息',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<img alt="投标文件存储信息" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="'+ row.tenderDocument +'">');
+                        return actions.join('');
+                    }
                 },
                 {
                     field: 'centralizedPurchaseRecordTime',

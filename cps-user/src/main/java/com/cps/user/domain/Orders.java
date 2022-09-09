@@ -2,568 +2,327 @@ package com.cps.user.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import com.cps.common.annotation.Excel;
+import com.cps.common.core.domain.BaseEntity;
 
-public class Orders {
-    /**
-     * 订单ID 同时也是订单编号
-     */
+/**
+ * 订单对象 orders
+ * 
+ * @author cps
+ * @date 2022-09-08
+ */
+public class Orders extends BaseEntity
+{
+    private static final long serialVersionUID = 1L;
 
+    /** 订单ID 同时也是订单编号 */
+    @Excel(name = "订单ID 同时也是订单编号")
     private String orderId;
 
-    /**
-     * 用户ID
-     */
-
+    /** 用户ID */
+    @Excel(name = "用户ID")
     private String userId;
 
-    /**
-     * 产品名称（多个产品用,隔开）
-     */
+    /** 产品名称（多个产品用,隔开） */
+    @Excel(name = "产品名称", readConverterExp = "多=个产品用,隔开")
     private String untitled;
 
-    /**
-     * 收货人快照
-*/
+    /** 收货人快照 */
+    @Excel(name = "收货人快照")
     private String receiverName;
 
-    /**
-     * 收货人手机号快照
-     */
+    /** 收货人手机号快照 */
+    @Excel(name = "收货人手机号快照")
     private String receiverMobile;
 
-    /**
-     * 收货地址快照
-     */
-
+    /** 收货地址快照 */
+    @Excel(name = "收货地址快照")
     private String receiverAddress;
 
-    /**
-     * 订单总价格
-     */
-
+    /** 订单总价格 */
+    @Excel(name = "订单总价格")
     private BigDecimal totalAmount;
 
-    /**
-     * 实际支付总价格
-     */
-
+    /** 实际支付总价格 */
+    @Excel(name = "实际支付总价格")
     private Integer actualAmount;
 
-    /**
-     * 支付方式 1:微信 2:支付宝
-     */
-
+    /** 支付方式 1:微信 2:支付宝 */
+    @Excel(name = "支付方式 1:微信 2:支付宝")
     private Integer payType;
 
-    /**
-     * 订单备注
-     */
-
+    /** 订单备注 */
+    @Excel(name = "订单备注")
     private String orderRemark;
 
-    /**
-     * 订单状态 1:待付款 2:待发货 3:待收货 4:待评价 5:已完成 6:已关闭
-     */
+    /** 订单状态 1:待付款 2:待发货 3:待收货 4:待评价 5:已完成 6:已关闭 */
+    @Excel(name = "订单状态 1:待付款 2:待发货 3:待收货 4:待评价 5:已完成 6:已关闭")
     private String status;
 
-    /**
-     * 配送方式
-     */
-
+    /** 配送方式 */
+    @Excel(name = "配送方式")
     private String deliveryType;
 
-    /**
-     * 物流单号
-     */
-
+    /** 物流单号 */
+    @Excel(name = "物流单号")
     private String deliveryFlowId;
 
-    /**
-     * 订单运费 默认可以为零，代表包邮
-     */
-
+    /** 订单运费 默认可以为零，代表包邮 */
+    @Excel(name = "订单运费 默认可以为零，代表包邮")
     private BigDecimal orderFreight;
 
-    /**
-     * 逻辑删除状态 1: 删除 0:未删除
-     */
+    /** 逻辑删除状态 1: 删除 0:未删除 */
+    @Excel(name = "逻辑删除状态 1: 删除 0:未删除")
+    private Long deleteStatus;
 
-    private Integer deleteStatus;
-
-    /**
-     * 创建时间（成交时间）
-     */
-
-    private Date createTime;
-
-    /**
-     * 更新时间
-     */
-
-    private Date updateTime;
-
-    /**
-     * 付款时间
-     */
-
+    /** 付款时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "付款时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date payTime;
 
-    /**
-     * 发货时间
-     */
-
+    /** 发货时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "发货时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date deliveryTime;
 
-    /**
-     * 完成时间
-     */
-
+    /** 完成时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "完成时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date flishTime;
 
-    /**
-     * 取消时间
-     */
-
+    /** 取消时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "取消时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date cancelTime;
 
-    /**
-     * 订单关闭类型1-超时未支付 2-退款关闭 4-买家取消 15-已通过货到付款交易
-     */
+    /** 订单关闭类型1-超时未支付 2-退款关闭 4-买家取消 15-已通过货到付款交易 */
+    @Excel(name = "订单关闭类型1-超时未支付 2-退款关闭 4-买家取消 15-已通过货到付款交易")
+    private Long closeType;
 
-    /**
-     * 订单交割时间
-     */
-
+    /** 订单交割时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "订单交割时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date dueTime;
 
-    @Override
-    public String toString() {
-        return "Orders{" +
-                "orderId='" + orderId + '\'' +
-                ", userId='" + userId + '\'' +
-                ", untitled='" + untitled + '\'' +
-                ", receiverName='" + receiverName + '\'' +
-                ", receiverMobile='" + receiverMobile + '\'' +
-                ", receiverAddress='" + receiverAddress + '\'' +
-                ", totalAmount=" + totalAmount +
-                ", actualAmount=" + actualAmount +
-                ", payType=" + payType +
-                ", orderRemark='" + orderRemark + '\'' +
-                ", status='" + status + '\'' +
-                ", deliveryType='" + deliveryType + '\'' +
-                ", deliveryFlowId='" + deliveryFlowId + '\'' +
-                ", orderFreight=" + orderFreight +
-                ", deleteStatus=" + deleteStatus +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", payTime=" + payTime +
-                ", deliveryTime=" + deliveryTime +
-                ", flishTime=" + flishTime +
-                ", cancelTime=" + cancelTime +
-                ", dueTime=" + dueTime +
-                ", closeType=" + closeType +
-                '}';
-    }
-
-    private Integer closeType;
-
-    public String getReceiverName() {
-        return receiverName;
-    }
-
-    public void setReceiverName(String receiverName) {
-        this.receiverName = receiverName;
-    }
-
-    public Date getDueTime() {
-        return dueTime;
-    }
-
-    public void setDueTime(Date dueTime) {
-        this.dueTime = dueTime;
-    }
-
-    /**
-     * 获取订单ID 同时也是订单编号
-     *
-     * @return order_id - 订单ID 同时也是订单编号
-     */
-    public String getOrderId() {
-        return orderId;
-    }
-
-    /**
-     * 设置订单ID 同时也是订单编号
-     *
-     * @param orderId 订单ID 同时也是订单编号
-     */
-    public void setOrderId(String orderId) {
+    public void setOrderId(String orderId) 
+    {
         this.orderId = orderId;
     }
 
-    /**
-     * 获取用户ID
-     *
-     * @return user_id - 用户ID
-     */
-    public String getUserId() {
-        return userId;
+    public String getOrderId() 
+    {
+        return orderId;
     }
-
-    /**
-     * 设置用户ID
-     *
-     * @param userId 用户ID
-     */
-    public void setUserId(String userId) {
+    public void setUserId(String userId) 
+    {
         this.userId = userId;
     }
 
-    /**
-     * 获取产品名称（多个产品用,隔开）
-     *
-     * @return untitled - 产品名称（多个产品用,隔开）
-     */
-    public String getUntitled() {
-        return untitled;
+    public String getUserId() 
+    {
+        return userId;
     }
-
-    /**
-     * 设置产品名称（多个产品用,隔开）
-     *
-     * @param untitled 产品名称（多个产品用,隔开）
-     */
-    public void setUntitled(String untitled) {
+    public void setUntitled(String untitled) 
+    {
         this.untitled = untitled;
     }
 
-    /**
-     * 获取收货人快照
-     *
-     * @return receiver_name - 收货人快照
-     */
-
-    /**
-     * 获取收货人手机号快照
-     *
-     * @return receiver_mobile - 收货人手机号快照
-     */
-    public String getReceiverMobile() {
-        return receiverMobile;
+    public String getUntitled() 
+    {
+        return untitled;
+    }
+    public void setReceiverName(String receiverName) 
+    {
+        this.receiverName = receiverName;
     }
 
-    /**
-     * 设置收货人手机号快照
-     *
-     * @param receiverMobile 收货人手机号快照
-     */
-    public void setReceiverMobile(String receiverMobile) {
+    public String getReceiverName() 
+    {
+        return receiverName;
+    }
+    public void setReceiverMobile(String receiverMobile) 
+    {
         this.receiverMobile = receiverMobile;
     }
 
-    /**
-     * 获取收货地址快照
-     *
-     * @return receiver_address - 收货地址快照
-     */
-    public String getReceiverAddress() {
-        return receiverAddress;
+    public String getReceiverMobile() 
+    {
+        return receiverMobile;
     }
-
-    /**
-     * 设置收货地址快照
-     *
-     * @param receiverAddress 收货地址快照
-     */
-    public void setReceiverAddress(String receiverAddress) {
+    public void setReceiverAddress(String receiverAddress) 
+    {
         this.receiverAddress = receiverAddress;
     }
 
-    /**
-     * 获取订单总价格
-     *
-     * @return total_amount - 订单总价格
-     */
-    public BigDecimal getTotalAmount() {
-        return totalAmount;
+    public String getReceiverAddress() 
+    {
+        return receiverAddress;
     }
-
-    /**
-     * 设置订单总价格
-     *
-     * @param totalAmount 订单总价格
-     */
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(BigDecimal totalAmount) 
+    {
         this.totalAmount = totalAmount;
     }
 
-    /**
-     * 获取实际支付总价格
-     *
-     * @return actual_amount - 实际支付总价格
-     */
-    public Integer getActualAmount() {
-        return actualAmount;
+    public BigDecimal getTotalAmount() 
+    {
+        return totalAmount;
     }
-
-    /**
-     * 设置实际支付总价格
-     *
-     * @param actualAmount 实际支付总价格
-     */
-    public void setActualAmount(Integer actualAmount) {
+    public void setActualAmount(Integer actualAmount) 
+    {
         this.actualAmount = actualAmount;
     }
 
-    /**
-     * 获取支付方式 1:微信 2:支付宝
-     *
-     * @return pay_type - 支付方式 1:微信 2:支付宝
-     */
-    public Integer getPayType() {
-        return payType;
+    public Integer getActualAmount() 
+    {
+        return actualAmount;
     }
-
-    /**
-     * 设置支付方式 1:微信 2:支付宝
-     *
-     * @param payType 支付方式 1:微信 2:支付宝
-     */
-    public void setPayType(Integer payType) {
+    public void setPayType(Integer payType) 
+    {
         this.payType = payType;
     }
 
-    /**
-     * 获取订单备注
-     *
-     * @return order_remark - 订单备注
-     */
-    public String getOrderRemark() {
-        return orderRemark;
+    public Integer getPayType() 
+    {
+        return payType;
     }
-
-    /**
-     * 设置订单备注
-     *
-     * @param orderRemark 订单备注
-     */
-    public void setOrderRemark(String orderRemark) {
+    public void setOrderRemark(String orderRemark) 
+    {
         this.orderRemark = orderRemark;
     }
 
-    /**
-     * 获取订单状态 1:待付款 2:待发货 3:待收货 4:待评价 5:已完成 6:已关闭
-     *
-     * @return status - 订单状态 1:待付款 2:待发货 3:待收货 4:待评价 5:已完成 6:已关闭
-     */
-    public String getStatus() {
-        return status;
+    public String getOrderRemark() 
+    {
+        return orderRemark;
     }
-
-    /**
-     * 设置订单状态 1:待付款 2:待发货 3:待收货 4:待评价 5:已完成 6:已关闭
-     *
-     * @param status 订单状态 1:待付款 2:待发货 3:待收货 4:待评价 5:已完成 6:已关闭
-     */
-    public void setStatus(String status) {
+    public void setStatus(String status) 
+    {
         this.status = status;
     }
 
-    /**
-     * 获取配送方式
-     *
-     * @return delivery_type - 配送方式
-     */
-    public String getDeliveryType() {
-        return deliveryType;
+    public String getStatus() 
+    {
+        return status;
     }
-
-    /**
-     * 设置配送方式
-     *
-     * @param deliveryType 配送方式
-     */
-    public void setDeliveryType(String deliveryType) {
+    public void setDeliveryType(String deliveryType) 
+    {
         this.deliveryType = deliveryType;
     }
 
-    /**
-     * 获取物流单号
-     *
-     * @return delivery_flow_id - 物流单号
-     */
-    public String getDeliveryFlowId() {
-        return deliveryFlowId;
+    public String getDeliveryType() 
+    {
+        return deliveryType;
     }
-
-    /**
-     * 设置物流单号
-     *
-     * @param deliveryFlowId 物流单号
-     */
-    public void setDeliveryFlowId(String deliveryFlowId) {
+    public void setDeliveryFlowId(String deliveryFlowId) 
+    {
         this.deliveryFlowId = deliveryFlowId;
     }
 
-    /**
-     * 获取订单运费 默认可以为零，代表包邮
-     *
-     * @return order_freight - 订单运费 默认可以为零，代表包邮
-     */
-    public BigDecimal getOrderFreight() {
-        return orderFreight;
+    public String getDeliveryFlowId() 
+    {
+        return deliveryFlowId;
     }
-
-    /**
-     * 设置订单运费 默认可以为零，代表包邮
-     *
-     * @param orderFreight 订单运费 默认可以为零，代表包邮
-     */
-    public void setOrderFreight(BigDecimal orderFreight) {
+    public void setOrderFreight(BigDecimal orderFreight) 
+    {
         this.orderFreight = orderFreight;
     }
 
-    /**
-     * 获取逻辑删除状态 1: 删除 0:未删除
-     *
-     * @return delete_status - 逻辑删除状态 1: 删除 0:未删除
-     */
-    public Integer getDeleteStatus() {
-        return deleteStatus;
+    public BigDecimal getOrderFreight() 
+    {
+        return orderFreight;
     }
-
-    /**
-     * 设置逻辑删除状态 1: 删除 0:未删除
-     *
-     * @param deleteStatus 逻辑删除状态 1: 删除 0:未删除
-     */
-    public void setDeleteStatus(Integer deleteStatus) {
+    public void setDeleteStatus(Long deleteStatus) 
+    {
         this.deleteStatus = deleteStatus;
     }
 
-    /**
-     * 获取创建时间（成交时间）
-     *
-     * @return create_time - 创建时间（成交时间）
-     */
-    public Date getCreateTime() {
-        return createTime;
+    public Long getDeleteStatus() 
+    {
+        return deleteStatus;
     }
-
-    /**
-     * 设置创建时间（成交时间）
-     *
-     * @param createTime 创建时间（成交时间）
-     */
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    /**
-     * 获取更新时间
-     *
-     * @return update_time - 更新时间
-     */
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    /**
-     * 设置更新时间
-     *
-     * @param updateTime 更新时间
-     */
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    /**
-     * 获取付款时间
-     *
-     * @return pay_time - 付款时间
-     */
-    public Date getPayTime() {
-        return payTime;
-    }
-
-    /**
-     * 设置付款时间
-     *
-     * @param payTime 付款时间
-     */
-    public void setPayTime(Date payTime) {
+    public void setPayTime(Date payTime) 
+    {
         this.payTime = payTime;
     }
 
-    /**
-     * 获取发货时间
-     *
-     * @return delivery_time - 发货时间
-     */
-    public Date getDeliveryTime() {
-        return deliveryTime;
+    public Date getPayTime() 
+    {
+        return payTime;
     }
-
-    /**
-     * 设置发货时间
-     *
-     * @param deliveryTime 发货时间
-     */
-    public void setDeliveryTime(Date deliveryTime) {
+    public void setDeliveryTime(Date deliveryTime) 
+    {
         this.deliveryTime = deliveryTime;
     }
 
-    /**
-     * 获取完成时间
-     *
-     * @return flish_time - 完成时间
-     */
-    public Date getFlishTime() {
-        return flishTime;
+    public Date getDeliveryTime() 
+    {
+        return deliveryTime;
     }
-
-    /**
-     * 设置完成时间
-     *
-     * @param flishTime 完成时间
-     */
-    public void setFlishTime(Date flishTime) {
+    public void setFlishTime(Date flishTime) 
+    {
         this.flishTime = flishTime;
     }
 
-    /**
-     * 获取取消时间
-     *
-     * @return cancel_time - 取消时间
-     */
-    public Date getCancelTime() {
-        return cancelTime;
+    public Date getFlishTime() 
+    {
+        return flishTime;
     }
-
-    /**
-     * 设置取消时间
-     *
-     * @param cancelTime 取消时间
-     */
-    public void setCancelTime(Date cancelTime) {
+    public void setCancelTime(Date cancelTime) 
+    {
         this.cancelTime = cancelTime;
     }
 
-    /**
-     * 获取订单关闭类型1-超时未支付 2-退款关闭 4-买家取消 15-已通过货到付款交易
-     *
-     * @return close_type - 订单关闭类型1-超时未支付 2-退款关闭 4-买家取消 15-已通过货到付款交易
-     */
-    public Integer getCloseType() {
-        return closeType;
+    public Date getCancelTime() 
+    {
+        return cancelTime;
+    }
+    public void setCloseType(Long closeType) 
+    {
+        this.closeType = closeType;
     }
 
-    /**
-     * 设置订单关闭类型1-超时未支付 2-退款关闭 4-买家取消 15-已通过货到付款交易
-     *
-     * @param closeType 订单关闭类型1-超时未支付 2-退款关闭 4-买家取消 15-已通过货到付款交易
-     */
-    public void setCloseType(Integer closeType) {
-        this.closeType = closeType;
+    public Long getCloseType() 
+    {
+        return closeType;
+    }
+    public void setDueTime(Date dueTime) 
+    {
+        this.dueTime = dueTime;
+    }
+
+    public Date getDueTime() 
+    {
+        return dueTime;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+            .append("orderId", getOrderId())
+            .append("userId", getUserId())
+            .append("untitled", getUntitled())
+            .append("receiverName", getReceiverName())
+            .append("receiverMobile", getReceiverMobile())
+            .append("receiverAddress", getReceiverAddress())
+            .append("totalAmount", getTotalAmount())
+            .append("actualAmount", getActualAmount())
+            .append("payType", getPayType())
+            .append("orderRemark", getOrderRemark())
+            .append("status", getStatus())
+            .append("deliveryType", getDeliveryType())
+            .append("deliveryFlowId", getDeliveryFlowId())
+            .append("orderFreight", getOrderFreight())
+            .append("deleteStatus", getDeleteStatus())
+            .append("createTime", getCreateTime())
+            .append("updateTime", getUpdateTime())
+            .append("payTime", getPayTime())
+            .append("deliveryTime", getDeliveryTime())
+            .append("flishTime", getFlishTime())
+            .append("cancelTime", getCancelTime())
+            .append("closeType", getCloseType())
+            .append("dueTime", getDueTime())
+            .toString();
     }
 }

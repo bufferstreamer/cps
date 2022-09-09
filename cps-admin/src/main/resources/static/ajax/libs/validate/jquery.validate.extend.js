@@ -5,6 +5,10 @@ $(document).ready(function(){
 		 		form.submit();    
 		}       
 	});
+	jQuery.validator.addMethod("isMoney",function(value,element){
+		var reg=/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+		return this.optional(element) || (reg.test(value));
+	},"请输入钱数，例如1.50");
 	jQuery.validator.addMethod("isPRCard",function(value,element){
 		var reg=/^[A-Z]{3}[0-9]{12}$/;
 		return this.optional(element) || (reg.test(value));

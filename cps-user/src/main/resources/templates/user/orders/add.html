@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增订单')" />
+    <th:block th:include="include :: datetimepicker-css" />
+    <th:block th:include="include :: bootstrap-fileinput-css"/>
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-orders-add">
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">产品名称：</label>
+            <div class="col-sm-8">
+                <input name="untitled" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">收货人快照：</label>
+            <div class="col-sm-8">
+                <input name="receiverName" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">收货人手机号快照：</label>
+            <div class="col-sm-8">
+                <input name="receiverMobile" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">收货地址快照：</label>
+            <div class="col-sm-8">
+                <input name="receiverAddress" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">订单总价格：</label>
+            <div class="col-sm-8">
+                <input name="totalAmount" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">实际支付总价格：</label>
+            <div class="col-sm-8">
+                <input name="actualAmount" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">支付方式：</label>
+            <div class="col-sm-8">
+                <select name="payType" class="form-control m-b" th:with="type=${@dict.getType('pay_type')}">
+                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">订单备注：</label>
+            <div class="col-sm-8">
+                <input name="orderRemark" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">订单状态 默认是什么？：</label>
+            <div class="col-sm-8">
+                <div class="radio-box" th:each="dict : ${@dict.getType('order_status')}">
+                    <input type="radio" th:id="${'status_' + dict.dictCode}" name="status" th:value="${dict.dictValue}" th:checked="${dict.default}">
+                    <label th:for="${'status_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">配送方式：</label>
+            <div class="col-sm-8">
+                <input name="deliveryType" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">物流单号 自己填or系统生成？：</label>
+            <div class="col-sm-8">
+                <input name="deliveryFlowId" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">订单运费：</label>
+            <div class="col-sm-8">
+                <input name="orderFreight" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">付款时间：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input name="payTime" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">发货时间：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input name="deliveryTime" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">订单交割时间：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input name="dueTime" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: datetimepicker-js" />
+<th:block th:include="include :: bootstrap-fileinput-js"/>
+<script th:inline="javascript">
+    var prefix = ctx + "user/orders";
+    $("#form-orders-add").validate({
+        focusCleanup: true,
+        rules:{
+            receiverName:"isName",
+            receiverMobile:"isPhone",
+            receiverAddress:"isAddress",
+            totalAmount:"isMoney",
+            actualAmount:"isMoney",
+            orderFreight:"isMoney"
+        }
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/add", $('#form-orders-add').serialize());
+        }
+    }
+
+    $("input[name='payTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
+
+    $("input[name='deliveryTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
+
+    $("input[name='dueTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
+</script>
+</body>
+</html>

@@ -305,7 +305,7 @@ public class Tender1Controller extends BaseController
     private boolean CanPurchase(QualificationReview review, Tender tender){
         if (review!=null&&review.getAuditStatus().equals("1")){
             List<CentralizedPurchaseRecord> tempList = centralizedPurchaseRecordService.selectCentralizedPurchaseRecordsByTenderIdAndSupplyId(review.getTenderId(),ShiroUtils.getUserId().toString());
-            if (tempList.size()<Integer.valueOf(tender.getBidNumber())){
+            if (tempList.size()<tender.getBidNumber()){
                 return true;
             }
         }
