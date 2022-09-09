@@ -2,6 +2,7 @@ package com.cps.product.mapper;
 
 import java.util.List;
 import com.cps.product.domain.ProductIndexInfo;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 产品指标信息（数值型）Mapper接口
@@ -58,4 +59,13 @@ public interface ProductIndexInfoMapper
      * @return 结果
      */
     public int deleteProductIndexInfoByProductIndexIds(String[] productIndexIds);
+
+    /**
+     * 通过产品名和指标名查询指标排序信息
+     *
+     * @param productName 产品名
+     * @param indexName 指标名
+     * @return 排序信息（1值大优先， 2值小优先）
+     */
+    public char selectIndexSortByProductNameAndIndexName(@Param("productName")String productName, @Param("indexName")String indexName);
 }

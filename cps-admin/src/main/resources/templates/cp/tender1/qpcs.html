@@ -79,8 +79,8 @@
       display:none;
     }
     .evaluate-container {
-      width:70%;
-      margin-left:15%;
+      width:90%;
+      margin-left:5%;
       text-align: center;
     }
     .target-unit {
@@ -88,6 +88,9 @@
       width:25%;
       height:36px;
       line-height: 36px;
+      overflow: hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
     }
     .expert-unit {
       float:left;
@@ -299,7 +302,15 @@
   /* 载入初始数据begin */
   let targetListList = [[${targetListList}]];
   let providerInfoDictList = [[${providerInfoDictList}]];
+  let indexSortList = [[${indexSortList}]];
+  console.log("产品列表：")
+  console.log(productNameList);
+  console.log("产品指标例表：")
+  console.log(targetListList);
+  console.log("供应商产品数据列表：")
   console.log(providerInfoDictList);
+  console.log("产品排序信息列表：")
+  console.log(indexSortList);
   // let productNameList = [
   //   "方便面",
   //   "食用调和油"
@@ -348,10 +359,10 @@
   //   }
   // ];//供应商产品信息列表
 
-  let indexSortList = [
-    ['2','1','2','2'],
-    ['2','2','2','2','2','2','2',]
-  ];//产品指标排序优先情况列表
+  // let indexSortList = [
+  //   ['2','1','2','2'],
+  //   ['2','2','2','2','2','2','2',]
+  // ];//产品指标排序优先情况列表
   let productName = productNameList[0]; // 默认产品名
   let targetList = targetListList[0]; // 默认产品指标列表
   let providerInfoDict = $.extend(true,{},providerInfoDictList[0]); // 默认供应商产品信息列表
@@ -490,8 +501,9 @@
   /* 最终结果评估 */
   $("#finalAnalyseBtn").on("click",function(){
     $(this).hide();
-    console.log(providerInfoDictList);
+    console.log(providerInfoDictList[$("#productname").val()]);
     providerInfoDict = $.extend(true,{},providerInfoDictList[$("#productname").val()]);
+    console.log(providerInfoDict);
     finalList = evaluateProvider(providerInfoDict,indexSort,targetWeight);
     for(let i=0;i<providerNum;++i){
       $(".evaluateResult-container").append(
@@ -714,6 +726,10 @@
    *
    */
   function evaluateProvider(pDict,iSort,tWeight){
+    console.log("供应商评估参数：")
+    console.log(pDict);
+    console.log(iSort);
+    console.log(tWeight);
     let iSum = [];
     let pNormDict = $.extend(true,{},pDict);
     let pFinalList = [];

@@ -2,10 +2,9 @@ package com.cps.cp.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,10 +16,8 @@ import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.ShiroUtils;
 import com.cps.cp.domain.QualificationReview;
 import com.cps.cp.service.IQualificationReviewService;
-import com.cps.common.utils.StringUtils;
-import com.cps.common.utils.file.FileUtils;
 import com.cps.common.utils.uuid.IdUtils;
-import jdk.nashorn.internal.objects.Global;
+import com.cps.product.service.IProductIndexInfoService;
 import org.apache.poi.xwpf.usermodel.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -42,10 +39,6 @@ import com.cps.common.core.domain.AjaxResult;
 import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.core.page.TableDataInfo;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * 招标Controller
  *
@@ -63,6 +56,9 @@ public class Tender1Controller extends BaseController {
 
     @Autowired
     private IQualificationReviewService qualificationReviewService;
+
+    @Autowired
+    private IProductIndexInfoService productIndexInfoService;
 
     @RequiresPermissions("cp:tender1:view")
     @GetMapping()
@@ -294,6 +290,7 @@ public class Tender1Controller extends BaseController {
 //                arr.add(rows.get(productIndex).getTableCells().get(5).getText());
                 String productName = rows.get(i * 10 + 2).getTableCells().get(0).getText();
                 productNameList.add(productName);
+                arr.add("价格");//手动添加价格项
                 map.put(productName, arr);
             }
         }
@@ -353,6 +350,20 @@ public class Tender1Controller extends BaseController {
         }
         mmap.put("providerInfoDictList", providerInfoDictList);
         System.out.println(providerInfoDictList);
+        // 获取各个指标的排序信息
+        ArrayList<ArrayList<Character>> indexSortList = new ArrayList<>();
+        for(int i=0;i<productNameList.size();++i){
+            List<String> targetList = targetListList.get(i);
+            ArrayList<Character> indexSort = new ArrayList<>();
+            String productName = productNameList.get(i);
+            for(int j=0;j<targetList.size()-1;++j){// 数据库没有价格字段，避免查询该项
+                Character curSort = productIndexInfoService.selectIndexSortByProductNameAndIndexName(productName, targetList.get(j));
+                indexSort.add(curSort);
+            }
+            indexSort.add('2');//手动添加价格指标排序信息
+            indexSortList.add(indexSort);
+        }
+        mmap.put("indexSortList",indexSortList);
         return prefix + "/qpcs";
     }
 
