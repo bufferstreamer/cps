@@ -8,16 +8,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="bidWinningResultsAnnouncementId"    column="bid_winning_results_announcement_id"    />
         <result property="bidWinningResultsAnnouncementDocument"    column="bid_winning_results_announcement_document"    />
         <result property="tenderId"    column="tender_id"    />
+        <result property="announcementName"    column="announcement_name"    />
     </resultMap>
 
     <sql id="selectBidWinningResultsAnnouncementVo">
-        select bid_winning_results_announcement_id, bid_winning_results_announcement_document, tender_id from bid_winning_results_announcement
+        select bid_winning_results_announcement_id, announcement_name, bid_winning_results_announcement_document, tender_id from bid_winning_results_announcement
     </sql>
 
     <select id="selectBidWinningResultsAnnouncementList" parameterType="BidWinningResultsAnnouncement" resultMap="BidWinningResultsAnnouncementResult">
         <include refid="selectBidWinningResultsAnnouncementVo"/>
         <where>  
             <if test="bidWinningResultsAnnouncementId != null  and bidWinningResultsAnnouncementId != ''"> and bid_winning_results_announcement_id like concat('%', #{bidWinningResultsAnnouncementId}, '%')</if>
+            <if test="announcementName != null  and announcementName != ''"> and announcement_name like concat('%', #{announcementName}, '%')</if>
             <if test="tenderId != null  and tenderId != ''"> and tender_Id like concat('%', #{tenderId}, '%')</if>
         </where>
     </select>
@@ -31,11 +33,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into bid_winning_results_announcement
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="bidWinningResultsAnnouncementId != null and bidWinningResultsAnnouncementId != ''">bid_winning_results_announcement_id,</if>
+            <if test="announcementName != null">announcement_name,</if>
             <if test="bidWinningResultsAnnouncementDocument != null and bidWinningResultsAnnouncementDocument != ''">bid_winning_results_announcement_document,</if>
             <if test="tenderId != null and tenderId != ''">tender_id,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="bidWinningResultsAnnouncementId != null and bidWinningResultsAnnouncementId != ''">#{bidWinningResultsAnnouncementId},</if>
+            <if test="announcementName != null">#{announcementName},</if>
             <if test="bidWinningResultsAnnouncementDocument != null and bidWinningResultsAnnouncementDocument != ''">#{bidWinningResultsAnnouncementDocument},</if>
             <if test="tenderId != null and tenderId != ''">#{tenderId},</if>
          </trim>
@@ -44,6 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateBidWinningResultsAnnouncement" parameterType="BidWinningResultsAnnouncement">
         update bid_winning_results_announcement
         <trim prefix="SET" suffixOverrides=",">
+            <if test="announcementName != null and announcementName != ''">announcement_name = #{announcementName},</if>
             <if test="bidWinningResultsAnnouncementDocument != null and bidWinningResultsAnnouncementDocument != ''">bid_winning_results_announcement_document = #{bidWinningResultsAnnouncementDocument},</if>
             <if test="tenderId != null and tenderId != ''">tender_id = #{tenderId},</if>
         </trim>

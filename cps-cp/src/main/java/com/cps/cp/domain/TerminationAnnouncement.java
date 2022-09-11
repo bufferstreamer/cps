@@ -34,6 +34,10 @@ public class TerminationAnnouncement extends BaseEntity
     @Excel(name = "时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date terminationTime;
 
+    /** 终止公告名 */
+    @Excel(name = "终止公告名")
+    private String announcementName;
+
     public void setTerminationAnnouncementId(String terminationAnnouncementId) 
     {
         this.terminationAnnouncementId = terminationAnnouncementId;
@@ -71,6 +75,14 @@ public class TerminationAnnouncement extends BaseEntity
         return terminationTime;
     }
 
+    public String getAnnouncementName() {
+        return announcementName;
+    }
+
+    public void setAnnouncementName(String announcementName) {
+        this.announcementName = announcementName;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -78,6 +90,7 @@ public class TerminationAnnouncement extends BaseEntity
             .append("terminationAnnouncementDocument", getTerminationAnnouncementDocument())
             .append("tenderId", getTenderId())
             .append("terminationTime", getTerminationTime())
+            .append("announcementName",getAnnouncementName())
             .toString();
     }
 }

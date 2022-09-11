@@ -15,6 +15,10 @@
                                 <input type="text" name="terminationAnnouncementId"/>
                             </li>
                             <li>
+                                <label>公告名：</label>
+                                <input type="text" name="announcementName"/>
+                            </li>
+                            <li>
                                 <label>标书ID：</label>
                                 <input type="text" name="tenderId"/>
                             </li>
@@ -73,9 +77,14 @@
                     title: '终止公告ID',
                     visible: true
                 },
+                    {
+                        field: 'announcementName',
+                        title: '公告名',
+                    },
                 {
                     field: 'terminationAnnouncementDocument',
-                    title: '终止公告文件'
+                    title: '终止公告文件',
+                    visible: false
                 },
                 {
                     field: 'tenderId',

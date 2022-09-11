@@ -15,6 +15,10 @@
                                 <input type="text" name="changeAnnouncementId"/>
                             </li>
                             <li>
+                                <label>公告名：</label>
+                                <input type="text" name="announcementName"/>
+                            </li>
+                            <li>
                                 <label>标书ID：</label>
                                 <input type="text" name="tenderId"/>
                             </li>
@@ -73,9 +77,14 @@
                     title: '变更公告ID',
                     visible: true
                 },
+                    {
+                        field: 'announcementName',
+                        title: '公告名',
+                    },
                 {
                     field: 'changeAnnouncementDocument',
-                    title: '变更公告文件'
+                    title: '变更公告文件',
+                    visible: false
                 },
                 {
                     field: 'tenderId',

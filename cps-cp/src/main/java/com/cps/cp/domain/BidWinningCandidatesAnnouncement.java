@@ -39,6 +39,10 @@ public class BidWinningCandidatesAnnouncement extends BaseEntity
     @Excel(name = "公示截止时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date deadlineTime;
 
+    /** 中标候选人公示公告名 */
+    @Excel(name = "中标候选人公示公告名")
+    private String announcementName;
+
     public void setBidWinningCandidatesAnnouncementId(String bidWinningCandidatesAnnouncementId) 
     {
         this.bidWinningCandidatesAnnouncementId = bidWinningCandidatesAnnouncementId;
@@ -85,6 +89,14 @@ public class BidWinningCandidatesAnnouncement extends BaseEntity
         return deadlineTime;
     }
 
+    public String getAnnouncementName() {
+        return announcementName;
+    }
+
+    public void setAnnouncementName(String announcementName) {
+        this.announcementName = announcementName;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -93,6 +105,7 @@ public class BidWinningCandidatesAnnouncement extends BaseEntity
             .append("tenderId", getTenderId())
             .append("publicityTime", getPublicityTime())
             .append("deadlineTime", getDeadlineTime())
+            .append("announcementName",getAnnouncementName())
             .toString();
     }
 }

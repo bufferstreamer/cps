@@ -73,7 +73,7 @@
         function downloadFile(value){
             window.location.href = ctx + "common/download/resource?resource=" + value;
         }
-        function detl( id) {  $.modal.openFull("Dtail",ctx+"cp/tender1/detail/"+id); }
+        function detl( id) {  $.modal.open("Dtail",ctx+"cp/tender1/detail/"+id,1200,630); }
 
         function qualificationReview(tenderId){
             $.modal.open("提交资质审核",ctx+"cp/tender1/qualificationReview/"+tenderId);
@@ -125,7 +125,8 @@
                 },
                 {
                     field: 'tenderDocument',
-                    title: '标书'
+                    title: '标书',
+                    visible: false
                 },
                 {
                     field: 'createDatetime',
@@ -152,7 +153,8 @@
                     align: 'center',
                     formatter: function(value, row, index) {
                         var actions = [];
-                        actions.push('<a class="btn btn-success btn-xs ' +detailFlag + '" href="javascript:void(0)" onclick="detl(\'' + row.tenderId + '\')"><i class="fa fa-edit"></i>查看</a> ');
+                        actions.push('<a class="btn btn-success btn-xs ' +detailFlag + '" href="javascript:void(0)" onclick="detl(\'' + row.tenderId + '\')"><i class="fa fa-search"></i>查看</a> ');
+                        // actions.push('<a class="btn btn-success btn-xs ' + detailFlag + '" href="javascript:void(0)" onclick="$.operate.detail(\'' + row.tenderId + '\')"><i class="fa fa-edit"></i>详细</a>');
                         actions.push('<a class="btn btn-info btn-xs ' + downloadFlag + '" href="javascript:void(0)" onclick="downloadFile(\'' + row.tenderDocument + '\')"><i class="fa fa-download"></i>下载</a>');
                         // actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.tenderId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.tenderId + '\')"><i class="fa fa-remove"></i>删除</a>');
@@ -160,7 +162,7 @@
                             actions.push('<a class="btn btn-success btn-xs ' +qualificationReviewFlag + '" href="javascript:void(0)" onclick="qualificationReview(\'' + row.tenderId + '\')"><i class="fa fa-review"></i>资质审核</a> ');
                         }
                         if([[${canPurchaseArr}]][index]){
-                            actions.push('<a class="btn btn-info btn-xs ' +centralizedPurchaseFlag + '" href="javascript:void(0)" onclick="centralizedPurchase(\'' + row.tenderId + '\')"><i class="fa fa-review"></i>参与竞价</a> ');
+                            actions.push('<a class="btn btn-info btn-xs ' +centralizedPurchaseFlag + '" href="javascript:void(0)" onclick="centralizedPurchase(\'' + row.tenderId + '\')"><i class="fa fa-review"></i>投标</a> ');
                         }
                         actions.push('<a class="btn btn-success btn-xs ' + true + '" href="javascript:void(0)" onclick="openQpcs(\'' + row.tenderId + '\')"><i class="fa fa-edit"></i>比质比价</a> ');
                         console.log("value:"+value);

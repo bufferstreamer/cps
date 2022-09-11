@@ -9,16 +9,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="changeAnnouncementDocument"    column="change_announcement_document"    />
         <result property="tenderId"    column="tender_id"    />
         <result property="changeTime"    column="change_time"    />
+        <result property="announcementName"    column="announcement_name"    />
     </resultMap>
 
     <sql id="selectChangeAnnouncementVo">
-        select change_announcement_id, change_announcement_document, tender_id, change_time from change_announcement
+        select change_announcement_id, announcement_name, change_announcement_document, tender_id, change_time from change_announcement
     </sql>
 
     <select id="selectChangeAnnouncementList" parameterType="ChangeAnnouncement" resultMap="ChangeAnnouncementResult">
         <include refid="selectChangeAnnouncementVo"/>
-        <where>  
+        <where>
             <if test="changeAnnouncementId != null  and changeAnnouncementId != ''"> and change_announcement_id like concat('%', #{changeAnnouncementId}, '%')</if>
+            <if test="announcementName != null  and announcementName != ''"> and announcement_name like concat('%', #{announcementName}, '%')</if>
             <if test="tenderId != null  and tenderId != ''"> and tender_Id like concat('%', #{tenderId}, '%')</if>
         </where>
     </select>
@@ -32,12 +34,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into change_announcement
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="changeAnnouncementId != null">change_announcement_id,</if>
+            <if test="announcementName != null">announcement_name,</if>
             <if test="changeAnnouncementDocument != null and changeAnnouncementDocument != ''">change_announcement_document,</if>
             <if test="tenderId != null and tenderId != ''">tender_id,</if>
             <if test="changeTime != null">change_time,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="changeAnnouncementId != null">#{changeAnnouncementId},</if>
+            <if test="announcementName != null">#{announcementName},</if>
             <if test="changeAnnouncementDocument != null and changeAnnouncementDocument != ''">#{changeAnnouncementDocument},</if>
             <if test="tenderId != null and tenderId != ''">#{tenderId},</if>
             <if test="changeTime != null">#{changeTime},</if>
@@ -47,6 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateChangeAnnouncement" parameterType="ChangeAnnouncement">
         update change_announcement
         <trim prefix="SET" suffixOverrides=",">
+            <if test="announcementName != null and announcementName != ''">announcement_name = #{announcementName},</if>
             <if test="changeAnnouncementDocument != null and changeAnnouncementDocument != ''">change_announcement_document = #{changeAnnouncementDocument},</if>
             <if test="tenderId != null and tenderId != ''">tender_id = #{tenderId},</if>
             <if test="changeTime != null">change_time = #{changeTime},</if>

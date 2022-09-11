@@ -37,7 +37,7 @@
 
             <div class="btn-group-sm" id="toolbar" role="group">
                 <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="cp:tender2:add">
-                    <i class="fa fa-plus"></i> 添加
+                    <i class="fa fa-plus"></i> 发布招标公告
                 </a>
 <!--                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="cp:tender2:edit">-->
 <!--                    <i class="fa fa-edit"></i> 修改-->
@@ -45,9 +45,11 @@
                 <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="cp:tender2:remove">
                     <i class="fa fa-remove"></i> 删除
                 </a>
-                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="cp:tender2:export">
-                    <i class="fa fa-download"></i> 导出
-                </a>
+<!--                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="cp:tender2:export">-->
+<!--                    <i class="fa fa-download"></i> 导出-->
+<!--                </a>-->
+                <a class="btn btn-info" href="http://localhost:80/cps/documentTemplate/zhaobiao3.docx" download=""><i class="fa fa-download"></i> 下载招标模板</a>
+                <a class="btn btn-warning" href="http://localhost:80/cps/documentTemplate/toubiao.docx" download=""><i class="fa fa-download"></i> 下载投标模板</a>
             </div>
             <div class="col-sm-12 select-table table-striped">
                 <table id="bootstrap-table"></table>
@@ -86,7 +88,7 @@
                 },
                 {
                     field: 'projectName',
-                    title: '项目名称'
+                    title: '项目名称',
                 },
                 {
                     field: 'gxsId',
@@ -106,7 +108,8 @@
                 },
                 {
                     field: 'tenderDocument',
-                    title: '标书'
+                    title: '标书',
+                    visible: false
                 },
                 {
                     field: 'createDatetime',
