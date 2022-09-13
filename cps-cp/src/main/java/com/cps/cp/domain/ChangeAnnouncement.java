@@ -29,6 +29,11 @@ public class ChangeAnnouncement extends BaseEntity
     @Excel(name = "标书ID")
     private String tenderId;
 
+    /** 变更公告名 */
+    @Excel(name = "变更公告名")
+    private String announcementName;
+
+
     /** 变更时间 */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "变更时间", width = 30, dateFormat = "yyyy-MM-dd")
@@ -71,6 +76,15 @@ public class ChangeAnnouncement extends BaseEntity
         return changeTime;
     }
 
+
+    public String getAnnouncementName() {
+        return announcementName;
+    }
+
+    public void setAnnouncementName(String announcementName) {
+        this.announcementName = announcementName;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -78,6 +92,7 @@ public class ChangeAnnouncement extends BaseEntity
             .append("changeAnnouncementDocument", getChangeAnnouncementDocument())
             .append("tenderId", getTenderId())
             .append("changeTime", getChangeTime())
+            .append("announcementName",getAnnouncementName())
             .toString();
     }
 }

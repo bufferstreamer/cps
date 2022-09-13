@@ -27,6 +27,10 @@ public class BidWinningResultsAnnouncement extends BaseEntity
     @Excel(name = "标书ID")
     private String tenderId;
 
+    /** 中标结果公告名 */
+    @Excel(name = "中标结果公告名")
+    private String announcementName;
+
     public void setBidWinningResultsAnnouncementId(String bidWinningResultsAnnouncementId) 
     {
         this.bidWinningResultsAnnouncementId = bidWinningResultsAnnouncementId;
@@ -55,12 +59,21 @@ public class BidWinningResultsAnnouncement extends BaseEntity
         return tenderId;
     }
 
+    public String getAnnouncementName() {
+        return announcementName;
+    }
+
+    public void setAnnouncementName(String announcementName) {
+        this.announcementName = announcementName;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("bidWinningResultsAnnouncementId", getBidWinningResultsAnnouncementId())
             .append("bidWinningResultsAnnouncementDocument", getBidWinningResultsAnnouncementDocument())
             .append("tenderId", getTenderId())
+            .append("announcementName",getAnnouncementName())
             .toString();
     }
 }

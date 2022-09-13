@@ -15,6 +15,10 @@
                                 <input type="text" name="bidWinningResultsAnnouncementId"/>
                             </li>
                             <li>
+                                <label>公告名：</label>
+                                <input type="text" name="announcementName"/>
+                            </li>
+                            <li>
                                 <label>标书ID：</label>
                                 <input type="text" name="tenderId"/>
                             </li>
@@ -74,9 +78,14 @@
                     title: '中标结果公告ID',
                     visible: true
                 },
+                    {
+                        field: 'announcementName',
+                        title: '公告名',
+                    },
                 {
                     field: 'bidWinningResultsAnnouncementDocument',
-                    title: '中标结果公告文件'
+                    title: '中标结果公告文件',
+                    visible: false
                 },
                 {
                     field: 'tenderId',

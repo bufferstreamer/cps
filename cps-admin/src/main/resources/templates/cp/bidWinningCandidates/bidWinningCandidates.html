@@ -15,6 +15,10 @@
                                 <input type="text" name="bidWinningCandidatesAnnouncementId"/>
                             </li>
                             <li>
+                                <label>标题：</label>
+                                <input type="text" name="announcementName"/>
+                            </li>
+                            <li>
                                 <label>标书ID：</label>
                                 <input type="text" name="tenderId"/>
                             </li>
@@ -29,7 +33,7 @@
 
             <div class="btn-group-sm" id="toolbar" role="group">
                 <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="cp:bidWinningCandidates:add">
-                    <i class="fa fa-plus"></i> 发布中标候选人公示公告
+                    <i class="fa fa-plus"></i> 发布中标候选人公示
                 </a>
 <!--                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="cp:bidWinningCandidates:edit">-->
 <!--                    <i class="fa fa-edit"></i> 修改-->
@@ -71,12 +75,17 @@
                 },
                 {
                     field: 'bidWinningCandidatesAnnouncementId',
-                    title: '中标候选人公示公告ID',
+                    title: '中标候选人公示ID',
                     visible: true
                 },
+                    {
+                        field: 'announcementName',
+                        title: '标题',
+                    },
                 {
                     field: 'bidWinningCandidatesDocument',
-                    title: '中标候选人公示公告文件'
+                    title: '中标候选人公示公告文件',
+                    visible: false
                 },
                 {
                     field: 'tenderId',

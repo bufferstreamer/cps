@@ -334,12 +334,14 @@ public class Tender1Controller extends BaseController {
                         if (row.getTableCells().get(1).getText().equals("")) {
                             break;
                         } else {
-                            indexDataList.add(row.getTableCells().get(2).getText());
+                            double tempValue = Double.parseDouble(row.getTableCells().get(2).getText());
+                            indexDataList.add(tempValue);
                         }
                     }
 
                     XWPFTableRow rowPrice = rows.get(productIndex1);
-                    indexDataList.add(rowPrice.getTableCells().get(3).getText());
+                    double tempValue = Double.parseDouble(rowPrice.getTableCells().get(3).getText());
+                    indexDataList.add(tempValue);
 //                arr.add(rows.get(productIndex).getTableCells().get(5).getText());
 //                        String productName = rows.get(i * 10 + 2).getTableCells().get(0).getText();
 
