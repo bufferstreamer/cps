@@ -3,9 +3,12 @@ package com.cps.web.controller.user;
 import com.cps.common.annotation.Log;
 import com.cps.common.core.controller.BaseController;
 import com.cps.common.core.domain.AjaxResult;
+import com.cps.common.core.domain.entity.SysUser;
 import com.cps.common.core.page.TableDataInfo;
 import com.cps.common.enums.BusinessType;
+import com.cps.common.utils.StringUtils;
 import com.cps.common.utils.poi.ExcelUtil;
+import com.cps.system.service.ISysUserService;
 import com.cps.user.domain.Orders;
 import com.cps.user.service.IOrdersService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -14,6 +17,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -44,11 +50,28 @@ public class OrdersController extends BaseController
     @RequiresPermissions("user:orders:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(Orders orders)
+    public TableDataInfo list(Orders orders, HttpServletRequest request)
     {
         startPage();
-        List<Orders> list = ordersService.selectOrdersList(orders);
-        return getDataTable(list);
+        String userName=request.getParameter("userName");
+
+        List<Orders> resultList;
+        if (!StringUtils.isEmpty(userName)){
+            resultList=new ArrayList<>();
+            List<SysUser> userList=sysUserService.selectUserByUserName(userName);
+            for (SysUser user:userList)
+            {
+                String userId = user.getUserId().toString();
+                orders.setUserId(userId);
+                List<Orders> tempList=ordersService.selectOrdersList(orders);
+                resultList.addAll(tempList);
+            }
+        }
+        else {
+            resultList=ordersService.selectOrdersList(orders);
+        }
+
+        return getDataTable(resultList);
     }
 
     /**
@@ -120,5 +143,57 @@ public class OrdersController extends BaseController
     public AjaxResult remove(String ids)
     {
         return toAjax(ordersService.deleteOrdersByOrderIds(ids));
+    }
+
+    @Autowired
+    private ISysUserService sysUserService;
+    /*跳转到指定的界面echart*/
+    @GetMapping("/goods")
+    public String goods(ModelMap map)
+    {
+        List<Orders> list = ordersService.selectOrdersList(new Orders());
+        HashMap<String,Integer> orderDict=new HashMap<>();
+        for (Orders order:list)
+        {
+            String[] untitledArr =order.getUntitled().split(",");
+            for (String untitled :untitledArr)
+            {
+                if (StringUtils.isEmpty(untitled))
+                    continue;
+
+                if (!orderDict.containsKey(untitled)){
+                    orderDict.put(untitled,0);
+                }
+
+                int value = orderDict.get(untitled);
+                orderDict.replace(untitled,value+1);
+            }
+        }
+
+        map.put("orderDict",orderDict);
+        return prefix + "/goods";
+    }
+
+    @GetMapping("/receiver/{goodName}")
+    public String receiver(@PathVariable("goodName") String goodName, ModelMap map){
+        List<Orders> list = ordersService.selectOrdersList(new Orders());
+        HashMap<String,Integer> orderDict=new HashMap<>();
+        for (Orders order:list) {
+            String[] untitledArr = order.getUntitled().split(",");
+            for (String untitled : untitledArr) {
+                if (untitled.equals(goodName)) {
+                    String receiverName = order.getReceiverName();
+                    if (!orderDict.containsKey(receiverName)) {
+                        orderDict.put(receiverName, 0);
+                    }
+
+                    int value = orderDict.get(receiverName);
+                    orderDict.replace(receiverName, value + 1);
+                }
+            }
+        }
+
+        map.put("orderDict",orderDict);
+        return prefix + "/receiver";
     }
 }

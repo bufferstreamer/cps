@@ -43,6 +43,8 @@ public interface ISysUserService
      */
     public SysUser selectUserByLoginName(String userName);
 
+    public List<SysUser> selectUserByUserName(String userName);
+
     /**
      * 通过手机号码查询用户
      * 

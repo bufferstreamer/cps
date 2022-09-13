@@ -1026,6 +1026,12 @@ var table = {
         },
         // 操作封装处理
         operate: {
+            //生成图
+            echartsFull: function() {
+                table.set();
+                var url = table.options.echartUrl;
+                $.modal.openTab(table.options.modalName + "图", url);
+            },
             // 提交数据
             submit: function(url, type, dataType, data, callback) {
                 var config = {

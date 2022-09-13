@@ -11,12 +11,18 @@
                 <div class="select-list">
                     <ul>
                         <li>
-                            <label>用户ID：</label>
-                            <input type="text" name="userId"/>
+                            <label>供应商名称：</label>
+                            <input type="text" name="userName"/>
                         </li>
                         <li>
                             <label>产品名称：</label>
                             <input type="text" name="untitled"/>
+                        </li>
+                        <li class="select-time">
+                            <label>创建时间：</label>
+                            <input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginCreateTime]"/>
+                            <span>-</span>
+                            <input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endCreateTime]"/>
                         </li>
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -40,6 +46,9 @@
             <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="user:orders:export">
                 <i class="fa fa-download"></i> 导出
             </a>
+            <a class="btn btn-warning" onclick="$.operate.echartsFull()">
+                <i class="fa fa-download"></i> 柱状图
+            </a>
         </div>
         <div class="col-sm-12 select-table table-striped">
             <table id="bootstrap-table"></table>
@@ -50,7 +59,6 @@
 <script th:inline="javascript">
     var editFlag = [[${@permission.hasPermi('user:orders:edit')}]];
     var removeFlag = [[${@permission.hasPermi('user:orders:remove')}]];
-    var payTypeDatas = [[${@dict.getType('pay_type')}]];
     var statusDatas = [[${@dict.getType('order_status')}]];
     var deleteStatusDatas = [[${@dict.getType('delete_status')}]];
     var closeTypeDatas = [[${@dict.getType('order_close_type')}]];
@@ -63,7 +71,8 @@
             updateUrl: prefix + "/edit/{id}",
             removeUrl: prefix + "/remove",
             exportUrl: prefix + "/export",
-            modalName: "订单",
+            echartUrl: prefix + "/goods",
+            modalName: "商品订单",
             columns: [{
                 checkbox: true
             },
@@ -94,17 +103,6 @@
                 {
                     field: 'totalAmount',
                     title: '订单总价格'
-                },
-                {
-                    field: 'actualAmount',
-                    title: '实际支付总价格'
-                },
-                {
-                    field: 'payType',
-                    title: '支付方式',
-                    formatter: function(value, row, index) {
-                        return $.table.selectDictLabel(payTypeDatas, value);
-                    }
                 },
                 {
                     field: 'orderRemark',

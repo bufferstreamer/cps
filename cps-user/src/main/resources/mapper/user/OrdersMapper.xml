@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cps.user.mapper.OrdersMapper">
-    
+
     <resultMap type="Orders" id="OrdersResult">
         <result property="orderId"    column="order_id"    />
         <result property="userId"    column="user_id"    />
@@ -36,9 +36,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectOrdersList" parameterType="Orders" resultMap="OrdersResult">
         <include refid="selectOrdersVo"/>
-        <where>  
+        <where>
             <if test="userId != null  and userId != ''"> and user_id = #{userId}</if>
             <if test="untitled != null  and untitled != ''"> and untitled like concat('%', #{untitled}, '%')</if>
+            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
         </where>
     </select>
     
