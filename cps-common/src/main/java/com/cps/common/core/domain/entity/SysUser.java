@@ -1,17 +1,19 @@
 package com.cps.common.core.domain.entity;
 
-import java.util.Date;
-import java.util.List;
-import javax.validation.constraints.*;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.cps.common.annotation.Excel;
 import com.cps.common.annotation.Excel.ColumnType;
 import com.cps.common.annotation.Excel.Type;
 import com.cps.common.annotation.Excels;
 import com.cps.common.core.domain.BaseEntity;
-import com.cps.common.xss.Xss;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 用户对象 sys_user
@@ -88,12 +90,15 @@ public class SysUser extends BaseEntity
 
     /** 部门对象 */
     @Excels({
-        @Excel(name = "部门名称", targetAttr = "deptName", type = Type.EXPORT),
-        @Excel(name = "部门负责人", targetAttr = "leader", type = Type.EXPORT)
+            @Excel(name = "部门名称", targetAttr = "deptName", type = Type.EXPORT),
+            @Excel(name = "部门负责人", targetAttr = "leader", type = Type.EXPORT)
     })
     private SysDept dept;
 
     private List<SysRole> roles;
+
+    /** 用户与部门关联对象 */
+    private SysUserDept userDept;
 
     /** 角色组 */
     private Long[] roleIds;
@@ -161,7 +166,6 @@ public class SysUser extends BaseEntity
         this.roleId = roleId;
     }
 
-    @Xss(message = "登录账号不能包含脚本字符")
     @NotBlank(message = "登录账号不能为空")
     @Size(min = 0, max = 30, message = "登录账号长度不能超过30个字符")
     public String getLoginName()
@@ -174,7 +178,6 @@ public class SysUser extends BaseEntity
         this.loginName = loginName;
     }
 
-    @Xss(message = "用户昵称不能包含脚本字符")
     @Size(min = 0, max = 30, message = "用户昵称长度不能超过30个字符")
     public String getUserName()
     {
@@ -354,31 +357,39 @@ public class SysUser extends BaseEntity
         this.postIds = postIds;
     }
 
+    public SysUserDept getUserDept() {
+        return userDept;
+    }
+
+    public void setUserDept(SysUserDept userDept) {
+        this.userDept = userDept;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("userId", getUserId())
-            .append("deptId", getDeptId())
-            .append("loginName", getLoginName())
-            .append("userName", getUserName())
-            .append("userType", getUserType())
-            .append("email", getEmail())
-            .append("phonenumber", getPhonenumber())
-            .append("sex", getSex())
-            .append("avatar", getAvatar())
-            .append("password", getPassword())
-            .append("salt", getSalt())
-            .append("status", getStatus())
-            .append("delFlag", getDelFlag())
-            .append("loginIp", getLoginIp())
-            .append("loginDate", getLoginDate())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
-            .append("dept", getDept())
-			.append("roles", getRoles())
-            .toString();
+                .append("userId", getUserId())
+                .append("deptId", getDeptId())
+                .append("loginName", getLoginName())
+                .append("userName", getUserName())
+                .append("userType", getUserType())
+                .append("email", getEmail())
+                .append("phonenumber", getPhonenumber())
+                .append("sex", getSex())
+                .append("avatar", getAvatar())
+                .append("password", getPassword())
+                .append("salt", getSalt())
+                .append("status", getStatus())
+                .append("delFlag", getDelFlag())
+                .append("loginIp", getLoginIp())
+                .append("loginDate", getLoginDate())
+                .append("createBy", getCreateBy())
+                .append("createTime", getCreateTime())
+                .append("updateBy", getUpdateBy())
+                .append("updateTime", getUpdateTime())
+                .append("remark", getRemark())
+                .append("dept", getDept())
+                .append("roles", getRoles())
+                .toString();
     }
 }

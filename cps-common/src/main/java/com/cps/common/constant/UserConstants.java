@@ -36,6 +36,9 @@ public class UserConstants
     /** 是否为系统默认（是） */
     public static final String YES = "Y";
 
+    /** 是否为系统默认（否） */
+    public static final String NO = "N";
+
     /**
      * 用户名长度限制
      */

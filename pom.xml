@@ -8,7 +8,6 @@
     <version>4.7.4</version>
 
 
-
     <properties>
         <cps.version>4.7.4</cps.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -224,6 +223,12 @@
                 <artifactId>cps-bid</artifactId>
                 <version>${cps.version}</version>
             </dependency>
+            <!--仓库模块-->
+            <dependency>
+                <groupId>com.cps</groupId>
+                <artifactId>cps-wms</artifactId>
+                <version>${cps.version}</version>
+            </dependency>
             <!--poi-->
             <dependency>
                 <groupId>org.apache.poi</groupId>
@@ -249,10 +254,9 @@
         <module>cps-cp</module>
         <module>cps-bid</module>
         <module>cps-product</module>
+        <module>cps-wms</module>
     </modules>
     <packaging>pom</packaging>
-
-
 
 
     <build>

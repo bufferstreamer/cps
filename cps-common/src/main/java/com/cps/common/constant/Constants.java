@@ -112,4 +112,7 @@ public class Constants
      */
     public static final String[] JOB_ERROR_STR = { "java.net.URL", "javax.naming.InitialContext", "org.yaml.snakeyaml",
             "org.springframework", "org.apache", "com.cps.common.utils.file" };
+
+    public final static String NAME_UNIQUE = "0";
+    public final static String NAME_NOT_UNIQUE = "1";
 }
