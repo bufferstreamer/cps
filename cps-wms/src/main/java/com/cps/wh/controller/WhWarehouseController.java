@@ -19,14 +19,13 @@ import java.util.List;
 
 /**
  * 仓库设置Controller
- * 
+ *
  * @author miki
  * @date 2021-05-20
  */
 @Controller
 @RequestMapping("/wh/warehouse")
-public class WhWarehouseController extends BaseController
-{
+public class WhWarehouseController extends BaseController {
     private String prefix = "wh/warehouse";
 
     @Autowired
@@ -34,8 +33,7 @@ public class WhWarehouseController extends BaseController
 
     @RequiresPermissions("wh:warehouse:view")
     @GetMapping()
-    public String warehouse()
-    {
+    public String warehouse() {
         return prefix + "/warehouse";
     }
 
@@ -45,8 +43,7 @@ public class WhWarehouseController extends BaseController
     @RequiresPermissions("wh:warehouse:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(WhWarehouse whWarehouse)
-    {
+    public TableDataInfo list(WhWarehouse whWarehouse) {
         whWarehouse.setDeptId(ShiroUtils.getDeptId());
         startPage();
         List<WhWarehouse> list = whWarehouseService.selectWhWarehouseList(whWarehouse);
@@ -60,8 +57,7 @@ public class WhWarehouseController extends BaseController
     @Log(title = "仓库设置", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(WhWarehouse whWarehouse)
-    {
+    public AjaxResult export(WhWarehouse whWarehouse) {
         List<WhWarehouse> list = whWarehouseService.selectWhWarehouseList(whWarehouse);
         ExcelUtil<WhWarehouse> util = new ExcelUtil<WhWarehouse>(WhWarehouse.class);
         return util.exportExcel(list, "仓库设置数据");
@@ -71,8 +67,7 @@ public class WhWarehouseController extends BaseController
      * 新增仓库设置
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -83,8 +78,7 @@ public class WhWarehouseController extends BaseController
     @Log(title = "仓库设置", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(WhWarehouse whWarehouse)
-    {
+    public AjaxResult addSave(WhWarehouse whWarehouse) {
         whWarehouse.setDeptId(ShiroUtils.getDeptId());
         whWarehouse.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(whWarehouseService.insertWhWarehouse(whWarehouse));
@@ -94,8 +88,7 @@ public class WhWarehouseController extends BaseController
      * 修改仓库设置
      */
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Long id, ModelMap mmap)
-    {
+    public String edit(@PathVariable("id") Long id, ModelMap mmap) {
         WhWarehouse whWarehouse = whWarehouseService.selectWhWarehouseById(id);
         mmap.put("whWarehouse", whWarehouse);
         return prefix + "/edit";
@@ -108,8 +101,7 @@ public class WhWarehouseController extends BaseController
     @Log(title = "仓库设置", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(WhWarehouse whWarehouse)
-    {
+    public AjaxResult editSave(WhWarehouse whWarehouse) {
         whWarehouse.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(whWarehouseService.updateWhWarehouse(whWarehouse));
     }
@@ -119,10 +111,9 @@ public class WhWarehouseController extends BaseController
      */
     @RequiresPermissions("wh:warehouse:remove")
     @Log(title = "仓库设置", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(whWarehouseService.deleteWhWarehouseByIds(ids));
     }
 
@@ -131,8 +122,7 @@ public class WhWarehouseController extends BaseController
      */
     @PostMapping("/checkWarehouseCodeUnique")
     @ResponseBody
-    public String checkWarehouseCodeUnique(WhWarehouse whWarehouse)
-    {
+    public String checkWarehouseCodeUnique(WhWarehouse whWarehouse) {
         return whWarehouseService.checkWarehouseCodeUnique(whWarehouse.getWarehouseCode());
     }
 
@@ -142,8 +132,7 @@ public class WhWarehouseController extends BaseController
      */
     @PostMapping("/ajaxList")
     @ResponseBody
-    public AjaxResult ajaxList(WhWarehouse whWarehouse)
-    {
+    public AjaxResult ajaxList(WhWarehouse whWarehouse) {
         whWarehouse.setDeptId(ShiroUtils.getDeptId());
         List<WhWarehouse> list = whWarehouseService.selectWhWarehouseList(whWarehouse);
         return AjaxResult.success(list);

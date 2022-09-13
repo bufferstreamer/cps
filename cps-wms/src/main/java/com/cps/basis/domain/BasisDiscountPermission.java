@@ -13,90 +13,94 @@ import java.math.BigDecimal;
  * @author miki
  * @date 2021-06-16
  */
-public class BasisDiscountPermission extends BaseEntity
-{
+public class BasisDiscountPermission extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** id */
+    /**
+     * id
+     */
     private Long id;
 
-    /** 用户主键 */
+    /**
+     * 用户主键
+     */
     @Excel(name = "用户主键")
     private Long userId;
 
-    /** 最低折扣率 */
+    /**
+     * 最低折扣率
+     */
     @Excel(name = "最低折扣率")
     private BigDecimal minDiscountRate;
 
-    /** 最大折让金额 */
+    /**
+     * 最大折让金额
+     */
     @Excel(name = "最大折让金额")
     private BigDecimal maxDiscountPrice;
 
-    /** 删除标志（0代表存在 2代表删除） */
+    /**
+     * 删除标志（0代表存在 2代表删除）
+     */
     private String delFlag;
 
-    /** 部门ID */
+    /**
+     * 部门ID
+     */
     @Excel(name = "部门ID")
     private Long deptId;
 
-    public void setId(Long id)
-    {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId()
-    {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
-    public void setUserId(Long userId)
-    {
+
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public Long getUserId()
-    {
-        return userId;
+    public BigDecimal getMinDiscountRate() {
+        return minDiscountRate;
     }
-    public void setMinDiscountRate(BigDecimal minDiscountRate)
-    {
+
+    public void setMinDiscountRate(BigDecimal minDiscountRate) {
         this.minDiscountRate = minDiscountRate;
     }
 
-    public BigDecimal getMinDiscountRate()
-    {
-        return minDiscountRate;
+    public BigDecimal getMaxDiscountPrice() {
+        return maxDiscountPrice;
     }
-    public void setMaxDiscountPrice(BigDecimal maxDiscountPrice)
-    {
+
+    public void setMaxDiscountPrice(BigDecimal maxDiscountPrice) {
         this.maxDiscountPrice = maxDiscountPrice;
     }
 
-    public BigDecimal getMaxDiscountPrice()
-    {
-        return maxDiscountPrice;
+    public String getDelFlag() {
+        return delFlag;
     }
-    public void setDelFlag(String delFlag)
-    {
+
+    public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
     }
 
-    public String getDelFlag()
-    {
-        return delFlag;
-    }
-    public void setDeptId(Long deptId)
-    {
-        this.deptId = deptId;
+    public Long getDeptId() {
+        return deptId;
     }
 
-    public Long getDeptId()
-    {
-        return deptId;
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())
                 .append("userId", getUserId())
                 .append("minDiscountRate", getMinDiscountRate())

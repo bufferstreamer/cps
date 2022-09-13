@@ -6,15 +6,14 @@ import java.util.List;
 
 /**
  * 库位尺寸Service接口
- * 
+ *
  * @author miki
  * @date 2021-05-23
  */
-public interface IWhStorageSizeService 
-{
+public interface IWhStorageSizeService {
     /**
      * 查询库位尺寸
-     * 
+     *
      * @param id 库位尺寸ID
      * @return 库位尺寸
      */
@@ -22,7 +21,7 @@ public interface IWhStorageSizeService
 
     /**
      * 查询库位尺寸列表
-     * 
+     *
      * @param whStorageSize 库位尺寸
      * @return 库位尺寸集合
      */
@@ -30,7 +29,7 @@ public interface IWhStorageSizeService
 
     /**
      * 新增库位尺寸
-     * 
+     *
      * @param whStorageSize 库位尺寸
      * @return 结果
      */
@@ -38,7 +37,7 @@ public interface IWhStorageSizeService
 
     /**
      * 修改库位尺寸
-     * 
+     *
      * @param whStorageSize 库位尺寸
      * @return 结果
      */
@@ -46,7 +45,7 @@ public interface IWhStorageSizeService
 
     /**
      * 批量删除库位尺寸
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
@@ -54,7 +53,7 @@ public interface IWhStorageSizeService
 
     /**
      * 删除库位尺寸信息
-     * 
+     *
      * @param id 库位尺寸ID
      * @return 结果
      */

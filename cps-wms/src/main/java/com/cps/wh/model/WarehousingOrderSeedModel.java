@@ -11,8 +11,7 @@ import java.util.List;
  * @author miki
  * @date 2021-06-04
  */
-public class WarehousingOrderSeedModel extends BaseEntity
-{
+public class WarehousingOrderSeedModel extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     private Long warehousingOrderId;//入库单主键

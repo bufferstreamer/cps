@@ -1,169 +1,177 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('修改供应商营业执照审核管理')" />
-    <th:block th:include="include :: datetimepicker-css" />
+    <th:block th:include="include :: header('修改供应商营业执照审核管理')"/>
+    <th:block th:include="include :: datetimepicker-css"/>
     <th:block th:include="include :: bootstrap-fileinput-css"/>
 </head>
 <body class="white-bg">
-    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-supplierLicenseManage-edit" th:object="${supplierLicenseInfo}">
-            <input name="checklistId" th:field="*{checklistId}" type="hidden">
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">公司名称：</label>
-                <div class="col-sm-8">
-                    <input name="corporateName" th:field="*{corporateName}" class="form-control" type="text">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-supplierLicenseManage-edit" th:object="${supplierLicenseInfo}">
+        <input name="checklistId" th:field="*{checklistId}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">公司名称：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="corporateName" th:field="*{corporateName}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">全国信息代码号：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="registrationNumber" required th:field="*{registrationNumber}"
+                       type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">法人姓名：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="frName" th:field="*{frName}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">法人身份证号码：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="idNumber" th:field="*{idNumber}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">法人身份证正面jpg照片：</label>
+            <div class="col-sm-8">
+                <input name="frontPhoto" th:field="*{frontPhoto}" type="hidden">
+                <div class="file-loading">
+                    <input class="form-control file-upload" id="frontPhoto" name="file" type="file">
                 </div>
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">全国信息代码号：</label>
-                <div class="col-sm-8">
-                    <input name="registrationNumber" th:field="*{registrationNumber}" class="form-control" type="text" required>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">法人身份证反面jpg照片：</label>
+            <div class="col-sm-8">
+                <input name="backPhoto" th:field="*{backPhoto}" type="hidden">
+                <div class="file-loading">
+                    <input class="form-control file-upload" id="backPhoto" name="file" type="file">
                 </div>
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">法人姓名：</label>
-                <div class="col-sm-8">
-                    <input name="frName" th:field="*{frName}" class="form-control" type="text">
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">营业执照所在地：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="businessLicenseLocation" th:field="*{businessLicenseLocation}"
+                       type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">营业执照详细地址：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="businessLicenseAddress" th:field="*{businessLicenseAddress}"
+                       type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">成立日期：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input class="form-control"
+                           name="incorporationDate"
+                           placeholder="yyyy-MM-dd" th:value="${#dates.format(supplierLicenseInfo.incorporationDate, 'yyyy-MM-dd')}" type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">法人身份证号码：</label>
-                <div class="col-sm-8">
-                    <input name="idNumber" th:field="*{idNumber}" class="form-control" type="text">
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">注册资本：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="registeredCapital" th:field="*{registeredCapital}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">营业范围：</label>
+            <div class="col-sm-8">
+                <textarea class="form-control" name="businessScope">[[*{businessScope}]]</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">营业执照jpg照片：</label>
+            <div class="col-sm-8">
+                <input name="businessLicense" th:field="*{businessLicense}" type="hidden">
+                <div class="file-loading">
+                    <input class="form-control file-upload" id="businessLicense" name="file" type="file">
                 </div>
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">法人身份证正面jpg照片：</label>
-                <div class="col-sm-8">
-                    <input type="hidden" name="frontPhoto" th:field="*{frontPhoto}">
-                    <div class="file-loading">
-                        <input class="form-control file-upload" id="frontPhoto" name="file" type="file">
-                    </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">公司电话：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="officePhone" th:field="*{officePhone}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">公司紧急联系人：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="emergencyContact" th:field="*{emergencyContact}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">公司紧急联系人手机：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="emergencyContactPhone" th:field="*{emergencyContactPhone}"
+                       type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">创建时间：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input class="form-control"
+                           name="createDatetime"
+                           placeholder="yyyy-MM-dd" th:value="${#dates.format(supplierLicenseInfo.createDatetime, 'yyyy-MM-dd')}" type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">法人身份证反面jpg照片：</label>
-                <div class="col-sm-8">
-                    <input type="hidden" name="backPhoto" th:field="*{backPhoto}">
-                    <div class="file-loading">
-                        <input class="form-control file-upload" id="backPhoto" name="file" type="file">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">营业执照所在地：</label>
-                <div class="col-sm-8">
-                    <input name="businessLicenseLocation" th:field="*{businessLicenseLocation}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">营业执照详细地址：</label>
-                <div class="col-sm-8">
-                    <input name="businessLicenseAddress" th:field="*{businessLicenseAddress}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">成立日期：</label>
-                <div class="col-sm-8">
-                    <div class="input-group date">
-                        <input name="incorporationDate" th:value="${#dates.format(supplierLicenseInfo.incorporationDate, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">注册资本：</label>
-                <div class="col-sm-8">
-                    <input name="registeredCapital" th:field="*{registeredCapital}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">营业范围：</label>
-                <div class="col-sm-8">
-                    <textarea name="businessScope" class="form-control">[[*{businessScope}]]</textarea>
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">营业执照jpg照片：</label>
-                <div class="col-sm-8">
-                    <input type="hidden" name="businessLicense" th:field="*{businessLicense}">
-                    <div class="file-loading">
-                        <input class="form-control file-upload" id="businessLicense" name="file" type="file">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">公司电话：</label>
-                <div class="col-sm-8">
-                    <input name="officePhone" th:field="*{officePhone}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">公司紧急联系人：</label>
-                <div class="col-sm-8">
-                    <input name="emergencyContact" th:field="*{emergencyContact}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">公司紧急联系人手机：</label>
-                <div class="col-sm-8">
-                    <input name="emergencyContactPhone" th:field="*{emergencyContactPhone}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">创建时间：</label>
-                <div class="col-sm-8">
-                    <div class="input-group date">
-                        <input name="createDatetime" th:value="${#dates.format(supplierLicenseInfo.createDatetime, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-    <th:block th:include="include :: footer" />
-    <th:block th:include="include :: datetimepicker-js" />
-    <th:block th:include="include :: bootstrap-fileinput-js"/>
-    <script th:inline="javascript">
-        var prefix = ctx + "audit/supplierLicenseManage";
-        $("#form-supplierLicenseManage-edit").validate({
-            focusCleanup: true
-        });
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: datetimepicker-js"/>
+<th:block th:include="include :: bootstrap-fileinput-js"/>
+<script th:inline="javascript">
+    var prefix = ctx + "audit/supplierLicenseManage";
+    $("#form-supplierLicenseManage-edit").validate({
+        focusCleanup: true
+    });
 
-        function submitHandler() {
-            if ($.validate.form()) {
-                $.operate.save(prefix + "/edit", $('#form-supplierLicenseManage-edit').serialize());
-            }
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit", $('#form-supplierLicenseManage-edit').serialize());
         }
+    }
 
-        $("input[name='incorporationDate']").datetimepicker({
-            format: "yyyy-mm-dd",
-            minView: "month",
-            autoclose: true
-        });
+    $("input[name='incorporationDate']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
 
-        $("input[name='createDatetime']").datetimepicker({
-            format: "yyyy-mm-dd",
-            minView: "month",
-            autoclose: true
-        });
+    $("input[name='createDatetime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
 
-        $(".file-upload").each(function (i) {
-            var val = $("input[name='" + this.id + "']").val()
-            $(this).fileinput({
-                'uploadUrl': ctx + 'common/upload',
-                initialPreviewAsData: true,
-                initialPreview: [val],
-                maxFileCount: 1,
-                autoReplace: true
-            }).on('fileuploaded', function (event, data, previewId, index) {
-                $("input[name='" + event.currentTarget.id + "']").val(data.response.url)
-            }).on('fileremoved', function (event, id, index) {
-                $("input[name='" + event.currentTarget.id + "']").val('')
-            })
-            $(this).fileinput('_initFileActions');
-        });
-    </script>
+    $(".file-upload").each(function (i) {
+        var val = $("input[name='" + this.id + "']").val()
+        $(this).fileinput({
+            'uploadUrl': ctx + 'common/upload',
+            initialPreviewAsData: true,
+            initialPreview: [val],
+            maxFileCount: 1,
+            autoReplace: true
+        }).on('fileuploaded', function (event, data, previewId, index) {
+            $("input[name='" + event.currentTarget.id + "']").val(data.response.url)
+        }).on('fileremoved', function (event, id, index) {
+            $("input[name='" + event.currentTarget.id + "']").val('')
+        })
+        $(this).fileinput('_initFileActions');
+    });
+</script>
 </body>
 </html>

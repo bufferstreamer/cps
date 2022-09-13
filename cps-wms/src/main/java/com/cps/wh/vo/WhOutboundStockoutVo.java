@@ -4,45 +4,66 @@ import java.io.Serializable;
 
 /**
  * 缺货管制订单对象 wms_wh_outbound_stockout
- * 
+ *
  * @author miki
  * @date 2021-06-09
  */
-public class WhOutboundStockoutVo implements Serializable
-{
+public class WhOutboundStockoutVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    /** id */
+    /**
+     * id
+     */
     private Long id;
 
-    /** 商品出库主表ID */
+    /**
+     * 商品出库主表ID
+     */
     private Long outboundOrderId;
 
-    /** 商品出库子表ID */
+    /**
+     * 商品出库子表ID
+     */
     private Long outboundOrderSeedId;
 
-    /** 商品主键ID */
+    /**
+     * 商品主键ID
+     */
     private Long shopGoodsId;
 
-    /** 欠货数量 */
+    /**
+     * 欠货数量
+     */
     private Long oweNumber;
 
-    /** 状态(是否解欠) */
+    /**
+     * 状态(是否解欠)
+     */
     private String status;
 
-    /** 部门ID */
+    /**
+     * 部门ID
+     */
     private Long deptId;
 
-    /** 出库单编号 */
+    /**
+     * 出库单编号
+     */
     private String orderCode;
 
-    /** 订单号 */
+    /**
+     * 订单号
+     */
     private String orderName;
 
-    /** 商品编码 */
+    /**
+     * 商品编码
+     */
     private String shopGoodsCode;
 
-    /** 商品名称 */
+    /**
+     * 商品名称
+     */
     private String shopGoodsName;
 
     public Long getId() {

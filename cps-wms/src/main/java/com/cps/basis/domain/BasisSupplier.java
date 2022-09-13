@@ -13,207 +13,220 @@ import java.math.BigDecimal;
  * @author miki
  * @date 2021-05-31
  */
-public class BasisSupplier extends BaseEntity
-{
+public class BasisSupplier extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** 供应商管理id */
+    /**
+     * 供应商管理id
+     */
     private Long id;
 
-    /** 单位关联主键 */
+    /**
+     * 单位关联主键
+     */
     @Excel(name = "单位关联主键")
     private Long warehouseId;
 
-    /** 供应商编码 */
+    /**
+     * 供应商编码
+     */
     @Excel(name = "供应商编码")
     private String supplierCode;
 
-    /** 供应商名称 */
+    /**
+     * 供应商名称
+     */
     @Excel(name = "供应商名称")
     private String supplierName;
 
-    /** 联系人 */
+    /**
+     * 联系人
+     */
     @Excel(name = "联系人")
     private String contactPerson;
 
-    /** 电话 */
+    /**
+     * 电话
+     */
     @Excel(name = "电话")
     private String telephone;
 
-    /** 手机 */
+    /**
+     * 手机
+     */
     @Excel(name = "手机")
     private String mobilePhone;
 
-    /** 邮箱 */
+    /**
+     * 邮箱
+     */
     @Excel(name = "邮箱")
     private String email;
 
-    /** 地址 */
+    /**
+     * 地址
+     */
     @Excel(name = "地址")
     private String address;
 
-    /** 级别(关联字典) */
+    /**
+     * 级别(关联字典)
+     */
     @Excel(name = "级别(关联字典)")
     private String supplierLevel;
 
-    /** 发票抬头 */
+    /**
+     * 发票抬头
+     */
     @Excel(name = "发票抬头")
     private String invoiceLookedUp;
 
-    /** 发票税率 */
+    /**
+     * 发票税率
+     */
     @Excel(name = "发票税率")
     private BigDecimal invoiceTax;
 
-    /** 发票种类【数据字典】 */
+    /**
+     * 发票种类【数据字典】
+     */
     @Excel(name = "发票种类【数据字典】")
     private String invoiceType;
 
-    /** 删除标志（0代表存在 2代表删除） */
+    /**
+     * 删除标志（0代表存在 2代表删除）
+     */
     private String delFlag;
 
-    /** 部门ID */
+    /**
+     * 部门ID
+     */
     @Excel(name = "部门ID")
     private Long deptId;
 
-    public void setId(Long id)
-    {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId()
-    {
-        return id;
+    public Long getWarehouseId() {
+        return warehouseId;
     }
-    public void setWarehouseId(Long warehouseId)
-    {
+
+    public void setWarehouseId(Long warehouseId) {
         this.warehouseId = warehouseId;
     }
 
-    public Long getWarehouseId()
-    {
-        return warehouseId;
+    public String getSupplierCode() {
+        return supplierCode;
     }
-    public void setSupplierCode(String supplierCode)
-    {
+
+    public void setSupplierCode(String supplierCode) {
         this.supplierCode = supplierCode;
     }
 
-    public String getSupplierCode()
-    {
-        return supplierCode;
+    public String getSupplierName() {
+        return supplierName;
     }
-    public void setSupplierName(String supplierName)
-    {
+
+    public void setSupplierName(String supplierName) {
         this.supplierName = supplierName;
     }
 
-    public String getSupplierName()
-    {
-        return supplierName;
+    public String getContactPerson() {
+        return contactPerson;
     }
-    public void setContactPerson(String contactPerson)
-    {
+
+    public void setContactPerson(String contactPerson) {
         this.contactPerson = contactPerson;
     }
 
-    public String getContactPerson()
-    {
-        return contactPerson;
+    public String getTelephone() {
+        return telephone;
     }
-    public void setTelephone(String telephone)
-    {
+
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
-    public String getTelephone()
-    {
-        return telephone;
+    public String getMobilePhone() {
+        return mobilePhone;
     }
-    public void setMobilePhone(String mobilePhone)
-    {
+
+    public void setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
     }
 
-    public String getMobilePhone()
-    {
-        return mobilePhone;
+    public String getEmail() {
+        return email;
     }
-    public void setEmail(String email)
-    {
+
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getEmail()
-    {
-        return email;
+    public String getAddress() {
+        return address;
     }
-    public void setAddress(String address)
-    {
+
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public String getAddress()
-    {
-        return address;
+    public String getSupplierLevel() {
+        return supplierLevel;
     }
-    public void setSupplierLevel(String supplierLevel)
-    {
+
+    public void setSupplierLevel(String supplierLevel) {
         this.supplierLevel = supplierLevel;
     }
 
-    public String getSupplierLevel()
-    {
-        return supplierLevel;
+    public String getInvoiceLookedUp() {
+        return invoiceLookedUp;
     }
-    public void setInvoiceLookedUp(String invoiceLookedUp)
-    {
+
+    public void setInvoiceLookedUp(String invoiceLookedUp) {
         this.invoiceLookedUp = invoiceLookedUp;
     }
 
-    public String getInvoiceLookedUp()
-    {
-        return invoiceLookedUp;
+    public BigDecimal getInvoiceTax() {
+        return invoiceTax;
     }
-    public void setInvoiceTax(BigDecimal invoiceTax)
-    {
+
+    public void setInvoiceTax(BigDecimal invoiceTax) {
         this.invoiceTax = invoiceTax;
     }
 
-    public BigDecimal getInvoiceTax()
-    {
-        return invoiceTax;
+    public String getInvoiceType() {
+        return invoiceType;
     }
-    public void setInvoiceType(String invoiceType)
-    {
+
+    public void setInvoiceType(String invoiceType) {
         this.invoiceType = invoiceType;
     }
 
-    public String getInvoiceType()
-    {
-        return invoiceType;
+    public String getDelFlag() {
+        return delFlag;
     }
-    public void setDelFlag(String delFlag)
-    {
+
+    public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
     }
 
-    public String getDelFlag()
-    {
-        return delFlag;
-    }
-    public void setDeptId(Long deptId)
-    {
-        this.deptId = deptId;
+    public Long getDeptId() {
+        return deptId;
     }
 
-    public Long getDeptId()
-    {
-        return deptId;
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())
                 .append("warehouseId", getWarehouseId())
                 .append("supplierCode", getSupplierCode())

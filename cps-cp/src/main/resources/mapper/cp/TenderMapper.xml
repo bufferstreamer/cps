@@ -1,61 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cps.cp.mapper.TenderMapper">
-    
+
     <resultMap type="Tender" id="TenderResult">
-        <result property="tenderId"    column="tender_id"    />
-        <result property="projectName"    column="project_name"    />
-        <result property="gxsId"    column="gxs_id"    />
-        <result property="contact"    column="contact"    />
-        <result property="bidNumber"    column="bid_number"    />
-        <result property="phoneOfContact"    column="phone_of_contact"    />
-        <result property="tenderDocument"    column="tender_document"    />
-        <result property="createDatetime"    column="create_datetime"    />
-        <result property="dealineForQualificationReview"    column="dealine_for_qualification_review"    />
-        <result property="bidStartTime"    column="bid_start_time"    />
-        <result property="bidEndTime"    column="bid_end_time"    />
-        <result property="publishTime"    column="publish_time"    />
+        <result property="tenderId" column="tender_id"/>
+        <result property="projectName" column="project_name"/>
+        <result property="gxsId" column="gxs_id"/>
+        <result property="contact" column="contact"/>
+        <result property="bidNumber" column="bid_number"/>
+        <result property="phoneOfContact" column="phone_of_contact"/>
+        <result property="tenderDocument" column="tender_document"/>
+        <result property="createDatetime" column="create_datetime"/>
+        <result property="dealineForQualificationReview" column="dealine_for_qualification_review"/>
+        <result property="bidStartTime" column="bid_start_time"/>
+        <result property="bidEndTime" column="bid_end_time"/>
+        <result property="publishTime" column="publish_time"/>
     </resultMap>
 
     <resultMap type="CentralizedPurchaseRecord" id="CentralizedPurchaseRecordResult">
-        <result property="centralizedPurchaseRecordId"    column="centralized_purchase_record_id"    />
-        <result property="tenderId"    column="tender_id"    />
-        <result property="supplierId"    column="supplier_id"    />
-        <result property="tenderDocument"    column="tender_document"    />
-        <result property="centralizedPurchaseRecordTime"    column="centralized_purchase_record_time"    />
-        <result property="isBid"    column="is_bid"    />
+        <result property="centralizedPurchaseRecordId" column="centralized_purchase_record_id"/>
+        <result property="tenderId" column="tender_id"/>
+        <result property="supplierId" column="supplier_id"/>
+        <result property="tenderDocument" column="tender_document"/>
+        <result property="centralizedPurchaseRecordTime" column="centralized_purchase_record_time"/>
+        <result property="isBid" column="is_bid"/>
     </resultMap>
 
     <sql id="selectTenderVo">
-        select tender_id, project_name, gxs_id, contact, bid_number, phone_of_contact, tender_document, create_datetime, dealine_for_qualification_review, bid_start_time, bid_end_time, publish_time from tender
+        select tender_id,
+               project_name,
+               gxs_id,
+               contact,
+               bid_number,
+               phone_of_contact,
+               tender_document,
+               create_datetime,
+               dealine_for_qualification_review,
+               bid_start_time,
+               bid_end_time,
+               publish_time
+        from tender
     </sql>
 
     <sql id="selectCentralizedPurchaseRecordVo">
-        select centralized_purchase_record_id, tender_id, supplier_id, tender_document, centralized_purchase_record_time, is_bid from centralized_purchase_record
+        select centralized_purchase_record_id,
+               tender_id,
+               supplier_id,
+               tender_document,
+               centralized_purchase_record_time,
+               is_bid
+        from centralized_purchase_record
     </sql>
 
     <select id="selectTender1List" parameterType="Tender" resultMap="TenderResult">
         <include refid="selectTenderVo"/>
-<!--        <where>-->
-<!--            bidNumber = 1-->
-<!--            <if test="bidNumber = 1 and tenderId != null  and tenderId != ''"> and tender_id like concat('%', #{tenderId}, '%')</if>-->
-<!--            <if test="bidNumber = 1 and projectName != null  and projectName != ''"> and project_Name like concat('%', #{projectName}, '%')</if>-->
-<!--            <if test="bidNumber = 1 and contact != null  and contact != ''"> and contact like concat('%', #{contact}, '%')</if>-->
-<!--            <if test="bidNumber = 1 and phoneOfContact != null  and phoneOfContact != ''"> and phone_Of_Contact like concat('%', #{phoneOfContact}, '%')</if>-->
-<!--        </where>-->
+        <!--        <where>-->
+        <!--            bidNumber = 1-->
+        <!--            <if test="bidNumber = 1 and tenderId != null  and tenderId != ''"> and tender_id like concat('%', #{tenderId}, '%')</if>-->
+        <!--            <if test="bidNumber = 1 and projectName != null  and projectName != ''"> and project_Name like concat('%', #{projectName}, '%')</if>-->
+        <!--            <if test="bidNumber = 1 and contact != null  and contact != ''"> and contact like concat('%', #{contact}, '%')</if>-->
+        <!--            <if test="bidNumber = 1 and phoneOfContact != null  and phoneOfContact != ''"> and phone_Of_Contact like concat('%', #{phoneOfContact}, '%')</if>-->
+        <!--        </where>-->
         where bid_number = 1
     </select>
 
     <select id="selectTender2List" parameterType="Tender" resultMap="TenderResult">
         <include refid="selectTenderVo"/>
-<!--        <where>-->
-<!--            <if test="bidNumber > 1 and tenderId != null  and tenderId != ''"> and tender_id like concat('%', #{tenderId}, '%')</if>-->
-<!--            <if test="bidNumber > 1 and projectName != null  and projectName != ''"> and project_Name like concat('%', #{projectName}, '%')</if>-->
-<!--            <if test="bidNumber > 1 and contact != null  and contact != ''"> and contact like concat('%', #{contact}, '%')</if>-->
-<!--            <if test="bidNumber > 1 and phoneOfContact != null  and phoneOfContact != ''"> and phone_Of_Contact like concat('%', #{phoneOfContact}, '%')</if>-->
-<!--        </where>-->
+        <!--        <where>-->
+        <!--            <if test="bidNumber > 1 and tenderId != null  and tenderId != ''"> and tender_id like concat('%', #{tenderId}, '%')</if>-->
+        <!--            <if test="bidNumber > 1 and projectName != null  and projectName != ''"> and project_Name like concat('%', #{projectName}, '%')</if>-->
+        <!--            <if test="bidNumber > 1 and contact != null  and contact != ''"> and contact like concat('%', #{contact}, '%')</if>-->
+        <!--            <if test="bidNumber > 1 and phoneOfContact != null  and phoneOfContact != ''"> and phone_Of_Contact like concat('%', #{phoneOfContact}, '%')</if>-->
+        <!--        </where>-->
         where bid_number > 1
     </select>
 
@@ -68,7 +86,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectTenderVo"/>
         where tender_id = #{tenderId}
     </select>
-        
+
     <insert id="insertTender" parameterType="Tender">
         insert into tender
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -84,7 +102,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="bidStartTime != null">bid_start_time,</if>
             <if test="bidEndTime != null">bid_end_time,</if>
             <if test="publishTime != null">publish_time,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="tenderId != null and tenderId != ''">#{tenderId},</if>
             <if test="projectName != null and projectName != ''">#{projectName},</if>
@@ -98,7 +116,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="bidStartTime != null">#{bidStartTime},</if>
             <if test="bidEndTime != null">#{bidEndTime},</if>
             <if test="publishTime != null">#{publishTime},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateTender" parameterType="Tender">
@@ -111,7 +129,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="phoneOfContact != null and phoneOfContact != ''">phone_of_contact = #{phoneOfContact},</if>
             <if test="tenderDocument != null and tenderDocument != ''">tender_document = #{tenderDocument},</if>
             <if test="createDatetime != null">create_datetime = #{createDatetime},</if>
-            <if test="dealineForQualificationReview != null">dealine_for_qualification_review = #{dealineForQualificationReview},</if>
+            <if test="dealineForQualificationReview != null">dealine_for_qualification_review =
+                #{dealineForQualificationReview},
+            </if>
             <if test="bidStartTime != null">bid_start_time = #{bidStartTime},</if>
             <if test="bidEndTime != null">bid_end_time = #{bidEndTime},</if>
             <if test="publishTime != null">publish_time = #{publishTime},</if>
@@ -120,11 +140,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteTenderByTenderId" parameterType="String">
-        delete from tender where tender_id = #{tenderId}
+        delete
+        from tender
+        where tender_id = #{tenderId}
     </delete>
 
     <delete id="deleteTenderByTenderIds" parameterType="String">
-        delete from tender where tender_id in 
+        delete from tender where tender_id in
         <foreach item="tenderId" collection="array" open="(" separator="," close=")">
             #{tenderId}
         </foreach>

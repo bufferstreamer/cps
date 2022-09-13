@@ -1,38 +1,33 @@
 package com.cps.audit.controller;
 
-import java.util.List;
-
+import com.cps.audit.domain.TaxAndBankInfo;
+import com.cps.audit.service.ITaxAndBankInfoService;
+import com.cps.common.annotation.Log;
+import com.cps.common.core.controller.BaseController;
+import com.cps.common.core.domain.AjaxResult;
+import com.cps.common.core.page.TableDataInfo;
+import com.cps.common.enums.BusinessType;
 import com.cps.common.utils.DateUtils;
+import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.utils.uuid.CpsIdUtils;
 import com.cps.common.utils.uuid.IdUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import com.cps.common.annotation.Log;
-import com.cps.common.enums.BusinessType;
-import com.cps.audit.domain.TaxAndBankInfo;
-import com.cps.audit.service.ITaxAndBankInfoService;
-import com.cps.common.core.controller.BaseController;
-import com.cps.common.core.domain.AjaxResult;
-import com.cps.common.utils.poi.ExcelUtil;
-import com.cps.common.core.page.TableDataInfo;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 税务及银行审核管理Controller
- * 
+ *
  * @author cps
  * @date 2022-08-16
  */
 @Controller
 @RequestMapping("/audit/taxAndBankManage")
-public class TaxAndBankInfoController extends BaseController
-{
+public class TaxAndBankInfoController extends BaseController {
     private String prefix = "audit/taxAndBankManage";
 
     @Autowired
@@ -40,8 +35,7 @@ public class TaxAndBankInfoController extends BaseController
 
     @RequiresPermissions("audit:taxAndBankManage:view")
     @GetMapping()
-    public String taxAndBankManage()
-    {
+    public String taxAndBankManage() {
         return prefix + "/taxAndBankManage";
     }
 
@@ -51,8 +45,7 @@ public class TaxAndBankInfoController extends BaseController
     @RequiresPermissions("audit:taxAndBankManage:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(TaxAndBankInfo taxAndBankInfo)
-    {
+    public TableDataInfo list(TaxAndBankInfo taxAndBankInfo) {
         startPage();
         List<TaxAndBankInfo> list = taxAndBankInfoService.selectTaxAndBankInfoList(taxAndBankInfo);
         return getDataTable(list);
@@ -65,8 +58,7 @@ public class TaxAndBankInfoController extends BaseController
     @Log(title = "税务及银行审核管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(TaxAndBankInfo taxAndBankInfo)
-    {
+    public AjaxResult export(TaxAndBankInfo taxAndBankInfo) {
         List<TaxAndBankInfo> list = taxAndBankInfoService.selectTaxAndBankInfoList(taxAndBankInfo);
         ExcelUtil<TaxAndBankInfo> util = new ExcelUtil<TaxAndBankInfo>(TaxAndBankInfo.class);
         return util.exportExcel(list, "税务及银行审核管理数据");
@@ -76,8 +68,7 @@ public class TaxAndBankInfoController extends BaseController
      * 新增税务及银行审核管理
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -88,8 +79,7 @@ public class TaxAndBankInfoController extends BaseController
     @Log(title = "税务及银行审核管理", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(TaxAndBankInfo taxAndBankInfo)
-    {
+    public AjaxResult addSave(TaxAndBankInfo taxAndBankInfo) {
         taxAndBankInfo.setTaxAndBankAuditId(IdUtils.simpleUUID());
         taxAndBankInfo.setChecklistId(CpsIdUtils.createChecklistId('1'));//此处应该利用用户id从数据库查找
         taxAndBankInfo.setCreateDatetime(DateUtils.parseDate(DateUtils.getTime()));
@@ -101,8 +91,7 @@ public class TaxAndBankInfoController extends BaseController
      */
     @RequiresPermissions("audit:taxAndBankManage:edit")
     @GetMapping("/edit/{taxAndBankAuditId}")
-    public String edit(@PathVariable("taxAndBankAuditId") String taxAndBankAuditId, ModelMap mmap)
-    {
+    public String edit(@PathVariable("taxAndBankAuditId") String taxAndBankAuditId, ModelMap mmap) {
         TaxAndBankInfo taxAndBankInfo = taxAndBankInfoService.selectTaxAndBankInfoByTaxAndBankAuditId(taxAndBankAuditId);
         mmap.put("taxAndBankInfo", taxAndBankInfo);
         return prefix + "/edit";
@@ -115,8 +104,7 @@ public class TaxAndBankInfoController extends BaseController
     @Log(title = "税务及银行审核管理", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(TaxAndBankInfo taxAndBankInfo)
-    {
+    public AjaxResult editSave(TaxAndBankInfo taxAndBankInfo) {
         return toAjax(taxAndBankInfoService.updateTaxAndBankInfo(taxAndBankInfo));
     }
 
@@ -125,10 +113,9 @@ public class TaxAndBankInfoController extends BaseController
      */
     @RequiresPermissions("audit:taxAndBankManage:remove")
     @Log(title = "税务及银行审核管理", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(taxAndBankInfoService.deleteTaxAndBankInfoByTaxAndBankAuditIds(ids));
     }
 }

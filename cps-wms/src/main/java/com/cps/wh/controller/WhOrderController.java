@@ -31,8 +31,7 @@ public class WhOrderController extends BaseController {
 
     @RequiresPermissions("wh:order:view")
     @GetMapping()
-    public String outboundOrder()
-    {
+    public String outboundOrder() {
         return prefix + "/order";
     }
 
@@ -43,8 +42,7 @@ public class WhOrderController extends BaseController {
     @Log(title = "单据精灵", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult edit(OrderModel orderModel)
-    {
+    public AjaxResult edit(OrderModel orderModel) {
         orderModel.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(whOrderService.edit(orderModel));
     }

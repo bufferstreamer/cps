@@ -9,15 +9,14 @@ import java.util.List;
 
 /**
  * 商品出库单子表Service接口
- * 
+ *
  * @author miki
  * @date 2021-06-07
  */
-public interface IWhOutboundOrderSeedService 
-{
+public interface IWhOutboundOrderSeedService {
     /**
      * 查询商品出库单子表
-     * 
+     *
      * @param id 商品出库单子表ID
      * @return 商品出库单子表
      */
@@ -25,7 +24,7 @@ public interface IWhOutboundOrderSeedService
 
     /**
      * 查询商品出库单子表列表
-     * 
+     *
      * @param whOutboundOrderSeed 商品出库单子表
      * @return 商品出库单子表集合
      */
@@ -33,7 +32,7 @@ public interface IWhOutboundOrderSeedService
 
     /**
      * 新增商品出库单子表
-     * 
+     *
      * @param whOutboundOrderSeed 商品出库单子表
      * @return 结果
      */
@@ -41,7 +40,7 @@ public interface IWhOutboundOrderSeedService
 
     /**
      * 修改商品出库单子表
-     * 
+     *
      * @param whOutboundOrderSeed 商品出库单子表
      * @return 结果
      */
@@ -57,7 +56,7 @@ public interface IWhOutboundOrderSeedService
 
     /**
      * 批量删除商品出库单子表
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
@@ -65,23 +64,23 @@ public interface IWhOutboundOrderSeedService
 
     /**
      * 删除商品出库单子表信息
-     * 
+     *
      * @param id 商品出库单子表ID
      * @return 结果
      */
     public int deleteWhOutboundOrderSeedById(Long id);
 
     /**
-     *
      * 根据商品出库主表ID 查询合计含税金额
+     *
      * @param outboundOrderId 商品出库主表ID
      * @return 结果
      */
     public BigDecimal getSumAmount(Long outboundOrderId);
 
     /**
-     *
      * 根据商品出库主表ID 查询商品数量
+     *
      * @param outboundOrderId 商品出库主表ID
      * @return 结果
      */
@@ -98,8 +97,9 @@ public interface IWhOutboundOrderSeedService
 
     /**
      * 计算统计子表各项价格
+     *
      * @param whOutboundOrderSeed 商品出库单子表
-     * @param rate rate 出库主表供应商税率
+     * @param rate                rate 出库主表供应商税率
      * @return whOutboundOrderSeed 商品出库单子
      */
     public WhOutboundOrderSeed calculate(WhOutboundOrder whOutboundOrder, WhOutboundOrderSeed whOutboundOrderSeed, BigDecimal rate);

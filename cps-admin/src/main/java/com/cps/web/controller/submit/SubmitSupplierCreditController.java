@@ -4,6 +4,7 @@ import com.cps.audit.domain.AuditDocuments;
 import com.cps.audit.domain.SupplierCreditEvaluationInfo;
 import com.cps.audit.service.IAuditDocumentsService;
 import com.cps.audit.service.ISupplierCreditEvaluationInfoService;
+import com.cps.common.core.controller.BaseController;
 import com.cps.common.utils.ShiroUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cps.common.core.controller.BaseController;
-
 import java.util.List;
 
 /**
  * 供应商提交信用审核
- * 
+ *
  * @author cps
  * @date 2022-08-26
  */
@@ -36,7 +35,7 @@ public class SubmitSupplierCreditController extends BaseController {
     @RequiresPermissions("audit:supplierCreditEvaluationManage:add")
     @GetMapping()
     public String supplierCredit(Model model) {
-        model.addAttribute("result",CanSubmit());
+        model.addAttribute("result", CanSubmit());
         return prefix + "/supplierCredit";
     }
 
@@ -49,7 +48,7 @@ public class SubmitSupplierCreditController extends BaseController {
         for (int i = 0; i < tempList.size(); i++) {
             String id = tempList.get(i).getChecklistId();
             SupplierCreditEvaluationInfo info = mSupplierCreditEvaluationInfoService.selectSupplierCreditEvaluationInfoByChecklistId(id);
-            if (info!=null){
+            if (info != null) {
                 return false;
             }
         }

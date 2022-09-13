@@ -10,19 +10,16 @@ public enum Status {
     private final String code;
     private final String info;
 
-    Status(String code, String info)
-    {
+    Status(String code, String info) {
         this.code = code;
         this.info = info;
     }
 
-    public String getCode()
-    {
+    public String getCode() {
         return code;
     }
 
-    public String getInfo()
-    {
+    public String getInfo() {
         return info;
     }
 }

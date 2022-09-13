@@ -11,103 +11,108 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author miki
  * @date 2021-06-16
  */
-public class DeptWarehouse extends BaseEntity
-{
+public class DeptWarehouse extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** id */
+    /**
+     * id
+     */
     private Long id;
 
-    /** 单位绑定部门主键 */
+    /**
+     * 单位绑定部门主键
+     */
     @Excel(name = "单位绑定部门主键")
     private Long warehouseDeptId;
 
-    /** 单位关联表主键 */
+    /**
+     * 单位关联表主键
+     */
     @Excel(name = "单位关联表主键")
     private Long warehouseId;
 
-    /** 订单关系【采购、调拨】 */
+    /**
+     * 订单关系【采购、调拨】
+     */
     @Excel(name = "订单关系【采购、调拨】")
     private String orderRelationship;
 
-    /** 成本类别【销售价、批发价、成本价】 */
+    /**
+     * 成本类别【销售价、批发价、成本价】
+     */
     @Excel(name = "成本类别【销售价、批发价、成本价】")
     private String costType;
 
-    /** 删除标志（0代表存在 2代表删除） */
+    /**
+     * 删除标志（0代表存在 2代表删除）
+     */
     private String delFlag;
 
-    /** 部门ID */
+    /**
+     * 部门ID
+     */
     @Excel(name = "部门ID")
     private Long deptId;
 
-    public void setId(Long id)
-    {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId()
-    {
-        return id;
+    public Long getWarehouseDeptId() {
+        return warehouseDeptId;
     }
-    public void setWarehouseDeptId(Long warehouseDeptId)
-    {
+
+    public void setWarehouseDeptId(Long warehouseDeptId) {
         this.warehouseDeptId = warehouseDeptId;
     }
 
-    public Long getWarehouseDeptId()
-    {
-        return warehouseDeptId;
+    public Long getWarehouseId() {
+        return warehouseId;
     }
-    public void setWarehouseId(Long warehouseId)
-    {
+
+    public void setWarehouseId(Long warehouseId) {
         this.warehouseId = warehouseId;
     }
 
-    public Long getWarehouseId()
-    {
-        return warehouseId;
+    public String getOrderRelationship() {
+        return orderRelationship;
     }
-    public void setOrderRelationship(String orderRelationship)
-    {
+
+    public void setOrderRelationship(String orderRelationship) {
         this.orderRelationship = orderRelationship;
     }
 
-    public String getOrderRelationship()
-    {
-        return orderRelationship;
+    public String getCostType() {
+        return costType;
     }
-    public void setCostType(String costType)
-    {
+
+    public void setCostType(String costType) {
         this.costType = costType;
     }
 
-    public String getCostType()
-    {
-        return costType;
+    public String getDelFlag() {
+        return delFlag;
     }
-    public void setDelFlag(String delFlag)
-    {
+
+    public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
     }
 
-    public String getDelFlag()
-    {
-        return delFlag;
-    }
-    public void setDeptId(Long deptId)
-    {
-        this.deptId = deptId;
+    public Long getDeptId() {
+        return deptId;
     }
 
-    public Long getDeptId()
-    {
-        return deptId;
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())
                 .append("warehouseDeptId", getWarehouseDeptId())
                 .append("warehouseId", getWarehouseId())

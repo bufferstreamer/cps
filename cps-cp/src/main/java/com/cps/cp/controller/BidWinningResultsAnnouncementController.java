@@ -1,36 +1,31 @@
 package com.cps.cp.controller;
 
-import java.util.List;
-
+import com.cps.common.annotation.Log;
+import com.cps.common.core.controller.BaseController;
+import com.cps.common.core.domain.AjaxResult;
+import com.cps.common.core.page.TableDataInfo;
+import com.cps.common.enums.BusinessType;
+import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.utils.uuid.IdUtils;
+import com.cps.cp.domain.BidWinningResultsAnnouncement;
+import com.cps.cp.service.IBidWinningResultsAnnouncementService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import com.cps.common.annotation.Log;
-import com.cps.common.enums.BusinessType;
-import com.cps.cp.domain.BidWinningResultsAnnouncement;
-import com.cps.cp.service.IBidWinningResultsAnnouncementService;
-import com.cps.common.core.controller.BaseController;
-import com.cps.common.core.domain.AjaxResult;
-import com.cps.common.utils.poi.ExcelUtil;
-import com.cps.common.core.page.TableDataInfo;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 中标结果公告Controller
- * 
+ *
  * @author wxf
  * @date 2022-08-16
  */
 @Controller
 @RequestMapping("/cp/bidWinningResultsAnnouncement")
-public class BidWinningResultsAnnouncementController extends BaseController
-{
+public class BidWinningResultsAnnouncementController extends BaseController {
     private String prefix = "cp/bidWinningResultsAnnouncement";
 
     @Autowired
@@ -38,8 +33,7 @@ public class BidWinningResultsAnnouncementController extends BaseController
 
     @RequiresPermissions("cp:bidWinningResultsAnnouncement:view")
     @GetMapping()
-    public String bidWinningResultsAnnouncement()
-    {
+    public String bidWinningResultsAnnouncement() {
         return prefix + "/bidWinningResultsAnnouncement";
     }
 
@@ -49,8 +43,7 @@ public class BidWinningResultsAnnouncementController extends BaseController
     @RequiresPermissions("cp:bidWinningResultsAnnouncement:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(BidWinningResultsAnnouncement bidWinningResultsAnnouncement)
-    {
+    public TableDataInfo list(BidWinningResultsAnnouncement bidWinningResultsAnnouncement) {
         startPage();
         List<BidWinningResultsAnnouncement> list = bidWinningResultsAnnouncementService.selectBidWinningResultsAnnouncementList(bidWinningResultsAnnouncement);
         return getDataTable(list);
@@ -63,8 +56,7 @@ public class BidWinningResultsAnnouncementController extends BaseController
     @Log(title = "中标结果公告", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(BidWinningResultsAnnouncement bidWinningResultsAnnouncement)
-    {
+    public AjaxResult export(BidWinningResultsAnnouncement bidWinningResultsAnnouncement) {
         List<BidWinningResultsAnnouncement> list = bidWinningResultsAnnouncementService.selectBidWinningResultsAnnouncementList(bidWinningResultsAnnouncement);
         ExcelUtil<BidWinningResultsAnnouncement> util = new ExcelUtil<BidWinningResultsAnnouncement>(BidWinningResultsAnnouncement.class);
         return util.exportExcel(list, "中标结果公告数据");
@@ -74,8 +66,7 @@ public class BidWinningResultsAnnouncementController extends BaseController
      * 新增中标结果公告
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -86,8 +77,7 @@ public class BidWinningResultsAnnouncementController extends BaseController
     @Log(title = "中标结果公告", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(BidWinningResultsAnnouncement bidWinningResultsAnnouncement)
-    {
+    public AjaxResult addSave(BidWinningResultsAnnouncement bidWinningResultsAnnouncement) {
         bidWinningResultsAnnouncement.setBidWinningResultsAnnouncementId(IdUtils.fastSimpleUUID());
         return toAjax(bidWinningResultsAnnouncementService.insertBidWinningResultsAnnouncement(bidWinningResultsAnnouncement));
     }
@@ -97,8 +87,7 @@ public class BidWinningResultsAnnouncementController extends BaseController
      */
     @RequiresPermissions("cp:bidWinningResultsAnnouncement:edit")
     @GetMapping("/edit/{bidWinningResultsAnnouncementId}")
-    public String edit(@PathVariable("bidWinningResultsAnnouncementId") String bidWinningResultsAnnouncementId, ModelMap mmap)
-    {
+    public String edit(@PathVariable("bidWinningResultsAnnouncementId") String bidWinningResultsAnnouncementId, ModelMap mmap) {
         BidWinningResultsAnnouncement bidWinningResultsAnnouncement = bidWinningResultsAnnouncementService.selectBidWinningResultsAnnouncementByBidWinningResultsAnnouncementId(bidWinningResultsAnnouncementId);
         mmap.put("bidWinningResultsAnnouncement", bidWinningResultsAnnouncement);
         return prefix + "/edit";
@@ -111,8 +100,7 @@ public class BidWinningResultsAnnouncementController extends BaseController
     @Log(title = "中标结果公告", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(BidWinningResultsAnnouncement bidWinningResultsAnnouncement)
-    {
+    public AjaxResult editSave(BidWinningResultsAnnouncement bidWinningResultsAnnouncement) {
         return toAjax(bidWinningResultsAnnouncementService.updateBidWinningResultsAnnouncement(bidWinningResultsAnnouncement));
     }
 
@@ -121,17 +109,15 @@ public class BidWinningResultsAnnouncementController extends BaseController
      */
     @RequiresPermissions("cp:bidWinningResultsAnnouncement:remove")
     @Log(title = "中标结果公告", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(bidWinningResultsAnnouncementService.deleteBidWinningResultsAnnouncementByBidWinningResultsAnnouncementIds(ids));
     }
 
     // 查询标书
     @RequestMapping("/search/")
-    public String queryTender()
-    {
+    public String queryTender() {
         return prefix + "/search";
     }
 }

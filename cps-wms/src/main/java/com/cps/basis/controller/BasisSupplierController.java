@@ -19,14 +19,13 @@ import java.util.List;
 
 /**
  * 供应商管理Controller
- * 
+ *
  * @author miki
  * @date 2021-05-20
  */
 @Controller
 @RequestMapping("/basis/supplier")
-public class BasisSupplierController extends BaseController
-{
+public class BasisSupplierController extends BaseController {
     private String prefix = "basis/supplier";
 
     @Autowired
@@ -34,8 +33,7 @@ public class BasisSupplierController extends BaseController
 
     @RequiresPermissions("basis:supplier:view")
     @GetMapping()
-    public String supplier()
-    {
+    public String supplier() {
         return prefix + "/supplier";
     }
 
@@ -45,8 +43,7 @@ public class BasisSupplierController extends BaseController
     @RequiresPermissions("basis:supplier:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(BasisSupplier basisSupplier)
-    {
+    public TableDataInfo list(BasisSupplier basisSupplier) {
         basisSupplier.setDeptId(ShiroUtils.getDeptId());
         startPage();
         List<BasisSupplier> list = basisSupplierService.selectBasisSupplierList(basisSupplier);
@@ -60,8 +57,7 @@ public class BasisSupplierController extends BaseController
     @Log(title = "供应商管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(BasisSupplier basisSupplier)
-    {
+    public AjaxResult export(BasisSupplier basisSupplier) {
         List<BasisSupplier> list = basisSupplierService.selectBasisSupplierList(basisSupplier);
         ExcelUtil<BasisSupplier> util = new ExcelUtil<BasisSupplier>(BasisSupplier.class);
         return util.exportExcel(list, "供应商管理数据");
@@ -71,8 +67,7 @@ public class BasisSupplierController extends BaseController
      * 新增供应商管理
      */
     @GetMapping("/add")
-    public String add(ModelMap modelMap)
-    {
+    public String add(ModelMap modelMap) {
         return prefix + "/add";
     }
 
@@ -83,8 +78,7 @@ public class BasisSupplierController extends BaseController
     @Log(title = "供应商管理", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(BasisSupplier basisSupplier)
-    {
+    public AjaxResult addSave(BasisSupplier basisSupplier) {
         basisSupplier.setDeptId(ShiroUtils.getDeptId());
         basisSupplier.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(basisSupplierService.insertBasisSupplier(basisSupplier));
@@ -94,8 +88,7 @@ public class BasisSupplierController extends BaseController
      * 修改供应商管理
      */
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Long id, ModelMap mmap)
-    {
+    public String edit(@PathVariable("id") Long id, ModelMap mmap) {
         BasisSupplier basisSupplier = basisSupplierService.selectBasisSupplierById(id);
         mmap.put("basisSupplier", basisSupplier);
         return prefix + "/edit";
@@ -108,8 +101,7 @@ public class BasisSupplierController extends BaseController
     @Log(title = "供应商管理", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(BasisSupplier basisSupplier)
-    {
+    public AjaxResult editSave(BasisSupplier basisSupplier) {
         basisSupplier.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(basisSupplierService.updateBasisSupplier(basisSupplier));
     }
@@ -119,10 +111,9 @@ public class BasisSupplierController extends BaseController
      */
     @RequiresPermissions("basis:supplier:remove")
     @Log(title = "供应商管理", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(basisSupplierService.deleteBasisSupplierByIds(ids));
     }
 
@@ -131,8 +122,7 @@ public class BasisSupplierController extends BaseController
      */
     @RequiresPermissions("basis:supplier:detail")
     @GetMapping("/detail/{id}")
-    public String detail(@PathVariable("id") Long id, ModelMap mmap)
-    {
+    public String detail(@PathVariable("id") Long id, ModelMap mmap) {
         mmap.put("basisSupplier", basisSupplierService.selectBasisSupplierById(id));
         return prefix + "/detail";
     }
@@ -142,8 +132,7 @@ public class BasisSupplierController extends BaseController
      */
     @PostMapping("/checkSupplierCodeUnique")
     @ResponseBody
-    public String checkSupplierCodeUnique(BasisSupplier basisSupplier)
-    {
+    public String checkSupplierCodeUnique(BasisSupplier basisSupplier) {
         return basisSupplierService.checkSupplierCodeUnique(basisSupplier.getSupplierCode());
     }
 
@@ -152,8 +141,7 @@ public class BasisSupplierController extends BaseController
      * 选择供应商
      */
     @GetMapping("/selectSupplier")
-    public String selectSupplier(ModelMap mmap)
-    {
+    public String selectSupplier(ModelMap mmap) {
         return prefix + "/selectSupplier";
     }
 
@@ -162,8 +150,7 @@ public class BasisSupplierController extends BaseController
      */
     @PostMapping("/selectList")
     @ResponseBody
-    public TableDataInfo selectList(BasisSupplier basisSupplier)
-    {
+    public TableDataInfo selectList(BasisSupplier basisSupplier) {
         basisSupplier.setDeptId(ShiroUtils.getDeptId());
         startPage();
         List<BasisSupplier> list = basisSupplierService.selectBasisSupplierList(basisSupplier);

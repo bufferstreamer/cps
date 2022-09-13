@@ -1,19 +1,19 @@
 package com.cps.user.mapper;
 
-import java.util.List;
 import com.cps.user.domain.Cooperative;
+
+import java.util.List;
 
 /**
  * 供销社角色Mapper接口
- * 
+ *
  * @author cps
  * @date 2022-08-18
  */
-public interface CooperativeMapper 
-{
+public interface CooperativeMapper {
     /**
      * 查询供销社角色
-     * 
+     *
      * @param gxsId 供销社角色主键
      * @return 供销社角色
      */
@@ -21,7 +21,7 @@ public interface CooperativeMapper
 
     /**
      * 查询供销社角色列表
-     * 
+     *
      * @param cooperative 供销社角色
      * @return 供销社角色集合
      */
@@ -29,7 +29,7 @@ public interface CooperativeMapper
 
     /**
      * 新增供销社角色
-     * 
+     *
      * @param cooperative 供销社角色
      * @return 结果
      */
@@ -37,7 +37,7 @@ public interface CooperativeMapper
 
     /**
      * 修改供销社角色
-     * 
+     *
      * @param cooperative 供销社角色
      * @return 结果
      */
@@ -45,7 +45,7 @@ public interface CooperativeMapper
 
     /**
      * 删除供销社角色
-     * 
+     *
      * @param gxsId 供销社角色主键
      * @return 结果
      */
@@ -53,7 +53,7 @@ public interface CooperativeMapper
 
     /**
      * 批量删除供销社角色
-     * 
+     *
      * @param gxsIds 需要删除的数据主键集合
      * @return 结果
      */

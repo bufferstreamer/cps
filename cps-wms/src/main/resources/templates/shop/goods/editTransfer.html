@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('商品移库')" />
+    <th:block th:include="include :: header('商品移库')"/>
 </head>
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
@@ -11,8 +11,9 @@
             <div class="form-group">
                 <label class="col-sm-4 control-label">商品类别：</label>
                 <div class="col-sm-8">
-                        <input id="treeId" name="goodsTypeId" type="hidden" th:field="*{goodsTypeId}">
-                        <input class="form-control" type="text" id="treeName" th:value="${shopGoodsType.goodsTypeName}" readonly="true" required>
+                    <input id="treeId" name="goodsTypeId" th:field="*{goodsTypeId}" type="hidden">
+                    <input class="form-control" id="treeName" readonly="true" required
+                           th:value="${shopGoodsType.goodsTypeName}" type="text">
                 </div>
             </div>
         </div>
@@ -20,7 +21,8 @@
             <div class="form-group">
                 <label class="col-sm-4 control-label">商品编码：</label>
                 <div class="col-sm-8">
-                    <input name="goodsCode" th:field="*{goodsCode}" class="form-control" type="text" maxlength="16" required readonly>
+                    <input class="form-control" maxlength="16" name="goodsCode" readonly required
+                           th:field="*{goodsCode}" type="text">
                 </div>
             </div>
         </div>
@@ -29,7 +31,8 @@
             <div class="form-group">
                 <label class="col-sm-4 control-label">商品名称：</label>
                 <div class="col-sm-8">
-                    <input name="goodsName" th:field="*{goodsName}" class="form-control" type="text" maxlength="30" required readonly>
+                    <input class="form-control" maxlength="30" name="goodsName" readonly required
+                           th:field="*{goodsName}" type="text">
                 </div>
             </div>
         </div>
@@ -37,7 +40,8 @@
             <div class="form-group">
                 <label class="col-sm-4 control-label">商品条码：</label>
                 <div class="col-sm-8">
-                    <input name="goodsBarcode" th:field="*{goodsBarcode}" class="form-control" type="text" maxlength="30" readonly>
+                    <input class="form-control" maxlength="30" name="goodsBarcode" readonly
+                           th:field="*{goodsBarcode}" type="text">
                 </div>
             </div>
         </div>
@@ -47,8 +51,9 @@
                 <label class="col-sm-4 control-label">所属库位：</label>
                 <div class="col-sm-8">
                     <div class="input-group">
-                        <input id="storageId" name="storageId" type="hidden" th:field="*{storageId}">
-                        <input class="form-control" type="text" onclick="selectStorage()" id="storageName" name="storageName" th:value="${whStorage.storageName}" readonly="true" required>
+                        <input id="storageId" name="storageId" th:field="*{storageId}" type="hidden">
+                        <input class="form-control" id="storageName" name="storageName" onclick="selectStorage()"
+                               readonly="true" required th:value="${whStorage.storageName}" type="text">
                         <span class="input-group-addon"><i class="fa fa-search"></i></span>
                     </div>
                 </div>
@@ -60,13 +65,13 @@
 </div>
 
 
-<th:block th:include="include :: footer" />
+<th:block th:include="include :: footer"/>
 <script th:inline="javascript">
     var prefix = ctx + "shop/goods"
     $("#form-goods-add").validate({
         onkeyup: false,
-        rules:{
-            reservoirCode:{
+        rules: {
+            reservoirCode: {
                 minlength: 2,
                 maxlength: 16,
                 remote: {
@@ -74,20 +79,20 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        "goodsCode": function() {
+                        "goodsCode": function () {
                             return $.common.trim($("#goodsCode").val());
                         }
                     },
-                    dataFilter: function(data, type) {
+                    dataFilter: function (data, type) {
                         return $.validate.unique(data);
                     }
                 }
             },
-            costPrice:{ number:true,min:0 },
-            retailPrice:{ number:true,min:0 },
-            sellingPrice:{ number:true,min:0 },
-            wholesalePrice:{ number:true,min:0 },
-            safetyStock:{ digits:true, },
+            costPrice: {number: true, min: 0},
+            retailPrice: {number: true, min: 0},
+            sellingPrice: {number: true, min: 0},
+            wholesalePrice: {number: true, min: 0},
+            safetyStock: {digits: true,},
         },
         messages: {
             "goodsCode": {
@@ -105,6 +110,7 @@
 
     /* 选择库位 */
     var storagePrefix = ctx + "wh/storage"
+
     function selectStorage() {
         var url = storagePrefix + '/selectStorage';
         var options = {
@@ -115,7 +121,7 @@
         $.modal.openOptions(options);
     }
 
-    function doSubmitStorage(index, layero){
+    function doSubmitStorage(index, layero) {
         var iframeWin = layero.find("iframe")[0].contentWindow.$.table;
         var rows = iframeWin.selectFirstColumns();//调用子页面的方法 获取ID
         if (rows.length == 0) {
@@ -124,7 +130,7 @@
         }
 
         $('#storageId').val(rows.join())
-        var storageName=iframeWin.selectColumns("storageName");//调用子页面的方法 获取ID
+        var storageName = iframeWin.selectColumns("storageName");//调用子页面的方法 获取ID
         $('#storageName').val(storageName)
         layer.close(index);
     }

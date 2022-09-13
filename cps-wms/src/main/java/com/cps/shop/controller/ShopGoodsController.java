@@ -27,14 +27,13 @@ import java.util.List;
 
 /**
  * 商品信息Controller
- * 
+ *
  * @author miki
  * @date 2021-05-25
  */
 @Controller
 @RequestMapping("/shop/goods")
-public class ShopGoodsController extends BaseController
-{
+public class ShopGoodsController extends BaseController {
     private String prefix = "shop/goods";
 
     @Autowired
@@ -51,8 +50,7 @@ public class ShopGoodsController extends BaseController
 
     @RequiresPermissions("shop:goods:view")
     @GetMapping()
-    public String goods()
-    {
+    public String goods() {
         return prefix + "/goods";
     }
 
@@ -62,8 +60,7 @@ public class ShopGoodsController extends BaseController
     @RequiresPermissions("shop:goods:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(ShopGoods shopGoods)
-    {
+    public TableDataInfo list(ShopGoods shopGoods) {
         shopGoods.setDeptId(ShiroUtils.getDeptId());
         startPage();
         List<ShopGoodsVo> list = shopGoodsService.selectShopGoodsVoList(shopGoods);
@@ -77,8 +74,7 @@ public class ShopGoodsController extends BaseController
     @Log(title = "商品信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(ShopGoods shopGoods)
-    {
+    public AjaxResult export(ShopGoods shopGoods) {
         List<ShopGoods> list = shopGoodsService.selectShopGoodsList(shopGoods);
         ExcelUtil<ShopGoods> util = new ExcelUtil<ShopGoods>(ShopGoods.class);
         return util.exportExcel(list, "商品信息数据");
@@ -88,8 +84,7 @@ public class ShopGoodsController extends BaseController
      * 新增商品信息
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -100,8 +95,7 @@ public class ShopGoodsController extends BaseController
     @Log(title = "商品信息", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(ShopGoods shopGoods)
-    {
+    public AjaxResult addSave(ShopGoods shopGoods) {
         shopGoods.setDeptId(ShiroUtils.getDeptId());
         shopGoods.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(shopGoodsService.insertShopGoods(shopGoods));
@@ -111,8 +105,7 @@ public class ShopGoodsController extends BaseController
      * 修改商品信息
      */
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Long id, ModelMap mmap)
-    {
+    public String edit(@PathVariable("id") Long id, ModelMap mmap) {
         ShopGoods shopGoods = shopGoodsService.selectShopGoodsById(id);
         ShopGoodsType shopGoodsType = shopGoodsTypeService.selectShopGoodsTypeById(shopGoods.getGoodsTypeId());
         ShopGoodsSeed shopGoodsSeed = shopGoodsSeedService.selectShopGoodsSeedBygoodsId(shopGoods.getId());
@@ -131,8 +124,7 @@ public class ShopGoodsController extends BaseController
     @Log(title = "商品信息", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(ShopGoods shopGoods)
-    {
+    public AjaxResult editSave(ShopGoods shopGoods) {
         shopGoods.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(shopGoodsService.updateShopGoods(shopGoods));
     }
@@ -142,10 +134,9 @@ public class ShopGoodsController extends BaseController
      */
     @RequiresPermissions("shop:goods:remove")
     @Log(title = "商品信息", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(shopGoodsService.deleteShopGoodsByIds(ids));
     }
 
@@ -154,8 +145,7 @@ public class ShopGoodsController extends BaseController
      */
     @PostMapping("/checkGoodsCodeUnique")
     @ResponseBody
-    public String checkGoodsCodeUnique(ShopGoods shopGoods)
-    {
+    public String checkGoodsCodeUnique(ShopGoods shopGoods) {
         return shopGoodsService.checkGoodsCodeUnique(shopGoods.getGoodsCode());
     }
 
@@ -166,8 +156,7 @@ public class ShopGoodsController extends BaseController
     @RequiresPermissions("shop:goods:changeIsCost")
     @PostMapping("/changeIsCost")
     @ResponseBody
-    public AjaxResult changeIsCost(ShopGoods shopGoods)
-    {
+    public AjaxResult changeIsCost(ShopGoods shopGoods) {
         return toAjax(shopGoodsService.updateShopGoods(shopGoods));
     }
 
@@ -176,8 +165,7 @@ public class ShopGoodsController extends BaseController
      * 选择商品信息
      */
     @GetMapping("/selectGoods")
-    public String selectGoods()
-    {
+    public String selectGoods() {
         return prefix + "/selectGoods";
     }
 
@@ -186,8 +174,7 @@ public class ShopGoodsController extends BaseController
      */
     @PostMapping("/selectList")
     @ResponseBody
-    public TableDataInfo selectList(ShopGoods shopGoods)
-    {
+    public TableDataInfo selectList(ShopGoods shopGoods) {
         shopGoods.setDeptId(ShiroUtils.getDeptId());
         startPage();
         List<ShopGoodsVo> list = shopGoodsService.selectShopGoodsVoList(shopGoods);
@@ -197,12 +184,12 @@ public class ShopGoodsController extends BaseController
 
     /**
      * 库存查询界面
+     *
      * @return
      */
     @RequiresPermissions("shop:goods:listStock")
     @GetMapping("/goodsStock")
-    public String goodsStock()
-    {
+    public String goodsStock() {
         return prefix + "/goodsStock";
     }
 
@@ -212,8 +199,7 @@ public class ShopGoodsController extends BaseController
     @RequiresPermissions("shop:goods:listStock")
     @PostMapping("/listStock")
     @ResponseBody
-    public TableDataInfo listStock(ShopGoods shopGoods)
-    {
+    public TableDataInfo listStock(ShopGoods shopGoods) {
         shopGoods.setDeptId(ShiroUtils.getDeptId());
         startPage();
         List<ShopGoodsStockVo> list = shopGoodsService.selectShopGoodsStockVoList(shopGoods);
@@ -224,8 +210,7 @@ public class ShopGoodsController extends BaseController
      * 跳转商品价格调整功能
      */
     @GetMapping("/editPrice/{id}")
-    public String editPrice(@PathVariable("id") Long id, ModelMap mmap)
-    {
+    public String editPrice(@PathVariable("id") Long id, ModelMap mmap) {
         ShopGoods shopGoods = shopGoodsService.selectShopGoodsById(id);
         ShopGoodsType shopGoodsType = shopGoodsTypeService.selectShopGoodsTypeById(shopGoods.getGoodsTypeId());
         WhStorage whStorage = whStorageService.selectWhStorageById(shopGoods.getStorageId());
@@ -234,6 +219,7 @@ public class ShopGoodsController extends BaseController
         mmap.put("whStorage", whStorage);
         return prefix + "/editPrice";
     }
+
     /**
      * 修改保存商品价格信息
      */
@@ -241,8 +227,7 @@ public class ShopGoodsController extends BaseController
     @Log(title = "商品信息", businessType = BusinessType.UPDATE)
     @PostMapping("/editSavePrice")
     @ResponseBody
-    public AjaxResult editSaveTPrice(ShopGoods shopGoods)
-    {
+    public AjaxResult editSaveTPrice(ShopGoods shopGoods) {
         shopGoods.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(shopGoodsService.updateShopGoods(shopGoods));
     }
@@ -251,8 +236,7 @@ public class ShopGoodsController extends BaseController
      * 跳转商品移库功能
      */
     @GetMapping("/editTransfer/{id}")
-    public String editTransfer(@PathVariable("id") Long id, ModelMap mmap)
-    {
+    public String editTransfer(@PathVariable("id") Long id, ModelMap mmap) {
         ShopGoods shopGoods = shopGoodsService.selectShopGoodsById(id);
         ShopGoodsType shopGoodsType = shopGoodsTypeService.selectShopGoodsTypeById(shopGoods.getGoodsTypeId());
         WhStorage whStorage = whStorageService.selectWhStorageById(shopGoods.getStorageId());
@@ -269,8 +253,7 @@ public class ShopGoodsController extends BaseController
     @Log(title = "商品信息", businessType = BusinessType.UPDATE)
     @PostMapping("/editSaveTransfer")
     @ResponseBody
-    public AjaxResult editSaveTransfer(ShopGoods shopGoods)
-    {
+    public AjaxResult editSaveTransfer(ShopGoods shopGoods) {
         shopGoods.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(shopGoodsService.updateShopGoods(shopGoods));
     }

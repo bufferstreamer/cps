@@ -19,14 +19,13 @@ import java.util.List;
 
 /**
  * 库位尺寸Controller
- * 
+ *
  * @author miki
  * @date 2021-05-23
  */
 @Controller
 @RequestMapping("/wh/storageSize")
-public class WhStorageSizeController extends BaseController
-{
+public class WhStorageSizeController extends BaseController {
     private String prefix = "wh/storageSize";
 
     @Autowired
@@ -34,8 +33,7 @@ public class WhStorageSizeController extends BaseController
 
     @RequiresPermissions("wh:storageSize:view")
     @GetMapping()
-    public String storageSize()
-    {
+    public String storageSize() {
         return prefix + "/storageSize";
     }
 
@@ -45,8 +43,7 @@ public class WhStorageSizeController extends BaseController
     @RequiresPermissions("wh:storageSize:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(WhStorageSize whStorageSize)
-    {
+    public TableDataInfo list(WhStorageSize whStorageSize) {
         whStorageSize.setDeptId(ShiroUtils.getDeptId());
         startPage();
         List<WhStorageSize> list = whStorageSizeService.selectWhStorageSizeList(whStorageSize);
@@ -60,8 +57,7 @@ public class WhStorageSizeController extends BaseController
     @Log(title = "库位尺寸", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(WhStorageSize whStorageSize)
-    {
+    public AjaxResult export(WhStorageSize whStorageSize) {
         List<WhStorageSize> list = whStorageSizeService.selectWhStorageSizeList(whStorageSize);
         ExcelUtil<WhStorageSize> util = new ExcelUtil<WhStorageSize>(WhStorageSize.class);
         return util.exportExcel(list, "库位尺寸数据");
@@ -71,8 +67,7 @@ public class WhStorageSizeController extends BaseController
      * 新增库位尺寸
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -83,8 +78,7 @@ public class WhStorageSizeController extends BaseController
     @Log(title = "库位尺寸", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(WhStorageSize whStorageSize)
-    {
+    public AjaxResult addSave(WhStorageSize whStorageSize) {
         whStorageSize.setDeptId(ShiroUtils.getDeptId());
         whStorageSize.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(whStorageSizeService.insertWhStorageSize(whStorageSize));
@@ -94,8 +88,7 @@ public class WhStorageSizeController extends BaseController
      * 修改库位尺寸
      */
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Long id, ModelMap mmap)
-    {
+    public String edit(@PathVariable("id") Long id, ModelMap mmap) {
         WhStorageSize whStorageSize = whStorageSizeService.selectWhStorageSizeById(id);
         mmap.put("whStorageSize", whStorageSize);
         return prefix + "/edit";
@@ -108,8 +101,7 @@ public class WhStorageSizeController extends BaseController
     @Log(title = "库位尺寸", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(WhStorageSize whStorageSize)
-    {
+    public AjaxResult editSave(WhStorageSize whStorageSize) {
         whStorageSize.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(whStorageSizeService.updateWhStorageSize(whStorageSize));
     }
@@ -119,10 +111,9 @@ public class WhStorageSizeController extends BaseController
      */
     @RequiresPermissions("wh:storageSize:remove")
     @Log(title = "库位尺寸", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(whStorageSizeService.deleteWhStorageSizeByIds(ids));
     }
 
@@ -131,8 +122,7 @@ public class WhStorageSizeController extends BaseController
      */
     @PostMapping("/ajaxList")
     @ResponseBody
-    public AjaxResult ajaxList(WhStorageSize whStorageSize)
-    {
+    public AjaxResult ajaxList(WhStorageSize whStorageSize) {
         whStorageSize.setDeptId(ShiroUtils.getDeptId());
         List<WhStorageSize> list = whStorageSizeService.selectWhStorageSizeList(whStorageSize);
         return AjaxResult.success(list);

@@ -1,19 +1,19 @@
 package com.cps.cp.mapper;
 
-import java.util.List;
 import com.cps.cp.domain.ChangeAnnouncement;
+
+import java.util.List;
 
 /**
  * 变更公告Mapper接口
- * 
+ *
  * @author wxf
  * @date 2022-08-16
  */
-public interface ChangeAnnouncementMapper 
-{
+public interface ChangeAnnouncementMapper {
     /**
      * 查询变更公告
-     * 
+     *
      * @param changeAnnouncementId 变更公告主键
      * @return 变更公告
      */
@@ -21,7 +21,7 @@ public interface ChangeAnnouncementMapper
 
     /**
      * 查询变更公告列表
-     * 
+     *
      * @param changeAnnouncement 变更公告
      * @return 变更公告集合
      */
@@ -29,7 +29,7 @@ public interface ChangeAnnouncementMapper
 
     /**
      * 新增变更公告
-     * 
+     *
      * @param changeAnnouncement 变更公告
      * @return 结果
      */
@@ -37,7 +37,7 @@ public interface ChangeAnnouncementMapper
 
     /**
      * 修改变更公告
-     * 
+     *
      * @param changeAnnouncement 变更公告
      * @return 结果
      */
@@ -45,7 +45,7 @@ public interface ChangeAnnouncementMapper
 
     /**
      * 删除变更公告
-     * 
+     *
      * @param changeAnnouncementId 变更公告主键
      * @return 结果
      */
@@ -53,7 +53,7 @@ public interface ChangeAnnouncementMapper
 
     /**
      * 批量删除变更公告
-     * 
+     *
      * @param changeAnnouncementIds 需要删除的数据主键集合
      * @return 结果
      */

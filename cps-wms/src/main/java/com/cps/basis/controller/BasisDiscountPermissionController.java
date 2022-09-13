@@ -22,14 +22,13 @@ import java.util.List;
 
 /**
  * 折扣权限设定Controller
- * 
+ *
  * @author miki
  * @date 2021-06-15
  */
 @Controller
 @RequestMapping("/basis/discountPermission")
-public class BasisDiscountPermissionController extends BaseController
-{
+public class BasisDiscountPermissionController extends BaseController {
     private String prefix = "basis/discountPermission";
 
     @Autowired
@@ -41,8 +40,7 @@ public class BasisDiscountPermissionController extends BaseController
 
     @RequiresPermissions("basis:discountPermission:view")
     @GetMapping()
-    public String discountPermission()
-    {
+    public String discountPermission() {
         return prefix + "/discountPermission";
     }
 
@@ -52,8 +50,7 @@ public class BasisDiscountPermissionController extends BaseController
     @RequiresPermissions("basis:discountPermission:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(BasisDiscountPermission basisDiscountPermission)
-    {
+    public TableDataInfo list(BasisDiscountPermission basisDiscountPermission) {
         basisDiscountPermission.setDeptId(ShiroUtils.getDeptId());
         startPage();
         List<BasisDiscountPermissionVo> list = basisDiscountPermissionService.selectBasisDiscountPermissionListVo(basisDiscountPermission);
@@ -64,8 +61,7 @@ public class BasisDiscountPermissionController extends BaseController
      * 新增折扣权限设定
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -76,8 +72,7 @@ public class BasisDiscountPermissionController extends BaseController
     @Log(title = "折扣权限设定", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(BasisDiscountPermission basisDiscountPermission)
-    {
+    public AjaxResult addSave(BasisDiscountPermission basisDiscountPermission) {
         basisDiscountPermission.setDeptId(ShiroUtils.getDeptId());
         basisDiscountPermission.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(basisDiscountPermissionService.insertBasisDiscountPermission(basisDiscountPermission));
@@ -87,8 +82,7 @@ public class BasisDiscountPermissionController extends BaseController
      * 修改折扣权限设定
      */
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Long id, ModelMap mmap)
-    {
+    public String edit(@PathVariable("id") Long id, ModelMap mmap) {
         BasisDiscountPermission basisDiscountPermission = basisDiscountPermissionService.selectBasisDiscountPermissionById(id);
         mmap.put("basisDiscountPermission", basisDiscountPermission);
         SysUser sysUser = userService.selectUserById(basisDiscountPermission.getUserId());
@@ -103,8 +97,7 @@ public class BasisDiscountPermissionController extends BaseController
     @Log(title = "折扣权限设定", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(BasisDiscountPermission basisDiscountPermission)
-    {
+    public AjaxResult editSave(BasisDiscountPermission basisDiscountPermission) {
         basisDiscountPermission.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(basisDiscountPermissionService.updateBasisDiscountPermission(basisDiscountPermission));
     }
@@ -114,10 +107,9 @@ public class BasisDiscountPermissionController extends BaseController
      */
     @RequiresPermissions("basis:discountPermission:remove")
     @Log(title = "折扣权限设定", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(basisDiscountPermissionService.deleteBasisDiscountPermissionByIds(ids));
     }
 
@@ -126,10 +118,9 @@ public class BasisDiscountPermissionController extends BaseController
      */
     @PostMapping("/checkSupplierCodeUnique")
     @ResponseBody
-    public AjaxResult checkBasisDiscountPermissionUserIdUnique(BasisDiscountPermission basisDiscountPermission)
-    {
+    public AjaxResult checkBasisDiscountPermissionUserIdUnique(BasisDiscountPermission basisDiscountPermission) {
         BasisDiscountPermission basisDiscountPermissionByUserId = basisDiscountPermissionService.selectBasisDiscountPermissionByUserId(basisDiscountPermission.getUserId());
-        if(StringUtils.isNull(basisDiscountPermissionByUserId)){
+        if (StringUtils.isNull(basisDiscountPermissionByUserId)) {
             return success();
         }
         return AjaxResult.warn("数据已存在,请重新选择其他用户");

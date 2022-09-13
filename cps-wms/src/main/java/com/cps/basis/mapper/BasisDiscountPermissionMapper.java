@@ -7,15 +7,14 @@ import java.util.List;
 
 /**
  * 折扣权限设定Mapper接口
- * 
+ *
  * @author miki
  * @date 2021-06-15
  */
-public interface BasisDiscountPermissionMapper 
-{
+public interface BasisDiscountPermissionMapper {
     /**
      * 查询折扣权限设定
-     * 
+     *
      * @param id 折扣权限设定ID
      * @return 折扣权限设定
      */
@@ -23,7 +22,7 @@ public interface BasisDiscountPermissionMapper
 
     /**
      * 查询折扣权限设定列表
-     * 
+     *
      * @param basisDiscountPermission 折扣权限设定
      * @return 折扣权限设定集合
      */
@@ -39,7 +38,7 @@ public interface BasisDiscountPermissionMapper
 
     /**
      * 新增折扣权限设定
-     * 
+     *
      * @param basisDiscountPermission 折扣权限设定
      * @return 结果
      */
@@ -47,7 +46,7 @@ public interface BasisDiscountPermissionMapper
 
     /**
      * 修改折扣权限设定
-     * 
+     *
      * @param basisDiscountPermission 折扣权限设定
      * @return 结果
      */
@@ -55,7 +54,7 @@ public interface BasisDiscountPermissionMapper
 
     /**
      * 删除折扣权限设定
-     * 
+     *
      * @param id 折扣权限设定ID
      * @return 结果
      */
@@ -63,7 +62,7 @@ public interface BasisDiscountPermissionMapper
 
     /**
      * 批量删除折扣权限设定
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */

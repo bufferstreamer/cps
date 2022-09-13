@@ -5,65 +5,97 @@
 <mapper namespace="com.cps.wh.mapper.WhWarehousingOrderMapper">
 
     <resultMap type="WhWarehousingOrder" id="WhWarehousingOrderResult">
-        <result property="id"    column="id"    />
-        <result property="orderType"    column="order_type"    />
-        <result property="orderCode"    column="order_code"    />
-        <result property="orderName"    column="order_name"    />
-        <result property="orderDate"    column="order_date"    />
-        <result property="supplierId"    column="supplier_id"    />
-        <result property="supplierName"    column="supplier_name"    />
-        <result property="warehouseId"    column="warehouse_id"    />
-        <result property="desWarehouseId"    column="des_warehouse_id"    />
-        <result property="desWarehouseName"    column="des_warehouse_name"    />
-        <result property="rate"    column="rate"    />
-        <result property="tax"    column="tax"    />
-        <result property="discountRate"    column="discount_rate"    />
-        <result property="discountAmount"    column="discount_amount"    />
-        <result property="discountPrice"    column="discount_price"    />
-        <result property="otherFee"    column="other_fee"    />
-        <result property="untaxedAmount"    column="untaxed_amount"    />
-        <result property="totalAmount"    column="total_amount"    />
-        <result property="status"    column="status"    />
-        <result property="outboundOrderId"    column="outbound_order_id"    />
-        <result property="delFlag"    column="del_flag"    />
-        <result property="createBy"    column="create_by"    />
-        <result property="createTime"    column="create_time"    />
-        <result property="updateBy"    column="update_by"    />
-        <result property="updateTime"    column="update_time"    />
-        <result property="remark"    column="remark"    />
-        <result property="deptId"    column="dept_id"    />
+        <result property="id" column="id"/>
+        <result property="orderType" column="order_type"/>
+        <result property="orderCode" column="order_code"/>
+        <result property="orderName" column="order_name"/>
+        <result property="orderDate" column="order_date"/>
+        <result property="supplierId" column="supplier_id"/>
+        <result property="supplierName" column="supplier_name"/>
+        <result property="warehouseId" column="warehouse_id"/>
+        <result property="desWarehouseId" column="des_warehouse_id"/>
+        <result property="desWarehouseName" column="des_warehouse_name"/>
+        <result property="rate" column="rate"/>
+        <result property="tax" column="tax"/>
+        <result property="discountRate" column="discount_rate"/>
+        <result property="discountAmount" column="discount_amount"/>
+        <result property="discountPrice" column="discount_price"/>
+        <result property="otherFee" column="other_fee"/>
+        <result property="untaxedAmount" column="untaxed_amount"/>
+        <result property="totalAmount" column="total_amount"/>
+        <result property="status" column="status"/>
+        <result property="outboundOrderId" column="outbound_order_id"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="deptId" column="dept_id"/>
     </resultMap>
 
     <sql id="selectWhWarehousingOrderVo">
-        select id, order_type, order_code, order_name, order_date, supplier_id, supplier_name, warehouse_id, des_warehouse_id, des_warehouse_name, rate, tax, discount_rate, discount_amount, discount_price, other_fee, untaxed_amount, total_amount, status, outbound_order_id, del_flag, create_by, create_time, update_by, update_time, remark, dept_id from wms_wh_warehousing_order
+        select id,
+               order_type,
+               order_code,
+               order_name,
+               order_date,
+               supplier_id,
+               supplier_name,
+               warehouse_id,
+               des_warehouse_id,
+               des_warehouse_name,
+               rate,
+               tax,
+               discount_rate,
+               discount_amount,
+               discount_price,
+               other_fee,
+               untaxed_amount,
+               total_amount,
+               status,
+               outbound_order_id,
+               del_flag,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark,
+               dept_id
+        from wms_wh_warehousing_order
     </sql>
 
     <select id="selectWhWarehousingOrderList" parameterType="WhWarehousingOrder" resultMap="WhWarehousingOrderResult">
         <include refid="selectWhWarehousingOrderVo"/>
-        <where> del_flag = '0'
-            <if test="orderType != null  and orderType != ''"> and order_type = #{orderType}</if>
-            <if test="orderCode != null  and orderCode != ''"> and order_code = #{orderCode}</if>
-            <if test="orderName != null  and orderName != ''"> and order_name like concat('%', #{orderName}, '%')</if>
-            <if test="orderDate != null "> and order_date = #{orderDate}</if>
-            <if test="supplierId != null "> and supplier_id = #{supplierId}</if>
-            <if test="supplierName != null  and supplierName != ''"> and supplier_name like concat('%', #{supplierName}, '%')</if>
-            <if test="warehouseId != null "> and warehouse_id = #{warehouseId}</if>
-            <if test="desWarehouseId != null "> and des_warehouse_id = #{desWarehouseId}</if>
-            <if test="desWarehouseName != null  and desWarehouseName != ''"> and des_warehouse_name like concat('%', #{desWarehouseName}, '%')</if>
-            <if test="rate != null "> and rate = #{rate}</if>
-            <if test="tax != null "> and tax = #{tax}</if>
-            <if test="discountRate != null "> and discount_rate = #{discountRate}</if>
-            <if test="discountAmount != null "> and discount_amount = #{discountAmount}</if>
-            <if test="discountPrice != null "> and discount_price = #{discountPrice}</if>
-            <if test="otherFee != null "> and other_fee = #{otherFee}</if>
-            <if test="untaxedAmount != null "> and untaxed_amount = #{untaxedAmount}</if>
-            <if test="totalAmount != null "> and total_amount = #{totalAmount}</if>
-            <if test="status != null  and status != ''"> and status = #{status}</if>
-            <if test="outboundOrderId != null "> and outbound_order_id = #{outboundOrderId}</if>
-            <if test="deptId != null "> and dept_id = #{deptId}</if>
+        <where>del_flag = '0'
+            <if test="orderType != null  and orderType != ''">and order_type = #{orderType}</if>
+            <if test="orderCode != null  and orderCode != ''">and order_code = #{orderCode}</if>
+            <if test="orderName != null  and orderName != ''">and order_name like concat('%', #{orderName}, '%')</if>
+            <if test="orderDate != null ">and order_date = #{orderDate}</if>
+            <if test="supplierId != null ">and supplier_id = #{supplierId}</if>
+            <if test="supplierName != null  and supplierName != ''">and supplier_name like concat('%', #{supplierName},
+                '%')
+            </if>
+            <if test="warehouseId != null ">and warehouse_id = #{warehouseId}</if>
+            <if test="desWarehouseId != null ">and des_warehouse_id = #{desWarehouseId}</if>
+            <if test="desWarehouseName != null  and desWarehouseName != ''">and des_warehouse_name like concat('%',
+                #{desWarehouseName}, '%')
+            </if>
+            <if test="rate != null ">and rate = #{rate}</if>
+            <if test="tax != null ">and tax = #{tax}</if>
+            <if test="discountRate != null ">and discount_rate = #{discountRate}</if>
+            <if test="discountAmount != null ">and discount_amount = #{discountAmount}</if>
+            <if test="discountPrice != null ">and discount_price = #{discountPrice}</if>
+            <if test="otherFee != null ">and other_fee = #{otherFee}</if>
+            <if test="untaxedAmount != null ">and untaxed_amount = #{untaxedAmount}</if>
+            <if test="totalAmount != null ">and total_amount = #{totalAmount}</if>
+            <if test="status != null  and status != ''">and status = #{status}</if>
+            <if test="outboundOrderId != null ">and outbound_order_id = #{outboundOrderId}</if>
+            <if test="deptId != null ">and dept_id = #{deptId}</if>
             <if test="params.orderTypes != null and params.orderTypes != ''">
                 and order_type in
-                <foreach item="item" index="index" collection="params.orderTypes.split(',')"  open="(" separator="," close=")">
+                <foreach item="item" index="index" collection="params.orderTypes.split(',')" open="(" separator=","
+                         close=")">
                     #{item}
                 </foreach>
             </if>
@@ -169,7 +201,9 @@
     </update>
 
     <delete id="deleteWhWarehousingOrderById" parameterType="Long">
-        delete from wms_wh_warehousing_order where id = #{id}
+        delete
+        from wms_wh_warehousing_order
+        where id = #{id}
     </delete>
 
     <delete id="deleteWhWarehousingOrderByIds" parameterType="String">

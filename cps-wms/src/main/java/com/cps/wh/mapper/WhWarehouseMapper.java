@@ -6,15 +6,14 @@ import java.util.List;
 
 /**
  * 仓库设置Mapper接口
- * 
+ *
  * @author miki
  * @date 2021-05-20
  */
-public interface WhWarehouseMapper 
-{
+public interface WhWarehouseMapper {
     /**
      * 查询仓库设置
-     * 
+     *
      * @param id 仓库设置ID
      * @return 仓库设置
      */
@@ -22,7 +21,7 @@ public interface WhWarehouseMapper
 
     /**
      * 查询仓库设置列表
-     * 
+     *
      * @param whWarehouse 仓库设置
      * @return 仓库设置集合
      */
@@ -30,7 +29,7 @@ public interface WhWarehouseMapper
 
     /**
      * 新增仓库设置
-     * 
+     *
      * @param whWarehouse 仓库设置
      * @return 结果
      */
@@ -38,7 +37,7 @@ public interface WhWarehouseMapper
 
     /**
      * 修改仓库设置
-     * 
+     *
      * @param whWarehouse 仓库设置
      * @return 结果
      */
@@ -46,7 +45,7 @@ public interface WhWarehouseMapper
 
     /**
      * 删除仓库设置
-     * 
+     *
      * @param id 仓库设置ID
      * @return 结果
      */
@@ -54,7 +53,7 @@ public interface WhWarehouseMapper
 
     /**
      * 批量删除仓库设置
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */

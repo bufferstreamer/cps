@@ -1,17 +1,5 @@
 package com.cps.web.controller.user;
 
-import java.util.List;
-
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.cps.common.annotation.Log;
 import com.cps.common.core.controller.BaseController;
 import com.cps.common.core.domain.AjaxResult;
@@ -20,17 +8,23 @@ import com.cps.common.enums.BusinessType;
 import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.user.domain.Supermarket;
 import com.cps.user.service.ISupermarketService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 超市角色Controller
- * 
+ *
  * @author cps
  * @date 2022-08-18
  */
 @Controller
 @RequestMapping("/user/supermarket")
-public class SupermarketController extends BaseController
-{
+public class SupermarketController extends BaseController {
     private String prefix = "user/supermarket";
 
     @Autowired
@@ -38,8 +32,7 @@ public class SupermarketController extends BaseController
 
     @RequiresPermissions("user:supermarket:view")
     @GetMapping()
-    public String supermarket()
-    {
+    public String supermarket() {
         return prefix + "/supermarket";
     }
 
@@ -49,8 +42,7 @@ public class SupermarketController extends BaseController
     @RequiresPermissions("user:supermarket:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(Supermarket supermarket)
-    {
+    public TableDataInfo list(Supermarket supermarket) {
         startPage();
         List<Supermarket> list = supermarketService.selectSupermarketList(supermarket);
         return getDataTable(list);
@@ -63,8 +55,7 @@ public class SupermarketController extends BaseController
     @Log(title = "超市角色", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(Supermarket supermarket)
-    {
+    public AjaxResult export(Supermarket supermarket) {
         List<Supermarket> list = supermarketService.selectSupermarketList(supermarket);
         ExcelUtil<Supermarket> util = new ExcelUtil<Supermarket>(Supermarket.class);
         return util.exportExcel(list, "超市角色数据");
@@ -74,9 +65,8 @@ public class SupermarketController extends BaseController
      * 新增超市角色
      */
     @GetMapping("/add")
-    public String add()
-    {
-    	System.out.println("add");
+    public String add() {
+        System.out.println("add");
         return prefix + "/add";
     }
 
@@ -87,9 +77,8 @@ public class SupermarketController extends BaseController
     @Log(title = "超市角色", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(Supermarket supermarket)
-    {
-    	System.out.println("addSave");
+    public AjaxResult addSave(Supermarket supermarket) {
+        System.out.println("addSave");
         return toAjax(supermarketService.insertSupermarket(supermarket));
     }
 
@@ -98,8 +87,7 @@ public class SupermarketController extends BaseController
      */
     @RequiresPermissions("user:supermarket:edit")
     @GetMapping("/edit/{shopId}")
-    public String edit(@PathVariable("shopId") Long shopId, ModelMap mmap)
-    {
+    public String edit(@PathVariable("shopId") Long shopId, ModelMap mmap) {
         Supermarket supermarket = supermarketService.selectSupermarketByShopId(shopId);
         mmap.put("supermarket", supermarket);
         return prefix + "/edit";
@@ -112,8 +100,7 @@ public class SupermarketController extends BaseController
     @Log(title = "超市角色", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(Supermarket supermarket)
-    {
+    public AjaxResult editSave(Supermarket supermarket) {
         return toAjax(supermarketService.updateSupermarket(supermarket));
     }
 
@@ -122,10 +109,9 @@ public class SupermarketController extends BaseController
      */
     @RequiresPermissions("user:supermarket:remove")
     @Log(title = "超市角色", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(supermarketService.deleteSupermarketByShopIds(ids));
     }
 }

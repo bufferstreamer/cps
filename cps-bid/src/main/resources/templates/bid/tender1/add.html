@@ -1,53 +1,53 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('新增集中采购记录')" />
+    <th:block th:include="include :: header('新增集中采购记录')"/>
     <th:block th:include="include :: bootstrap-fileinput-css"/>
 </head>
 <body class="white-bg">
-    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-tender1-add">
-            <input name="tenderId" th:value="${tenderId}" class="form-control" type="hidden">
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">投标文件存储信息：</label>
-                <div class="col-sm-8">
-                    <input type="hidden" name="tenderDocument" id="tenderDocumentList">
-                    <div class="file-loading">
-                        <input class="form-control file-upload" id="tenderDocument" name="file" type="file">
-                    </div>
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-tender1-add">
+        <input class="form-control" name="tenderId" th:value="${tenderId}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">投标文件存储信息：</label>
+            <div class="col-sm-8">
+                <input id="tenderDocumentList" name="tenderDocument" type="hidden">
+                <div class="file-loading">
+                    <input class="form-control file-upload" id="tenderDocument" name="file" type="file">
                 </div>
             </div>
-        </form>
-    </div>
-    <th:block th:include="include :: footer" />
-    <th:block th:include="include :: bootstrap-fileinput-js"/>
-    <script th:inline="javascript">
-        var prefix = ctx + "bid/tender1"
-        $("#form-tender1-add").validate({
-            focusCleanup: true
-        });
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: bootstrap-fileinput-js"/>
+<script th:inline="javascript">
+    var prefix = ctx + "bid/tender1"
+    $("#form-tender1-add").validate({
+        focusCleanup: true
+    });
 
-        function submitHandler() {
-            if ($.validate.form()) {
-                if ($.common.isEmpty($("#tenderDocumentList").val())){
-                    $.modal.msgWarning("请上传投标文件");
-                    return;
-                }
-
-                $.operate.save(prefix + "/add", $('#form-tender1-add').serialize());
-                $.modal.closeTab();
+    function submitHandler() {
+        if ($.validate.form()) {
+            if ($.common.isEmpty($("#tenderDocumentList").val())) {
+                $.modal.msgWarning("请上传投标文件");
+                return;
             }
-        }
 
-        $(".file-upload").fileinput({
-            uploadUrl: ctx + 'common/upload',
-            maxFileCount: 1,
-            autoReplace: true
-        }).on('fileuploaded', function (event, data, previewId, index) {
-            $("input[name='" + event.currentTarget.id + "']").val(data.response.url)
-        }).on('fileremoved', function (event, id, index) {
-            $("input[name='" + event.currentTarget.id + "']").val('')
-        })
-    </script>
+            $.operate.save(prefix + "/add", $('#form-tender1-add').serialize());
+            $.modal.closeTab();
+        }
+    }
+
+    $(".file-upload").fileinput({
+        uploadUrl: ctx + 'common/upload',
+        maxFileCount: 1,
+        autoReplace: true
+    }).on('fileuploaded', function (event, data, previewId, index) {
+        $("input[name='" + event.currentTarget.id + "']").val(data.response.url)
+    }).on('fileremoved', function (event, id, index) {
+        $("input[name='" + event.currentTarget.id + "']").val('')
+    })
+</script>
 </body>
 </html>

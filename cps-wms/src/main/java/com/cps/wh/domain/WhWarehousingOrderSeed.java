@@ -13,272 +13,290 @@ import java.math.BigDecimal;
  * @author miki
  * @date 2021-06-04
  */
-public class WhWarehousingOrderSeed extends BaseEntity
-{
+public class WhWarehousingOrderSeed extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** id */
+    /**
+     * id
+     */
     private Long id;
 
-    /** 商品入库主表ID */
+    /**
+     * 商品入库主表ID
+     */
     @Excel(name = "商品入库主表ID")
     private Long warehousingOrderId;
 
-    /** 商品主键ID */
+    /**
+     * 商品主键ID
+     */
     @Excel(name = "商品主键ID")
     private Long shopGoodsId;
 
-    /** 商品编码 */
+    /**
+     * 商品编码
+     */
     @Excel(name = "商品编码")
     private String shopGoodsCode;
 
-    /** 商品名称 */
+    /**
+     * 商品名称
+     */
     @Excel(name = "商品名称")
     private String shopGoodsName;
 
-    /** 单位【关联字典管理】 */
+    /**
+     * 单位【关联字典管理】
+     */
     @Excel(name = "单位【关联字典管理】")
     private String goodsUnit;
 
-    /** 单位描述 */
+    /**
+     * 单位描述
+     */
     @Excel(name = "单位描述")
     private String goodsUnitDesc;
 
-    /** 计划数量 */
+    /**
+     * 计划数量
+     */
     @Excel(name = "计划数量")
     private Long planNumber;
 
-    /** 实际数量 */
+    /**
+     * 实际数量
+     */
     @Excel(name = "实际数量")
     private Long warehousingNumber;
 
-    /** 多到货数量 */
+    /**
+     * 多到货数量
+     */
     @Excel(name = "多到货数量")
     private Long moreNumber;
 
-    /** 到货短少数量 */
+    /**
+     * 到货短少数量
+     */
     @Excel(name = "到货短少数量")
     private Long shortageNumber;
 
-    /** 未税单价 */
+    /**
+     * 未税单价
+     */
     @Excel(name = "未税单价")
     private BigDecimal unitPrice;
 
-    /** 含税单价 */
+    /**
+     * 含税单价
+     */
     @Excel(name = "含税单价")
     private BigDecimal taxUnitPrice;
 
-    /** 税率 */
+    /**
+     * 税率
+     */
     @Excel(name = "税率")
     private BigDecimal rate;
 
-    /** 合计税额 */
+    /**
+     * 合计税额
+     */
     @Excel(name = "合计税额")
     private BigDecimal tax;
 
-    /** 未税金额 */
+    /**
+     * 未税金额
+     */
     @Excel(name = "未税金额")
     private BigDecimal untaxedAmount;
 
-    /** 折让金额 */
+    /**
+     * 折让金额
+     */
     @Excel(name = "折让金额")
     private BigDecimal discountPrice;
 
-    /** 含税金额 */
+    /**
+     * 含税金额
+     */
     @Excel(name = "含税金额")
     private BigDecimal amount;
 
-    /** 删除标志（0代表存在 2代表删除） */
+    /**
+     * 删除标志（0代表存在 2代表删除）
+     */
     private String delFlag;
 
-    /** 部门ID */
+    /**
+     * 部门ID
+     */
     @Excel(name = "部门ID")
     private Long deptId;
 
-    public void setId(Long id)
-    {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId()
-    {
-        return id;
+    public Long getWarehousingOrderId() {
+        return warehousingOrderId;
     }
-    public void setWarehousingOrderId(Long warehousingOrderId)
-    {
+
+    public void setWarehousingOrderId(Long warehousingOrderId) {
         this.warehousingOrderId = warehousingOrderId;
     }
 
-    public Long getWarehousingOrderId()
-    {
-        return warehousingOrderId;
+    public Long getShopGoodsId() {
+        return shopGoodsId;
     }
-    public void setShopGoodsId(Long shopGoodsId)
-    {
+
+    public void setShopGoodsId(Long shopGoodsId) {
         this.shopGoodsId = shopGoodsId;
     }
 
-    public Long getShopGoodsId()
-    {
-        return shopGoodsId;
+    public String getShopGoodsCode() {
+        return shopGoodsCode;
     }
-    public void setShopGoodsCode(String shopGoodsCode)
-    {
+
+    public void setShopGoodsCode(String shopGoodsCode) {
         this.shopGoodsCode = shopGoodsCode;
     }
 
-    public String getShopGoodsCode()
-    {
-        return shopGoodsCode;
+    public String getShopGoodsName() {
+        return shopGoodsName;
     }
-    public void setShopGoodsName(String shopGoodsName)
-    {
+
+    public void setShopGoodsName(String shopGoodsName) {
         this.shopGoodsName = shopGoodsName;
     }
 
-    public String getShopGoodsName()
-    {
-        return shopGoodsName;
+    public String getGoodsUnit() {
+        return goodsUnit;
     }
-    public void setGoodsUnit(String goodsUnit)
-    {
+
+    public void setGoodsUnit(String goodsUnit) {
         this.goodsUnit = goodsUnit;
     }
 
-    public String getGoodsUnit()
-    {
-        return goodsUnit;
+    public String getGoodsUnitDesc() {
+        return goodsUnitDesc;
     }
-    public void setGoodsUnitDesc(String goodsUnitDesc)
-    {
+
+    public void setGoodsUnitDesc(String goodsUnitDesc) {
         this.goodsUnitDesc = goodsUnitDesc;
     }
 
-    public String getGoodsUnitDesc()
-    {
-        return goodsUnitDesc;
+    public Long getPlanNumber() {
+        return planNumber;
     }
-    public void setPlanNumber(Long planNumber)
-    {
+
+    public void setPlanNumber(Long planNumber) {
         this.planNumber = planNumber;
     }
 
-    public Long getPlanNumber()
-    {
-        return planNumber;
+    public Long getWarehousingNumber() {
+        return warehousingNumber;
     }
-    public void setWarehousingNumber(Long warehousingNumber)
-    {
+
+    public void setWarehousingNumber(Long warehousingNumber) {
         this.warehousingNumber = warehousingNumber;
     }
 
-    public Long getWarehousingNumber()
-    {
-        return warehousingNumber;
+    public Long getMoreNumber() {
+        return moreNumber;
     }
-    public void setMoreNumber(Long moreNumber)
-    {
+
+    public void setMoreNumber(Long moreNumber) {
         this.moreNumber = moreNumber;
     }
 
-    public Long getMoreNumber()
-    {
-        return moreNumber;
+    public Long getShortageNumber() {
+        return shortageNumber;
     }
-    public void setShortageNumber(Long shortageNumber)
-    {
+
+    public void setShortageNumber(Long shortageNumber) {
         this.shortageNumber = shortageNumber;
     }
 
-    public Long getShortageNumber()
-    {
-        return shortageNumber;
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
     }
-    public void setUnitPrice(BigDecimal unitPrice)
-    {
+
+    public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
     }
 
-    public BigDecimal getUnitPrice()
-    {
-        return unitPrice;
+    public BigDecimal getTaxUnitPrice() {
+        return taxUnitPrice;
     }
-    public void setTaxUnitPrice(BigDecimal taxUnitPrice)
-    {
+
+    public void setTaxUnitPrice(BigDecimal taxUnitPrice) {
         this.taxUnitPrice = taxUnitPrice;
     }
 
-    public BigDecimal getTaxUnitPrice()
-    {
-        return taxUnitPrice;
+    public BigDecimal getRate() {
+        return rate;
     }
-    public void setRate(BigDecimal rate)
-    {
+
+    public void setRate(BigDecimal rate) {
         this.rate = rate;
     }
 
-    public BigDecimal getRate()
-    {
-        return rate;
+    public BigDecimal getTax() {
+        return tax;
     }
-    public void setTax(BigDecimal tax)
-    {
+
+    public void setTax(BigDecimal tax) {
         this.tax = tax;
     }
 
-    public BigDecimal getTax()
-    {
-        return tax;
+    public BigDecimal getUntaxedAmount() {
+        return untaxedAmount;
     }
-    public void setUntaxedAmount(BigDecimal untaxedAmount)
-    {
+
+    public void setUntaxedAmount(BigDecimal untaxedAmount) {
         this.untaxedAmount = untaxedAmount;
     }
 
-    public BigDecimal getUntaxedAmount()
-    {
-        return untaxedAmount;
+    public BigDecimal getDiscountPrice() {
+        return discountPrice;
     }
-    public void setDiscountPrice(BigDecimal discountPrice)
-    {
+
+    public void setDiscountPrice(BigDecimal discountPrice) {
         this.discountPrice = discountPrice;
     }
 
-    public BigDecimal getDiscountPrice()
-    {
-        return discountPrice;
+    public BigDecimal getAmount() {
+        return amount;
     }
-    public void setAmount(BigDecimal amount)
-    {
+
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
-    public BigDecimal getAmount()
-    {
-        return amount;
+    public String getDelFlag() {
+        return delFlag;
     }
-    public void setDelFlag(String delFlag)
-    {
+
+    public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
     }
 
-    public String getDelFlag()
-    {
-        return delFlag;
-    }
-    public void setDeptId(Long deptId)
-    {
-        this.deptId = deptId;
+    public Long getDeptId() {
+        return deptId;
     }
 
-    public Long getDeptId()
-    {
-        return deptId;
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())
                 .append("warehousingOrderId", getWarehousingOrderId())
                 .append("shopGoodsId", getShopGoodsId())

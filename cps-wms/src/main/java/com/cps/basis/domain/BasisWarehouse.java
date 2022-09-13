@@ -7,68 +7,70 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * 单位关联对象 wms_basis_warehouse
- * 
+ *
  * @author miki
  * @date 2021-06-11
  */
-public class BasisWarehouse extends BaseEntity
-{
+public class BasisWarehouse extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** ID */
+    /**
+     * ID
+     */
     private Long id;
 
-    /** 类型(1.客户2.供应商3.承运商) */
+    /**
+     * 类型(1.客户2.供应商3.承运商)
+     */
     @Excel(name = "类型(1.客户2.供应商3.承运商)")
     private String warehouseType;
 
-    /** 删除标志（0代表存在 2代表删除） */
+    /**
+     * 删除标志（0代表存在 2代表删除）
+     */
     private String delFlag;
 
-    /** 部门ID */
+    /**
+     * 部门ID
+     */
     @Excel(name = "部门ID")
     private Long deptId;
 
-    public void setId(Long id)
-    {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId()
-    {
-        return id;
+    public String getWarehouseType() {
+        return warehouseType;
     }
-    public void setWarehouseType(String warehouseType)
-    {
+
+    public void setWarehouseType(String warehouseType) {
         this.warehouseType = warehouseType;
     }
 
-    public String getWarehouseType()
-    {
-        return warehouseType;
+    public String getDelFlag() {
+        return delFlag;
     }
-    public void setDelFlag(String delFlag)
-    {
+
+    public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
     }
 
-    public String getDelFlag()
-    {
-        return delFlag;
-    }
-    public void setDeptId(Long deptId)
-    {
-        this.deptId = deptId;
+    public Long getDeptId() {
+        return deptId;
     }
 
-    public Long getDeptId()
-    {
-        return deptId;
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())
                 .append("warehouseType", getWarehouseType())
                 .append("delFlag", getDelFlag())

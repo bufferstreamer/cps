@@ -1,50 +1,46 @@
 package com.cps.audit.controller;
 
-import java.util.List;
-
 import com.cps.audit.domain.AuditDocuments;
+import com.cps.audit.domain.BusinessCreditEvaluationInfo;
 import com.cps.audit.service.IAuditDocumentsService;
+import com.cps.audit.service.IBusinessCreditEvaluationInfoService;
+import com.cps.common.annotation.Log;
+import com.cps.common.core.controller.BaseController;
+import com.cps.common.core.domain.AjaxResult;
+import com.cps.common.core.page.TableDataInfo;
+import com.cps.common.enums.BusinessType;
 import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.ShiroUtils;
+import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.utils.uuid.CpsIdUtils;
 import com.cps.common.utils.uuid.IdUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import com.cps.common.annotation.Log;
-import com.cps.common.enums.BusinessType;
-import com.cps.audit.domain.BusinessCreditEvaluationInfo;
-import com.cps.audit.service.IBusinessCreditEvaluationInfoService;
-import com.cps.common.core.controller.BaseController;
-import com.cps.common.core.domain.AjaxResult;
-import com.cps.common.utils.poi.ExcelUtil;
-import com.cps.common.core.page.TableDataInfo;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 小商超信用评价审核管理Controller
- * 
+ *
  * @author cps
  * @date 2022-08-16
  */
 @Controller
 @RequestMapping("/audit/businessCreditEvaluationManage")
-public class BusinessCreditEvaluationInfoController extends BaseController
-{
+public class BusinessCreditEvaluationInfoController extends BaseController {
     private String prefix = "audit/businessCreditEvaluationManage";
 
     @Autowired
     private IBusinessCreditEvaluationInfoService businessCreditEvaluationInfoService;
+    @Autowired
+    private IAuditDocumentsService auditDocumentsService;
 
     @RequiresPermissions("audit:businessCreditEvaluationManage:view")
     @GetMapping()
-    public String businessCreditEvaluationManage()
-    {
+    public String businessCreditEvaluationManage() {
         return prefix + "/businessCreditEvaluationManage";
     }
 
@@ -54,8 +50,7 @@ public class BusinessCreditEvaluationInfoController extends BaseController
     @RequiresPermissions("audit:businessCreditEvaluationManage:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(BusinessCreditEvaluationInfo businessCreditEvaluationInfo)
-    {
+    public TableDataInfo list(BusinessCreditEvaluationInfo businessCreditEvaluationInfo) {
         startPage();
         List<BusinessCreditEvaluationInfo> list = businessCreditEvaluationInfoService.selectBusinessCreditEvaluationInfoList(businessCreditEvaluationInfo);
         return getDataTable(list);
@@ -68,8 +63,7 @@ public class BusinessCreditEvaluationInfoController extends BaseController
     @Log(title = "小商超信用评价审核管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(BusinessCreditEvaluationInfo businessCreditEvaluationInfo)
-    {
+    public AjaxResult export(BusinessCreditEvaluationInfo businessCreditEvaluationInfo) {
         List<BusinessCreditEvaluationInfo> list = businessCreditEvaluationInfoService.selectBusinessCreditEvaluationInfoList(businessCreditEvaluationInfo);
         ExcelUtil<BusinessCreditEvaluationInfo> util = new ExcelUtil<BusinessCreditEvaluationInfo>(BusinessCreditEvaluationInfo.class);
         return util.exportExcel(list, "小商超信用评价审核管理数据");
@@ -79,8 +73,7 @@ public class BusinessCreditEvaluationInfoController extends BaseController
      * 新增小商超信用评价审核管理
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -91,8 +84,7 @@ public class BusinessCreditEvaluationInfoController extends BaseController
     @Log(title = "小商超信用评价审核管理", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(BusinessCreditEvaluationInfo businessCreditEvaluationInfo)
-    {
+    public AjaxResult addSave(BusinessCreditEvaluationInfo businessCreditEvaluationInfo) {
         businessCreditEvaluationInfo.setBusinessCreditEvaluationAuditId(IdUtils.simpleUUID());
         businessCreditEvaluationInfo.setChecklistId(CpsIdUtils.createChecklistId('2'));//此处应该利用用户id从数据库查找
         businessCreditEvaluationInfo.setCreateDatetime(DateUtils.parseDate(DateUtils.getTime()));
@@ -104,8 +96,7 @@ public class BusinessCreditEvaluationInfoController extends BaseController
      */
     @RequiresPermissions("audit:businessCreditEvaluationManage:edit")
     @GetMapping("/edit/{businessCreditEvaluationAuditId}")
-    public String edit(@PathVariable("businessCreditEvaluationAuditId") String businessCreditEvaluationAuditId, ModelMap mmap)
-    {
+    public String edit(@PathVariable("businessCreditEvaluationAuditId") String businessCreditEvaluationAuditId, ModelMap mmap) {
         BusinessCreditEvaluationInfo businessCreditEvaluationInfo = businessCreditEvaluationInfoService.selectBusinessCreditEvaluationInfoByBusinessCreditEvaluationAuditId(businessCreditEvaluationAuditId);
         mmap.put("businessCreditEvaluationInfo", businessCreditEvaluationInfo);
         return prefix + "/edit";
@@ -118,8 +109,7 @@ public class BusinessCreditEvaluationInfoController extends BaseController
     @Log(title = "小商超信用评价审核管理", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(BusinessCreditEvaluationInfo businessCreditEvaluationInfo)
-    {
+    public AjaxResult editSave(BusinessCreditEvaluationInfo businessCreditEvaluationInfo) {
         return toAjax(businessCreditEvaluationInfoService.updateBusinessCreditEvaluationInfo(businessCreditEvaluationInfo));
     }
 
@@ -128,37 +118,33 @@ public class BusinessCreditEvaluationInfoController extends BaseController
      */
     @RequiresPermissions("audit:businessCreditEvaluationManage:remove")
     @Log(title = "小商超信用评价审核管理", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(businessCreditEvaluationInfoService.deleteBusinessCreditEvaluationInfoByBusinessCreditEvaluationAuditIds(ids));
     }
 
-    @Autowired
-    private IAuditDocumentsService auditDocumentsService;
-
     @GetMapping("/detail")
-    public String detail(ModelMap map){
+    public String detail(ModelMap map) {
         List<AuditDocuments> tempList = auditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
 
-        AuditDocuments documentsResult=null;
-        BusinessCreditEvaluationInfo infoResult=null;
+        AuditDocuments documentsResult = null;
+        BusinessCreditEvaluationInfo infoResult = null;
 
-        for (AuditDocuments temp:tempList
+        for (AuditDocuments temp : tempList
         ) {
-            String id=temp.getChecklistId();
-            BusinessCreditEvaluationInfo info=businessCreditEvaluationInfoService.selectBusinessCreditEvaluationInfoChecklistId(id);
-            if (info!=null){
-                documentsResult=temp;
-                infoResult=info;
+            String id = temp.getChecklistId();
+            BusinessCreditEvaluationInfo info = businessCreditEvaluationInfoService.selectBusinessCreditEvaluationInfoChecklistId(id);
+            if (info != null) {
+                documentsResult = temp;
+                infoResult = info;
             }
         }
 
-        map.put("info",infoResult);
-        map.put("auditStatus",documentsResult.getAuditStatus());
-        map.put("auditResult",documentsResult.getAuditResult());
+        map.put("info", infoResult);
+        map.put("auditStatus", documentsResult.getAuditStatus());
+        map.put("auditResult", documentsResult.getAuditResult());
 
-        return prefix+"/detail";
+        return prefix + "/detail";
     }
 }

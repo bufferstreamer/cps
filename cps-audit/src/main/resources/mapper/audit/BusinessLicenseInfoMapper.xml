@@ -1,66 +1,97 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cps.audit.mapper.BusinessLicenseInfoMapper">
-    
+
     <resultMap type="BusinessLicenseInfo" id="BusinessLicenseInfoResult">
-        <result property="businessAuditDocumentId"    column="business_audit_document_id"    />
-        <result property="businessLicense"    column="business_license"    />
-        <result property="businessLicenseNumber"    column="business_license_number"    />
-        <result property="managerName"    column="manager_name"    />
-        <result property="businessName"    column="business_name"    />
-        <result property="businessPlace"    column="business_place"    />
-        <result property="businessForm"    column="business_form"    />
-        <result property="registerDate"    column="register_date"    />
-        <result property="businessScope"    column="business_scope"    />
-        <result property="businessCertificate"    column="business_certificate"    />
-        <result property="username"    column="username"    />
-        <result property="password"    column="password"    />
-        <result property="contactPerson"    column="contact_person"    />
-        <result property="contactCardType"    column="contact_card_type"    />
-        <result property="idNumber"    column="id_number"    />
-        <result property="frontPhoto"    column="front_photo"    />
-        <result property="backPhoto"    column="back_photo"    />
-        <result property="contactPhone"    column="contact_phone"    />
-        <result property="contactEmail"    column="contact_email"    />
-        <result property="createDatetime"    column="create_datetime"    />
+        <result property="businessAuditDocumentId" column="business_audit_document_id"/>
+        <result property="businessLicense" column="business_license"/>
+        <result property="businessLicenseNumber" column="business_license_number"/>
+        <result property="managerName" column="manager_name"/>
+        <result property="businessName" column="business_name"/>
+        <result property="businessPlace" column="business_place"/>
+        <result property="businessForm" column="business_form"/>
+        <result property="registerDate" column="register_date"/>
+        <result property="businessScope" column="business_scope"/>
+        <result property="businessCertificate" column="business_certificate"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="contactPerson" column="contact_person"/>
+        <result property="contactCardType" column="contact_card_type"/>
+        <result property="idNumber" column="id_number"/>
+        <result property="frontPhoto" column="front_photo"/>
+        <result property="backPhoto" column="back_photo"/>
+        <result property="contactPhone" column="contact_phone"/>
+        <result property="contactEmail" column="contact_email"/>
+        <result property="createDatetime" column="create_datetime"/>
     </resultMap>
 
     <sql id="selectBusinessLicenseInfoVo">
-        select business_audit_document_id, business_license, business_license_number, manager_name, business_name, business_place, business_form, register_date, business_scope, business_certificate, username, password, contact_person, contact_card_type, id_number, front_photo, back_photo, contact_phone, contact_email, create_datetime from audit_business_license_info
+        select business_audit_document_id,
+               business_license,
+               business_license_number,
+               manager_name,
+               business_name,
+               business_place,
+               business_form,
+               register_date,
+               business_scope,
+               business_certificate,
+               username,
+               password,
+               contact_person,
+               contact_card_type,
+               id_number,
+               front_photo,
+               back_photo,
+               contact_phone,
+               contact_email,
+               create_datetime
+        from audit_business_license_info
     </sql>
 
-    <select id="selectBusinessLicenseInfoList" parameterType="BusinessLicenseInfo" resultMap="BusinessLicenseInfoResult">
+    <select id="selectBusinessLicenseInfoList" parameterType="BusinessLicenseInfo"
+            resultMap="BusinessLicenseInfoResult">
         <include refid="selectBusinessLicenseInfoVo"/>
-        <where>  
-            <if test="businessLicense != null  and businessLicense != ''"> and business_license = #{businessLicense}</if>
-            <if test="businessLicenseNumber != null  and businessLicenseNumber != ''"> and business_license_number = #{businessLicenseNumber}</if>
-            <if test="managerName != null  and managerName != ''"> and manager_name like concat('%', #{managerName}, '%')</if>
-            <if test="businessName != null  and businessName != ''"> and business_name like concat('%', #{businessName}, '%')</if>
-            <if test="businessPlace != null  and businessPlace != ''"> and business_place = #{businessPlace}</if>
-            <if test="businessForm != null  and businessForm != ''"> and business_form = #{businessForm}</if>
-            <if test="registerDate != null "> and register_date = #{registerDate}</if>
-            <if test="businessScope != null  and businessScope != ''"> and business_scope = #{businessScope}</if>
-            <if test="businessCertificate != null  and businessCertificate != ''"> and business_certificate = #{businessCertificate}</if>
-            <if test="username != null  and username != ''"> and username like concat('%', #{username}, '%')</if>
-            <if test="password != null  and password != ''"> and password = #{password}</if>
-            <if test="contactPerson != null  and contactPerson != ''"> and contact_person = #{contactPerson}</if>
-            <if test="contactCardType != null  and contactCardType != ''"> and contact_card_type = #{contactCardType}</if>
-            <if test="idNumber != null  and idNumber != ''"> and id_number = #{idNumber}</if>
-            <if test="frontPhoto != null  and frontPhoto != ''"> and front_photo = #{frontPhoto}</if>
-            <if test="backPhoto != null  and backPhoto != ''"> and back_photo = #{backPhoto}</if>
-            <if test="contactPhone != null  and contactPhone != ''"> and contact_phone = #{contactPhone}</if>
-            <if test="contactEmail != null  and contactEmail != ''"> and contact_email = #{contactEmail}</if>
-            <if test="createDatetime != null "> and create_datetime = #{createDatetime}</if>
+        <where>
+            <if test="businessLicense != null  and businessLicense != ''">and business_license = #{businessLicense}</if>
+            <if test="businessLicenseNumber != null  and businessLicenseNumber != ''">and business_license_number =
+                #{businessLicenseNumber}
+            </if>
+            <if test="managerName != null  and managerName != ''">and manager_name like concat('%', #{managerName},
+                '%')
+            </if>
+            <if test="businessName != null  and businessName != ''">and business_name like concat('%', #{businessName},
+                '%')
+            </if>
+            <if test="businessPlace != null  and businessPlace != ''">and business_place = #{businessPlace}</if>
+            <if test="businessForm != null  and businessForm != ''">and business_form = #{businessForm}</if>
+            <if test="registerDate != null ">and register_date = #{registerDate}</if>
+            <if test="businessScope != null  and businessScope != ''">and business_scope = #{businessScope}</if>
+            <if test="businessCertificate != null  and businessCertificate != ''">and business_certificate =
+                #{businessCertificate}
+            </if>
+            <if test="username != null  and username != ''">and username like concat('%', #{username}, '%')</if>
+            <if test="password != null  and password != ''">and password = #{password}</if>
+            <if test="contactPerson != null  and contactPerson != ''">and contact_person = #{contactPerson}</if>
+            <if test="contactCardType != null  and contactCardType != ''">and contact_card_type = #{contactCardType}
+            </if>
+            <if test="idNumber != null  and idNumber != ''">and id_number = #{idNumber}</if>
+            <if test="frontPhoto != null  and frontPhoto != ''">and front_photo = #{frontPhoto}</if>
+            <if test="backPhoto != null  and backPhoto != ''">and back_photo = #{backPhoto}</if>
+            <if test="contactPhone != null  and contactPhone != ''">and contact_phone = #{contactPhone}</if>
+            <if test="contactEmail != null  and contactEmail != ''">and contact_email = #{contactEmail}</if>
+            <if test="createDatetime != null ">and create_datetime = #{createDatetime}</if>
         </where>
     </select>
-    
-    <select id="selectBusinessLicenseInfoByBusinessAuditDocumentId" parameterType="String" resultMap="BusinessLicenseInfoResult">
+
+    <select id="selectBusinessLicenseInfoByBusinessAuditDocumentId" parameterType="String"
+            resultMap="BusinessLicenseInfoResult">
         <include refid="selectBusinessLicenseInfoVo"/>
         where business_audit_document_id = #{businessAuditDocumentId}
     </select>
-        
+
     <insert id="insertBusinessLicenseInfo" parameterType="BusinessLicenseInfo">
         insert into audit_business_license_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -84,7 +115,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="contactPhone != null">contact_phone,</if>
             <if test="contactEmail != null">contact_email,</if>
             <if test="createDatetime != null">create_datetime,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="businessAuditDocumentId != null">#{businessAuditDocumentId},</if>
             <if test="businessLicense != null">#{businessLicense},</if>
@@ -106,14 +137,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="contactPhone != null">#{contactPhone},</if>
             <if test="contactEmail != null">#{contactEmail},</if>
             <if test="createDatetime != null">#{createDatetime},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateBusinessLicenseInfo" parameterType="BusinessLicenseInfo">
         update audit_business_license_info
         <trim prefix="SET" suffixOverrides=",">
             <if test="businessLicense != null">business_license = #{businessLicense},</if>
-            <if test="businessLicenseNumber != null and businessLicenseNumber != ''">business_license_number = #{businessLicenseNumber},</if>
+            <if test="businessLicenseNumber != null and businessLicenseNumber != ''">business_license_number =
+                #{businessLicenseNumber},
+            </if>
             <if test="managerName != null">manager_name = #{managerName},</if>
             <if test="businessName != null">business_name = #{businessName},</if>
             <if test="businessPlace != null">business_place = #{businessPlace},</if>
@@ -136,11 +169,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteBusinessLicenseInfoByBusinessAuditDocumentId" parameterType="String">
-        delete from audit_business_license_info where business_audit_document_id = #{businessAuditDocumentId}
+        delete
+        from audit_business_license_info
+        where business_audit_document_id = #{businessAuditDocumentId}
     </delete>
 
     <delete id="deleteBusinessLicenseInfoByBusinessAuditDocumentIds" parameterType="String">
-        delete from audit_business_license_info where business_audit_document_id in 
+        delete from audit_business_license_info where business_audit_document_id in
         <foreach item="businessAuditDocumentId" collection="array" open="(" separator="," close=")">
             #{businessAuditDocumentId}
         </foreach>

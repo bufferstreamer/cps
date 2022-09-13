@@ -6,15 +6,14 @@ import java.util.List;
 
 /**
  * 商品出库单主表Mapper接口
- * 
+ *
  * @author miki
  * @date 2021-06-07
  */
-public interface WhOutboundOrderMapper 
-{
+public interface WhOutboundOrderMapper {
     /**
      * 查询商品出库单主表
-     * 
+     *
      * @param id 商品出库单主表ID
      * @return 商品出库单主表
      */
@@ -22,7 +21,7 @@ public interface WhOutboundOrderMapper
 
     /**
      * 查询商品出库单主表列表
-     * 
+     *
      * @param whOutboundOrder 商品出库单主表
      * @return 商品出库单主表集合
      */
@@ -30,7 +29,7 @@ public interface WhOutboundOrderMapper
 
     /**
      * 新增商品出库单主表
-     * 
+     *
      * @param whOutboundOrder 商品出库单主表
      * @return 结果
      */
@@ -38,7 +37,7 @@ public interface WhOutboundOrderMapper
 
     /**
      * 修改商品出库单主表
-     * 
+     *
      * @param whOutboundOrder 商品出库单主表
      * @return 结果
      */
@@ -46,7 +45,7 @@ public interface WhOutboundOrderMapper
 
     /**
      * 删除商品出库单主表
-     * 
+     *
      * @param id 商品出库单主表ID
      * @return 结果
      */
@@ -54,7 +53,7 @@ public interface WhOutboundOrderMapper
 
     /**
      * 批量删除商品出库单主表
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */

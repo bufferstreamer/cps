@@ -6,15 +6,14 @@ import java.util.List;
 
 /**
  * 客户资料Service接口
- * 
+ *
  * @author miki
  * @date 2021-05-19
  */
-public interface IBasisCustomerService 
-{
+public interface IBasisCustomerService {
     /**
      * 查询客户资料
-     * 
+     *
      * @param id 客户资料ID
      * @return 客户资料
      */
@@ -22,7 +21,7 @@ public interface IBasisCustomerService
 
     /**
      * 查询客户资料列表
-     * 
+     *
      * @param basisCustomer 客户资料
      * @return 客户资料集合
      */
@@ -30,7 +29,7 @@ public interface IBasisCustomerService
 
     /**
      * 新增客户资料
-     * 
+     *
      * @param basisCustomer 客户资料
      * @return 结果
      */
@@ -38,7 +37,7 @@ public interface IBasisCustomerService
 
     /**
      * 修改客户资料
-     * 
+     *
      * @param basisCustomer 客户资料
      * @return 结果
      */
@@ -46,7 +45,7 @@ public interface IBasisCustomerService
 
     /**
      * 批量删除客户资料
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
@@ -54,7 +53,7 @@ public interface IBasisCustomerService
 
     /**
      * 删除客户资料信息
-     * 
+     *
      * @param id 客户资料ID
      * @return 结果
      */

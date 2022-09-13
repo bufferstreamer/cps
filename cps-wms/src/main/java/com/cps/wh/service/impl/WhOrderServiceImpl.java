@@ -55,9 +55,9 @@ public class WhOrderServiceImpl implements IWhOrderService {
     @Transactional
     public int edit(OrderModel orderModel) {
         int result = 0;
-        if(OrderConstants.IF.equals(orderModel.getSheetType())){//退货单
+        if (OrderConstants.IF.equals(orderModel.getSheetType())) {//退货单
             result = editIF(orderModel);
-        }else if(OrderConstants.IB.equals(orderModel.getSheetType())){//销退单
+        } else if (OrderConstants.IB.equals(orderModel.getSheetType())) {//销退单
             result = editIB(orderModel);
         }
         return result;
@@ -65,16 +65,17 @@ public class WhOrderServiceImpl implements IWhOrderService {
 
     /**
      * 退货
+     *
      * @param orderModel
      * @return
      */
-    public int editIF(OrderModel orderModel){
+    public int editIF(OrderModel orderModel) {
         int result = 0;
         //查询此单据是否已开过退货单，旧单据判断退货单商品数量是否大于原单据数量和是否还有库存可退货
         WhOutboundOrder whOutboundOrder = new WhOutboundOrder();
         whOutboundOrder.setWarehousingOrderId(orderModel.getOrderId());/** 关联入库单主键 */
         List<WhOutboundOrder> whOutboundOrderList = whOutboundOrderService.selectWhOutboundOrderList(whOutboundOrder);
-        if(StringUtils.isNotEmpty(whOutboundOrderList)){
+        if (StringUtils.isNotEmpty(whOutboundOrderList)) {
             throw new BusinessException("此单据已开过退货单，不可重复开单");
         }
 
@@ -84,26 +85,26 @@ public class WhOrderServiceImpl implements IWhOrderService {
         List<WhWarehousingOrderSeed> whWarehousingOrderSeedList = whWarehousingOrderSeedService.selectWhWarehousingOrderSeedList(whWarehousingOrderSeed);
         BigDecimal sumAmount = BigDecimal.ZERO;
         for (OrderSeedModel orderSeedModel : orderModel.getOrderSeedModelList()) {
-            for (WhWarehousingOrderSeed warehousingOrderSeed: whWarehousingOrderSeedList) {
-                if(orderSeedModel.getId().equals(warehousingOrderSeed.getId())){
-                    if(orderSeedModel.getPlanNumber() > warehousingOrderSeed.getWarehousingNumber()){
-                        throw new BusinessException(warehousingOrderSeed.getShopGoodsName()+":退货数量不能大于此入库数量");
+            for (WhWarehousingOrderSeed warehousingOrderSeed : whWarehousingOrderSeedList) {
+                if (orderSeedModel.getId().equals(warehousingOrderSeed.getId())) {
+                    if (orderSeedModel.getPlanNumber() > warehousingOrderSeed.getWarehousingNumber()) {
+                        throw new BusinessException(warehousingOrderSeed.getShopGoodsName() + ":退货数量不能大于此入库数量");
                     }
                     ShopGoodsSeed shopGoodsSeed = shopGoodsSeedService.selectShopGoodsSeedBygoodsId(orderSeedModel.getShopGoodsId());
-                    Long kyNumber = shopGoodsSeed.getStockNumber()-shopGoodsSeed.getBeenPickingNumber();//库存可用量=库存数量-已拣货数量
-                    if(kyNumber.intValue() < orderSeedModel.getPlanNumber().intValue()){
-                        throw new BusinessException(warehousingOrderSeed.getShopGoodsName()+":退货数量不足,无法开单");
+                    Long kyNumber = shopGoodsSeed.getStockNumber() - shopGoodsSeed.getBeenPickingNumber();//库存可用量=库存数量-已拣货数量
+                    if (kyNumber.intValue() < orderSeedModel.getPlanNumber().intValue()) {
+                        throw new BusinessException(warehousingOrderSeed.getShopGoodsName() + ":退货数量不足,无法开单");
                     }
-                    shopGoodsSeed.setForPickingNumber(shopGoodsSeed.getForPickingNumber()+orderSeedModel.getPlanNumber());//待拣货数量=原待拣货数量+新订单计划数量
+                    shopGoodsSeed.setForPickingNumber(shopGoodsSeed.getForPickingNumber() + orderSeedModel.getPlanNumber());//待拣货数量=原待拣货数量+新订单计划数量
                     result = shopGoodsSeedService.updateShopGoodsSeed(shopGoodsSeed);
 
                     WhOutboundOrderSeed whOutboundOrderSeed = new WhOutboundOrderSeed();
-                    BeanUtils.copyProperties(warehousingOrderSeed,whOutboundOrderSeed);
+                    BeanUtils.copyProperties(warehousingOrderSeed, whOutboundOrderSeed);
                     whOutboundOrderSeed.setPlanNumber(orderSeedModel.getPlanNumber());/** 计划数量 */
                     whOutboundOrderSeed.setActualNumber(orderSeedModel.getPlanNumber());/** 实际数量 */
-                    whOutboundOrderSeed.setAmount(ArithUtils.safeSubtracts(ArithUtils.safeMultiplys(new BigDecimal(whOutboundOrderSeed.getPlanNumber().toString()),whOutboundOrderSeed.getTaxUnitPrice()),whOutboundOrderSeed.getDiscountPrice()));/** 含税金额=(数量*含税单价)-折让 */
-                    whOutboundOrderSeed.setTax(ArithUtils.safeMultiplys(whOutboundOrderSeed.getAmount(),whOutboundOrderSeed.getRate())); /** 合计税额 */
-                    whOutboundOrderSeed.setUntaxedAmount(ArithUtils.safeSubtracts(whOutboundOrderSeed.getAmount(),whOutboundOrderSeed.getTax())); /** 未税金额 */
+                    whOutboundOrderSeed.setAmount(ArithUtils.safeSubtracts(ArithUtils.safeMultiplys(new BigDecimal(whOutboundOrderSeed.getPlanNumber().toString()), whOutboundOrderSeed.getTaxUnitPrice()), whOutboundOrderSeed.getDiscountPrice()));/** 含税金额=(数量*含税单价)-折让 */
+                    whOutboundOrderSeed.setTax(ArithUtils.safeMultiplys(whOutboundOrderSeed.getAmount(), whOutboundOrderSeed.getRate())); /** 合计税额 */
+                    whOutboundOrderSeed.setUntaxedAmount(ArithUtils.safeSubtracts(whOutboundOrderSeed.getAmount(), whOutboundOrderSeed.getTax())); /** 未税金额 */
                     whOutboundOrderSeed.setCreateBy(orderModel.getCreateBy());
                     whOutboundOrderSeedList.add(whOutboundOrderSeed);
                     sumAmount = ArithUtils.safeAdds(whOutboundOrderSeed.getAmount());
@@ -122,10 +123,10 @@ public class WhOrderServiceImpl implements IWhOrderService {
         whOutboundOrder.setDiscountRate(warehousingOrder.getDiscountRate());/** 折扣率 */
         //whOutboundOrder.setDiscountPrice(warehousingOrder.getDiscountPrice());/** 折让金额 退货时不计算在内*/
         //whOutboundOrder.setOtherFee(warehousingOrder.getOtherFee());/** 其他费用 退货时不计算在内*/
-        whOutboundOrder.setDiscountAmount(ArithUtils.safeSubtracts(sumAmount,ArithUtils.safeMultiplys(sumAmount,warehousingOrder.getDiscountRate())));/** 折扣金额=商品总金额-(商品总金额*折扣率) */
-        whOutboundOrder.setTotalAmount(ArithUtils.safeSubtracts(sumAmount,whOutboundOrder.getDiscountAmount()));  /** 含税金额= 商品总金额-折扣金额（不折让金额和其他费用不计算在内，财务结算时统一调整）*/
-        whOutboundOrder.setTax(ArithUtils.safeMultiplys(whOutboundOrder.getTotalAmount(),whOutboundOrder.getRate()));/** 税额=含税金额*税率 */
-        whOutboundOrder.setUntaxedAmount(ArithUtils.safeSubtracts(whOutboundOrder.getTotalAmount(),whOutboundOrder.getTax())); /** 未税金额= 含税金额-税额=*/
+        whOutboundOrder.setDiscountAmount(ArithUtils.safeSubtracts(sumAmount, ArithUtils.safeMultiplys(sumAmount, warehousingOrder.getDiscountRate())));/** 折扣金额=商品总金额-(商品总金额*折扣率) */
+        whOutboundOrder.setTotalAmount(ArithUtils.safeSubtracts(sumAmount, whOutboundOrder.getDiscountAmount()));  /** 含税金额= 商品总金额-折扣金额（不折让金额和其他费用不计算在内，财务结算时统一调整）*/
+        whOutboundOrder.setTax(ArithUtils.safeMultiplys(whOutboundOrder.getTotalAmount(), whOutboundOrder.getRate()));/** 税额=含税金额*税率 */
+        whOutboundOrder.setUntaxedAmount(ArithUtils.safeSubtracts(whOutboundOrder.getTotalAmount(), whOutboundOrder.getTax())); /** 未税金额= 含税金额-税额=*/
         whOutboundOrder.setStatus(OutboundOrderStatus.FORPICKING.getCode());
         whOutboundOrder.setCreateBy(orderModel.getCreateBy());
         whOutboundOrder.setDeptId(warehousingOrder.getDeptId());
@@ -138,16 +139,17 @@ public class WhOrderServiceImpl implements IWhOrderService {
 
     /**
      * 销退
+     *
      * @param orderModel
      * @return
      */
-    public int editIB(OrderModel orderModel){
+    public int editIB(OrderModel orderModel) {
         int result = 0;
         //查询此单据是否已开过销退单，旧单据判断销退单商品数量是否大于原单据数量和是否还有库存可销退
         WhWarehousingOrder whWarehousingOrder = new WhWarehousingOrder();
         whWarehousingOrder.setOutboundOrderId(orderModel.getOrderId());/** 关联入库单主键 */
         List<WhWarehousingOrder> whWarehousingOrderList = whWarehousingOrderService.selectWhWarehousingOrderList(whWarehousingOrder);
-        if(StringUtils.isNotEmpty(whWarehousingOrderList)){
+        if (StringUtils.isNotEmpty(whWarehousingOrderList)) {
             throw new BusinessException("此单据已开过销退单，不可重复开单");
         }
         List<WhWarehousingOrderSeed> whWarehousingOrderSeedList = new ArrayList<>();
@@ -156,19 +158,19 @@ public class WhOrderServiceImpl implements IWhOrderService {
         List<WhOutboundOrderSeed> outboundOrderSeedList = whOutboundOrderSeedService.selectWhOutboundOrderSeedList(outboundOrderSeed);
         BigDecimal sumAmount = BigDecimal.ZERO;
         for (OrderSeedModel orderSeedModel : orderModel.getOrderSeedModelList()) {
-            for (WhOutboundOrderSeed whOutboundOrderSeed: outboundOrderSeedList) {
-                if(orderSeedModel.getId().equals(whOutboundOrderSeed.getId())){
-                    if(orderSeedModel.getPlanNumber() > whOutboundOrderSeed.getActualNumber()){
-                        throw new BusinessException(whOutboundOrderSeed.getShopGoodsName()+":销退数量不能大于此出库数量");
+            for (WhOutboundOrderSeed whOutboundOrderSeed : outboundOrderSeedList) {
+                if (orderSeedModel.getId().equals(whOutboundOrderSeed.getId())) {
+                    if (orderSeedModel.getPlanNumber() > whOutboundOrderSeed.getActualNumber()) {
+                        throw new BusinessException(whOutboundOrderSeed.getShopGoodsName() + ":销退数量不能大于此出库数量");
                     }
 
                     WhWarehousingOrderSeed warehousingOrderSeed = new WhWarehousingOrderSeed();
-                    BeanUtils.copyProperties(whOutboundOrderSeed,warehousingOrderSeed);
+                    BeanUtils.copyProperties(whOutboundOrderSeed, warehousingOrderSeed);
                     warehousingOrderSeed.setPlanNumber(orderSeedModel.getPlanNumber());/** 计划数量 */
                     warehousingOrderSeed.setWarehousingNumber(orderSeedModel.getPlanNumber());/** 实际数量 */
-                    warehousingOrderSeed.setAmount(ArithUtils.safeSubtracts(ArithUtils.safeMultiplys(new BigDecimal(warehousingOrderSeed.getPlanNumber().toString()),warehousingOrderSeed.getTaxUnitPrice()),warehousingOrderSeed.getDiscountPrice()));/** 含税金额=(数量*含税单价)-折让 */
-                    warehousingOrderSeed.setTax(ArithUtils.safeMultiplys(warehousingOrderSeed.getAmount(),warehousingOrderSeed.getRate())); /** 合计税额 */
-                    warehousingOrderSeed.setUntaxedAmount(ArithUtils.safeSubtracts(warehousingOrderSeed.getAmount(),warehousingOrderSeed.getTax())); /** 未税金额 */
+                    warehousingOrderSeed.setAmount(ArithUtils.safeSubtracts(ArithUtils.safeMultiplys(new BigDecimal(warehousingOrderSeed.getPlanNumber().toString()), warehousingOrderSeed.getTaxUnitPrice()), warehousingOrderSeed.getDiscountPrice()));/** 含税金额=(数量*含税单价)-折让 */
+                    warehousingOrderSeed.setTax(ArithUtils.safeMultiplys(warehousingOrderSeed.getAmount(), warehousingOrderSeed.getRate())); /** 合计税额 */
+                    warehousingOrderSeed.setUntaxedAmount(ArithUtils.safeSubtracts(warehousingOrderSeed.getAmount(), warehousingOrderSeed.getTax())); /** 未税金额 */
                     warehousingOrderSeed.setCreateBy(orderModel.getCreateBy());
                     whWarehousingOrderSeedList.add(warehousingOrderSeed);
                     sumAmount = ArithUtils.safeAdds(warehousingOrderSeed.getAmount());
@@ -188,10 +190,10 @@ public class WhOrderServiceImpl implements IWhOrderService {
         whWarehousingOrder.setDiscountRate(whOutboundOrder.getDiscountRate());/** 折扣率 */
         //whWarehousingOrder.setDiscountPrice(whOutboundOrder.getDiscountPrice());/** 折让金额 销退时不计算在内*/
         //whWarehousingOrder.setOtherFee(whOutboundOrder.getOtherFee());/** 其他费用 销退时不计算在内*/
-        whWarehousingOrder.setDiscountAmount(ArithUtils.safeMultiplys(sumAmount,whOutboundOrder.getDiscountRate()));/** 折扣金额=商品总金额*折扣率 */
+        whWarehousingOrder.setDiscountAmount(ArithUtils.safeMultiplys(sumAmount, whOutboundOrder.getDiscountRate()));/** 折扣金额=商品总金额*折扣率 */
         whWarehousingOrder.setTotalAmount(whWarehousingOrder.getDiscountAmount());  /** 含税金额= 折扣金额（不折让金额和其他费用不计算在内，财务结算时统一调整）*/
-        whWarehousingOrder.setTax(ArithUtils.safeMultiplys(whWarehousingOrder.getTotalAmount(),whWarehousingOrder.getRate()));/** 税额=含税金额*税率 */
-        whWarehousingOrder.setUntaxedAmount(ArithUtils.safeSubtracts(whWarehousingOrder.getTotalAmount(),whWarehousingOrder.getTax())); /** 未税金额= 含税金额-税额=*/
+        whWarehousingOrder.setTax(ArithUtils.safeMultiplys(whWarehousingOrder.getTotalAmount(), whWarehousingOrder.getRate()));/** 税额=含税金额*税率 */
+        whWarehousingOrder.setUntaxedAmount(ArithUtils.safeSubtracts(whWarehousingOrder.getTotalAmount(), whWarehousingOrder.getTax())); /** 未税金额= 含税金额-税额=*/
         whWarehousingOrder.setStatus(WarehousingOrderStatus.UNLOADED.getCode());
         whWarehousingOrder.setCreateBy(orderModel.getCreateBy());
         whWarehousingOrder.setDeptId(whOutboundOrder.getDeptId());

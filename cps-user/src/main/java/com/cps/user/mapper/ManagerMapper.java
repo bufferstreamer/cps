@@ -1,19 +1,19 @@
 package com.cps.user.mapper;
 
-import java.util.List;
 import com.cps.user.domain.Manager;
+
+import java.util.List;
 
 /**
  * 管理员角色Mapper接口
- * 
+ *
  * @author cps
  * @date 2022-08-18
  */
-public interface ManagerMapper 
-{
+public interface ManagerMapper {
     /**
      * 查询管理员角色
-     * 
+     *
      * @param managerId 管理员角色主键
      * @return 管理员角色
      */
@@ -21,7 +21,7 @@ public interface ManagerMapper
 
     /**
      * 查询管理员角色列表
-     * 
+     *
      * @param manager 管理员角色
      * @return 管理员角色集合
      */
@@ -29,7 +29,7 @@ public interface ManagerMapper
 
     /**
      * 新增管理员角色
-     * 
+     *
      * @param manager 管理员角色
      * @return 结果
      */
@@ -37,7 +37,7 @@ public interface ManagerMapper
 
     /**
      * 修改管理员角色
-     * 
+     *
      * @param manager 管理员角色
      * @return 结果
      */
@@ -45,7 +45,7 @@ public interface ManagerMapper
 
     /**
      * 删除管理员角色
-     * 
+     *
      * @param managerId 管理员角色主键
      * @return 结果
      */
@@ -53,7 +53,7 @@ public interface ManagerMapper
 
     /**
      * 批量删除管理员角色
-     * 
+     *
      * @param managerIds 需要删除的数据主键集合
      * @return 结果
      */

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('选择入库单')" />
+    <th:block th:include="include :: header('选择入库单')"/>
 </head>
 <body class="gray-bg">
 <div class="container-div">
@@ -13,23 +13,25 @@
                     <ul>
                         <li>
                             <label style="width: 85px">入库单编号：</label>
-                            <input type="text" name="orderCode"/>
+                            <input name="orderCode" type="text"/>
                         </li>
                         <li>
                             <label>订单号：</label>
-                            <input type="text" name="orderName"/>
+                            <input name="orderName" type="text"/>
                         </li>
                         <li>
                             <label>订单日期：</label>
-                            <input type="text" class="time-input" placeholder="请选择订单日期" name="orderDate"/>
+                            <input class="time-input" name="orderDate" placeholder="请选择订单日期" type="text"/>
                         </li>
                         <li>
                             <label style="width: 85px">单位名称：</label>
-                            <input type="text" name="desWarehouseName"/>
+                            <input name="desWarehouseName" type="text"/>
                         </li>
                         <li>
-                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
-                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
                         </li>
                     </ul>
                 </div>
@@ -41,12 +43,12 @@
         </div>
     </div>
 </div>
-<th:block th:include="include :: footer" />
+<th:block th:include="include :: footer"/>
 <script th:inline="javascript">
 
     var prefix = ctx + "wh/warehousingOrder";
 
-    $(function() {
+    $(function () {
         var options = {
             url: prefix + "/selectList",
             sortName: "createTime",
@@ -114,9 +116,10 @@
     });
 
     function queryParams(params) {
-        var obj = {}; obj.orderTypes = '1,2';
+        var obj = {};
+        obj.orderTypes = '1,2';
         var search = $.table.queryParams(params);
-        search.params=obj;
+        search.params = obj;
         search.status = '4';
         return search;
     }

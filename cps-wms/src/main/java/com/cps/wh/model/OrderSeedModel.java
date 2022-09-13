@@ -8,15 +8,20 @@ import java.io.Serializable;
  * @author miki
  * @date 2021-06-14
  */
-public class OrderSeedModel implements Serializable
-{
-    /** id */
+public class OrderSeedModel implements Serializable {
+    /**
+     * id
+     */
     private Long id;
 
-    /** 商品主键ID */
+    /**
+     * 商品主键ID
+     */
     private Long shopGoodsId;
 
-    /** 计划数量 */
+    /**
+     * 计划数量
+     */
     private Long planNumber;
 
     public Long getId() {

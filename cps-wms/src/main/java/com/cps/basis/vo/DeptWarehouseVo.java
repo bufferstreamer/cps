@@ -11,53 +11,82 @@ import java.math.BigDecimal;
  * @author miki
  * @date 2021-06-16
  */
-public class DeptWarehouseVo implements Serializable
-{
+public class DeptWarehouseVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    /** id */
+    /**
+     * id
+     */
     private Long id;
 
-    /** 单位绑定部门主键 */
+    /**
+     * 单位绑定部门主键
+     */
     private Long warehouseDeptId;
 
-    /** 单位关联表主键 */
+    /**
+     * 单位关联表主键
+     */
     private Long warehouseId;
 
-    /** 订单关系【采购、调拨】 */
+    /**
+     * 订单关系【采购、调拨】
+     */
     private String orderRelationship;
 
-    /** 成本类别【销售价、批发价、成本价】 */
+    /**
+     * 成本类别【销售价、批发价、成本价】
+     */
     private String costType;
 
-    /** 部门ID */
+    /**
+     * 部门ID
+     */
     private Long deptId;
 
-    /** 单位绑定部门名称*/
+    /**
+     * 单位绑定部门名称
+     */
     private String warehouseDeptName;
 
-    /** 类型(1.客户2.供应商3.承运商) */
+    /**
+     * 类型(1.客户2.供应商3.承运商)
+     */
     private String warehouseType;
 
-    /** 类型描述 (1.客户2.供应商3.承运商) */
+    /**
+     * 类型描述 (1.客户2.供应商3.承运商)
+     */
     private String warehouseTypeDesc;
 
-    /** 客户主键ID*/
+    /**
+     * 客户主键ID
+     */
     private String customerId;
 
-    /** 客户名称*/
+    /**
+     * 客户名称
+     */
     private String customerName;
 
-    /** 供应商主键ID*/
+    /**
+     * 供应商主键ID
+     */
     private String supplierId;
 
-    /** 供应商名称*/
+    /**
+     * 供应商名称
+     */
     private String supplierName;
 
-    /** 客户发票税率 */
+    /**
+     * 客户发票税率
+     */
     private BigDecimal customerInvoiceTax;
 
-    /** 供应商发票税率 */
+    /**
+     * 供应商发票税率
+     */
     private BigDecimal supplierInvoiceTax;
 
     public Long getId() {
@@ -118,7 +147,7 @@ public class DeptWarehouseVo implements Serializable
 
     public String getWarehouseTypeDesc() {
         for (WarehouseType warehouseType : WarehouseType.CUSTOMER.values()) {
-            if(warehouseType.getCode().equals(this.getWarehouseType())){
+            if (warehouseType.getCode().equals(this.getWarehouseType())) {
                 warehouseTypeDesc = warehouseType.getInfo();
             }
         }

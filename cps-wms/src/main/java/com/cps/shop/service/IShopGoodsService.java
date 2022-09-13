@@ -8,15 +8,14 @@ import java.util.List;
 
 /**
  * 商品信息Service接口
- * 
+ *
  * @author miki
  * @date 2021-05-25
  */
-public interface IShopGoodsService 
-{
+public interface IShopGoodsService {
     /**
      * 查询商品信息
-     * 
+     *
      * @param id 商品信息ID
      * @return 商品信息
      */
@@ -24,7 +23,7 @@ public interface IShopGoodsService
 
     /**
      * 查询商品信息列表
-     * 
+     *
      * @param shopGoods 商品信息
      * @return 商品信息集合
      */
@@ -32,7 +31,7 @@ public interface IShopGoodsService
 
     /**
      * 新增商品信息
-     * 
+     *
      * @param shopGoods 商品信息
      * @return 结果
      */
@@ -40,7 +39,7 @@ public interface IShopGoodsService
 
     /**
      * 修改商品信息
-     * 
+     *
      * @param shopGoods 商品信息
      * @return 结果
      */
@@ -48,7 +47,7 @@ public interface IShopGoodsService
 
     /**
      * 批量删除商品信息
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
@@ -56,7 +55,7 @@ public interface IShopGoodsService
 
     /**
      * 删除商品信息信息
-     * 
+     *
      * @param id 商品信息ID
      * @return 结果
      */

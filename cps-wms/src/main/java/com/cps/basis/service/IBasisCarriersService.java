@@ -6,15 +6,14 @@ import java.util.List;
 
 /**
  * 承运商管理Service接口
- * 
+ *
  * @author miki
  * @date 2021-05-20
  */
-public interface IBasisCarriersService 
-{
+public interface IBasisCarriersService {
     /**
      * 查询承运商管理
-     * 
+     *
      * @param id 承运商管理ID
      * @return 承运商管理
      */
@@ -22,7 +21,7 @@ public interface IBasisCarriersService
 
     /**
      * 查询承运商管理列表
-     * 
+     *
      * @param basisCarriers 承运商管理
      * @return 承运商管理集合
      */
@@ -30,7 +29,7 @@ public interface IBasisCarriersService
 
     /**
      * 新增承运商管理
-     * 
+     *
      * @param basisCarriers 承运商管理
      * @return 结果
      */
@@ -38,7 +37,7 @@ public interface IBasisCarriersService
 
     /**
      * 修改承运商管理
-     * 
+     *
      * @param basisCarriers 承运商管理
      * @return 结果
      */
@@ -46,7 +45,7 @@ public interface IBasisCarriersService
 
     /**
      * 批量删除承运商管理
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
@@ -54,7 +53,7 @@ public interface IBasisCarriersService
 
     /**
      * 删除承运商管理信息
-     * 
+     *
      * @param id 承运商管理ID
      * @return 结果
      */

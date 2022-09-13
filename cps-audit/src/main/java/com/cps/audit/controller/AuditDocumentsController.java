@@ -1,36 +1,30 @@
 package com.cps.audit.controller;
 
-import java.util.List;
-
-import com.cps.common.utils.uuid.CpsIdUtils;
+import com.cps.audit.domain.AuditDocuments;
+import com.cps.audit.service.IAuditDocumentsService;
+import com.cps.common.annotation.Log;
+import com.cps.common.core.controller.BaseController;
+import com.cps.common.core.domain.AjaxResult;
+import com.cps.common.core.page.TableDataInfo;
+import com.cps.common.enums.BusinessType;
+import com.cps.common.utils.poi.ExcelUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import com.cps.common.annotation.Log;
-import com.cps.common.enums.BusinessType;
-import com.cps.audit.domain.AuditDocuments;
-import com.cps.audit.service.IAuditDocumentsService;
-import com.cps.common.core.controller.BaseController;
-import com.cps.common.core.domain.AjaxResult;
-import com.cps.common.utils.poi.ExcelUtil;
-import com.cps.common.core.page.TableDataInfo;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 审核单据管理Controller
- * 
+ *
  * @author cps
  * @date 2022-08-16
  */
 @Controller
 @RequestMapping("/audit/auditDocumentsManage")
-public class AuditDocumentsController extends BaseController
-{
+public class AuditDocumentsController extends BaseController {
     private String prefix = "audit/auditDocumentsManage";
 
     @Autowired
@@ -38,8 +32,7 @@ public class AuditDocumentsController extends BaseController
 
     @RequiresPermissions("audit:auditDocumentsManage:view")
     @GetMapping()
-    public String auditDocumentsManage()
-    {
+    public String auditDocumentsManage() {
         return prefix + "/auditDocumentsManage";
     }
 
@@ -49,8 +42,7 @@ public class AuditDocumentsController extends BaseController
     @RequiresPermissions("audit:auditDocumentsManage:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(AuditDocuments auditDocuments)
-    {
+    public TableDataInfo list(AuditDocuments auditDocuments) {
         startPage();
         List<AuditDocuments> list = auditDocumentsService.selectAuditDocumentsList(auditDocuments);
         return getDataTable(list);
@@ -63,8 +55,7 @@ public class AuditDocumentsController extends BaseController
     @Log(title = "审核单据管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(AuditDocuments auditDocuments)
-    {
+    public AjaxResult export(AuditDocuments auditDocuments) {
         List<AuditDocuments> list = auditDocumentsService.selectAuditDocumentsList(auditDocuments);
         ExcelUtil<AuditDocuments> util = new ExcelUtil<AuditDocuments>(AuditDocuments.class);
         return util.exportExcel(list, "审核单据管理数据");
@@ -74,8 +65,7 @@ public class AuditDocumentsController extends BaseController
      * 新增审核单据管理
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -86,8 +76,7 @@ public class AuditDocumentsController extends BaseController
     @Log(title = "审核单据管理", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(AuditDocuments auditDocuments)
-    {
+    public AjaxResult addSave(AuditDocuments auditDocuments) {
 //        auditDocuments.setChecklistId(CpsIdUtils.createChecklistId('1'));//此处应该利用用户id从数据库查找
         return toAjax(auditDocumentsService.insertAuditDocuments(auditDocuments));
     }
@@ -97,8 +86,7 @@ public class AuditDocumentsController extends BaseController
      */
     @RequiresPermissions("audit:auditDocumentsManage:edit")
     @GetMapping("/edit/{checklistId}")
-    public String edit(@PathVariable("checklistId") String checklistId, ModelMap mmap)
-    {
+    public String edit(@PathVariable("checklistId") String checklistId, ModelMap mmap) {
         AuditDocuments auditDocuments = auditDocumentsService.selectAuditDocumentsByChecklistId(checklistId);
         mmap.put("auditDocuments", auditDocuments);
         return prefix + "/edit";
@@ -111,8 +99,7 @@ public class AuditDocumentsController extends BaseController
     @Log(title = "审核单据管理", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(AuditDocuments auditDocuments)
-    {
+    public AjaxResult editSave(AuditDocuments auditDocuments) {
         return toAjax(auditDocumentsService.updateAuditDocuments(auditDocuments));
     }
 
@@ -121,10 +108,9 @@ public class AuditDocumentsController extends BaseController
      */
     @RequiresPermissions("audit:auditDocumentsManage:remove")
     @Log(title = "审核单据管理", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(auditDocumentsService.deleteAuditDocumentsByChecklistIds(ids));
     }
 
@@ -133,7 +119,7 @@ public class AuditDocumentsController extends BaseController
      */
     @PostMapping("search-status")
     @ResponseBody
-    public String selectAuditStatusByChecklistId(String checklistId){
+    public String selectAuditStatusByChecklistId(String checklistId) {
         return auditDocumentsService.selectAuditDocumentsByChecklistId(checklistId).getAuditStatus();
     }
 }

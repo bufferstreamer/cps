@@ -1,19 +1,19 @@
 package com.cps.bid.service;
 
-import java.util.List;
 import com.cps.bid.domain.CentralizedPurchaseRecord;
+
+import java.util.List;
 
 /**
  * 集中采购记录Service接口
- * 
+ *
  * @author cps
  * @date 2022-09-03
  */
-public interface ICentralizedPurchaseRecordService 
-{
+public interface ICentralizedPurchaseRecordService {
     /**
      * 查询集中采购记录
-     * 
+     *
      * @param centralizedPurchaseRecordId 集中采购记录主键
      * @return 集中采购记录
      */
@@ -23,7 +23,7 @@ public interface ICentralizedPurchaseRecordService
 
     /**
      * 查询集中采购记录列表
-     * 
+     *
      * @param centralizedPurchaseRecord 集中采购记录
      * @return 集中采购记录集合
      */
@@ -31,7 +31,7 @@ public interface ICentralizedPurchaseRecordService
 
     /**
      * 新增集中采购记录
-     * 
+     *
      * @param centralizedPurchaseRecord 集中采购记录
      * @return 结果
      */
@@ -39,7 +39,7 @@ public interface ICentralizedPurchaseRecordService
 
     /**
      * 修改集中采购记录
-     * 
+     *
      * @param centralizedPurchaseRecord 集中采购记录
      * @return 结果
      */
@@ -47,7 +47,7 @@ public interface ICentralizedPurchaseRecordService
 
     /**
      * 批量删除集中采购记录
-     * 
+     *
      * @param centralizedPurchaseRecordIds 需要删除的集中采购记录主键集合
      * @return 结果
      */
@@ -55,7 +55,7 @@ public interface ICentralizedPurchaseRecordService
 
     /**
      * 删除集中采购记录信息
-     * 
+     *
      * @param centralizedPurchaseRecordId 集中采购记录主键
      * @return 结果
      */

@@ -21,13 +21,12 @@ import java.util.List;
 
 /**
  * 商品信息Service业务层处理
- * 
+ *
  * @author miki
  * @date 2021-05-25
  */
 @Service
-public class ShopGoodsServiceImpl implements IShopGoodsService 
-{
+public class ShopGoodsServiceImpl implements IShopGoodsService {
     @Autowired
     private ShopGoodsMapper shopGoodsMapper;
 
@@ -36,38 +35,35 @@ public class ShopGoodsServiceImpl implements IShopGoodsService
 
     /**
      * 查询商品信息
-     * 
+     *
      * @param id 商品信息ID
      * @return 商品信息
      */
     @Override
-    public ShopGoods selectShopGoodsById(Long id)
-    {
+    public ShopGoods selectShopGoodsById(Long id) {
         return shopGoodsMapper.selectShopGoodsById(id);
     }
 
     /**
      * 查询商品信息列表
-     * 
+     *
      * @param shopGoods 商品信息
      * @return 商品信息
      */
     @Override
-    public List<ShopGoods> selectShopGoodsList(ShopGoods shopGoods)
-    {
+    public List<ShopGoods> selectShopGoodsList(ShopGoods shopGoods) {
         return shopGoodsMapper.selectShopGoodsList(shopGoods);
     }
 
     /**
      * 新增商品信息
-     * 
+     *
      * @param shopGoods 商品信息
      * @return 结果
      */
     @Override
     @Transactional
-    public int insertShopGoods(ShopGoods shopGoods)
-    {
+    public int insertShopGoods(ShopGoods shopGoods) {
         int result = 0;
         shopGoods.setCreateTime(DateUtils.getNowDate());
         result = shopGoodsMapper.insertShopGoods(shopGoods);
@@ -82,14 +78,13 @@ public class ShopGoodsServiceImpl implements IShopGoodsService
 
     /**
      * 修改商品信息
-     * 
+     *
      * @param shopGoods 商品信息
      * @return 结果
      */
     @Override
     @Transactional
-    public int updateShopGoods(ShopGoods shopGoods)
-    {
+    public int updateShopGoods(ShopGoods shopGoods) {
         int result = 0;
         shopGoods.setUpdateTime(DateUtils.getNowDate());
         result = shopGoodsMapper.updateShopGoods(shopGoods);
@@ -103,23 +98,22 @@ public class ShopGoodsServiceImpl implements IShopGoodsService
 
     /**
      * 删除商品信息对象
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
     @Override
     @Transactional
-    public int deleteShopGoodsByIds(String ids)
-    {
+    public int deleteShopGoodsByIds(String ids) {
         int result = 0;
         Long[] shopGoodsids = Convert.toLongArray(ids);
-        for (Long shopGoodsid : shopGoodsids ) {
+        for (Long shopGoodsid : shopGoodsids) {
             ShopGoods shopGoods = new ShopGoods();
             //查询商品是否有库存;如有库存则商品信息不能删除
             ShopGoodsSeed shopGoodsSeed = shopGoodsSeedService.selectShopGoodsSeedBygoodsId(shopGoodsid);
-            if(shopGoodsSeed.getStockNumber()>0){
-              shopGoods  = selectShopGoodsById(shopGoodsid);
-              throw new BusinessException(shopGoods.getGoodsName()+"有库存，不允许删除");
+            if (shopGoodsSeed.getStockNumber() > 0) {
+                shopGoods = selectShopGoodsById(shopGoodsid);
+                throw new BusinessException(shopGoods.getGoodsName() + "有库存，不允许删除");
             }
             shopGoods.setId(shopGoodsid);
             shopGoods.setDelFlag(Status.DELETED.getCode());
@@ -135,21 +129,19 @@ public class ShopGoodsServiceImpl implements IShopGoodsService
 
     /**
      * 删除商品信息信息
-     * 
+     *
      * @param id 商品信息ID
      * @return 结果
      */
     @Override
-    public int deleteShopGoodsById(Long id)
-    {
+    public int deleteShopGoodsById(Long id) {
         return shopGoodsMapper.deleteShopGoodsById(id);
     }
 
     @Override
     public String checkGoodsCodeUnique(String goodsCode) {
         int count = shopGoodsMapper.checkGoodsCodeUnique(goodsCode);
-        if (count > 0)
-        {
+        if (count > 0) {
             return Constants.NAME_NOT_UNIQUE;
         }
         return Constants.NAME_UNIQUE;

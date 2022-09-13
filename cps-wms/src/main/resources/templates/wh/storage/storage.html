@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('库位(储位)设置列表')" />
+    <th:block th:include="include :: header('库位(储位)设置列表')"/>
 </head>
 <body class="gray-bg">
 <div class="container-div">
@@ -12,19 +12,19 @@
                     <ul>
                         <li>
                             <label>库位编码：</label>
-                            <input type="text" name="storageCode"/>
+                            <input name="storageCode" type="text"/>
                         </li>
                         <li>
                             <label>库位名称：</label>
-                            <input type="text" name="storageName"/>
+                            <input name="storageName" type="text"/>
                         </li>
                         <li>
                             <label>库位条码：</label>
-                            <input type="text" name="storageBarcode"/>
+                            <input name="storageBarcode" type="text"/>
                         </li>
                         <li>
                             <label>所属库区：</label>
-                            <select name="reservoirId" id="reservoirId">
+                            <select id="reservoirId" name="reservoirId">
                                 <option value="">所有</option>
                                 <!--<option value="-1">代码生成请选择字典属性</option>-->
                             </select>
@@ -33,19 +33,23 @@
                             <label style="width: 80px;">是否空库位：</label>
                             <select name="isEmpty" th:with="type=${@dict.getType('sys_yes_no')}">
                                 <option value="">所有</option>
-                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                        th:value="${dict.dictValue}"></option>
                             </select>
                         </li>
                         <li>
                             <label>是否停用：</label>
                             <select name="isDisable" th:with="type=${@dict.getType('sys_normal_disable')}">
                                 <option value="">所有</option>
-                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                        th:value="${dict.dictValue}"></option>
                             </select>
                         </li>
                         <li>
-                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
-                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
                         </li>
                     </ul>
                 </div>
@@ -59,12 +63,13 @@
             <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="wh:storage:edit">
                 <i class="fa fa-edit"></i> 修改
             </a>
-            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="wh:storage:remove">
+            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()"
+               shiro:hasPermission="wh:storage:remove">
                 <i class="fa fa-remove"></i> 删除
             </a>
-<!--            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="wh:storage:export">
-                <i class="fa fa-download"></i> 导出
-            </a>-->
+            <!--            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="wh:storage:export">
+                            <i class="fa fa-download"></i> 导出
+                        </a>-->
             <a class="btn btn-success" onclick="operateStorageSize();" shiro:hasPermission="wh:storage:add">
                 <i class="fa fa-plus"></i> 库位尺寸
             </a>
@@ -74,7 +79,7 @@
         </div>
     </div>
 </div>
-<th:block th:include="include :: footer" />
+<th:block th:include="include :: footer"/>
 <script th:inline="javascript">
     var editFlag = [[${@permission.hasPermi('wh:storage:edit')}]];
     var removeFlag = [[${@permission.hasPermi('wh:storage:remove')}]];
@@ -84,7 +89,7 @@
     var isDisableDatas = [[${@dict.getType('sys_normal_disable')}]];
     var prefix = ctx + "wh/storage";
 
-    $(function() {
+    $(function () {
         var options = {
             url: prefix + "/list",
             createUrl: prefix + "/add",
@@ -119,14 +124,14 @@
                 {
                     field: 'storageType',
                     title: '库位类型',
-                    formatter: function(value, row, index) {
+                    formatter: function (value, row, index) {
                         return $.table.selectDictLabel(storageTypeDatas, value);
                     }
                 },
                 {
                     field: 'storageAttribute',
                     title: '库位属性',
-                    formatter: function(value, row, index) {
+                    formatter: function (value, row, index) {
                         return $.table.selectDictLabel(storageAttributeDatas, value);
                     }
                 },
@@ -141,14 +146,14 @@
                 {
                     field: 'isEmpty',
                     title: '空库位标识',
-                    formatter: function(value, row, index) {
+                    formatter: function (value, row, index) {
                         return $.table.selectDictLabel(isEmptyDatas, value);
                     }
                 },
                 {
                     field: 'isDisable',
                     title: '是否停用',
-                    formatter: function(value, row, index) {
+                    formatter: function (value, row, index) {
                         //return $.table.selectDictLabel(isDisableDatas, value);
                         return statusTools(row);
                     }
@@ -160,7 +165,7 @@
                 {
                     title: '操作',
                     align: 'center',
-                    formatter: function(value, row, index) {
+                    formatter: function (value, row, index) {
                         var actions = [];
                         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
@@ -178,7 +183,8 @@
      * 获取库区设置下拉框信息
      */
     var warehousePrefix = ctx + "wh/reservoir"
-    function getReservoirList(){
+
+    function getReservoirList() {
         var data = {};
         var config = {
             url: warehousePrefix + "/ajaxList",
@@ -188,15 +194,15 @@
             beforeSend: function () {
                 $.modal.loading("正在处理中，请稍后...");
             },
-            success: function(result) {
+            success: function (result) {
                 //console.log(result)
                 if (result.code == web_status.SUCCESS) {
-                    var str="";
-                    $.each( result.data,function(index,value){
-                        str+='<option value="'+value.id+'">'+value.reservoirCode+'---'+value.reservoirName+'【'+value.warehouseName+'】'+'</option>';
+                    var str = "";
+                    $.each(result.data, function (index, value) {
+                        str += '<option value="' + value.id + '">' + value.reservoirCode + '---' + value.reservoirName + '【' + value.warehouseName + '】' + '</option>';
                     });
                     $('#reservoirId').append(str);
-                }else {
+                } else {
                     $.modal.alertError(result.msg);
                 }
                 $.modal.closeLoading();
@@ -209,20 +215,21 @@
      * 库位尺寸界面
      */
     var storageSizePrefix = ctx + "wh/storageSize";
+
     function operateStorageSize() {
-            var btn = [ '<i class="fa fa-close"></i> 关闭'];
-            var options = {
-                title: '库位尺寸',
-                /*width: "900",*/
-                /*height: "320",*/
-                url: storageSizePrefix,
-                skin: 'layui-layer-gray',
-                btn: btn,
-                yes: function (index, layero) {
-                    $.modal.close(index);
-                }
-            };
-            $.modal.openOptions(options);
+        var btn = ['<i class="fa fa-close"></i> 关闭'];
+        var options = {
+            title: '库位尺寸',
+            /*width: "900",*/
+            /*height: "320",*/
+            url: storageSizePrefix,
+            skin: 'layui-layer-gray',
+            btn: btn,
+            yes: function (index, layero) {
+                $.modal.close(index);
+            }
+        };
+        $.modal.openOptions(options);
     }
 
     /* 库位状态显示 */
@@ -236,15 +243,15 @@
 
     /* 库位-停用 */
     function disable(id) {
-        $.modal.confirm("停用功能确认要停用吗？", function() {
-            $.operate.post(prefix + "/changeIsDisable", { "id": id, "isDisable": '0' });
+        $.modal.confirm("停用功能确认要停用吗？", function () {
+            $.operate.post(prefix + "/changeIsDisable", {"id": id, "isDisable": '0'});
         })
     }
 
     /* 库位启用 */
     function enable(id) {
-        $.modal.confirm("停用功能确认要启动吗？", function() {
-            $.operate.post(prefix + "/changeIsDisable", { "id": id, "isDisable": '1' });
+        $.modal.confirm("停用功能确认要启动吗？", function () {
+            $.operate.post(prefix + "/changeIsDisable", {"id": id, "isDisable": '1'});
         })
     }
 </script>

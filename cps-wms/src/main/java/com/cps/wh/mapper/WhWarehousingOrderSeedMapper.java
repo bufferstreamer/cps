@@ -7,15 +7,14 @@ import java.util.List;
 
 /**
  * 商品入库单子Mapper接口
- * 
+ *
  * @author miki
  * @date 2021-05-26
  */
-public interface WhWarehousingOrderSeedMapper 
-{
+public interface WhWarehousingOrderSeedMapper {
     /**
      * 查询商品入库单子
-     * 
+     *
      * @param id 商品入库单子ID
      * @return 商品入库单子
      */
@@ -23,7 +22,7 @@ public interface WhWarehousingOrderSeedMapper
 
     /**
      * 查询商品入库单子列表
-     * 
+     *
      * @param whWarehousingOrderSeed 商品入库单子
      * @return 商品入库单子集合
      */
@@ -31,7 +30,7 @@ public interface WhWarehousingOrderSeedMapper
 
     /**
      * 新增商品入库单子
-     * 
+     *
      * @param whWarehousingOrderSeed 商品入库单子
      * @return 结果
      */
@@ -39,7 +38,7 @@ public interface WhWarehousingOrderSeedMapper
 
     /**
      * 修改商品入库单子
-     * 
+     *
      * @param whWarehousingOrderSeed 商品入库单子
      * @return 结果
      */
@@ -47,7 +46,7 @@ public interface WhWarehousingOrderSeedMapper
 
     /**
      * 删除商品入库单子
-     * 
+     *
      * @param id 商品入库单子ID
      * @return 结果
      */
@@ -55,23 +54,23 @@ public interface WhWarehousingOrderSeedMapper
 
     /**
      * 批量删除商品入库单子
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
     public int deleteWhWarehousingOrderSeedByIds(String[] ids);
 
     /**
-     *
      * 根据商品入库主表ID 查询合计含税金额
+     *
      * @param warehousingOrderId 商品入库主表ID
      * @return 结果
      */
     public BigDecimal getSumAmount(Long warehousingOrderId);
 
     /**
-     *
      * 根据商品入库主表ID 查询商品数量
+     *
      * @param warehousingOrderId 商品入库主表ID
      * @return 结果
      */

@@ -1,19 +1,18 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<th:block th:include="include :: header('供应商提交营业执照')" />
+    <th:block th:include="include :: header('供应商提交营业执照')"/>
 </head>
 
 <body>
-    <th:block th:include="include :: footer" />
-    <script th:inline="javascript">
-    if([[${result}]]){
-        $.modal.open("供应商提交营业执照","audit/supplierLicenseManage/add");
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    if ([[${result}]]) {
+        $.modal.open("供应商提交营业执照", "audit/supplierLicenseManage/add");
+    } else {
+        $.modal.openFull("详细信息", "audit/supplierLicenseManage/detail");
     }
-    else{
-        $.modal.openFull("详细信息","audit/supplierLicenseManage/detail");
-    }
-    </script>
+</script>
 </body>
 </html>

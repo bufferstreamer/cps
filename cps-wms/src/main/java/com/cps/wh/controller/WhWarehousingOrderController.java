@@ -25,14 +25,13 @@ import java.util.List;
 
 /**
  * 商品入库单主表Controller
- * 
+ *
  * @author miki
  * @date 2021-05-26
  */
 @Controller
 @RequestMapping("/wh/warehousingOrder")
-public class WhWarehousingOrderController extends BaseController
-{
+public class WhWarehousingOrderController extends BaseController {
     private String prefix = "wh/warehousingOrder";
 
     @Autowired
@@ -43,8 +42,7 @@ public class WhWarehousingOrderController extends BaseController
 
     @RequiresPermissions("wh:warehousingOrder:view")
     @GetMapping()
-    public String warehousingOrder()
-    {
+    public String warehousingOrder() {
         return prefix + "/warehousingOrder";
     }
 
@@ -54,8 +52,7 @@ public class WhWarehousingOrderController extends BaseController
     @RequiresPermissions("wh:warehousingOrder:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(WhWarehousingOrder whWarehousingOrder)
-    {
+    public TableDataInfo list(WhWarehousingOrder whWarehousingOrder) {
         whWarehousingOrder.setDeptId(ShiroUtils.getDeptId());
         startPage();
         List<WhWarehousingOrder> list = whWarehousingOrderService.selectWhWarehousingOrderList(whWarehousingOrder);
@@ -67,10 +64,9 @@ public class WhWarehousingOrderController extends BaseController
      * 新增商品入库单主表
      */
     @GetMapping("/add")
-    public String add(ModelMap modelMap)
-    {
+    public String add(ModelMap modelMap) {
         //新增入库订单
-        WhWarehousingOrder whWarehousingOrder =  new WhWarehousingOrder();
+        WhWarehousingOrder whWarehousingOrder = new WhWarehousingOrder();
         whWarehousingOrder.setOrderDate(DateUtils.getNowDate());
         whWarehousingOrder.setOrderType(WhWarehousingOrderType.OTHER.getCode());
         whWarehousingOrder.setOrderCode(OrderNumGeneratorUtils.makeOrderNum(OrderConstants.ASN));
@@ -89,8 +85,7 @@ public class WhWarehousingOrderController extends BaseController
     @Log(title = "商品入库单主表", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(WhWarehousingOrder whWarehousingOrder)
-    {
+    public AjaxResult addSave(WhWarehousingOrder whWarehousingOrder) {
         return toAjax(whWarehousingOrderService.insertWhWarehousingOrder(whWarehousingOrder));
     }
 
@@ -98,8 +93,7 @@ public class WhWarehousingOrderController extends BaseController
      * 修改商品入库单主表
      */
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Long id, ModelMap mmap)
-    {
+    public String edit(@PathVariable("id") Long id, ModelMap mmap) {
         WhWarehousingOrder whWarehousingOrder = whWarehousingOrderService.selectWhWarehousingOrderById(id);
         mmap.put("whWarehousingOrder", whWarehousingOrder);
         return prefix + "/add";
@@ -112,9 +106,8 @@ public class WhWarehousingOrderController extends BaseController
     @Log(title = "商品入库单主表", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(WhWarehousingOrder whWarehousingOrder)
-    {
-        if(StringUtils.isNotNull(whWarehousingOrder.getSupplierId())){
+    public AjaxResult editSave(WhWarehousingOrder whWarehousingOrder) {
+        if (StringUtils.isNotNull(whWarehousingOrder.getSupplierId())) {
             whWarehousingOrder.setDesWarehouseId(whWarehousingOrder.getSupplierId());
             whWarehousingOrder.setDesWarehouseName(whWarehousingOrder.getSupplierName());
         }
@@ -126,10 +119,9 @@ public class WhWarehousingOrderController extends BaseController
      */
     @RequiresPermissions("wh:warehousingOrder:remove")
     @Log(title = "商品入库单主表", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(whWarehousingOrderService.deleteWhWarehousingOrderByIds(ids));
     }
 
@@ -140,11 +132,10 @@ public class WhWarehousingOrderController extends BaseController
     @Log(title = "商品入库单主表", businessType = BusinessType.UPDATE)
     @PostMapping("/changeStatus")
     @ResponseBody
-    public AjaxResult changeStatus(WhWarehousingOrder whWarehousingOrder)
-    {
+    public AjaxResult changeStatus(WhWarehousingOrder whWarehousingOrder) {
         //检测是否已选中供应商和加入商品
         WhWarehousingOrder warehousingOrder = whWarehousingOrderService.selectWhWarehousingOrderById(whWarehousingOrder.getId());
-        if(StringUtils.isNull(warehousingOrder.getSupplierId()) || StringUtils.isBlank(warehousingOrder.getOrderName()) || whWarehousingOrderSeedService.getOrderSeedShopCount(whWarehousingOrder.getId()) == 0 ){
+        if (StringUtils.isNull(warehousingOrder.getSupplierId()) || StringUtils.isBlank(warehousingOrder.getOrderName()) || whWarehousingOrderSeedService.getOrderSeedShopCount(whWarehousingOrder.getId()) == 0) {
             return AjaxResult.warn("请加入订单编号、供应商或商品");
         }
         whWarehousingOrder.setUpdateBy(ShiroUtils.getLoginName());
@@ -158,8 +149,7 @@ public class WhWarehousingOrderController extends BaseController
     @Log(title = "商品入库单主表", businessType = BusinessType.UPDATE)
     @PostMapping("/editDischarge")
     @ResponseBody
-    public AjaxResult editDischarge(WhWarehousingOrder whWarehousingOrder)
-    {
+    public AjaxResult editDischarge(WhWarehousingOrder whWarehousingOrder) {
         whWarehousingOrder.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(whWarehousingOrderService.updateWhWarehousingOrder(whWarehousingOrder));
     }
@@ -171,19 +161,18 @@ public class WhWarehousingOrderController extends BaseController
     @Log(title = "商品入库单主表", businessType = BusinessType.UPDATE)
     @PostMapping("/editRemove")
     @ResponseBody
-    public AjaxResult editRemove(WhWarehousingOrder whWarehousingOrder)
-    {
+    public AjaxResult editRemove(WhWarehousingOrder whWarehousingOrder) {
         return toAjax(whWarehousingOrderService.deleteWhWarehousingOrderByIds(whWarehousingOrder.getId().toString()));
     }
 
     /**
      * 收货作业界面
+     *
      * @return
      */
     @RequiresPermissions("wh:warehousingOrder:viewWork")
     @GetMapping("/warehousingOrderWork")
-    public String warehousingOrderWork()
-    {
+    public String warehousingOrderWork() {
         return prefix + "/warehousingOrderWork";
     }
 
@@ -191,9 +180,8 @@ public class WhWarehousingOrderController extends BaseController
      * 跳转选择界面
      */
     @GetMapping("/selectWarehousingOrder/{desWarehouseId}")
-    public String selectWarehousingOrder(@PathVariable("desWarehouseId") Long desWarehouseId, ModelMap mmap)
-    {
-        mmap.put("desWarehouseId",desWarehouseId);
+    public String selectWarehousingOrder(@PathVariable("desWarehouseId") Long desWarehouseId, ModelMap mmap) {
+        mmap.put("desWarehouseId", desWarehouseId);
         return prefix + "/selectWarehousingOrder";
     }
 
@@ -202,8 +190,7 @@ public class WhWarehousingOrderController extends BaseController
      */
     @PostMapping("/selectList")
     @ResponseBody
-    public TableDataInfo selectList(WhWarehousingOrder whWarehousingOrder)
-    {
+    public TableDataInfo selectList(WhWarehousingOrder whWarehousingOrder) {
         whWarehousingOrder.setDeptId(ShiroUtils.getDeptId());
         startPage();
         List<WhWarehousingOrder> list = whWarehousingOrderService.selectWhWarehousingOrderList(whWarehousingOrder);

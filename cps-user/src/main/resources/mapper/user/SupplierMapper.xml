@@ -1,46 +1,65 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cps.user.mapper.SupplierMapper">
-    
+
     <resultMap type="Supplier" id="SupplierResult">
-        <result property="supplyId"    column="supply_id"    />
-        <result property="nickname"    column="nickname"    />
-        <result property="companyName"    column="company_name"    />
-        <result property="username"    column="username"    />
-        <result property="password"    column="password"    />
-        <result property="companyProperty"    column="company_property"    />
-        <result property="companyType"    column="company_type"    />
-        <result property="useCode"    column="use_code"    />
-        <result property="codeId"    column="code_id"    />
-        <result property="contactPerson"    column="contact_person"    />
-        <result property="contactCardType"    column="contact_card_type"    />
-        <result property="cardId"    column="card_id"    />
-        <result property="contactPhone"    column="contact_phone"    />
-        <result property="contactEmail"    column="contact_email"    />
-        <result property="registerTime"    column="register_time"    />
-        <result property="lastLogin"    column="last_login"    />
-        <result property="supplyState"    column="supply_state"    />
+        <result property="supplyId" column="supply_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="companyName" column="company_name"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="companyProperty" column="company_property"/>
+        <result property="companyType" column="company_type"/>
+        <result property="useCode" column="use_code"/>
+        <result property="codeId" column="code_id"/>
+        <result property="contactPerson" column="contact_person"/>
+        <result property="contactCardType" column="contact_card_type"/>
+        <result property="cardId" column="card_id"/>
+        <result property="contactPhone" column="contact_phone"/>
+        <result property="contactEmail" column="contact_email"/>
+        <result property="registerTime" column="register_time"/>
+        <result property="lastLogin" column="last_login"/>
+        <result property="supplyState" column="supply_state"/>
     </resultMap>
 
     <sql id="selectSupplierVo">
-        select supply_id, nickname, company_name, username, password, company_property, company_type, use_code, code_id, contact_person, contact_card_type, card_id, contact_phone, contact_email, register_time, last_login, supply_state from supplier
+        select supply_id,
+               nickname,
+               company_name,
+               username,
+               password,
+               company_property,
+               company_type,
+               use_code,
+               code_id,
+               contact_person,
+               contact_card_type,
+               card_id,
+               contact_phone,
+               contact_email,
+               register_time,
+               last_login,
+               supply_state
+        from supplier
     </sql>
 
     <select id="selectSupplierList" parameterType="Supplier" resultMap="SupplierResult">
         <include refid="selectSupplierVo"/>
-        <where>  
-            <if test="nickname != null  and nickname != ''"> and nickname like concat('%', #{nickname}, '%')</if>
-            <if test="companyName != null  and companyName != ''"> and company_name like concat('%', #{companyName}, '%')</if>
+        <where>
+            <if test="nickname != null  and nickname != ''">and nickname like concat('%', #{nickname}, '%')</if>
+            <if test="companyName != null  and companyName != ''">and company_name like concat('%', #{companyName},
+                '%')
+            </if>
         </where>
     </select>
-    
+
     <select id="selectSupplierBySupplyId" parameterType="Long" resultMap="SupplierResult">
         <include refid="selectSupplierVo"/>
         where supply_id = #{supplyId}
     </select>
-        
+
     <insert id="insertSupplier" parameterType="Supplier">
         insert into supplier
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -61,7 +80,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="registerTime != null">register_time,</if>
             <if test="lastLogin != null">last_login,</if>
             <if test="supplyState != null">supply_state,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="supplyId != null">#{supplyId},</if>
             <if test="nickname != null and nickname != ''">#{nickname},</if>
@@ -80,7 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="registerTime != null">#{registerTime},</if>
             <if test="lastLogin != null">#{lastLogin},</if>
             <if test="supplyState != null">#{supplyState},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateSupplier" parameterType="Supplier">
@@ -107,11 +126,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteSupplierBySupplyId" parameterType="Long">
-        delete from supplier where supply_id = #{supplyId}
+        delete
+        from supplier
+        where supply_id = #{supplyId}
     </delete>
 
     <delete id="deleteSupplierBySupplyIds" parameterType="String">
-        delete from supplier where supply_id in 
+        delete from supplier where supply_id in
         <foreach item="supplyId" collection="array" open="(" separator="," close=")">
             #{supplyId}
         </foreach>

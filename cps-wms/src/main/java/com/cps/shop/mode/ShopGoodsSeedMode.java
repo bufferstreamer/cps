@@ -8,20 +8,27 @@ import java.io.Serializable;
  * @author miki
  * @date 2021-06-01
  */
-public class ShopGoodsSeedMode implements Serializable
-{
+public class ShopGoodsSeedMode implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    /** 商品信息id */
+    /**
+     * 商品信息id
+     */
     private Long goodsId;
 
-    /** 库存数量 */
+    /**
+     * 库存数量
+     */
     private Long stockNumber;
 
-    /** 待拣货数量 */
+    /**
+     * 待拣货数量
+     */
     private Long forPickingNumber;
 
-    /** 已拣货数量 */
+    /**
+     * 已拣货数量
+     */
     private Long beenPickingNumber;
 
     public Long getGoodsId() {

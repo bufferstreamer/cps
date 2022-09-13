@@ -1,37 +1,32 @@
 package com.cps.cp.controller;
 
-import java.util.List;
-
+import com.cps.common.annotation.Log;
+import com.cps.common.core.controller.BaseController;
+import com.cps.common.core.domain.AjaxResult;
+import com.cps.common.core.page.TableDataInfo;
+import com.cps.common.enums.BusinessType;
 import com.cps.common.utils.DateUtils;
+import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.utils.uuid.IdUtils;
+import com.cps.cp.domain.ChangeAnnouncement;
+import com.cps.cp.service.IChangeAnnouncementService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import com.cps.common.annotation.Log;
-import com.cps.common.enums.BusinessType;
-import com.cps.cp.domain.ChangeAnnouncement;
-import com.cps.cp.service.IChangeAnnouncementService;
-import com.cps.common.core.controller.BaseController;
-import com.cps.common.core.domain.AjaxResult;
-import com.cps.common.utils.poi.ExcelUtil;
-import com.cps.common.core.page.TableDataInfo;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 变更公告Controller
- * 
+ *
  * @author wxf
  * @date 2022-08-16
  */
 @Controller
 @RequestMapping("/cp/changeAnnouncement")
-public class ChangeAnnouncementController extends BaseController
-{
+public class ChangeAnnouncementController extends BaseController {
     private String prefix = "cp/changeAnnouncement";
 
     @Autowired
@@ -39,8 +34,7 @@ public class ChangeAnnouncementController extends BaseController
 
     @RequiresPermissions("cp:changeAnnouncement:view")
     @GetMapping()
-    public String changeAnnouncement()
-    {
+    public String changeAnnouncement() {
         return prefix + "/changeAnnouncement";
     }
 
@@ -50,8 +44,7 @@ public class ChangeAnnouncementController extends BaseController
     @RequiresPermissions("cp:changeAnnouncement:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(ChangeAnnouncement changeAnnouncement)
-    {
+    public TableDataInfo list(ChangeAnnouncement changeAnnouncement) {
         startPage();
         List<ChangeAnnouncement> list = changeAnnouncementService.selectChangeAnnouncementList(changeAnnouncement);
         return getDataTable(list);
@@ -64,8 +57,7 @@ public class ChangeAnnouncementController extends BaseController
     @Log(title = "变更公告", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(ChangeAnnouncement changeAnnouncement)
-    {
+    public AjaxResult export(ChangeAnnouncement changeAnnouncement) {
         List<ChangeAnnouncement> list = changeAnnouncementService.selectChangeAnnouncementList(changeAnnouncement);
         ExcelUtil<ChangeAnnouncement> util = new ExcelUtil<ChangeAnnouncement>(ChangeAnnouncement.class);
         return util.exportExcel(list, "变更公告数据");
@@ -75,8 +67,7 @@ public class ChangeAnnouncementController extends BaseController
      * 新增变更公告
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -87,9 +78,8 @@ public class ChangeAnnouncementController extends BaseController
     @Log(title = "变更公告", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(ChangeAnnouncement changeAnnouncement)
-    {
-        changeAnnouncement.setChangeTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS,DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
+    public AjaxResult addSave(ChangeAnnouncement changeAnnouncement) {
+        changeAnnouncement.setChangeTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
         changeAnnouncement.setChangeAnnouncementId(IdUtils.fastSimpleUUID());
         return toAjax(changeAnnouncementService.insertChangeAnnouncement(changeAnnouncement));
     }
@@ -99,8 +89,7 @@ public class ChangeAnnouncementController extends BaseController
      */
     @RequiresPermissions("cp:changeAnnouncement:edit")
     @GetMapping("/edit/{changeAnnouncementId}")
-    public String edit(@PathVariable("changeAnnouncementId") String changeAnnouncementId, ModelMap mmap)
-    {
+    public String edit(@PathVariable("changeAnnouncementId") String changeAnnouncementId, ModelMap mmap) {
         ChangeAnnouncement changeAnnouncement = changeAnnouncementService.selectChangeAnnouncementByChangeAnnouncementId(changeAnnouncementId);
         mmap.put("changeAnnouncement", changeAnnouncement);
         return prefix + "/edit";
@@ -113,8 +102,7 @@ public class ChangeAnnouncementController extends BaseController
     @Log(title = "变更公告", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(ChangeAnnouncement changeAnnouncement)
-    {
+    public AjaxResult editSave(ChangeAnnouncement changeAnnouncement) {
         return toAjax(changeAnnouncementService.updateChangeAnnouncement(changeAnnouncement));
     }
 
@@ -123,17 +111,15 @@ public class ChangeAnnouncementController extends BaseController
      */
     @RequiresPermissions("cp:changeAnnouncement:remove")
     @Log(title = "变更公告", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(changeAnnouncementService.deleteChangeAnnouncementByChangeAnnouncementIds(ids));
     }
 
     // 查询标书
     @RequestMapping("/search/")
-    public String queryTender()
-    {
+    public String queryTender() {
         return prefix + "/search";
     }
 

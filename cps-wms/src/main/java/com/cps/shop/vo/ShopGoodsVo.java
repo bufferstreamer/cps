@@ -11,76 +11,119 @@ import java.math.BigDecimal;
  * @author miki
  * @date 2021-05-26
  */
-public class ShopGoodsVo extends BaseEntity
-{
+public class ShopGoodsVo extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** id */
+    /**
+     * id
+     */
     private Long id;
 
-    /** 商品类别ID */
+    /**
+     * 商品类别ID
+     */
     private Long goodsTypeId;
 
-    /** 商品编码 */
+    /**
+     * 商品编码
+     */
     private String goodsCode;
 
-    /** 商品名称 */
+    /**
+     * 商品名称
+     */
     private String goodsName;
 
-    /** 商品条码 */
+    /**
+     * 商品条码
+     */
     private String goodsBarcode;
 
-    /** 商品规格 */
+    /**
+     * 商品规格
+     */
     private String goodsSearchstandard;
 
-    /** 商品颜色 */
+    /**
+     * 商品颜色
+     */
     private String goodsColor;
 
-    /** 所属库位主键 */
+    /**
+     * 所属库位主键
+     */
     private Long storageId;
 
-    /** 商品单位【关联字典管理】 */
+    /**
+     * 商品单位【关联字典管理】
+     */
     private String goodsUnit;
 
-    /** 商品重量(单位:千克) */
+    /**
+     * 商品重量(单位:千克)
+     */
     private BigDecimal goodsWeight;
 
-    /** 成本价 */
+    /**
+     * 成本价
+     */
     private BigDecimal costPrice;
 
-    /** 零售价 */
+    /**
+     * 零售价
+     */
     private BigDecimal retailPrice;
 
-    /** 销售价 */
+    /**
+     * 销售价
+     */
     private BigDecimal sellingPrice;
 
-    /** 批发价 */
+    /**
+     * 批发价
+     */
     @Excel(name = "批发价")
     private BigDecimal wholesalePrice;
 
-    /** 成本价锁定 */
+    /**
+     * 成本价锁定
+     */
     private String isCost;
 
-    /** 部门ID */
+    /**
+     * 部门ID
+     */
     private Long deptId;
 
     /**-------------------------- 扩张字段 ---------------------------------*/
-    /** 安全库存 */
+    /**
+     * 安全库存
+     */
     private Long safetyStock;
 
-    /** 库存数量 */
+    /**
+     * 库存数量
+     */
     private Long stockNumber;
 
-    /** 商品类别编码 */
+    /**
+     * 商品类别编码
+     */
     private String goodsTypeCode;
 
-    /** 商品类别名称 */
+    /**
+     * 商品类别名称
+     */
     private String goodsTypeName;
 
-    /** 库位编码 */
+    /**
+     * 库位编码
+     */
     private String storageCode;
 
-    /** 库位名称 */
+    /**
+     * 库位名称
+     */
     private String storageName;
 
     public Long getId() {

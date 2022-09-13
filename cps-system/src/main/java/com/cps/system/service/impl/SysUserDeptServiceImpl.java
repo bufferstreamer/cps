@@ -26,8 +26,7 @@ public class SysUserDeptServiceImpl implements ISysUserDeptService {
      * @return 用户与公司关联
      */
     @Override
-    public SysUserDept selectSysUserDeptById(Long id)
-    {
+    public SysUserDept selectSysUserDeptById(Long id) {
         return sysUserDeptMapper.selectSysUserDeptById(id);
     }
 
@@ -38,8 +37,7 @@ public class SysUserDeptServiceImpl implements ISysUserDeptService {
      * @return 用户与公司关联
      */
     @Override
-    public List<SysUserDept> selectSysUserDeptList(SysUserDept sysUserDept)
-    {
+    public List<SysUserDept> selectSysUserDeptList(SysUserDept sysUserDept) {
         return sysUserDeptMapper.selectSysUserDeptList(sysUserDept);
     }
 
@@ -50,8 +48,7 @@ public class SysUserDeptServiceImpl implements ISysUserDeptService {
      * @return 结果
      */
     @Override
-    public int insertSysUserDept(SysUserDept sysUserDept)
-    {
+    public int insertSysUserDept(SysUserDept sysUserDept) {
         sysUserDept.setCreateTime(DateUtils.getNowDate());
         return sysUserDeptMapper.insertSysUserDept(sysUserDept);
     }
@@ -63,8 +60,7 @@ public class SysUserDeptServiceImpl implements ISysUserDeptService {
      * @return 结果
      */
     @Override
-    public int updateSysUserDept(SysUserDept sysUserDept)
-    {
+    public int updateSysUserDept(SysUserDept sysUserDept) {
         sysUserDept.setUpdateTime(DateUtils.getNowDate());
         return sysUserDeptMapper.updateSysUserDept(sysUserDept);
     }
@@ -76,8 +72,7 @@ public class SysUserDeptServiceImpl implements ISysUserDeptService {
      * @return 结果
      */
     @Override
-    public int deleteSysUserDeptByIds(String ids)
-    {
+    public int deleteSysUserDeptByIds(String ids) {
         return sysUserDeptMapper.deleteSysUserDeptByIds(Convert.toStrArray(ids));
     }
 
@@ -88,8 +83,7 @@ public class SysUserDeptServiceImpl implements ISysUserDeptService {
      * @return 结果
      */
     @Override
-    public int deleteSysUserDeptById(Long id)
-    {
+    public int deleteSysUserDeptById(Long id) {
         return sysUserDeptMapper.deleteSysUserDeptById(id);
     }
 }

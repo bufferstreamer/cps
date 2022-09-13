@@ -1,58 +1,59 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('修改供销社角色')" />
+    <th:block th:include="include :: header('修改供销社角色')"/>
 </head>
 <body class="white-bg">
-    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-cooperative-edit" th:object="${cooperative}">
-            <input name="gxsId" th:field="*{gxsId}" type="hidden">
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">供销社名称：</label>
-                <div class="col-sm-8">
-                    <input name="gxsName" th:field="*{gxsName}" class="form-control" type="text" required>
-                </div>
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-cooperative-edit" th:object="${cooperative}">
+        <input name="gxsId" th:field="*{gxsId}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">供销社名称：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="gxsName" required th:field="*{gxsName}" type="text">
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">昵称：</label>
-                <div class="col-sm-8">
-                    <input name="nickname" th:field="*{nickname}" class="form-control" type="text" required>
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">昵称：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="nickname" required th:field="*{nickname}" type="text">
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">用户名：</label>
-                <div class="col-sm-8">
-                    <input name="username" th:field="*{username}" class="form-control" type="text" required>
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">用户名：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="username" required th:field="*{username}" type="text">
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">密码：</label>
-                <div class="col-sm-8">
-                    <input name="password" th:field="*{password}" class="form-control" type="text" required>
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">密码：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="password" required th:field="*{password}" type="text">
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">供销社状态：</label>
-                <div class="col-sm-8">
-                    <select name="gxsState" class="form-control m-b" th:with="type=${@dict.getType('sys_examine_status')}">
-                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{gxsState}"></option>
-                    </select>
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">供销社状态：</label>
+            <div class="col-sm-8">
+                <select class="form-control m-b" name="gxsState" th:with="type=${@dict.getType('sys_examine_status')}">
+                    <option th:each="dict : ${type}" th:field="*{gxsState}" th:text="${dict.dictLabel}"
+                            th:value="${dict.dictValue}"></option>
+                </select>
             </div>
-        </form>
-    </div>
-    <th:block th:include="include :: footer" />
-    <script th:inline="javascript">
-        var prefix = ctx + "user/cooperative";
-        $("#form-cooperative-edit").validate({
-            focusCleanup: true
-        });
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    var prefix = ctx + "user/cooperative";
+    $("#form-cooperative-edit").validate({
+        focusCleanup: true
+    });
 
-        function submitHandler() {
-            if ($.validate.form()) {
-                $.operate.save(prefix + "/edit", $('#form-cooperative-edit').serialize());
-            }
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit", $('#form-cooperative-edit').serialize());
         }
-    </script>
+    }
+</script>
 </body>
 </html>

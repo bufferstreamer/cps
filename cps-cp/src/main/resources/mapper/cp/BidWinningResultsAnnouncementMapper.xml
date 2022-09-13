@@ -1,66 +1,88 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cps.cp.mapper.BidWinningResultsAnnouncementMapper">
-    
+
     <resultMap type="BidWinningResultsAnnouncement" id="BidWinningResultsAnnouncementResult">
-        <result property="bidWinningResultsAnnouncementId"    column="bid_winning_results_announcement_id"    />
-        <result property="bidWinningResultsAnnouncementDocument"    column="bid_winning_results_announcement_document"    />
-        <result property="tenderId"    column="tender_id"    />
-        <result property="announcementName"    column="announcement_name"    />
+        <result property="bidWinningResultsAnnouncementId" column="bid_winning_results_announcement_id"/>
+        <result property="bidWinningResultsAnnouncementDocument" column="bid_winning_results_announcement_document"/>
+        <result property="tenderId" column="tender_id"/>
+        <result property="announcementName" column="announcement_name"/>
     </resultMap>
 
     <sql id="selectBidWinningResultsAnnouncementVo">
-        select bid_winning_results_announcement_id, announcement_name, bid_winning_results_announcement_document, tender_id from bid_winning_results_announcement
+        select bid_winning_results_announcement_id,
+               announcement_name,
+               bid_winning_results_announcement_document,
+               tender_id
+        from bid_winning_results_announcement
     </sql>
 
-    <select id="selectBidWinningResultsAnnouncementList" parameterType="BidWinningResultsAnnouncement" resultMap="BidWinningResultsAnnouncementResult">
+    <select id="selectBidWinningResultsAnnouncementList" parameterType="BidWinningResultsAnnouncement"
+            resultMap="BidWinningResultsAnnouncementResult">
         <include refid="selectBidWinningResultsAnnouncementVo"/>
-        <where>  
-            <if test="bidWinningResultsAnnouncementId != null  and bidWinningResultsAnnouncementId != ''"> and bid_winning_results_announcement_id like concat('%', #{bidWinningResultsAnnouncementId}, '%')</if>
-            <if test="announcementName != null  and announcementName != ''"> and announcement_name like concat('%', #{announcementName}, '%')</if>
-            <if test="tenderId != null  and tenderId != ''"> and tender_Id like concat('%', #{tenderId}, '%')</if>
+        <where>
+            <if test="bidWinningResultsAnnouncementId != null  and bidWinningResultsAnnouncementId != ''">and
+                bid_winning_results_announcement_id like concat('%', #{bidWinningResultsAnnouncementId}, '%')
+            </if>
+            <if test="announcementName != null  and announcementName != ''">and announcement_name like concat('%',
+                #{announcementName}, '%')
+            </if>
+            <if test="tenderId != null  and tenderId != ''">and tender_Id like concat('%', #{tenderId}, '%')</if>
         </where>
     </select>
-    
-    <select id="selectBidWinningResultsAnnouncementByBidWinningResultsAnnouncementId" parameterType="String" resultMap="BidWinningResultsAnnouncementResult">
+
+    <select id="selectBidWinningResultsAnnouncementByBidWinningResultsAnnouncementId" parameterType="String"
+            resultMap="BidWinningResultsAnnouncementResult">
         <include refid="selectBidWinningResultsAnnouncementVo"/>
         where bid_winning_results_announcement_id = #{bidWinningResultsAnnouncementId}
     </select>
-        
+
     <insert id="insertBidWinningResultsAnnouncement" parameterType="BidWinningResultsAnnouncement">
         insert into bid_winning_results_announcement
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="bidWinningResultsAnnouncementId != null and bidWinningResultsAnnouncementId != ''">bid_winning_results_announcement_id,</if>
+            <if test="bidWinningResultsAnnouncementId != null and bidWinningResultsAnnouncementId != ''">
+                bid_winning_results_announcement_id,
+            </if>
             <if test="announcementName != null">announcement_name,</if>
-            <if test="bidWinningResultsAnnouncementDocument != null and bidWinningResultsAnnouncementDocument != ''">bid_winning_results_announcement_document,</if>
+            <if test="bidWinningResultsAnnouncementDocument != null and bidWinningResultsAnnouncementDocument != ''">
+                bid_winning_results_announcement_document,
+            </if>
             <if test="tenderId != null and tenderId != ''">tender_id,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="bidWinningResultsAnnouncementId != null and bidWinningResultsAnnouncementId != ''">#{bidWinningResultsAnnouncementId},</if>
+            <if test="bidWinningResultsAnnouncementId != null and bidWinningResultsAnnouncementId != ''">
+                #{bidWinningResultsAnnouncementId},
+            </if>
             <if test="announcementName != null">#{announcementName},</if>
-            <if test="bidWinningResultsAnnouncementDocument != null and bidWinningResultsAnnouncementDocument != ''">#{bidWinningResultsAnnouncementDocument},</if>
+            <if test="bidWinningResultsAnnouncementDocument != null and bidWinningResultsAnnouncementDocument != ''">
+                #{bidWinningResultsAnnouncementDocument},
+            </if>
             <if test="tenderId != null and tenderId != ''">#{tenderId},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateBidWinningResultsAnnouncement" parameterType="BidWinningResultsAnnouncement">
         update bid_winning_results_announcement
         <trim prefix="SET" suffixOverrides=",">
             <if test="announcementName != null and announcementName != ''">announcement_name = #{announcementName},</if>
-            <if test="bidWinningResultsAnnouncementDocument != null and bidWinningResultsAnnouncementDocument != ''">bid_winning_results_announcement_document = #{bidWinningResultsAnnouncementDocument},</if>
+            <if test="bidWinningResultsAnnouncementDocument != null and bidWinningResultsAnnouncementDocument != ''">
+                bid_winning_results_announcement_document = #{bidWinningResultsAnnouncementDocument},
+            </if>
             <if test="tenderId != null and tenderId != ''">tender_id = #{tenderId},</if>
         </trim>
         where bid_winning_results_announcement_id = #{bidWinningResultsAnnouncementId}
     </update>
 
     <delete id="deleteBidWinningResultsAnnouncementByBidWinningResultsAnnouncementId" parameterType="String">
-        delete from bid_winning_results_announcement where bid_winning_results_announcement_id = #{bidWinningResultsAnnouncementId}
+        delete
+        from bid_winning_results_announcement
+        where bid_winning_results_announcement_id = #{bidWinningResultsAnnouncementId}
     </delete>
 
     <delete id="deleteBidWinningResultsAnnouncementByBidWinningResultsAnnouncementIds" parameterType="String">
-        delete from bid_winning_results_announcement where bid_winning_results_announcement_id in 
+        delete from bid_winning_results_announcement where bid_winning_results_announcement_id in
         <foreach item="bidWinningResultsAnnouncementId" collection="array" open="(" separator="," close=")">
             #{bidWinningResultsAnnouncementId}
         </foreach>

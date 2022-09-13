@@ -21,14 +21,13 @@ import java.util.List;
 
 /**
  * 缺货管制订单Controller
- * 
+ *
  * @author miki
  * @date 2021-06-09
  */
 @Controller
 @RequestMapping("/wh/outboundStockout")
-public class WhOutboundStockoutController extends BaseController
-{
+public class WhOutboundStockoutController extends BaseController {
     private String prefix = "wh/outboundStockout";
 
     @Autowired
@@ -36,8 +35,7 @@ public class WhOutboundStockoutController extends BaseController
 
     @RequiresPermissions("wh:outboundStockout:view")
     @GetMapping()
-    public String outboundStockout()
-    {
+    public String outboundStockout() {
         return prefix + "/outboundStockout";
     }
 
@@ -47,8 +45,7 @@ public class WhOutboundStockoutController extends BaseController
     @RequiresPermissions("wh:outboundStockout:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(WhOutboundStockout whOutboundStockout)
-    {
+    public TableDataInfo list(WhOutboundStockout whOutboundStockout) {
         whOutboundStockout.setDeptId(ShiroUtils.getDeptId());
         startPage();
         List<WhOutboundStockoutVo> list = whOutboundStockoutService.selectWhOutboundStockoutListVo(whOutboundStockout);
@@ -60,10 +57,9 @@ public class WhOutboundStockoutController extends BaseController
      */
     @RequiresPermissions("wh:outboundStockout:editStockout")
     @Log(title = "缺货管制订单", businessType = BusinessType.DELETE)
-    @PostMapping( "/editStockout")
+    @PostMapping("/editStockout")
     @ResponseBody
-    public AjaxResult editStockout(String ids)
-    {
+    public AjaxResult editStockout(String ids) {
         return toAjax(whOutboundStockoutService.editStockout(ids));
     }
 }

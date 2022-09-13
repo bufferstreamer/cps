@@ -7,172 +7,182 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * 承运商管理对象 wms_basis_carriers
- * 
+ *
  * @author miki
  * @date 2021-05-20
  */
-public class BasisCarriers extends BaseEntity
-{
+public class BasisCarriers extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** 承运商管理id */
+    /**
+     * 承运商管理id
+     */
     private Long id;
 
-    /** 单位关联主键 */
+    /**
+     * 单位关联主键
+     */
     @Excel(name = "单位关联主键")
     private Long warehouseId;
 
-    /** 承运商编码 */
+    /**
+     * 承运商编码
+     */
     @Excel(name = "承运商编码")
     private String carriersCode;
 
-    /** 承运商名称 */
+    /**
+     * 承运商名称
+     */
     @Excel(name = "承运商名称")
     private String carriersName;
 
-    /** 联系人 */
+    /**
+     * 联系人
+     */
     @Excel(name = "联系人")
     private String contactPerson;
 
-    /** 电话 */
+    /**
+     * 电话
+     */
     @Excel(name = "电话")
     private String telephone;
 
-    /** 手机 */
+    /**
+     * 手机
+     */
     @Excel(name = "手机")
     private String mobilePhone;
 
-    /** 邮箱 */
+    /**
+     * 邮箱
+     */
     @Excel(name = "邮箱")
     private String email;
 
-    /** 地址 */
+    /**
+     * 地址
+     */
     @Excel(name = "地址")
     private String address;
 
-    /** 级别(关联字典) */
+    /**
+     * 级别(关联字典)
+     */
     @Excel(name = "级别(关联字典)")
     private String carriersLevel;
 
-    /** 删除标志（0代表存在 2代表删除） */
+    /**
+     * 删除标志（0代表存在 2代表删除）
+     */
     private String delFlag;
 
-    /** 部门ID */
+    /**
+     * 部门ID
+     */
     @Excel(name = "部门ID")
     private Long deptId;
 
-    public void setId(Long id)
-    {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId()
-    {
-        return id;
+    public Long getWarehouseId() {
+        return warehouseId;
     }
-    public void setWarehouseId(Long warehouseId)
-    {
+
+    public void setWarehouseId(Long warehouseId) {
         this.warehouseId = warehouseId;
     }
 
-    public Long getWarehouseId()
-    {
-        return warehouseId;
+    public String getCarriersCode() {
+        return carriersCode;
     }
-    public void setCarriersCode(String carriersCode)
-    {
+
+    public void setCarriersCode(String carriersCode) {
         this.carriersCode = carriersCode;
     }
 
-    public String getCarriersCode()
-    {
-        return carriersCode;
+    public String getCarriersName() {
+        return carriersName;
     }
-    public void setCarriersName(String carriersName)
-    {
+
+    public void setCarriersName(String carriersName) {
         this.carriersName = carriersName;
     }
 
-    public String getCarriersName()
-    {
-        return carriersName;
+    public String getContactPerson() {
+        return contactPerson;
     }
-    public void setContactPerson(String contactPerson)
-    {
+
+    public void setContactPerson(String contactPerson) {
         this.contactPerson = contactPerson;
     }
 
-    public String getContactPerson()
-    {
-        return contactPerson;
+    public String getTelephone() {
+        return telephone;
     }
-    public void setTelephone(String telephone)
-    {
+
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
-    public String getTelephone()
-    {
-        return telephone;
+    public String getMobilePhone() {
+        return mobilePhone;
     }
-    public void setMobilePhone(String mobilePhone)
-    {
+
+    public void setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
     }
 
-    public String getMobilePhone()
-    {
-        return mobilePhone;
+    public String getEmail() {
+        return email;
     }
-    public void setEmail(String email)
-    {
+
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getEmail()
-    {
-        return email;
+    public String getAddress() {
+        return address;
     }
-    public void setAddress(String address)
-    {
+
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public String getAddress()
-    {
-        return address;
+    public String getCarriersLevel() {
+        return carriersLevel;
     }
-    public void setCarriersLevel(String carriersLevel)
-    {
+
+    public void setCarriersLevel(String carriersLevel) {
         this.carriersLevel = carriersLevel;
     }
 
-    public String getCarriersLevel()
-    {
-        return carriersLevel;
+    public String getDelFlag() {
+        return delFlag;
     }
-    public void setDelFlag(String delFlag)
-    {
+
+    public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
     }
 
-    public String getDelFlag()
-    {
-        return delFlag;
-    }
-    public void setDeptId(Long deptId)
-    {
-        this.deptId = deptId;
+    public Long getDeptId() {
+        return deptId;
     }
 
-    public Long getDeptId()
-    {
-        return deptId;
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())
                 .append("warehouseId", getWarehouseId())
                 .append("carriersCode", getCarriersCode())

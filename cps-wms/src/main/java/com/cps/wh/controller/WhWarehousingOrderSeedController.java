@@ -25,8 +25,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/wh/warehousingOrderSeed")
-public class WhWarehousingOrderSeedController extends BaseController
-{
+public class WhWarehousingOrderSeedController extends BaseController {
     private String prefix = "wh/warehousingOrderSeed";
 
     @Autowired
@@ -37,8 +36,7 @@ public class WhWarehousingOrderSeedController extends BaseController
      */
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(WhWarehousingOrderSeed whWarehousingOrderSeed)
-    {
+    public TableDataInfo list(WhWarehousingOrderSeed whWarehousingOrderSeed) {
         startPage();
         List<WhWarehousingOrderSeed> list = whWarehousingOrderSeedService.selectWhWarehousingOrderSeedList(whWarehousingOrderSeed);
         return getDataTable(list);
@@ -50,8 +48,7 @@ public class WhWarehousingOrderSeedController extends BaseController
     @Log(title = "商品入库单子", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(WhWarehousingOrderSeed whWarehousingOrderSeed)
-    {
+    public AjaxResult addSave(WhWarehousingOrderSeed whWarehousingOrderSeed) {
         whWarehousingOrderSeed.setDeptId(ShiroUtils.getDeptId());
         whWarehousingOrderSeed.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(whWarehousingOrderSeedService.insertWhWarehousingOrderSeed(whWarehousingOrderSeed));
@@ -63,8 +60,7 @@ public class WhWarehousingOrderSeedController extends BaseController
     @Log(title = "商品入库单子", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(WhWarehousingOrderSeed whWarehousingOrderSeed)
-    {
+    public AjaxResult editSave(WhWarehousingOrderSeed whWarehousingOrderSeed) {
         whWarehousingOrderSeed.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(whWarehousingOrderSeedService.updateWhWarehousingOrderSeedRecalculate(whWarehousingOrderSeed));
     }
@@ -73,35 +69,34 @@ public class WhWarehousingOrderSeedController extends BaseController
      * 删除商品入库单子
      */
     @Log(title = "商品入库单子", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(whWarehousingOrderSeedService.deleteWhWarehousingOrderSeedByIds(ids));
     }
 
     /**
      * 分拣(入库)完成界面
+     *
      * @return
      */
     @RequiresPermissions("wh:warehousingOrderSeed:editComplete")
     @GetMapping("/editComplete/{id}")
-    public String editComplete(@PathVariable("id") Long outboundOrderId, ModelMap mmap)
-    {
-        mmap.put("warehousingOrderId",outboundOrderId);
+    public String editComplete(@PathVariable("id") Long outboundOrderId, ModelMap mmap) {
+        mmap.put("warehousingOrderId", outboundOrderId);
         return prefix + "/editComplete";
     }
 
     /**
      * 分拣(入库)完成
+     *
      * @return
      */
     @RequiresPermissions("wh:warehousingOrderSeed:editCompleteSave")
     @Log(title = "商品入库单子", businessType = BusinessType.UPDATE)
-    @PostMapping( "/editCompleteSave")
+    @PostMapping("/editCompleteSave")
     @ResponseBody
-    public AjaxResult editCompleteSave(WarehousingOrderSeedModel warehousingOrderSeedModel)
-    {
+    public AjaxResult editCompleteSave(WarehousingOrderSeedModel warehousingOrderSeedModel) {
         warehousingOrderSeedModel.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(whWarehousingOrderSeedService.updateCompleteSave(warehousingOrderSeedModel));
     }

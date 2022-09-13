@@ -10,34 +10,49 @@ import java.util.List;
  * @author miki
  * @date 2021-06-14
  */
-public class OrderModel extends BaseEntity
-{
+public class OrderModel extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     private String sheetType;//单据类别
 
-    /** 单位关系主键ID */
+    /**
+     * 单位关系主键ID
+     */
     private Long warehouseId;
 
-    /** 对象单位主键ID */
+    /**
+     * 对象单位主键ID
+     */
     private Long desWarehouseId;
 
-    /** 对象单位名称 */
+    /**
+     * 对象单位名称
+     */
     private String desWarehouseName;
 
-    /** 相关单据ID主键 */
+    /**
+     * 相关单据ID主键
+     */
     private Long orderId;
 
-    /** 相关单据编号 */
+    /**
+     * 相关单据编号
+     */
     private String orderCode;
 
-    /** 订单号 */
+    /**
+     * 订单号
+     */
     private String orderName;
 
-    /** 备注 */
+    /**
+     * 备注
+     */
     private String remark;
 
-    /** 据精灵子对象 */
+    /**
+     * 据精灵子对象
+     */
     private List<OrderSeedModel> orderSeedModelList;
 
     public String getSheetType() {

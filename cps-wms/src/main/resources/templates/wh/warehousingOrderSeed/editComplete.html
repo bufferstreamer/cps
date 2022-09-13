@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('收货作业完成订单列表')" />
+    <th:block th:include="include :: header('收货作业完成订单列表')"/>
 </head>
 <body class="gray-bg">
 <div class="main-content">
-    <form id="formId" class="form-horizontal">
-        <input type="hidden" id="warehousingOrderId" name="warehousingOrderId" th:value="${warehousingOrderId}"/>
+    <form class="form-horizontal" id="formId">
+        <input id="warehousingOrderId" name="warehousingOrderId" th:value="${warehousingOrderId}" type="hidden"/>
         <!--<h4 class="form-header h4">商品数据</h4>-->
         <div class="row">
-        <div class="col-sm-12 select-table table-striped">
-            <table id="bootstrap-table"></table>
-        </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
         </div>
 
     </form>
 </div>
-<th:block th:include="include :: footer" />
+<th:block th:include="include :: footer"/>
 <script th:inline="javascript">
     var prefix = ctx + "wh/warehousingOrderSeed";
 
-    $(function() {
+    $(function () {
         var options = {
             url: prefix + "/list",
             modalName: "分拣(入库)",
@@ -46,7 +46,7 @@
                         var columnIndex = /*$.common.sprintf("<input type='hidden' name='index' value='%s'>", $.table.serialNumber(index))*/"";
                         var columnId = $.common.sprintf("<input type='hidden' name='warehousingOrderSeed[%s].id' value='%s'>", index, row.id);
                         var shopGoodsId = $.common.sprintf("<input type='hidden' name='warehousingOrderSeed[%s].shopGoodsId' value='%s'>", index, row.shopGoodsId);
-                        return columnIndex + $.table.serialNumber(index)+ columnId+shopGoodsId;
+                        return columnIndex + $.table.serialNumber(index) + columnId + shopGoodsId;
                     }
                 },
                 {
@@ -64,7 +64,7 @@
                 {
                     field: 'planNumber',
                     title: '计划数量',
-                    formatter: function(value, row, index) {
+                    formatter: function (value, row, index) {
                         var html = $.common.sprintf("<input class='form-control' type='hidden' name='warehousingOrderSeed[%s].planNumber' min='0' value='%s'>", index, value);
                         return html + value;
                     }
@@ -72,13 +72,13 @@
                 {
                     field: 'warehousingNumber',
                     title: '实际数量',
-                    formatter: function(value, row, index) {
+                    formatter: function (value, row, index) {
                         var html = $.common.sprintf("<input class='form-control' type='number' name='warehousingOrderSeed[%s].warehousingNumber' min='0' value='%s'>", index, row.planNumber);
                         return html;
                     }
 
                 },
-                ]
+            ]
         };
         $.table.init(options);
     });
@@ -90,10 +90,10 @@
     }
 
     /* 主子表-提交 */
-    function submitHandler(index, layero){
+    function submitHandler(index, layero) {
         var data = $("#formId").serializeArray();
         //alert(JSON.stringify(data))
-      $.operate.save(prefix+"/editCompleteSave", data);
+        $.operate.save(prefix + "/editCompleteSave", data);
     }
 </script>
 </body>

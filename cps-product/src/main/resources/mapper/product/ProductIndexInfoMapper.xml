@@ -1,39 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cps.product.mapper.ProductIndexInfoMapper">
-    
+
     <resultMap type="ProductIndexInfo" id="ProductIndexInfoResult">
-        <result property="productIndexId"    column="product_index_id"    />
-        <result property="productId"    column="product_id"    />
-        <result property="productName"    column="product_name"    />
-        <result property="indexName"    column="index_name"    />
-        <result property="indexUnit"    column="index_unit"    />
-        <result property="indexMin"    column="index_min"    />
-        <result property="indexMax"    column="index_max"    />
-        <result property="indexStatus"    column="index_status"    />
-        <result property="updateDatetime"    column="update_datetime"    />
+        <result property="productIndexId" column="product_index_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="indexName" column="index_name"/>
+        <result property="indexUnit" column="index_unit"/>
+        <result property="indexMin" column="index_min"/>
+        <result property="indexMax" column="index_max"/>
+        <result property="indexStatus" column="index_status"/>
+        <result property="updateDatetime" column="update_datetime"/>
     </resultMap>
 
     <sql id="selectProductIndexInfoVo">
-        select product_index_id, product_id, product_name, index_name, index_unit, index_min, index_max, index_status, update_datetime from product_index_info
+        select product_index_id,
+               product_id,
+               product_name,
+               index_name,
+               index_unit,
+               index_min,
+               index_max,
+               index_status,
+               update_datetime
+        from product_index_info
     </sql>
 
     <select id="selectProductIndexInfoList" parameterType="ProductIndexInfo" resultMap="ProductIndexInfoResult">
         <include refid="selectProductIndexInfoVo"/>
-        <where>  
-            <if test="productId != null  and productId != ''"> and product_id = #{productId}</if>
-            <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
-            <if test="indexName != null  and indexName != ''"> and index_name like concat('%', #{indexName}, '%')</if>
-            <if test="indexUnit != null  and indexUnit != ''"> and index_unit = #{indexUnit}</if>
-            <if test="indexMin != null "> and index_min = #{indexMin}</if>
-            <if test="indexMax != null "> and index_max = #{indexMax}</if>
-            <if test="indexStatus != null  and indexStatus != ''"> and index_status = #{indexStatus}</if>
-            <if test="updateDatetime != null "> and update_datetime = #{updateDatetime}</if>
+        <where>
+            <if test="productId != null  and productId != ''">and product_id = #{productId}</if>
+            <if test="productName != null  and productName != ''">and product_name like concat('%', #{productName},
+                '%')
+            </if>
+            <if test="indexName != null  and indexName != ''">and index_name like concat('%', #{indexName}, '%')</if>
+            <if test="indexUnit != null  and indexUnit != ''">and index_unit = #{indexUnit}</if>
+            <if test="indexMin != null ">and index_min = #{indexMin}</if>
+            <if test="indexMax != null ">and index_max = #{indexMax}</if>
+            <if test="indexStatus != null  and indexStatus != ''">and index_status = #{indexStatus}</if>
+            <if test="updateDatetime != null ">and update_datetime = #{updateDatetime}</if>
         </where>
     </select>
-    
+
     <select id="selectProductIndexInfoByProductIndexId" parameterType="String" resultMap="ProductIndexInfoResult">
         <include refid="selectProductIndexInfoVo"/>
         where product_index_id = #{productIndexId}
@@ -41,10 +52,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectIndexSortByProductNameAndIndexName" parameterType="String" resultType="java.lang.Character">
         select index_status from product_index_info
-<!--        <where>-->
-<!--            <if test="productName != null  and productName != ''"> and product_name = #{productName}</if>-->
-<!--            <if test="indexName != null  and indexName != ''"> and and index_name = #{indexName}</if>-->
-<!--        </where>-->
+        <!--        <where>-->
+        <!--            <if test="productName != null  and productName != ''"> and product_name = #{productName}</if>-->
+        <!--            <if test="indexName != null  and indexName != ''"> and and index_name = #{indexName}</if>-->
+        <!--        </where>-->
         where product_name = #{productName} and index_name = #{indexName}
     </select>
 
@@ -60,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="indexMax != null">index_max,</if>
             <if test="indexStatus != null">index_status,</if>
             <if test="updateDatetime != null">update_datetime,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="productIndexId != null">#{productIndexId},</if>
             <if test="productId != null">#{productId},</if>
@@ -71,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="indexMax != null">#{indexMax},</if>
             <if test="indexStatus != null">#{indexStatus},</if>
             <if test="updateDatetime != null">#{updateDatetime},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateProductIndexInfo" parameterType="ProductIndexInfo">
@@ -90,11 +101,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteProductIndexInfoByProductIndexId" parameterType="String">
-        delete from product_index_info where product_index_id = #{productIndexId}
+        delete
+        from product_index_info
+        where product_index_id = #{productIndexId}
     </delete>
 
     <delete id="deleteProductIndexInfoByProductIndexIds" parameterType="String">
-        delete from product_index_info where product_index_id in 
+        delete from product_index_info where product_index_id in
         <foreach item="productIndexId" collection="array" open="(" separator="," close=")">
             #{productIndexId}
         </foreach>

@@ -18,14 +18,13 @@ import java.util.List;
 
 /**
  * 商品库存信息Controller
- * 
+ *
  * @author miki
  * @date 2021-05-25
  */
 @Controller
 @RequestMapping("/shop/goodsSeed")
-public class ShopGoodsSeedController extends BaseController
-{
+public class ShopGoodsSeedController extends BaseController {
     private String prefix = "shop/goodsSeed";
 
     @Autowired
@@ -33,8 +32,7 @@ public class ShopGoodsSeedController extends BaseController
 
     @RequiresPermissions("shop:goodsSeed:view")
     @GetMapping()
-    public String goodsSeed()
-    {
+    public String goodsSeed() {
         return prefix + "/goodsSeed";
     }
 
@@ -44,8 +42,7 @@ public class ShopGoodsSeedController extends BaseController
     @RequiresPermissions("shop:goodsSeed:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(ShopGoodsSeed shopGoodsSeed)
-    {
+    public TableDataInfo list(ShopGoodsSeed shopGoodsSeed) {
         startPage();
         List<ShopGoodsSeed> list = shopGoodsSeedService.selectShopGoodsSeedList(shopGoodsSeed);
         return getDataTable(list);
@@ -58,8 +55,7 @@ public class ShopGoodsSeedController extends BaseController
     @Log(title = "商品库存信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(ShopGoodsSeed shopGoodsSeed)
-    {
+    public AjaxResult export(ShopGoodsSeed shopGoodsSeed) {
         List<ShopGoodsSeed> list = shopGoodsSeedService.selectShopGoodsSeedList(shopGoodsSeed);
         ExcelUtil<ShopGoodsSeed> util = new ExcelUtil<ShopGoodsSeed>(ShopGoodsSeed.class);
         return util.exportExcel(list, "商品库存信息数据");
@@ -69,8 +65,7 @@ public class ShopGoodsSeedController extends BaseController
      * 新增商品库存信息
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -81,8 +76,7 @@ public class ShopGoodsSeedController extends BaseController
     @Log(title = "商品库存信息", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(ShopGoodsSeed shopGoodsSeed)
-    {
+    public AjaxResult addSave(ShopGoodsSeed shopGoodsSeed) {
         return toAjax(shopGoodsSeedService.insertShopGoodsSeed(shopGoodsSeed));
     }
 
@@ -90,8 +84,7 @@ public class ShopGoodsSeedController extends BaseController
      * 修改商品库存信息
      */
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Long id, ModelMap mmap)
-    {
+    public String edit(@PathVariable("id") Long id, ModelMap mmap) {
         ShopGoodsSeed shopGoodsSeed = shopGoodsSeedService.selectShopGoodsSeedById(id);
         mmap.put("shopGoodsSeed", shopGoodsSeed);
         return prefix + "/edit";
@@ -104,8 +97,7 @@ public class ShopGoodsSeedController extends BaseController
     @Log(title = "商品库存信息", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(ShopGoodsSeed shopGoodsSeed)
-    {
+    public AjaxResult editSave(ShopGoodsSeed shopGoodsSeed) {
         return toAjax(shopGoodsSeedService.updateShopGoodsSeed(shopGoodsSeed));
     }
 
@@ -114,10 +106,9 @@ public class ShopGoodsSeedController extends BaseController
      */
     @RequiresPermissions("shop:goodsSeed:remove")
     @Log(title = "商品库存信息", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(shopGoodsSeedService.deleteShopGoodsSeedByIds(ids));
     }
 }

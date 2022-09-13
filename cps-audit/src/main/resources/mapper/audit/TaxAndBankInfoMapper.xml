@@ -1,54 +1,86 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cps.audit.mapper.TaxAndBankInfoMapper">
-    
+
     <resultMap type="TaxAndBankInfo" id="TaxAndBankInfoResult">
-        <result property="taxAndBankAuditId"    column="tax_and_bank_audit_id"    />
-        <result property="checklistId"    column="checklist_id"    />
-        <result property="taxpayerIdNumber"    column="taxpayer_id_number"    />
-        <result property="taxpayerType"    column="taxpayer_type"    />
-        <result property="taxTypeCode"    column="tax_type_code"    />
-        <result property="taxRegistrationCertificate"    column="tax_registration_certificate"    />
-        <result property="generalTaxpayerQualificationCertificate"    column="general_taxpayer_qualification_certificate"    />
-        <result property="bankAccountName"    column="bank_account_name"    />
-        <result property="corporateBankAccountNumber"    column="corporate_bank_account_number"    />
-        <result property="bankBranchName"    column="bank_branch_name"    />
-        <result property="bankBranchNumber"    column="bank_branch_number"    />
-        <result property="bankBranchLocation"    column="bank_branch_location"    />
-        <result property="bankAccountOpenLicense"    column="bank_account_open_license"    />
-        <result property="createDatetime"    column="create_datetime"    />
+        <result property="taxAndBankAuditId" column="tax_and_bank_audit_id"/>
+        <result property="checklistId" column="checklist_id"/>
+        <result property="taxpayerIdNumber" column="taxpayer_id_number"/>
+        <result property="taxpayerType" column="taxpayer_type"/>
+        <result property="taxTypeCode" column="tax_type_code"/>
+        <result property="taxRegistrationCertificate" column="tax_registration_certificate"/>
+        <result property="generalTaxpayerQualificationCertificate" column="general_taxpayer_qualification_certificate"/>
+        <result property="bankAccountName" column="bank_account_name"/>
+        <result property="corporateBankAccountNumber" column="corporate_bank_account_number"/>
+        <result property="bankBranchName" column="bank_branch_name"/>
+        <result property="bankBranchNumber" column="bank_branch_number"/>
+        <result property="bankBranchLocation" column="bank_branch_location"/>
+        <result property="bankAccountOpenLicense" column="bank_account_open_license"/>
+        <result property="createDatetime" column="create_datetime"/>
     </resultMap>
 
     <sql id="selectTaxAndBankInfoVo">
-        select tax_and_bank_audit_id, checklist_id, taxpayer_id_number, taxpayer_type, tax_type_code, tax_registration_certificate, general_taxpayer_qualification_certificate, bank_account_name, corporate_bank_account_number, bank_branch_name, bank_branch_number, bank_branch_location, bank_account_open_license, create_datetime from audit_tax_and_bank_info
+        select tax_and_bank_audit_id,
+               checklist_id,
+               taxpayer_id_number,
+               taxpayer_type,
+               tax_type_code,
+               tax_registration_certificate,
+               general_taxpayer_qualification_certificate,
+               bank_account_name,
+               corporate_bank_account_number,
+               bank_branch_name,
+               bank_branch_number,
+               bank_branch_location,
+               bank_account_open_license,
+               create_datetime
+        from audit_tax_and_bank_info
     </sql>
 
     <select id="selectTaxAndBankInfoList" parameterType="TaxAndBankInfo" resultMap="TaxAndBankInfoResult">
         <include refid="selectTaxAndBankInfoVo"/>
-        <where>  
-            <if test="checklistId != null  and checklistId != ''"> and checklist_id = #{checklistId}</if>
-            <if test="taxpayerIdNumber != null  and taxpayerIdNumber != ''"> and taxpayer_id_number = #{taxpayerIdNumber}</if>
-            <if test="taxpayerType != null  and taxpayerType != ''"> and taxpayer_type = #{taxpayerType}</if>
-            <if test="taxTypeCode != null  and taxTypeCode != ''"> and tax_type_code = #{taxTypeCode}</if>
-            <if test="taxRegistrationCertificate != null  and taxRegistrationCertificate != ''"> and tax_registration_certificate = #{taxRegistrationCertificate}</if>
-            <if test="generalTaxpayerQualificationCertificate != null  and generalTaxpayerQualificationCertificate != ''"> and general_taxpayer_qualification_certificate = #{generalTaxpayerQualificationCertificate}</if>
-            <if test="bankAccountName != null  and bankAccountName != ''"> and bank_account_name like concat('%', #{bankAccountName}, '%')</if>
-            <if test="corporateBankAccountNumber != null  and corporateBankAccountNumber != ''"> and corporate_bank_account_number = #{corporateBankAccountNumber}</if>
-            <if test="bankBranchName != null  and bankBranchName != ''"> and bank_branch_name like concat('%', #{bankBranchName}, '%')</if>
-            <if test="bankBranchNumber != null  and bankBranchNumber != ''"> and bank_branch_number = #{bankBranchNumber}</if>
-            <if test="bankBranchLocation != null  and bankBranchLocation != ''"> and bank_branch_location = #{bankBranchLocation}</if>
-            <if test="bankAccountOpenLicense != null  and bankAccountOpenLicense != ''"> and bank_account_open_license = #{bankAccountOpenLicense}</if>
-            <if test="createDatetime != null "> and create_datetime = #{createDatetime}</if>
+        <where>
+            <if test="checklistId != null  and checklistId != ''">and checklist_id = #{checklistId}</if>
+            <if test="taxpayerIdNumber != null  and taxpayerIdNumber != ''">and taxpayer_id_number =
+                #{taxpayerIdNumber}
+            </if>
+            <if test="taxpayerType != null  and taxpayerType != ''">and taxpayer_type = #{taxpayerType}</if>
+            <if test="taxTypeCode != null  and taxTypeCode != ''">and tax_type_code = #{taxTypeCode}</if>
+            <if test="taxRegistrationCertificate != null  and taxRegistrationCertificate != ''">and
+                tax_registration_certificate = #{taxRegistrationCertificate}
+            </if>
+            <if test="generalTaxpayerQualificationCertificate != null  and generalTaxpayerQualificationCertificate != ''">
+                and general_taxpayer_qualification_certificate = #{generalTaxpayerQualificationCertificate}
+            </if>
+            <if test="bankAccountName != null  and bankAccountName != ''">and bank_account_name like concat('%',
+                #{bankAccountName}, '%')
+            </if>
+            <if test="corporateBankAccountNumber != null  and corporateBankAccountNumber != ''">and
+                corporate_bank_account_number = #{corporateBankAccountNumber}
+            </if>
+            <if test="bankBranchName != null  and bankBranchName != ''">and bank_branch_name like concat('%',
+                #{bankBranchName}, '%')
+            </if>
+            <if test="bankBranchNumber != null  and bankBranchNumber != ''">and bank_branch_number =
+                #{bankBranchNumber}
+            </if>
+            <if test="bankBranchLocation != null  and bankBranchLocation != ''">and bank_branch_location =
+                #{bankBranchLocation}
+            </if>
+            <if test="bankAccountOpenLicense != null  and bankAccountOpenLicense != ''">and bank_account_open_license =
+                #{bankAccountOpenLicense}
+            </if>
+            <if test="createDatetime != null ">and create_datetime = #{createDatetime}</if>
         </where>
     </select>
-    
+
     <select id="selectTaxAndBankInfoByTaxAndBankAuditId" parameterType="String" resultMap="TaxAndBankInfoResult">
         <include refid="selectTaxAndBankInfoVo"/>
         where tax_and_bank_audit_id = #{taxAndBankAuditId}
     </select>
-        
+
     <insert id="insertTaxAndBankInfo" parameterType="TaxAndBankInfo">
         insert into audit_tax_and_bank_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -66,7 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="bankBranchLocation != null">bank_branch_location,</if>
             <if test="bankAccountOpenLicense != null">bank_account_open_license,</if>
             <if test="createDatetime != null">create_datetime,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="taxAndBankAuditId != null">#{taxAndBankAuditId},</if>
             <if test="checklistId != null and checklistId != ''">#{checklistId},</if>
@@ -82,7 +114,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="bankBranchLocation != null">#{bankBranchLocation},</if>
             <if test="bankAccountOpenLicense != null">#{bankAccountOpenLicense},</if>
             <if test="createDatetime != null">#{createDatetime},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateTaxAndBankInfo" parameterType="TaxAndBankInfo">
@@ -92,10 +124,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="taxpayerIdNumber != null">taxpayer_id_number = #{taxpayerIdNumber},</if>
             <if test="taxpayerType != null">taxpayer_type = #{taxpayerType},</if>
             <if test="taxTypeCode != null">tax_type_code = #{taxTypeCode},</if>
-            <if test="taxRegistrationCertificate != null">tax_registration_certificate = #{taxRegistrationCertificate},</if>
-            <if test="generalTaxpayerQualificationCertificate != null">general_taxpayer_qualification_certificate = #{generalTaxpayerQualificationCertificate},</if>
+            <if test="taxRegistrationCertificate != null">tax_registration_certificate =
+                #{taxRegistrationCertificate},
+            </if>
+            <if test="generalTaxpayerQualificationCertificate != null">general_taxpayer_qualification_certificate =
+                #{generalTaxpayerQualificationCertificate},
+            </if>
             <if test="bankAccountName != null">bank_account_name = #{bankAccountName},</if>
-            <if test="corporateBankAccountNumber != null">corporate_bank_account_number = #{corporateBankAccountNumber},</if>
+            <if test="corporateBankAccountNumber != null">corporate_bank_account_number =
+                #{corporateBankAccountNumber},
+            </if>
             <if test="bankBranchName != null">bank_branch_name = #{bankBranchName},</if>
             <if test="bankBranchNumber != null">bank_branch_number = #{bankBranchNumber},</if>
             <if test="bankBranchLocation != null">bank_branch_location = #{bankBranchLocation},</if>
@@ -106,11 +144,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteTaxAndBankInfoByTaxAndBankAuditId" parameterType="String">
-        delete from audit_tax_and_bank_info where tax_and_bank_audit_id = #{taxAndBankAuditId}
+        delete
+        from audit_tax_and_bank_info
+        where tax_and_bank_audit_id = #{taxAndBankAuditId}
     </delete>
 
     <delete id="deleteTaxAndBankInfoByTaxAndBankAuditIds" parameterType="String">
-        delete from audit_tax_and_bank_info where tax_and_bank_audit_id in 
+        delete from audit_tax_and_bank_info where tax_and_bank_audit_id in
         <foreach item="taxAndBankAuditId" collection="array" open="(" separator="," close=")">
             #{taxAndBankAuditId}
         </foreach>

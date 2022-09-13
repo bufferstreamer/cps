@@ -11,181 +11,192 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author miki
  * @date 2021-05-23
  */
-public class WhStorage extends BaseEntity
-{
+public class WhStorage extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** 库位(储位)设置id */
+    /**
+     * 库位(储位)设置id
+     */
     private Long id;
 
-    /** 库位编码 */
+    /**
+     * 库位编码
+     */
     @Excel(name = "库位编码")
     private String storageCode;
 
-    /** 库位名称 */
+    /**
+     * 库位名称
+     */
     @Excel(name = "库位名称")
     private String storageName;
 
-    /** 库位条码 */
+    /**
+     * 库位条码
+     */
     @Excel(name = "库位条码")
     private String storageBarcode;
 
-    /** 所属库区 */
+    /**
+     * 所属库区
+     */
     @Excel(name = "所属库区")
     private Long reservoirId;
 
-    /** 库位类型(数据字典：收货、发货、存储、暂存、良品、不良等) */
+    /**
+     * 库位类型(数据字典：收货、发货、存储、暂存、良品、不良等)
+     */
     @Excel(name = "库位类型(数据字典：收货、发货、存储、暂存、良品、不良等)")
     private String storageType;
 
-    /** 库位属性(数据字典：冷藏、恒温、常温、大件等) */
+    /**
+     * 库位属性(数据字典：冷藏、恒温、常温、大件等)
+     */
     @Excel(name = "库位属性(数据字典：冷藏、恒温、常温、大件等)")
     private String storageAttribute;
 
-    /** 库位尺寸主键 */
+    /**
+     * 库位尺寸主键
+     */
     @Excel(name = "库位尺寸主键")
     private Long storageSizeId;
 
-    /** 出库口 */
+    /**
+     * 出库口
+     */
     @Excel(name = "出库口")
     private String outbound;
 
-    /** 空库位标识(Y是 N否 ) */
+    /**
+     * 空库位标识(Y是 N否 )
+     */
     @Excel(name = "空库位标识(Y是 N否 )")
     private String isEmpty;
 
-    /** 是否停用(0:正常 1:停用) */
+    /**
+     * 是否停用(0:正常 1:停用)
+     */
     @Excel(name = "是否停用(0:正常 1:停用)")
     private String isDisable;
 
-    /** 删除标志（0代表存在 2代表删除） */
+    /**
+     * 删除标志（0代表存在 2代表删除）
+     */
     private String delFlag;
 
-    /** 部门ID */
+    /**
+     * 部门ID
+     */
     @Excel(name = "部门ID")
     private Long deptId;
 
-    public void setId(Long id)
-    {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId()
-    {
-        return id;
+    public String getStorageCode() {
+        return storageCode;
     }
-    public void setStorageCode(String storageCode)
-    {
+
+    public void setStorageCode(String storageCode) {
         this.storageCode = storageCode;
     }
 
-    public String getStorageCode()
-    {
-        return storageCode;
+    public String getStorageName() {
+        return storageName;
     }
-    public void setStorageName(String storageName)
-    {
+
+    public void setStorageName(String storageName) {
         this.storageName = storageName;
     }
 
-    public String getStorageName()
-    {
-        return storageName;
+    public String getStorageBarcode() {
+        return storageBarcode;
     }
-    public void setStorageBarcode(String storageBarcode)
-    {
+
+    public void setStorageBarcode(String storageBarcode) {
         this.storageBarcode = storageBarcode;
     }
 
-    public String getStorageBarcode()
-    {
-        return storageBarcode;
+    public Long getReservoirId() {
+        return reservoirId;
     }
-    public void setReservoirId(Long reservoirId)
-    {
+
+    public void setReservoirId(Long reservoirId) {
         this.reservoirId = reservoirId;
     }
 
-    public Long getReservoirId()
-    {
-        return reservoirId;
+    public String getStorageType() {
+        return storageType;
     }
-    public void setStorageType(String storageType)
-    {
+
+    public void setStorageType(String storageType) {
         this.storageType = storageType;
     }
 
-    public String getStorageType()
-    {
-        return storageType;
+    public String getStorageAttribute() {
+        return storageAttribute;
     }
-    public void setStorageAttribute(String storageAttribute)
-    {
+
+    public void setStorageAttribute(String storageAttribute) {
         this.storageAttribute = storageAttribute;
     }
 
-    public String getStorageAttribute()
-    {
-        return storageAttribute;
+    public Long getStorageSizeId() {
+        return storageSizeId;
     }
-    public void setStorageSizeId(Long storageSizeId)
-    {
+
+    public void setStorageSizeId(Long storageSizeId) {
         this.storageSizeId = storageSizeId;
     }
 
-    public Long getStorageSizeId()
-    {
-        return storageSizeId;
+    public String getOutbound() {
+        return outbound;
     }
-    public void setOutbound(String outbound)
-    {
+
+    public void setOutbound(String outbound) {
         this.outbound = outbound;
     }
 
-    public String getOutbound()
-    {
-        return outbound;
+    public String getIsEmpty() {
+        return isEmpty;
     }
-    public void setIsEmpty(String isEmpty)
-    {
+
+    public void setIsEmpty(String isEmpty) {
         this.isEmpty = isEmpty;
     }
 
-    public String getIsEmpty()
-    {
-        return isEmpty;
+    public String getIsDisable() {
+        return isDisable;
     }
-    public void setIsDisable(String isDisable)
-    {
+
+    public void setIsDisable(String isDisable) {
         this.isDisable = isDisable;
     }
 
-    public String getIsDisable()
-    {
-        return isDisable;
+    public String getDelFlag() {
+        return delFlag;
     }
-    public void setDelFlag(String delFlag)
-    {
+
+    public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
     }
 
-    public String getDelFlag()
-    {
-        return delFlag;
-    }
-    public void setDeptId(Long deptId)
-    {
-        this.deptId = deptId;
+    public Long getDeptId() {
+        return deptId;
     }
 
-    public Long getDeptId()
-    {
-        return deptId;
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())
                 .append("storageCode", getStorageCode())
                 .append("storageName", getStorageName())

@@ -16,8 +16,7 @@ public class StorageTask {
     @Autowired
     private IWhStorageService whStorageService;
 
-    public void updateisEmptyTask()
-    {
+    public void updateisEmptyTask() {
         whStorageService.updateisEmptyTask();
         System.out.println("执行无参方法");
     }

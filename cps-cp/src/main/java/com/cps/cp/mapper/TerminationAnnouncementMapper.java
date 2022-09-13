@@ -1,19 +1,19 @@
 package com.cps.cp.mapper;
 
-import java.util.List;
 import com.cps.cp.domain.TerminationAnnouncement;
+
+import java.util.List;
 
 /**
  * 终止公告Mapper接口
- * 
+ *
  * @author wxf
  * @date 2022-08-16
  */
-public interface TerminationAnnouncementMapper 
-{
+public interface TerminationAnnouncementMapper {
     /**
      * 查询终止公告
-     * 
+     *
      * @param terminationAnnouncementId 终止公告主键
      * @return 终止公告
      */
@@ -21,7 +21,7 @@ public interface TerminationAnnouncementMapper
 
     /**
      * 查询终止公告列表
-     * 
+     *
      * @param terminationAnnouncement 终止公告
      * @return 终止公告集合
      */
@@ -29,7 +29,7 @@ public interface TerminationAnnouncementMapper
 
     /**
      * 新增终止公告
-     * 
+     *
      * @param terminationAnnouncement 终止公告
      * @return 结果
      */
@@ -37,7 +37,7 @@ public interface TerminationAnnouncementMapper
 
     /**
      * 修改终止公告
-     * 
+     *
      * @param terminationAnnouncement 终止公告
      * @return 结果
      */
@@ -45,7 +45,7 @@ public interface TerminationAnnouncementMapper
 
     /**
      * 删除终止公告
-     * 
+     *
      * @param terminationAnnouncementId 终止公告主键
      * @return 结果
      */
@@ -53,7 +53,7 @@ public interface TerminationAnnouncementMapper
 
     /**
      * 批量删除终止公告
-     * 
+     *
      * @param terminationAnnouncementIds 需要删除的数据主键集合
      * @return 结果
      */

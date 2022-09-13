@@ -8,55 +8,84 @@ import com.cps.common.core.domain.BaseEntity;
  * @author miki
  * @date 2021-05-23
  */
-public class WhStorageVo extends BaseEntity
-{
+public class WhStorageVo extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** 库位(储位)设置id */
+    /**
+     * 库位(储位)设置id
+     */
     private Long id;
 
-    /** 库位编码 */
+    /**
+     * 库位编码
+     */
     private String storageCode;
 
-    /** 库位名称 */
+    /**
+     * 库位名称
+     */
     private String storageName;
 
-    /** 库位条码 */
+    /**
+     * 库位条码
+     */
     private String storageBarcode;
 
-    /** 所属库区 */
+    /**
+     * 所属库区
+     */
     private Long reservoirId;
 
-    /** 库位类型(数据字典：收货、发货、存储、暂存、良品、不良等) */
+    /**
+     * 库位类型(数据字典：收货、发货、存储、暂存、良品、不良等)
+     */
     private String storageType;
 
-    /** 库位属性(数据字典：冷藏、恒温、常温、大件等) */
+    /**
+     * 库位属性(数据字典：冷藏、恒温、常温、大件等)
+     */
     private String storageAttribute;
 
-    /** 库位尺寸主键 */
+    /**
+     * 库位尺寸主键
+     */
     private Long storageSizeId;
 
-    /** 出库口 */
+    /**
+     * 出库口
+     */
     private String outbound;
 
-    /** 空库位标识(0: true 是 1:false 否 ) */
+    /**
+     * 空库位标识(0: true 是 1:false 否 )
+     */
     private String isEmpty;
 
-    /** 是否停用(0:正常 1:停用) */
+    /**
+     * 是否停用(0:正常 1:停用)
+     */
     private String isDisable;
 
-    /** 部门ID */
+    /**
+     * 部门ID
+     */
     private Long deptId;
 
     /*********扩展字段************/
 
-    /** 库区编码 */
+    /**
+     * 库区编码
+     */
     private String reservoirCode;
 
-    /** 库区名称 */
+    /**
+     * 库区名称
+     */
     private String reservoirName;
 
-    /** 库位尺寸名称 */
+    /**
+     * 库位尺寸名称
+     */
     private String storageSizeName;
 
     public Long getId() {

@@ -9,15 +9,14 @@ import java.util.List;
 
 /**
  * 商品入库单子Service接口
- * 
+ *
  * @author miki
  * @date 2021-05-26
  */
-public interface IWhWarehousingOrderSeedService 
-{
+public interface IWhWarehousingOrderSeedService {
     /**
      * 查询商品入库单子
-     * 
+     *
      * @param id 商品入库单子ID
      * @return 商品入库单子
      */
@@ -25,7 +24,7 @@ public interface IWhWarehousingOrderSeedService
 
     /**
      * 查询商品入库单子列表
-     * 
+     *
      * @param whWarehousingOrderSeed 商品入库单子
      * @return 商品入库单子集合
      */
@@ -33,7 +32,7 @@ public interface IWhWarehousingOrderSeedService
 
     /**
      * 新增商品入库单子
-     * 
+     *
      * @param whWarehousingOrderSeed 商品入库单子
      * @return 结果
      */
@@ -41,7 +40,7 @@ public interface IWhWarehousingOrderSeedService
 
     /**
      * 修改商品入库单子
-     * 
+     *
      * @param whWarehousingOrderSeed 商品入库单子
      * @return 结果
      */
@@ -57,7 +56,7 @@ public interface IWhWarehousingOrderSeedService
 
     /**
      * 批量删除商品入库单子
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
@@ -65,15 +64,15 @@ public interface IWhWarehousingOrderSeedService
 
     /**
      * 删除商品入库单子信息
-     * 
+     *
      * @param id 商品入库单子ID
      * @return 结果
      */
     public int deleteWhWarehousingOrderSeedById(Long id);
 
     /**
-     *
      * 根据商品入库主表ID 查询合计含税金额
+     *
      * @param warehousingOrderId 商品入库主表ID
      * @return 结果
      */
@@ -81,15 +80,16 @@ public interface IWhWarehousingOrderSeedService
 
     /**
      * 计算统计子表各项价格
+     *
      * @param whWarehousingOrderSeed 商品入库单子
-     * @param rate whWarehousingOrder入库主表供应商税率
+     * @param rate                   whWarehousingOrder入库主表供应商税率
      * @return whWarehousingOrderSeed 商品入库单子
      */
-    public  WhWarehousingOrderSeed calculate(WhWarehousingOrder whWarehousingOrder, WhWarehousingOrderSeed whWarehousingOrderSeed, BigDecimal rate);
+    public WhWarehousingOrderSeed calculate(WhWarehousingOrder whWarehousingOrder, WhWarehousingOrderSeed whWarehousingOrderSeed, BigDecimal rate);
 
     /**
-     *
      * 根据商品入库主表ID 查询商品数量
+     *
      * @param warehousingOrderId 商品入库主表ID
      * @return 结果
      */

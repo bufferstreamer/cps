@@ -21,7 +21,7 @@ public class OrderNumGeneratorUtils {
     /**
      * 每毫秒生成订单号数量最大值
      */
-    private static int maxPerMSECSize=1000;
+    private static int maxPerMSECSize = 1000;
 
     public static String makeOrderNum(String tname) {
         try {
@@ -36,14 +36,14 @@ public class OrderNumGeneratorUtils {
                     orderNumCount = 0L;
                 }
                 //组装订单号
-                String countStr=maxPerMSECSize +orderNumCount+"";
-                finOrderNum=nowLong+countStr.substring(1);
+                String countStr = maxPerMSECSize + orderNumCount + "";
+                finOrderNum = nowLong + countStr.substring(1);
                 orderNumCount++;
-                System.out.println(finOrderNum + "--" + Thread.currentThread().getName() + "::" + tname );
+                System.out.println(finOrderNum + "--" + Thread.currentThread().getName() + "::" + tname);
                 //System.out.println(finOrderNum);
                 // Thread.sleep(1000); 
             }
-            return tname+finOrderNum;
+            return tname + finOrderNum;
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -6,15 +6,14 @@ import java.util.List;
 
 /**
  * 供应商管理Service接口
- * 
+ *
  * @author miki
  * @date 2021-05-20
  */
-public interface IBasisSupplierService 
-{
+public interface IBasisSupplierService {
     /**
      * 查询供应商管理
-     * 
+     *
      * @param id 供应商管理ID
      * @return 供应商管理
      */
@@ -22,7 +21,7 @@ public interface IBasisSupplierService
 
     /**
      * 查询供应商管理列表
-     * 
+     *
      * @param basisSupplier 供应商管理
      * @return 供应商管理集合
      */
@@ -30,7 +29,7 @@ public interface IBasisSupplierService
 
     /**
      * 新增供应商管理
-     * 
+     *
      * @param basisSupplier 供应商管理
      * @return 结果
      */
@@ -38,7 +37,7 @@ public interface IBasisSupplierService
 
     /**
      * 修改供应商管理
-     * 
+     *
      * @param basisSupplier 供应商管理
      * @return 结果
      */
@@ -46,7 +45,7 @@ public interface IBasisSupplierService
 
     /**
      * 批量删除供应商管理
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
@@ -54,7 +53,7 @@ public interface IBasisSupplierService
 
     /**
      * 删除供应商管理信息
-     * 
+     *
      * @param id 供应商管理ID
      * @return 结果
      */

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>cps</artifactId>
@@ -72,22 +72,22 @@
             <artifactId>cps-wms</artifactId>
         </dependency>
         <dependency>
-        	<groupId>com.cps</groupId>
-        	<artifactId>cps-user</artifactId>
-        	<version>4.7.4</version>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-user</artifactId>
+            <version>4.7.4</version>
         </dependency>
 
         <!-- 审核模块-->
         <dependency>
             <groupId>com.cps</groupId>
             <artifactId>cps-audit</artifactId>
-            </dependency>
+        </dependency>
 
         <!-- 标书&公告模块-->
         <dependency>
             <groupId>com.cps</groupId>
             <artifactId>cps-cp</artifactId>
-            </dependency>
+        </dependency>
 
         <!--产品模块-->
         <dependency>

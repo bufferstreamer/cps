@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('库存查询列表')" />
+    <th:block th:include="include :: header('库存查询列表')"/>
 </head>
 <body class="gray-bg">
 <div class="container-div">
@@ -12,25 +12,28 @@
                     <ul>
                         <li>
                             <label>商品类别：</label>
-                            <input type="hidden" name="goodsTypeId" id="treeId"/>
-                            <input type="text" onclick="selectGoodsTypeTree()" id="treeName" name="treeName" readonly="true">
+                            <input id="treeId" name="goodsTypeId" type="hidden"/>
+                            <input id="treeName" name="treeName" onclick="selectGoodsTypeTree()" readonly="true"
+                                   type="text">
                         </li>
                         <li>
                             <label>商品编码：</label>
-                            <input type="text" name="goodsCode"/>
+                            <input name="goodsCode" type="text"/>
                         </li>
                         <li>
                             <label>商品名称：</label>
-                            <input type="text" name="goodsName"/>
+                            <input name="goodsName" type="text"/>
                         </li>
                         <li>
                             <label>商品条码：</label>
-                            <input type="text" name="goodsBarcode"/>
+                            <input name="goodsBarcode" type="text"/>
                         </li>
 
                         <li>
-                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
-                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
                         </li>
                     </ul>
                 </div>
@@ -43,13 +46,13 @@
         </div>
     </div>
 </div>
-<th:block th:include="include :: footer" />
+<th:block th:include="include :: footer"/>
 <script th:inline="javascript">
     var editFlag = [[${@permission.hasPermi('shop:goods:editSaveTransfer')}]];
     var goodsUnitDatas = [[${@dict.getType('MEASURING_UNIT')}]];
     var prefix = ctx + "shop/goods";
 
-    $(function() {
+    $(function () {
         var options = {
             url: prefix + "/listStock",
             modalName: "商品信息",
@@ -93,7 +96,7 @@
                 {
                     field: 'goodsUnit',
                     title: '商品单位',
-                    formatter: function(value, row, index) {
+                    formatter: function (value, row, index) {
                         return $.table.selectDictLabel(goodsUnitDatas, value);
                     }
                 },
@@ -117,12 +120,12 @@
                 {
                     field: 'beenPickingNumber',
                     title: '可用数量',
-                    formatter: function(value, row, index) {
-                        var val = numSub(numSub(row.stockNumber,row.forPickingNumber),row.beenPickingNumber);
+                    formatter: function (value, row, index) {
+                        var val = numSub(numSub(row.stockNumber, row.forPickingNumber), row.beenPickingNumber);
                         var actions = [];
-                        if(numSub(val,row.safetyStock) < 0){
-                            actions.push('<div style="color: red">'+val+'</div>');
-                        }else{
+                        if (numSub(val, row.safetyStock) < 0) {
+                            actions.push('<div style="color: red">' + val + '</div>');
+                        } else {
                             actions.push(val);
                         }
                         return actions.join('');
@@ -135,7 +138,7 @@
                 {
                     title: '操作',
                     align: 'center',
-                    formatter: function(value, row, index) {
+                    formatter: function (value, row, index) {
                         var actions = [];
                         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="onEditTransfer(\'' + row.id + '\')"><i class="fa fa-edit"></i>移库</a> ');
                         return actions.join('');
@@ -145,12 +148,13 @@
         $.table.init(options);
     });
 
-    function onEditTransfer(id){
-        var url = prefix + '/editTransfer/'+id;
+    function onEditTransfer(id) {
+        var url = prefix + '/editTransfer/' + id;
         $.modal.open("商品移库", url);
     }
 
     var goodsTypePrefix = ctx + "shop/goodsType"
+
     /*商品类别-选择父商品类别树*/
     function selectGoodsTypeTree() {
         var options = {
@@ -162,7 +166,7 @@
         $.modal.openOptions(options);
     }
 
-    function doSubmit(index, layero){
+    function doSubmit(index, layero) {
         var body = layer.getChildFrame('body', index);
         $("#treeId").val(body.find('#treeId').val());
         $("#treeName").val(body.find('#treeName').val());

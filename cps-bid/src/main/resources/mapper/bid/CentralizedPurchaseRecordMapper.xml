@@ -1,40 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cps.bid.mapper.CentralizedPurchaseRecordMapper">
-    
+
     <resultMap type="CentralizedPurchaseRecord" id="CentralizedPurchaseRecordResult">
-        <result property="centralizedPurchaseRecordId"    column="centralized_purchase_record_id"    />
-        <result property="tenderId"    column="tender_id"    />
-        <result property="supplierId"    column="supplier_id"    />
-        <result property="tenderDocument"    column="tender_document"    />
-        <result property="centralizedPurchaseRecordTime"    column="centralized_purchase_record_time"    />
-        <result property="isBid"    column="is_bid"    />
+        <result property="centralizedPurchaseRecordId" column="centralized_purchase_record_id"/>
+        <result property="tenderId" column="tender_id"/>
+        <result property="supplierId" column="supplier_id"/>
+        <result property="tenderDocument" column="tender_document"/>
+        <result property="centralizedPurchaseRecordTime" column="centralized_purchase_record_time"/>
+        <result property="isBid" column="is_bid"/>
     </resultMap>
 
     <sql id="selectCentralizedPurchaseRecordVo">
-        select centralized_purchase_record_id, tender_id, supplier_id, tender_document, centralized_purchase_record_time, is_bid from centralized_purchase_record
+        select centralized_purchase_record_id,
+               tender_id,
+               supplier_id,
+               tender_document,
+               centralized_purchase_record_time,
+               is_bid
+        from centralized_purchase_record
     </sql>
 
-    <select id="selectCentralizedPurchaseRecordList" parameterType="CentralizedPurchaseRecord" resultMap="CentralizedPurchaseRecordResult">
+    <select id="selectCentralizedPurchaseRecordList" parameterType="CentralizedPurchaseRecord"
+            resultMap="CentralizedPurchaseRecordResult">
         <include refid="selectCentralizedPurchaseRecordVo"/>
-        <where>  
-            <if test="tenderId != null  and tenderId != ''"> and tender_id = #{tenderId}</if>
-            <if test="supplierId != null "> and supplier_id = #{supplierId}</if>
+        <where>
+            <if test="tenderId != null  and tenderId != ''">and tender_id = #{tenderId}</if>
+            <if test="supplierId != null ">and supplier_id = #{supplierId}</if>
         </where>
     </select>
-    
+
     <select id="selectCentralizedPurchaseRecordsByTenderIdAndSupplyId" resultMap="CentralizedPurchaseRecordResult">
         <include refid="selectCentralizedPurchaseRecordVo"/>
         where tender_id = #{tenderId} and supplier_id = #{supplierId}
     </select>
 
-    <select id="selectCentralizedPurchaseRecordByCentralizedPurchaseRecordId" parameterType="String" resultMap="CentralizedPurchaseRecordResult">
+    <select id="selectCentralizedPurchaseRecordByCentralizedPurchaseRecordId" parameterType="String"
+            resultMap="CentralizedPurchaseRecordResult">
         <include refid="selectCentralizedPurchaseRecordVo"/>
         where centralized_purchase_record_id = #{centralizedPurchaseRecordId}
     </select>
-        
+
     <insert id="insertCentralizedPurchaseRecord" parameterType="CentralizedPurchaseRecord">
         insert into centralized_purchase_record
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -44,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="tenderDocument != null">tender_document,</if>
             <if test="centralizedPurchaseRecordTime != null">centralized_purchase_record_time,</if>
             <if test="isBid != null">is_bid,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="centralizedPurchaseRecordId != null">#{centralizedPurchaseRecordId},</if>
             <if test="tenderId != null">#{tenderId},</if>
@@ -52,7 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="tenderDocument != null">#{tenderDocument},</if>
             <if test="centralizedPurchaseRecordTime != null">#{centralizedPurchaseRecordTime},</if>
             <if test="isBid != null">#{isBid},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateCentralizedPurchaseRecord" parameterType="CentralizedPurchaseRecord">
@@ -61,18 +69,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="tenderId != null">tender_id = #{tenderId},</if>
             <if test="supplierId != null">supplier_id = #{supplierId},</if>
             <if test="tenderDocument != null">tender_document = #{tenderDocument},</if>
-            <if test="centralizedPurchaseRecordTime != null">centralized_purchase_record_time = #{centralizedPurchaseRecordTime},</if>
+            <if test="centralizedPurchaseRecordTime != null">centralized_purchase_record_time =
+                #{centralizedPurchaseRecordTime},
+            </if>
             <if test="isBid != null">is_bid = #{isBid},</if>
         </trim>
         where centralized_purchase_record_id = #{centralizedPurchaseRecordId}
     </update>
 
     <delete id="deleteCentralizedPurchaseRecordByCentralizedPurchaseRecordId" parameterType="String">
-        delete from centralized_purchase_record where centralized_purchase_record_id = #{centralizedPurchaseRecordId}
+        delete
+        from centralized_purchase_record
+        where centralized_purchase_record_id = #{centralizedPurchaseRecordId}
     </delete>
 
     <delete id="deleteCentralizedPurchaseRecordByCentralizedPurchaseRecordIds" parameterType="String">
-        delete from centralized_purchase_record where centralized_purchase_record_id in 
+        delete from centralized_purchase_record where centralized_purchase_record_id in
         <foreach item="centralizedPurchaseRecordId" collection="array" open="(" separator="," close=")">
             #{centralizedPurchaseRecordId}
         </foreach>

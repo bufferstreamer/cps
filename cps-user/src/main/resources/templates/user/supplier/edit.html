@@ -1,70 +1,72 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('修改供应商角色')" />
+    <th:block th:include="include :: header('修改供应商角色')"/>
 </head>
 <body class="white-bg">
-    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-supplier-edit" th:object="${supplier}">
-            <input name="supplyId" th:field="*{supplyId}" type="hidden">
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">昵称：</label>
-                <div class="col-sm-8">
-                    <input name="nickname" th:field="*{nickname}" class="form-control" type="text" required>
-                </div>
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-supplier-edit" th:object="${supplier}">
+        <input name="supplyId" th:field="*{supplyId}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">昵称：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="nickname" required th:field="*{nickname}" type="text">
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">公司名称：</label>
-                <div class="col-sm-8">
-                    <input name="companyName" th:field="*{companyName}" class="form-control" type="text" required>
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">公司名称：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="companyName" required th:field="*{companyName}" type="text">
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">密码：</label>
-                <div class="col-sm-8">
-                    <input name="password" th:field="*{password}" class="form-control" type="text" required>
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">密码：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="password" required th:field="*{password}" type="text">
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">联系人姓名：</label>
-                <div class="col-sm-8">
-                    <input name="contactPerson" th:field="*{contactPerson}" class="form-control" type="text" required>
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">联系人姓名：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="contactPerson" required th:field="*{contactPerson}" type="text">
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">联系人电话号：</label>
-                <div class="col-sm-8">
-                    <input name="contactPhone" th:field="*{contactPhone}" class="form-control" type="text" required>
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">联系人电话号：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="contactPhone" required th:field="*{contactPhone}" type="text">
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">联系人邮箱：</label>
-                <div class="col-sm-8">
-                    <input name="contactEmail" th:field="*{contactEmail}" class="form-control" type="text" required>
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">联系人邮箱：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="contactEmail" required th:field="*{contactEmail}" type="text">
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label">供应商状态：</label>
-                <div class="col-sm-8">
-                    <select name="supplyState" class="form-control m-b" th:with="type=${@dict.getType('sys_common_status')}">
-                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{supplyState}"></option>
-                    </select>
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">供应商状态：</label>
+            <div class="col-sm-8">
+                <select class="form-control m-b" name="supplyState"
+                        th:with="type=${@dict.getType('sys_common_status')}">
+                    <option th:each="dict : ${type}" th:field="*{supplyState}" th:text="${dict.dictLabel}"
+                            th:value="${dict.dictValue}"></option>
+                </select>
             </div>
-        </form>
-    </div>
-    <th:block th:include="include :: footer" />
-    <script th:inline="javascript">
-        var prefix = ctx + "user/supplier";
-        $("#form-supplier-edit").validate({
-            focusCleanup: true
-        });
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    var prefix = ctx + "user/supplier";
+    $("#form-supplier-edit").validate({
+        focusCleanup: true
+    });
 
-        function submitHandler() {
-            if ($.validate.form()) {
-                $.operate.save(prefix + "/edit", $('#form-supplier-edit').serialize());
-            }
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit", $('#form-supplier-edit').serialize());
         }
-    </script>
+    }
+</script>
 </body>
 </html>

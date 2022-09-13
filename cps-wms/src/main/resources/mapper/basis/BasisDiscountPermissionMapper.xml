@@ -1,34 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cps.basis.mapper.BasisDiscountPermissionMapper">
 
     <resultMap type="BasisDiscountPermission" id="BasisDiscountPermissionResult">
-        <result property="id"    column="id"    />
-        <result property="userId"    column="user_id"    />
-        <result property="minDiscountRate"    column="min_discount_rate"    />
-        <result property="maxDiscountPrice"    column="max_discount_price"    />
-        <result property="delFlag"    column="del_flag"    />
-        <result property="createBy"    column="create_by"    />
-        <result property="createTime"    column="create_time"    />
-        <result property="updateBy"    column="update_by"    />
-        <result property="updateTime"    column="update_time"    />
-        <result property="remark"    column="remark"    />
-        <result property="deptId"    column="dept_id"    />
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="minDiscountRate" column="min_discount_rate"/>
+        <result property="maxDiscountPrice" column="max_discount_price"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="deptId" column="dept_id"/>
     </resultMap>
 
     <sql id="selectBasisDiscountPermissionVo">
-        select id, user_id, min_discount_rate, max_discount_price, del_flag, create_by, create_time, update_by, update_time, remark, dept_id from wms_basis_discount_permission
+        select id,
+               user_id,
+               min_discount_rate,
+               max_discount_price,
+               del_flag,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               remark,
+               dept_id
+        from wms_basis_discount_permission
     </sql>
 
-    <select id="selectBasisDiscountPermissionList" parameterType="BasisDiscountPermission" resultMap="BasisDiscountPermissionResult">
+    <select id="selectBasisDiscountPermissionList" parameterType="BasisDiscountPermission"
+            resultMap="BasisDiscountPermissionResult">
         <include refid="selectBasisDiscountPermissionVo"/>
-        <where> del_flag = '0'
-            <if test="userId != null "> and user_id = #{userId}</if>
-            <if test="minDiscountRate != null "> and min_discount_rate = #{minDiscountRate}</if>
-            <if test="maxDiscountPrice != null "> and max_discount_price = #{maxDiscountPrice}</if>
-            <if test="deptId != null "> and dept_id = #{deptId}</if>
+        <where>del_flag = '0'
+            <if test="userId != null ">and user_id = #{userId}</if>
+            <if test="minDiscountRate != null ">and min_discount_rate = #{minDiscountRate}</if>
+            <if test="maxDiscountPrice != null ">and max_discount_price = #{maxDiscountPrice}</if>
+            <if test="deptId != null ">and dept_id = #{deptId}</if>
         </where>
     </select>
 
@@ -37,7 +49,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
 
-    <insert id="insertBasisDiscountPermission" parameterType="BasisDiscountPermission" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertBasisDiscountPermission" parameterType="BasisDiscountPermission" useGeneratedKeys="true"
+            keyProperty="id">
         insert into wms_basis_discount_permission
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="userId != null">user_id,</if>
@@ -83,7 +96,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteBasisDiscountPermissionById" parameterType="Long">
-        delete from wms_basis_discount_permission where id = #{id}
+        delete
+        from wms_basis_discount_permission
+        where id = #{id}
     </delete>
 
     <delete id="deleteBasisDiscountPermissionByIds" parameterType="String">
@@ -94,16 +109,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <!--查询折扣权限设定列表Vo -->
-    <select id="selectBasisDiscountPermissionListVo" parameterType="BasisDiscountPermission" resultType="com.cps.basis.vo.BasisDiscountPermissionVo">
-        select t.id, t.user_id as userId, t.min_discount_rate as minDiscountRate, t.max_discount_price as maxDiscountPrice,
-               u.user_name as userName
+    <select id="selectBasisDiscountPermissionListVo" parameterType="BasisDiscountPermission"
+            resultType="com.cps.basis.vo.BasisDiscountPermissionVo">
+        select t.id, t.user_id as userId, t.min_discount_rate as minDiscountRate, t.max_discount_price as
+        maxDiscountPrice,
+        u.user_name as userName
         from wms_basis_discount_permission t
         left join sys_user u on u.user_id = t.user_id
-        <where> t.del_flag = '0'
-            <if test="userId != null "> and t.user_id = #{userId}</if>
-            <if test="minDiscountRate != null "> and t.min_discount_rate = #{minDiscountRate}</if>
-            <if test="maxDiscountPrice != null "> and t.max_discount_price = #{maxDiscountPrice}</if>
-            <if test="deptId != null "> and t.dept_id = #{deptId}</if>
+        <where>t.del_flag = '0'
+            <if test="userId != null ">and t.user_id = #{userId}</if>
+            <if test="minDiscountRate != null ">and t.min_discount_rate = #{minDiscountRate}</if>
+            <if test="maxDiscountPrice != null ">and t.max_discount_price = #{maxDiscountPrice}</if>
+            <if test="deptId != null ">and t.dept_id = #{deptId}</if>
         </where>
     </select>
 

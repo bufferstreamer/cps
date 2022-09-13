@@ -1,15 +1,14 @@
-
-$(function() {
+$(function () {
     validateRule();
-    $('.imgcode').click(function() {
+    $('.imgcode').click(function () {
         var url = ctx + "captcha/captchaImage?type=" + captchaType + "&s=" + Math.random();
         $(".imgcode").attr("src", url);
     });
 });
 
 $.validator.setDefaults({
-    submitHandler: function() {
-    	register();
+    submitHandler: function () {
+        register();
     }
 });
 
@@ -26,24 +25,24 @@ function register() {
             "loginName": username,
             "password": password,
             "validateCode": validateCode,
-            "userRole":userRole
+            "userRole": userRole
         },
-        success: function(r) {
+        success: function (r) {
             if (r.code == web_status.SUCCESS) {
-            	layer.alert("<font color='red'>恭喜你，您的账号 " + username + " 注册成功！</font>", {
-            	    icon: 1,
-            	    title: "系统提示"
-            	},
-            	function(index) {
-            	    //关闭弹窗
-            	    layer.close(index);
-            	    location.href = ctx + 'index';
-            	});
+                layer.alert("<font color='red'>恭喜你，您的账号 " + username + " 注册成功！</font>", {
+                        icon: 1,
+                        title: "系统提示"
+                    },
+                    function (index) {
+                        //关闭弹窗
+                        layer.close(index);
+                        location.href = ctx + 'index';
+                    });
             } else {
-            	$.modal.closeLoading();
-            	$('.imgcode').click();
-            	$(".code").val("");
-            	$.modal.msg(r.msg);
+                $.modal.closeLoading();
+                $('.imgcode').click();
+                $(".code").val("");
+                $.modal.msg(r.msg);
             }
         }
     });
@@ -86,7 +85,7 @@ function validateRule() {
                 required: icon + "请阅读并勾选使用条款"
             }
         },
-        errorPlacement: function(error, element) {
+        errorPlacement: function (error, element) {
             if (element.is(':checkbox')) {
                 error.appendTo(element.parent().parent());    //将错误信息添加当前元素的父结点的父结点后面
             } else {

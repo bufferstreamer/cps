@@ -393,25 +393,24 @@ public class SysUserServiceImpl implements ISysUserService {
         }
         return UserConstants.USER_EMAIL_UNIQUE;
     }
+
     /**
      * 校验用户是否有数据权限
      *
      * @param userId 用户id
      */
     @Override
-    public void checkUserDataScope(Long userId)
-    {
-        if (!SysUser.isAdmin(ShiroUtils.getUserId()))
-        {
+    public void checkUserDataScope(Long userId) {
+        if (!SysUser.isAdmin(ShiroUtils.getUserId())) {
             SysUser user = new SysUser();
             user.setUserId(userId);
             List<SysUser> users = SpringUtils.getAopProxy(this).selectUserList(user);
-            if (StringUtils.isEmpty(users))
-            {
+            if (StringUtils.isEmpty(users)) {
                 throw new ServiceException("没有权限访问用户数据！");
             }
         }
     }
+
     /**
      * 校验用户是否允许操作
      *

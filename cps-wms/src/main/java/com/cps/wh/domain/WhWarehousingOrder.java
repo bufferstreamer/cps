@@ -17,305 +17,329 @@ import java.util.Date;
  * @author miki
  * @date 2021-05-31
  */
-public class WhWarehousingOrder extends BaseEntity
-{
+public class WhWarehousingOrder extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    /** id */
+    /**
+     * id
+     */
     private Long id;
 
-    /** 入库类型(其他入库、采购入库) */
+    /**
+     * 入库类型(其他入库、采购入库)
+     */
     @Excel(name = "入库类型(其他入库、采购入库)")
     private String orderType;
 
-    /** 入库单编号 */
+    /**
+     * 入库单编号
+     */
     @Excel(name = "入库单编号")
     private String orderCode;
 
-    /** 订单号 */
+    /**
+     * 订单号
+     */
     @Excel(name = "订单号")
     private String orderName;
 
-    /** 订单日期 */
+    /**
+     * 订单日期
+     */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "订单日期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date orderDate;
 
-    /** 供应商主键ID */
+    /**
+     * 供应商主键ID
+     */
     @Excel(name = "供应商主键ID")
     private Long supplierId;
 
-    /** 供应商名称 */
+    /**
+     * 供应商名称
+     */
     @Excel(name = "供应商名称")
     private String supplierName;
 
-    /** 单位关系主键ID */
+    /**
+     * 单位关系主键ID
+     */
     @Excel(name = "单位关系主键ID")
     private Long warehouseId;
 
-    /** 对象单位主键ID */
+    /**
+     * 对象单位主键ID
+     */
     @Excel(name = "对象单位主键ID")
     private Long desWarehouseId;
 
-    /** 对象单位名称 */
+    /**
+     * 对象单位名称
+     */
     @Excel(name = "对象单位名称")
     private String desWarehouseName;
 
-    /** 税率 */
+    /**
+     * 税率
+     */
     @Excel(name = "税率")
     private BigDecimal rate;
 
-    /** 税额 */
+    /**
+     * 税额
+     */
     @Excel(name = "税额")
     private BigDecimal tax;
 
-    /** 折扣率 */
+    /**
+     * 折扣率
+     */
     @Excel(name = "折扣率")
     private BigDecimal discountRate;
 
-    /** 折扣金额 */
+    /**
+     * 折扣金额
+     */
     @Excel(name = "折扣金额")
     private BigDecimal discountAmount;
 
-    /** 折让金额 */
+    /**
+     * 折让金额
+     */
     @Excel(name = "折让金额")
     private BigDecimal discountPrice;
 
-    /** 其他费用 */
+    /**
+     * 其他费用
+     */
     @Excel(name = "其他费用")
     private BigDecimal otherFee;
 
-    /** 未税金额 */
+    /**
+     * 未税金额
+     */
     @Excel(name = "未税金额")
     private BigDecimal untaxedAmount;
 
-    /** 含税金额 */
+    /**
+     * 含税金额
+     */
     @Excel(name = "含税金额")
     private BigDecimal totalAmount;
 
-    /** 状态(待到货、待卸货、待分拣、已分拣) */
+    /**
+     * 状态(待到货、待卸货、待分拣、已分拣)
+     */
     @Excel(name = "状态(待到货、待卸货、待分拣、已分拣)")
     private String status;
 
-    /** 关联出库单主键 */
+    /**
+     * 关联出库单主键
+     */
     @Excel(name = "关联出库单主键")
     private Long outboundOrderId;
 
-    /** 删除标志（0代表存在 2代表删除） */
+    /**
+     * 删除标志（0代表存在 2代表删除）
+     */
     private String delFlag;
 
-    /** 部门ID */
+    /**
+     * 部门ID
+     */
     @Excel(name = "部门ID")
     private Long deptId;
 
-    /** 状态描述(待到货、待卸货、待分拣、已分拣) */
+    /**
+     * 状态描述(待到货、待卸货、待分拣、已分拣)
+     */
     private String statusDesc;
 
-    /** 单据类型描述 */
+    /**
+     * 单据类型描述
+     */
     private String orderTypeDesc;
 
-    public void setId(Long id)
-    {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId()
-    {
-        return id;
+    public String getOrderType() {
+        return orderType;
     }
-    public void setOrderType(String orderType)
-    {
+
+    public void setOrderType(String orderType) {
         this.orderType = orderType;
     }
 
-    public String getOrderType()
-    {
-        return orderType;
+    public String getOrderCode() {
+        return orderCode;
     }
-    public void setOrderCode(String orderCode)
-    {
+
+    public void setOrderCode(String orderCode) {
         this.orderCode = orderCode;
     }
 
-    public String getOrderCode()
-    {
-        return orderCode;
+    public String getOrderName() {
+        return orderName;
     }
-    public void setOrderName(String orderName)
-    {
+
+    public void setOrderName(String orderName) {
         this.orderName = orderName;
     }
 
-    public String getOrderName()
-    {
-        return orderName;
+    public Date getOrderDate() {
+        return orderDate;
     }
-    public void setOrderDate(Date orderDate)
-    {
+
+    public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
 
-    public Date getOrderDate()
-    {
-        return orderDate;
+    public Long getSupplierId() {
+        return supplierId;
     }
-    public void setSupplierId(Long supplierId)
-    {
+
+    public void setSupplierId(Long supplierId) {
         this.supplierId = supplierId;
     }
 
-    public Long getSupplierId()
-    {
-        return supplierId;
+    public String getSupplierName() {
+        return supplierName;
     }
-    public void setSupplierName(String supplierName)
-    {
+
+    public void setSupplierName(String supplierName) {
         this.supplierName = supplierName;
     }
 
-    public String getSupplierName()
-    {
-        return supplierName;
+    public Long getWarehouseId() {
+        return warehouseId;
     }
-    public void setWarehouseId(Long warehouseId)
-    {
+
+    public void setWarehouseId(Long warehouseId) {
         this.warehouseId = warehouseId;
     }
 
-    public Long getWarehouseId()
-    {
-        return warehouseId;
+    public Long getDesWarehouseId() {
+        return desWarehouseId;
     }
-    public void setDesWarehouseId(Long desWarehouseId)
-    {
+
+    public void setDesWarehouseId(Long desWarehouseId) {
         this.desWarehouseId = desWarehouseId;
     }
 
-    public Long getDesWarehouseId()
-    {
-        return desWarehouseId;
+    public String getDesWarehouseName() {
+        return desWarehouseName;
     }
-    public void setDesWarehouseName(String desWarehouseName)
-    {
+
+    public void setDesWarehouseName(String desWarehouseName) {
         this.desWarehouseName = desWarehouseName;
     }
 
-    public String getDesWarehouseName()
-    {
-        return desWarehouseName;
+    public BigDecimal getRate() {
+        return rate;
     }
-    public void setRate(BigDecimal rate)
-    {
+
+    public void setRate(BigDecimal rate) {
         this.rate = rate;
     }
 
-    public BigDecimal getRate()
-    {
-        return rate;
+    public BigDecimal getTax() {
+        return tax;
     }
-    public void setTax(BigDecimal tax)
-    {
+
+    public void setTax(BigDecimal tax) {
         this.tax = tax;
     }
 
-    public BigDecimal getTax()
-    {
-        return tax;
+    public BigDecimal getDiscountRate() {
+        return discountRate;
     }
-    public void setDiscountRate(BigDecimal discountRate)
-    {
+
+    public void setDiscountRate(BigDecimal discountRate) {
         this.discountRate = discountRate;
     }
 
-    public BigDecimal getDiscountRate()
-    {
-        return discountRate;
+    public BigDecimal getDiscountAmount() {
+        return discountAmount;
     }
-    public void setDiscountAmount(BigDecimal discountAmount)
-    {
+
+    public void setDiscountAmount(BigDecimal discountAmount) {
         this.discountAmount = discountAmount;
     }
 
-    public BigDecimal getDiscountAmount()
-    {
-        return discountAmount;
+    public BigDecimal getDiscountPrice() {
+        return discountPrice;
     }
-    public void setDiscountPrice(BigDecimal discountPrice)
-    {
+
+    public void setDiscountPrice(BigDecimal discountPrice) {
         this.discountPrice = discountPrice;
     }
 
-    public BigDecimal getDiscountPrice()
-    {
-        return discountPrice;
+    public BigDecimal getOtherFee() {
+        return otherFee;
     }
-    public void setOtherFee(BigDecimal otherFee)
-    {
+
+    public void setOtherFee(BigDecimal otherFee) {
         this.otherFee = otherFee;
     }
 
-    public BigDecimal getOtherFee()
-    {
-        return otherFee;
+    public BigDecimal getUntaxedAmount() {
+        return untaxedAmount;
     }
-    public void setUntaxedAmount(BigDecimal untaxedAmount)
-    {
+
+    public void setUntaxedAmount(BigDecimal untaxedAmount) {
         this.untaxedAmount = untaxedAmount;
     }
 
-    public BigDecimal getUntaxedAmount()
-    {
-        return untaxedAmount;
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
     }
-    public void setTotalAmount(BigDecimal totalAmount)
-    {
+
+    public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public BigDecimal getTotalAmount()
-    {
-        return totalAmount;
+    public String getStatus() {
+        return status;
     }
-    public void setStatus(String status)
-    {
+
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getStatus()
-    {
-        return status;
+    public Long getOutboundOrderId() {
+        return outboundOrderId;
     }
-    public void setOutboundOrderId(Long outboundOrderId)
-    {
+
+    public void setOutboundOrderId(Long outboundOrderId) {
         this.outboundOrderId = outboundOrderId;
     }
 
-    public Long getOutboundOrderId()
-    {
-        return outboundOrderId;
+    public String getDelFlag() {
+        return delFlag;
     }
-    public void setDelFlag(String delFlag)
-    {
+
+    public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
     }
 
-    public String getDelFlag()
-    {
-        return delFlag;
-    }
-    public void setDeptId(Long deptId)
-    {
-        this.deptId = deptId;
+    public Long getDeptId() {
+        return deptId;
     }
 
-    public Long getDeptId()
-    {
-        return deptId;
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("id", getId())
                 .append("orderType", getOrderType())
                 .append("orderCode", getOrderCode())
@@ -347,8 +371,8 @@ public class WhWarehousingOrder extends BaseEntity
     }
 
     public String getStatusDesc() {
-        for (WarehousingOrderStatus warehousingOrderStatus :  WarehousingOrderStatus.values()) {
-            if(warehousingOrderStatus.getCode().equals(this.getStatus())){
+        for (WarehousingOrderStatus warehousingOrderStatus : WarehousingOrderStatus.values()) {
+            if (warehousingOrderStatus.getCode().equals(this.getStatus())) {
                 statusDesc = warehousingOrderStatus.getInfo();
             }
         }
@@ -360,8 +384,8 @@ public class WhWarehousingOrder extends BaseEntity
     }
 
     public String getOrderTypeDesc() {
-        for (WhWarehousingOrderType warehousingOrderType :  WhWarehousingOrderType.values()) {
-            if(warehousingOrderType.getCode().equals(this.getOrderType())){
+        for (WhWarehousingOrderType warehousingOrderType : WhWarehousingOrderType.values()) {
+            if (warehousingOrderType.getCode().equals(this.getOrderType())) {
                 orderTypeDesc = warehousingOrderType.getInfo();
             }
         }

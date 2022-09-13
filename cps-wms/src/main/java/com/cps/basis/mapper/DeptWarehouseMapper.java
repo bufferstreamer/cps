@@ -8,15 +8,14 @@ import java.util.List;
 
 /**
  * 单位(部门)与客户或供应商关联Mapper接口
- * 
+ *
  * @author miki
  * @date 2021-06-16
  */
-public interface DeptWarehouseMapper 
-{
+public interface DeptWarehouseMapper {
     /**
      * 查询单位(部门)与客户或供应商关联
-     * 
+     *
      * @param id 单位(部门)与客户或供应商关联ID
      * @return 单位(部门)与客户或供应商关联
      */
@@ -24,7 +23,7 @@ public interface DeptWarehouseMapper
 
     /**
      * 查询单位(部门)与客户或供应商关联列表
-     * 
+     *
      * @param deptWarehouse 单位(部门)与客户或供应商关联
      * @return 单位(部门)与客户或供应商关联集合
      */
@@ -40,7 +39,7 @@ public interface DeptWarehouseMapper
 
     /**
      * 新增单位(部门)与客户或供应商关联
-     * 
+     *
      * @param deptWarehouse 单位(部门)与客户或供应商关联
      * @return 结果
      */
@@ -48,7 +47,7 @@ public interface DeptWarehouseMapper
 
     /**
      * 修改单位(部门)与客户或供应商关联
-     * 
+     *
      * @param deptWarehouse 单位(部门)与客户或供应商关联
      * @return 结果
      */
@@ -56,7 +55,7 @@ public interface DeptWarehouseMapper
 
     /**
      * 删除单位(部门)与客户或供应商关联
-     * 
+     *
      * @param id 单位(部门)与客户或供应商关联ID
      * @return 结果
      */
@@ -64,7 +63,7 @@ public interface DeptWarehouseMapper
 
     /**
      * 批量删除单位(部门)与客户或供应商关联
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
@@ -74,8 +73,8 @@ public interface DeptWarehouseMapper
      * 查询单位(部门)与客户或供应商关联
      *
      * @param warehouseId 单位关联表主键
-     * @param deptId 部门
+     * @param deptId      部门
      * @return 单位(部门)与客户或供应商关联
      */
-    public DeptWarehouse selectDeptWarehouseByWarehouseId(@Param("warehouseId")Long warehouseId, @Param("deptId")Long deptId);
+    public DeptWarehouse selectDeptWarehouseByWarehouseId(@Param("warehouseId") Long warehouseId, @Param("deptId") Long deptId);
 }

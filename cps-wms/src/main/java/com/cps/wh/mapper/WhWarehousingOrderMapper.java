@@ -6,15 +6,14 @@ import java.util.List;
 
 /**
  * 商品入库单主表Mapper接口
- * 
+ *
  * @author miki
  * @date 2021-05-26
  */
-public interface WhWarehousingOrderMapper 
-{
+public interface WhWarehousingOrderMapper {
     /**
      * 查询商品入库单主表
-     * 
+     *
      * @param id 商品入库单主表ID
      * @return 商品入库单主表
      */
@@ -22,7 +21,7 @@ public interface WhWarehousingOrderMapper
 
     /**
      * 查询商品入库单主表列表
-     * 
+     *
      * @param whWarehousingOrder 商品入库单主表
      * @return 商品入库单主表集合
      */
@@ -30,7 +29,7 @@ public interface WhWarehousingOrderMapper
 
     /**
      * 新增商品入库单主表
-     * 
+     *
      * @param whWarehousingOrder 商品入库单主表
      * @return 结果
      */
@@ -38,7 +37,7 @@ public interface WhWarehousingOrderMapper
 
     /**
      * 修改商品入库单主表
-     * 
+     *
      * @param whWarehousingOrder 商品入库单主表
      * @return 结果
      */
@@ -46,7 +45,7 @@ public interface WhWarehousingOrderMapper
 
     /**
      * 删除商品入库单主表
-     * 
+     *
      * @param id 商品入库单主表ID
      * @return 结果
      */
@@ -54,7 +53,7 @@ public interface WhWarehousingOrderMapper
 
     /**
      * 批量删除商品入库单主表
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */

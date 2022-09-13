@@ -11,8 +11,7 @@ import java.util.List;
  * @author miki
  * @date 2021-06-04
  */
-public class OutboundOrderSeedModel extends BaseEntity
-{
+public class OutboundOrderSeedModel extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     private Long outboundOrderId;//商品出库主表ID

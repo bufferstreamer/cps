@@ -33,13 +33,12 @@ import java.util.List;
 
 /**
  * 商品入库单子Service业务层处理
- * 
+ *
  * @author miki
  * @date 2021-05-26
  */
 @Service
-public class WhWarehousingOrderSeedServiceImpl implements IWhWarehousingOrderSeedService 
-{
+public class WhWarehousingOrderSeedServiceImpl implements IWhWarehousingOrderSeedService {
     @Autowired
     private WhWarehousingOrderSeedMapper whWarehousingOrderSeedMapper;
 
@@ -60,47 +59,44 @@ public class WhWarehousingOrderSeedServiceImpl implements IWhWarehousingOrderSee
 
     /**
      * 查询商品入库单子
-     * 
+     *
      * @param id 商品入库单子ID
      * @return 商品入库单子
      */
     @Override
-    public WhWarehousingOrderSeed selectWhWarehousingOrderSeedById(Long id)
-    {
+    public WhWarehousingOrderSeed selectWhWarehousingOrderSeedById(Long id) {
         return whWarehousingOrderSeedMapper.selectWhWarehousingOrderSeedById(id);
     }
 
     /**
      * 查询商品入库单子列表
-     * 
+     *
      * @param whWarehousingOrderSeed 商品入库单子
      * @return 商品入库单子
      */
     @Override
-    public List<WhWarehousingOrderSeed> selectWhWarehousingOrderSeedList(WhWarehousingOrderSeed whWarehousingOrderSeed)
-    {
+    public List<WhWarehousingOrderSeed> selectWhWarehousingOrderSeedList(WhWarehousingOrderSeed whWarehousingOrderSeed) {
         return whWarehousingOrderSeedMapper.selectWhWarehousingOrderSeedList(whWarehousingOrderSeed);
     }
 
     /**
      * 新增商品入库单子
-     * 
+     *
      * @param whWarehousingOrderSeed 商品入库单子
      * @return 结果
      */
     @Override
     @Transactional
-    public int insertWhWarehousingOrderSeed(WhWarehousingOrderSeed whWarehousingOrderSeed)
-    {
+    public int insertWhWarehousingOrderSeed(WhWarehousingOrderSeed whWarehousingOrderSeed) {
         int result = 0;
         whWarehousingOrderSeed.setCreateTime(DateUtils.getNowDate());
         //统计商品价格各项值
-        WhWarehousingOrder whWarehousingOrder =  whWarehousingOrderService.selectWhWarehousingOrderById(whWarehousingOrderSeed.getWarehousingOrderId());
-        whWarehousingOrderSeed = calculate(whWarehousingOrder,whWarehousingOrderSeed,whWarehousingOrder.getRate());
+        WhWarehousingOrder whWarehousingOrder = whWarehousingOrderService.selectWhWarehousingOrderById(whWarehousingOrderSeed.getWarehousingOrderId());
+        whWarehousingOrderSeed = calculate(whWarehousingOrder, whWarehousingOrderSeed, whWarehousingOrder.getRate());
         result = whWarehousingOrderSeedMapper.insertWhWarehousingOrderSeed(whWarehousingOrderSeed);
 
         //主表总价格受影响需重新计算
-        whWarehousingOrder = whWarehousingOrderService.calculate(whWarehousingOrder,whWarehousingOrder.getRate());
+        whWarehousingOrder = whWarehousingOrderService.calculate(whWarehousingOrder, whWarehousingOrder.getRate());
         whWarehousingOrder.setUpdateBy(whWarehousingOrderSeed.getCreateBy());
         whWarehousingOrder.setUpdateTime(whWarehousingOrderSeed.getCreateTime());
         result = whWarehousingOrderService.updateWhWarehousingOrder(whWarehousingOrder);
@@ -110,13 +106,12 @@ public class WhWarehousingOrderSeedServiceImpl implements IWhWarehousingOrderSee
 
     /**
      * 修改商品入库单子
-     * 
+     *
      * @param whWarehousingOrderSeed 商品入库单子
      * @return 结果
      */
     @Override
-    public int updateWhWarehousingOrderSeed(WhWarehousingOrderSeed whWarehousingOrderSeed)
-    {
+    public int updateWhWarehousingOrderSeed(WhWarehousingOrderSeed whWarehousingOrderSeed) {
         whWarehousingOrderSeed.setUpdateTime(DateUtils.getNowDate());
         return whWarehousingOrderSeedMapper.updateWhWarehousingOrderSeed(whWarehousingOrderSeed);
     }
@@ -127,12 +122,12 @@ public class WhWarehousingOrderSeedServiceImpl implements IWhWarehousingOrderSee
         int result = 0;
         whWarehousingOrderSeed.setUpdateTime(DateUtils.getNowDate());
         //统计商品价格各项值
-        WhWarehousingOrder whWarehousingOrder =  whWarehousingOrderService.selectWhWarehousingOrderById(selectWhWarehousingOrderSeedById(whWarehousingOrderSeed.getId()).getWarehousingOrderId());
-        whWarehousingOrderSeed = calculate(whWarehousingOrder,whWarehousingOrderSeed,whWarehousingOrder.getRate());
+        WhWarehousingOrder whWarehousingOrder = whWarehousingOrderService.selectWhWarehousingOrderById(selectWhWarehousingOrderSeedById(whWarehousingOrderSeed.getId()).getWarehousingOrderId());
+        whWarehousingOrderSeed = calculate(whWarehousingOrder, whWarehousingOrderSeed, whWarehousingOrder.getRate());
         result = whWarehousingOrderSeedMapper.updateWhWarehousingOrderSeed(whWarehousingOrderSeed);
 
         //主表总价格受影响需重新计算
-        whWarehousingOrder = whWarehousingOrderService.calculate(whWarehousingOrder,whWarehousingOrder.getRate());
+        whWarehousingOrder = whWarehousingOrderService.calculate(whWarehousingOrder, whWarehousingOrder.getRate());
         whWarehousingOrder.setUpdateBy(whWarehousingOrderSeed.getUpdateBy());
         result = whWarehousingOrderService.updateWhWarehousingOrder(whWarehousingOrder);
 
@@ -141,19 +136,18 @@ public class WhWarehousingOrderSeedServiceImpl implements IWhWarehousingOrderSee
 
     /**
      * 删除商品入库单子对象
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
     @Override
     @Transactional
-    public int deleteWhWarehousingOrderSeedByIds(String ids)
-    {
+    public int deleteWhWarehousingOrderSeedByIds(String ids) {
         int result = 0;
         Long[] whWarehousingOrderSeedids = Convert.toLongArray(ids);
 
-        Long warehousingOrderId =0L;
-        for (Long whWarehousingOrderSeedid : whWarehousingOrderSeedids ) {
+        Long warehousingOrderId = 0L;
+        for (Long whWarehousingOrderSeedid : whWarehousingOrderSeedids) {
             warehousingOrderId = selectWhWarehousingOrderSeedById(whWarehousingOrderSeedid).getWarehousingOrderId();
             WhWarehousingOrderSeed whWarehousingOrderSeed = new WhWarehousingOrderSeed();
             whWarehousingOrderSeed.setId(whWarehousingOrderSeedid);
@@ -163,8 +157,8 @@ public class WhWarehousingOrderSeedServiceImpl implements IWhWarehousingOrderSee
         }
 
         //主表总价格受影响需重新计算
-        WhWarehousingOrder whWarehousingOrder =  whWarehousingOrderService.selectWhWarehousingOrderById(warehousingOrderId);
-        whWarehousingOrder = whWarehousingOrderService.calculate(whWarehousingOrder,whWarehousingOrder.getRate());
+        WhWarehousingOrder whWarehousingOrder = whWarehousingOrderService.selectWhWarehousingOrderById(warehousingOrderId);
+        whWarehousingOrder = whWarehousingOrderService.calculate(whWarehousingOrder, whWarehousingOrder.getRate());
         whWarehousingOrder.setUpdateBy(ShiroUtils.getLoginName());
         result = whWarehousingOrderService.updateWhWarehousingOrder(whWarehousingOrder);
         return result;
@@ -172,13 +166,12 @@ public class WhWarehousingOrderSeedServiceImpl implements IWhWarehousingOrderSee
 
     /**
      * 删除商品入库单子信息
-     * 
+     *
      * @param id 商品入库单子ID
      * @return 结果
      */
     @Override
-    public int deleteWhWarehousingOrderSeedById(Long id)
-    {
+    public int deleteWhWarehousingOrderSeedById(Long id) {
         return whWarehousingOrderSeedMapper.deleteWhWarehousingOrderSeedById(id);
     }
 
@@ -196,21 +189,22 @@ public class WhWarehousingOrderSeedServiceImpl implements IWhWarehousingOrderSee
     @Transactional
     public int updateCompleteSave(WarehousingOrderSeedModel warehousingOrderSeedModel) {
         int result = 0;
-        List<ShopGoodsSeedMode> shopGoodsSeedList = new ArrayList<>();;//商品库存信息<商品ID,商品库存数量>
-        List<Long> shopGoodsIds =  new ArrayList<>();//List商品信息
+        List<ShopGoodsSeedMode> shopGoodsSeedList = new ArrayList<>();
+        ;//商品库存信息<商品ID,商品库存数量>
+        List<Long> shopGoodsIds = new ArrayList<>();//List商品信息
 
         //步骤1:计算是否有或多或少的数量,存储数据库中，并改变订单状态
         List<WhWarehousingOrderSeed> whWarehousingOrderSeedList = warehousingOrderSeedModel.getWarehousingOrderSeed();
-        for (WhWarehousingOrderSeed warehousingOrderSeed :whWarehousingOrderSeedList) {
-            if(warehousingOrderSeed.getWarehousingNumber().intValue() == 0){
+        for (WhWarehousingOrderSeed warehousingOrderSeed : whWarehousingOrderSeedList) {
+            if (warehousingOrderSeed.getWarehousingNumber().intValue() == 0) {
                 throw new BusinessException("实际数量不能为0，入库操作失败");
             }
-           int number = warehousingOrderSeed.getPlanNumber().intValue() - warehousingOrderSeed.getWarehousingNumber().intValue() ;/** 计划数量-实际数量 */
-           if(number < 0){
-               warehousingOrderSeed.setMoreNumber(Long.valueOf(Math.abs(number))); /** 多到货数量 */
-           }else if(number > 0){
-               warehousingOrderSeed.setShortageNumber(Long.valueOf(number));/** 到货短少数量 */
-           }
+            int number = warehousingOrderSeed.getPlanNumber().intValue() - warehousingOrderSeed.getWarehousingNumber().intValue();/** 计划数量-实际数量 */
+            if (number < 0) {
+                warehousingOrderSeed.setMoreNumber(Long.valueOf(Math.abs(number))); /** 多到货数量 */
+            } else if (number > 0) {
+                warehousingOrderSeed.setShortageNumber(Long.valueOf(number));/** 到货短少数量 */
+            }
             warehousingOrderSeed.setUpdateBy(warehousingOrderSeedModel.getUpdateBy());
             result = updateWhWarehousingOrderSeed(warehousingOrderSeed);
 
@@ -231,37 +225,38 @@ public class WhWarehousingOrderSeedServiceImpl implements IWhWarehousingOrderSee
 
         //步骤3 根据商品ID查询库位，在把空库位标识 改为N
         List<Long> storageIds = shopGoodsService.selectShopGoodsStorageIds(shopGoodsIds);
-        result =  whStorageService.updateWhStorageBatch(UserConstants.NO,storageIds);
+        result = whStorageService.updateWhStorageBatch(UserConstants.NO, storageIds);
         return result;
     }
 
     /**
      * 计算统计子表各项价格
+     *
      * @param whWarehousingOrderSeed 商品入库单子
-     * @param rate whWarehousingOrder入库主表供应商税率
+     * @param rate                   whWarehousingOrder入库主表供应商税率
      * @return whWarehousingOrderSeed 商品入库单子
      */
-    public  WhWarehousingOrderSeed calculate(WhWarehousingOrder whWarehousingOrder, WhWarehousingOrderSeed whWarehousingOrderSeed, BigDecimal rate){
-        BigDecimal price=whWarehousingOrderSeed.getTaxUnitPrice();
-        if(WhWarehousingOrderType.TRANSFER.getCode().equals(whWarehousingOrder.getOrderType())){//如果是请拔单则根据单位关系选择价格
-            DeptWarehouse deptWarehouse = deptWarehouseService.selectDeptWarehouseByWarehouseId(whWarehousingOrder.getWarehouseId(),whWarehousingOrder.getDeptId());
+    public WhWarehousingOrderSeed calculate(WhWarehousingOrder whWarehousingOrder, WhWarehousingOrderSeed whWarehousingOrderSeed, BigDecimal rate) {
+        BigDecimal price = whWarehousingOrderSeed.getTaxUnitPrice();
+        if (WhWarehousingOrderType.TRANSFER.getCode().equals(whWarehousingOrder.getOrderType())) {//如果是请拔单则根据单位关系选择价格
+            DeptWarehouse deptWarehouse = deptWarehouseService.selectDeptWarehouseByWarehouseId(whWarehousingOrder.getWarehouseId(), whWarehousingOrder.getDeptId());
             ShopGoods shopGoods = shopGoodsService.selectShopGoodsById(whWarehousingOrderSeed.getShopGoodsId());
-            if(CostType.SELLINGPRICE.getCode().equals(deptWarehouse.getCostType())){
-                price=shopGoods.getSellingPrice();
-            }else if(CostType.WHOLESALEPRICE.getCode().equals(deptWarehouse.getCostType())){
-                price=shopGoods.getWholesalePrice();
-            }else if(CostType.COSTPRICE.getCode().equals(deptWarehouse.getCostType())){
-                price=shopGoods.getCostPrice();
-            }else if(CostType.RETAILPRICE.getCode().equals(deptWarehouse.getCostType())){
-                price=shopGoods.getRetailPrice();
+            if (CostType.SELLINGPRICE.getCode().equals(deptWarehouse.getCostType())) {
+                price = shopGoods.getSellingPrice();
+            } else if (CostType.WHOLESALEPRICE.getCode().equals(deptWarehouse.getCostType())) {
+                price = shopGoods.getWholesalePrice();
+            } else if (CostType.COSTPRICE.getCode().equals(deptWarehouse.getCostType())) {
+                price = shopGoods.getCostPrice();
+            } else if (CostType.RETAILPRICE.getCode().equals(deptWarehouse.getCostType())) {
+                price = shopGoods.getRetailPrice();
             }
             whWarehousingOrderSeed.setTaxUnitPrice(price);
         }
         whWarehousingOrderSeed.setRate(rate);//税率
-        whWarehousingOrderSeed.setAmount(ArithUtils.safeSubtracts(ArithUtils.safeMultiplys(new BigDecimal(whWarehousingOrderSeed.getPlanNumber().toString()),price),whWarehousingOrderSeed.getDiscountPrice()));//含税金额=(数量*含税单价)-折让
-        whWarehousingOrderSeed.setUnitPrice(ArithUtils.safeMultiplys(price,whWarehousingOrderSeed.getRate()));//未税单价=含税单价*税率
-        whWarehousingOrderSeed.setTax(ArithUtils.safeMultiplys(whWarehousingOrderSeed.getAmount(),whWarehousingOrderSeed.getRate()));//合计税额=含税金额*税率
-        whWarehousingOrderSeed.setUntaxedAmount( ArithUtils.safeSubtracts(whWarehousingOrderSeed.getAmount(),whWarehousingOrderSeed.getTax()));//未税金额= 含税金额-税额
+        whWarehousingOrderSeed.setAmount(ArithUtils.safeSubtracts(ArithUtils.safeMultiplys(new BigDecimal(whWarehousingOrderSeed.getPlanNumber().toString()), price), whWarehousingOrderSeed.getDiscountPrice()));//含税金额=(数量*含税单价)-折让
+        whWarehousingOrderSeed.setUnitPrice(ArithUtils.safeMultiplys(price, whWarehousingOrderSeed.getRate()));//未税单价=含税单价*税率
+        whWarehousingOrderSeed.setTax(ArithUtils.safeMultiplys(whWarehousingOrderSeed.getAmount(), whWarehousingOrderSeed.getRate()));//合计税额=含税金额*税率
+        whWarehousingOrderSeed.setUntaxedAmount(ArithUtils.safeSubtracts(whWarehousingOrderSeed.getAmount(), whWarehousingOrderSeed.getTax()));//未税金额= 含税金额-税额
         return whWarehousingOrderSeed;
 
     }

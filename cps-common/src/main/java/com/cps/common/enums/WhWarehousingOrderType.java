@@ -6,19 +6,16 @@ public enum WhWarehousingOrderType {
     private final String code;
     private final String info;
 
-    WhWarehousingOrderType(String code, String info)
-    {
+    WhWarehousingOrderType(String code, String info) {
         this.code = code;
         this.info = info;
     }
 
-    public String getCode()
-    {
+    public String getCode() {
         return code;
     }
 
-    public String getInfo()
-    {
+    public String getInfo() {
         return info;
     }
 }

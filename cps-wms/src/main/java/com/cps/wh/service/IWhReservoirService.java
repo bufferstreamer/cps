@@ -7,15 +7,14 @@ import java.util.List;
 
 /**
  * 库区设置Service接口
- * 
+ *
  * @author miki
  * @date 2021-05-21
  */
-public interface IWhReservoirService 
-{
+public interface IWhReservoirService {
     /**
      * 查询库区设置
-     * 
+     *
      * @param id 库区设置ID
      * @return 库区设置
      */
@@ -23,7 +22,7 @@ public interface IWhReservoirService
 
     /**
      * 查询库区设置列表
-     * 
+     *
      * @param whReservoir 库区设置
      * @return 库区设置集合
      */
@@ -39,7 +38,7 @@ public interface IWhReservoirService
 
     /**
      * 新增库区设置
-     * 
+     *
      * @param whReservoir 库区设置
      * @return 结果
      */
@@ -47,7 +46,7 @@ public interface IWhReservoirService
 
     /**
      * 修改库区设置
-     * 
+     *
      * @param whReservoir 库区设置
      * @return 结果
      */
@@ -55,7 +54,7 @@ public interface IWhReservoirService
 
     /**
      * 批量删除库区设置
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
@@ -63,7 +62,7 @@ public interface IWhReservoirService
 
     /**
      * 删除库区设置信息
-     * 
+     *
      * @param id 库区设置ID
      * @return 结果
      */

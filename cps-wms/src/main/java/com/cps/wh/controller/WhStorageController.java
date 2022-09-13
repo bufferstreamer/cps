@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * 库位(储位)设置Controller
- * 
+ *
  * @author miki
  * @date 2021-05-23
  */
@@ -138,8 +138,7 @@ public class WhStorageController extends BaseController {
      * 选择库位(储位)
      */
     @GetMapping("/selectStorage")
-    public String selectStorage(ModelMap mmap)
-    {
+    public String selectStorage(ModelMap mmap) {
         return prefix + "/selectStorage";
     }
 
@@ -148,8 +147,7 @@ public class WhStorageController extends BaseController {
      */
     @PostMapping("/selectList")
     @ResponseBody
-    public TableDataInfo selectList(WhStorage whStorage)
-    {
+    public TableDataInfo selectList(WhStorage whStorage) {
         whStorage.setIsDisable(Status.OK.getCode());
         whStorage.setDeptId(ShiroUtils.getDeptId());
         startPage();
@@ -164,12 +162,11 @@ public class WhStorageController extends BaseController {
     @RequiresPermissions("wh:storage:edit")
     @PostMapping("/changeIsDisable")
     @ResponseBody
-    public AjaxResult changeIsDisable(WhStorage whStorage)
-    {
+    public AjaxResult changeIsDisable(WhStorage whStorage) {
         ShopGoods shopGoods = new ShopGoods();
         shopGoods.setStorageId(whStorage.getId());
-        if(Status.DISABLE.getCode().equals(whStorage.getIsDisable())){//选择停用时，先判断该库位是否有绑定商品，如绑定则不允许停用
-            if(shopGoodsService.selectShopGoodsCount(shopGoods) > 0){
+        if (Status.DISABLE.getCode().equals(whStorage.getIsDisable())) {//选择停用时，先判断该库位是否有绑定商品，如绑定则不允许停用
+            if (shopGoodsService.selectShopGoodsCount(shopGoods) > 0) {
                 return error("该库位有商品不允许停用");
             }
         }

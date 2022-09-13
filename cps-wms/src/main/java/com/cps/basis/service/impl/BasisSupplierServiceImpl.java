@@ -19,13 +19,12 @@ import java.util.List;
 
 /**
  * 供应商管理Service业务层处理
- * 
+ *
  * @author miki
  * @date 2021-05-20
  */
 @Service
-public class BasisSupplierServiceImpl implements IBasisSupplierService 
-{
+public class BasisSupplierServiceImpl implements IBasisSupplierService {
     @Autowired
     private BasisSupplierMapper basisSupplierMapper;
 
@@ -34,37 +33,34 @@ public class BasisSupplierServiceImpl implements IBasisSupplierService
 
     /**
      * 查询供应商管理
-     * 
+     *
      * @param id 供应商管理ID
      * @return 供应商管理
      */
     @Override
-    public BasisSupplier selectBasisSupplierById(Long id)
-    {
+    public BasisSupplier selectBasisSupplierById(Long id) {
         return basisSupplierMapper.selectBasisSupplierById(id);
     }
 
     /**
      * 查询供应商管理列表
-     * 
+     *
      * @param basisSupplier 供应商管理
      * @return 供应商管理
      */
     @Override
-    public List<BasisSupplier> selectBasisSupplierList(BasisSupplier basisSupplier)
-    {
+    public List<BasisSupplier> selectBasisSupplierList(BasisSupplier basisSupplier) {
         return basisSupplierMapper.selectBasisSupplierList(basisSupplier);
     }
 
     /**
      * 新增供应商管理
-     * 
+     *
      * @param basisSupplier 供应商管理
      * @return 结果
      */
     @Override
-    public int insertBasisSupplier(BasisSupplier basisSupplier)
-    {
+    public int insertBasisSupplier(BasisSupplier basisSupplier) {
         int result = 0;
         BasisWarehouse basisWarehouse = new BasisWarehouse();
         basisWarehouse.setWarehouseType(WarehouseType.SUPPLIER.getCode());
@@ -79,30 +75,28 @@ public class BasisSupplierServiceImpl implements IBasisSupplierService
 
     /**
      * 修改供应商管理
-     * 
+     *
      * @param basisSupplier 供应商管理
      * @return 结果
      */
     @Override
-    public int updateBasisSupplier(BasisSupplier basisSupplier)
-    {
+    public int updateBasisSupplier(BasisSupplier basisSupplier) {
         basisSupplier.setUpdateTime(DateUtils.getNowDate());
         return basisSupplierMapper.updateBasisSupplier(basisSupplier);
     }
 
     /**
      * 删除供应商管理对象
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
     @Override
     @Transactional
-    public int deleteBasisSupplierByIds(String ids)
-    {
+    public int deleteBasisSupplierByIds(String ids) {
         int result = 0;
         Long[] basisSupplierids = Convert.toLongArray(ids);
-        for (Long basisSupplierid:basisSupplierids ) {
+        for (Long basisSupplierid : basisSupplierids) {
             BasisSupplier basisSupplier = new BasisSupplier();
             basisSupplier.setId(basisSupplierid);
             basisSupplier.setDelFlag(Status.DELETED.getCode());
@@ -114,21 +108,19 @@ public class BasisSupplierServiceImpl implements IBasisSupplierService
 
     /**
      * 删除供应商管理信息
-     * 
+     *
      * @param id 供应商管理ID
      * @return 结果
      */
     @Override
-    public int deleteBasisSupplierById(Long id)
-    {
+    public int deleteBasisSupplierById(Long id) {
         return basisSupplierMapper.deleteBasisSupplierById(id);
     }
 
     @Override
     public String checkSupplierCodeUnique(String supplierCode) {
         int count = basisSupplierMapper.checkSupplierCodeUnique(supplierCode);
-        if (count > 0)
-        {
+        if (count > 0) {
             return Constants.NAME_NOT_UNIQUE;
         }
         return Constants.NAME_UNIQUE;

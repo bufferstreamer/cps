@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('修改集中采购记录')" />
+    <th:block th:include="include :: header('修改集中采购记录')"/>
     <th:block th:include="include :: bootstrap-fileinput-css"/>
 </head>
 <body class="white-bg">
@@ -12,26 +12,27 @@
             <label class="col-sm-3 control-label">是否中标“N”否 “Y”是：</label>
             <div class="col-sm-8">
                 <div class="radio-box" th:each="dict : ${@dict.getType('sys_yes_no')}">
-                    <input type="radio" th:id="${'isBid_' + dict.dictCode}" name="isBid" th:value="${dict.dictValue}" th:field="*{isBid}">
+                    <input name="isBid" th:field="*{isBid}" th:id="${'isBid_' + dict.dictCode}" th:value="${dict.dictValue}"
+                           type="radio">
                     <label th:for="${'isBid_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
                 </div>
             </div>
         </div>
     </form>
 </div>
-    <th:block th:include="include :: footer" />
-    <th:block th:include="include :: bootstrap-fileinput-js"/>
-    <script th:inline="javascript">
-        var prefix = ctx + "bid/tender1";
-        $("#form-tender1-edit").validate({
-            focusCleanup: true
-        });
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: bootstrap-fileinput-js"/>
+<script th:inline="javascript">
+    var prefix = ctx + "bid/tender1";
+    $("#form-tender1-edit").validate({
+        focusCleanup: true
+    });
 
-        function submitHandler() {
-            if ($.validate.form()) {
-                $.operate.save(prefix + "/edit", $('#form-tender1-edit').serialize());
-            }
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit", $('#form-tender1-edit').serialize());
         }
-    </script>
+    }
+</script>
 </body>
 </html>

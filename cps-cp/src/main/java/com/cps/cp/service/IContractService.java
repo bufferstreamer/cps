@@ -1,19 +1,19 @@
 package com.cps.cp.service;
 
-import java.util.List;
 import com.cps.cp.domain.Contract;
+
+import java.util.List;
 
 /**
  * 合同Service接口
- * 
+ *
  * @author wxf
  * @date 2022-08-16
  */
-public interface IContractService 
-{
+public interface IContractService {
     /**
      * 查询合同
-     * 
+     *
      * @param contractId 合同主键
      * @return 合同
      */
@@ -21,7 +21,7 @@ public interface IContractService
 
     /**
      * 查询合同列表
-     * 
+     *
      * @param contract 合同
      * @return 合同集合
      */
@@ -29,7 +29,7 @@ public interface IContractService
 
     /**
      * 新增合同
-     * 
+     *
      * @param contract 合同
      * @return 结果
      */
@@ -37,7 +37,7 @@ public interface IContractService
 
     /**
      * 修改合同
-     * 
+     *
      * @param contract 合同
      * @return 结果
      */
@@ -45,7 +45,7 @@ public interface IContractService
 
     /**
      * 批量删除合同
-     * 
+     *
      * @param contractIds 需要删除的合同主键集合
      * @return 结果
      */
@@ -53,7 +53,7 @@ public interface IContractService
 
     /**
      * 删除合同信息
-     * 
+     *
      * @param contractId 合同主键
      * @return 结果
      */

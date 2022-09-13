@@ -1,58 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cps.cp.mapper.TerminationAnnouncementMapper">
-    
+
     <resultMap type="TerminationAnnouncement" id="TerminationAnnouncementResult">
-        <result property="terminationAnnouncementId"    column="termination_announcement_id"    />
-        <result property="terminationAnnouncementDocument"    column="termination_announcement_document"    />
-        <result property="tenderId"    column="tender_id"    />
-        <result property="terminationTime"    column="termination_time"    />
-        <result property="announcementName"    column="announcement_name"    />
+        <result property="terminationAnnouncementId" column="termination_announcement_id"/>
+        <result property="terminationAnnouncementDocument" column="termination_announcement_document"/>
+        <result property="tenderId" column="tender_id"/>
+        <result property="terminationTime" column="termination_time"/>
+        <result property="announcementName" column="announcement_name"/>
     </resultMap>
 
     <sql id="selectTerminationAnnouncementVo">
-        select termination_announcement_id, announcement_name, termination_announcement_document, tender_id, termination_time from termination_announcement
+        select termination_announcement_id,
+               announcement_name,
+               termination_announcement_document,
+               tender_id,
+               termination_time
+        from termination_announcement
     </sql>
 
-    <select id="selectTerminationAnnouncementList" parameterType="TerminationAnnouncement" resultMap="TerminationAnnouncementResult">
+    <select id="selectTerminationAnnouncementList" parameterType="TerminationAnnouncement"
+            resultMap="TerminationAnnouncementResult">
         <include refid="selectTerminationAnnouncementVo"/>
-        <where>  
-            <if test="terminationAnnouncementId != null  and terminationAnnouncementId != ''"> and termination_announcement_id like concat('%', #{terminationAnnouncementId}, '%')</if>
-            <if test="announcementName != null  and announcementName != ''"> and announcement_name like concat('%', #{announcementName}, '%')</if>
-            <if test="tenderId != null  and tenderId != ''"> and tender_Id like concat('%', #{tenderId}, '%')</if>
+        <where>
+            <if test="terminationAnnouncementId != null  and terminationAnnouncementId != ''">and
+                termination_announcement_id like concat('%', #{terminationAnnouncementId}, '%')
+            </if>
+            <if test="announcementName != null  and announcementName != ''">and announcement_name like concat('%',
+                #{announcementName}, '%')
+            </if>
+            <if test="tenderId != null  and tenderId != ''">and tender_Id like concat('%', #{tenderId}, '%')</if>
         </where>
     </select>
-    
-    <select id="selectTerminationAnnouncementByTerminationAnnouncementId" parameterType="String" resultMap="TerminationAnnouncementResult">
+
+    <select id="selectTerminationAnnouncementByTerminationAnnouncementId" parameterType="String"
+            resultMap="TerminationAnnouncementResult">
         <include refid="selectTerminationAnnouncementVo"/>
         where termination_announcement_id = #{terminationAnnouncementId}
     </select>
-        
+
     <insert id="insertTerminationAnnouncement" parameterType="TerminationAnnouncement">
         insert into termination_announcement
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="terminationAnnouncementId != null">termination_announcement_id,</if>
             <if test="announcementName != null">announcement_name,</if>
-            <if test="terminationAnnouncementDocument != null and terminationAnnouncementDocument != ''">termination_announcement_document,</if>
+            <if test="terminationAnnouncementDocument != null and terminationAnnouncementDocument != ''">
+                termination_announcement_document,
+            </if>
             <if test="tenderId != null and tenderId != ''">tender_id,</if>
             <if test="terminationTime != null">termination_time,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="terminationAnnouncementId != null">#{terminationAnnouncementId},</if>
             <if test="announcementName != null">#{announcementName},</if>
-            <if test="terminationAnnouncementDocument != null and terminationAnnouncementDocument != ''">#{terminationAnnouncementDocument},</if>
+            <if test="terminationAnnouncementDocument != null and terminationAnnouncementDocument != ''">
+                #{terminationAnnouncementDocument},
+            </if>
             <if test="tenderId != null and tenderId != ''">#{tenderId},</if>
             <if test="terminationTime != null">#{terminationTime},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateTerminationAnnouncement" parameterType="TerminationAnnouncement">
         update termination_announcement
         <trim prefix="SET" suffixOverrides=",">
             <if test="announcementName != null and announcementName != ''">announcement_name = #{announcementName},</if>
-            <if test="terminationAnnouncementDocument != null and terminationAnnouncementDocument != ''">termination_announcement_document = #{terminationAnnouncementDocument},</if>
+            <if test="terminationAnnouncementDocument != null and terminationAnnouncementDocument != ''">
+                termination_announcement_document = #{terminationAnnouncementDocument},
+            </if>
             <if test="tenderId != null and tenderId != ''">tender_id = #{tenderId},</if>
             <if test="terminationTime != null">termination_time = #{terminationTime},</if>
         </trim>
@@ -60,11 +77,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteTerminationAnnouncementByTerminationAnnouncementId" parameterType="String">
-        delete from termination_announcement where termination_announcement_id = #{terminationAnnouncementId}
+        delete
+        from termination_announcement
+        where termination_announcement_id = #{terminationAnnouncementId}
     </delete>
 
     <delete id="deleteTerminationAnnouncementByTerminationAnnouncementIds" parameterType="String">
-        delete from termination_announcement where termination_announcement_id in 
+        delete from termination_announcement where termination_announcement_id in
         <foreach item="terminationAnnouncementId" collection="array" open="(" separator="," close=")">
             #{terminationAnnouncementId}
         </foreach>

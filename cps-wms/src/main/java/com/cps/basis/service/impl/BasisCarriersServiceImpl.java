@@ -19,13 +19,12 @@ import java.util.List;
 
 /**
  * 承运商管理Service业务层处理
- * 
+ *
  * @author miki
  * @date 2021-05-20
  */
 @Service
-public class BasisCarriersServiceImpl implements IBasisCarriersService 
-{
+public class BasisCarriersServiceImpl implements IBasisCarriersService {
     @Autowired
     private BasisCarriersMapper basisCarriersMapper;
 
@@ -34,38 +33,35 @@ public class BasisCarriersServiceImpl implements IBasisCarriersService
 
     /**
      * 查询承运商管理
-     * 
+     *
      * @param id 承运商管理ID
      * @return 承运商管理
      */
     @Override
-    public BasisCarriers selectBasisCarriersById(Long id)
-    {
+    public BasisCarriers selectBasisCarriersById(Long id) {
         return basisCarriersMapper.selectBasisCarriersById(id);
     }
 
     /**
      * 查询承运商管理列表
-     * 
+     *
      * @param basisCarriers 承运商管理
      * @return 承运商管理
      */
     @Override
-    public List<BasisCarriers> selectBasisCarriersList(BasisCarriers basisCarriers)
-    {
+    public List<BasisCarriers> selectBasisCarriersList(BasisCarriers basisCarriers) {
         return basisCarriersMapper.selectBasisCarriersList(basisCarriers);
     }
 
     /**
      * 新增承运商管理
-     * 
+     *
      * @param basisCarriers 承运商管理
      * @return 结果
      */
     @Override
     @Transactional
-    public int insertBasisCarriers(BasisCarriers basisCarriers)
-    {
+    public int insertBasisCarriers(BasisCarriers basisCarriers) {
         int result = 0;
         BasisWarehouse basisWarehouse = new BasisWarehouse();
         basisWarehouse.setWarehouseType(WarehouseType.CARRIERS.getCode());
@@ -80,30 +76,28 @@ public class BasisCarriersServiceImpl implements IBasisCarriersService
 
     /**
      * 修改承运商管理
-     * 
+     *
      * @param basisCarriers 承运商管理
      * @return 结果
      */
     @Override
-    public int updateBasisCarriers(BasisCarriers basisCarriers)
-    {
+    public int updateBasisCarriers(BasisCarriers basisCarriers) {
         basisCarriers.setUpdateTime(DateUtils.getNowDate());
         return basisCarriersMapper.updateBasisCarriers(basisCarriers);
     }
 
     /**
      * 删除承运商管理对象
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
     @Override
     @Transactional
-    public int deleteBasisCarriersByIds(String ids)
-    {
+    public int deleteBasisCarriersByIds(String ids) {
         int result = 0;
         Long[] basisCarriersids = Convert.toLongArray(ids);
-        for (Long basisCarriersid:basisCarriersids ) {
+        for (Long basisCarriersid : basisCarriersids) {
             BasisCarriers basisCarriers = new BasisCarriers();
             basisCarriers.setId(basisCarriersid);
             basisCarriers.setDelFlag(Status.DELETED.getCode());
@@ -115,21 +109,19 @@ public class BasisCarriersServiceImpl implements IBasisCarriersService
 
     /**
      * 删除承运商管理信息
-     * 
+     *
      * @param id 承运商管理ID
      * @return 结果
      */
     @Override
-    public int deleteBasisCarriersById(Long id)
-    {
+    public int deleteBasisCarriersById(Long id) {
         return basisCarriersMapper.deleteBasisCarriersById(id);
     }
 
     @Override
     public String checkCarriersCodeUnique(String carriersCode) {
         int count = basisCarriersMapper.checkCarriersCodeUnique(carriersCode);
-        if (count > 0)
-        {
+        if (count > 0) {
             return Constants.NAME_NOT_UNIQUE;
         }
         return Constants.NAME_UNIQUE;

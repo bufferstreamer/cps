@@ -1,34 +1,30 @@
 package com.cps.web.controller.user;
 
-import java.util.List;
+import com.cps.common.annotation.Log;
+import com.cps.common.core.controller.BaseController;
+import com.cps.common.core.domain.AjaxResult;
+import com.cps.common.core.page.TableDataInfo;
+import com.cps.common.enums.BusinessType;
+import com.cps.common.utils.poi.ExcelUtil;
+import com.cps.user.domain.Supplier;
+import com.cps.user.service.ISupplierService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import com.cps.common.annotation.Log;
-import com.cps.common.enums.BusinessType;
-import com.cps.user.domain.Supplier;
-import com.cps.user.service.ISupplierService;
-import com.cps.common.core.controller.BaseController;
-import com.cps.common.core.domain.AjaxResult;
-import com.cps.common.utils.poi.ExcelUtil;
-import com.cps.common.core.page.TableDataInfo;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 供应商角色Controller
- * 
+ *
  * @author cps
  * @date 2022-08-18
  */
 @Controller
 @RequestMapping("/user/supplier")
-public class SupplierController extends BaseController
-{
+public class SupplierController extends BaseController {
     private String prefix = "user/supplier";
 
     @Autowired
@@ -36,8 +32,7 @@ public class SupplierController extends BaseController
 
     @RequiresPermissions("user:supplier:view")
     @GetMapping()
-    public String supplier()
-    {
+    public String supplier() {
         return prefix + "/supplier";
     }
 
@@ -47,8 +42,7 @@ public class SupplierController extends BaseController
     @RequiresPermissions("user:supplier:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(Supplier supplier)
-    {
+    public TableDataInfo list(Supplier supplier) {
         startPage();
         List<Supplier> list = supplierService.selectSupplierList(supplier);
         return getDataTable(list);
@@ -61,8 +55,7 @@ public class SupplierController extends BaseController
     @Log(title = "供应商角色", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(Supplier supplier)
-    {
+    public AjaxResult export(Supplier supplier) {
         List<Supplier> list = supplierService.selectSupplierList(supplier);
         ExcelUtil<Supplier> util = new ExcelUtil<Supplier>(Supplier.class);
         return util.exportExcel(list, "供应商角色数据");
@@ -72,8 +65,7 @@ public class SupplierController extends BaseController
      * 新增供应商角色
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -84,8 +76,7 @@ public class SupplierController extends BaseController
     @Log(title = "供应商角色", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(Supplier supplier)
-    {
+    public AjaxResult addSave(Supplier supplier) {
         return toAjax(supplierService.insertSupplier(supplier));
     }
 
@@ -94,8 +85,7 @@ public class SupplierController extends BaseController
      */
     @RequiresPermissions("user:supplier:edit")
     @GetMapping("/edit/{supplyId}")
-    public String edit(@PathVariable("supplyId") Long supplyId, ModelMap mmap)
-    {
+    public String edit(@PathVariable("supplyId") Long supplyId, ModelMap mmap) {
         Supplier supplier = supplierService.selectSupplierBySupplyId(supplyId);
         mmap.put("supplier", supplier);
         return prefix + "/edit";
@@ -108,8 +98,7 @@ public class SupplierController extends BaseController
     @Log(title = "供应商角色", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(Supplier supplier)
-    {
+    public AjaxResult editSave(Supplier supplier) {
         return toAjax(supplierService.updateSupplier(supplier));
     }
 
@@ -118,10 +107,9 @@ public class SupplierController extends BaseController
      */
     @RequiresPermissions("user:supplier:remove")
     @Log(title = "供应商角色", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(supplierService.deleteSupplierBySupplyIds(ids));
     }
 }

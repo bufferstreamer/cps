@@ -2,11 +2,10 @@ package com.cps.common.enums;
 
 /**
  * 操作状态
- * 
+ *
  * @author cps
  */
-public enum BusinessStatus
-{
+public enum BusinessStatus {
     /**
      * 成功
      */

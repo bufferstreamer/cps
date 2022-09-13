@@ -19,14 +19,13 @@ import java.util.List;
 
 /**
  * 商品出库单子表Controller
- * 
+ *
  * @author miki
  * @date 2021-06-07
  */
 @Controller
 @RequestMapping("/wh/outboundOrderSeed")
-public class WhOutboundOrderSeedController extends BaseController
-{
+public class WhOutboundOrderSeedController extends BaseController {
     private String prefix = "wh/outboundOrderSeed";
 
     @Autowired
@@ -34,8 +33,7 @@ public class WhOutboundOrderSeedController extends BaseController
 
     @RequiresPermissions("wh:outboundOrderSeed:view")
     @GetMapping()
-    public String outboundOrderSeed()
-    {
+    public String outboundOrderSeed() {
         return prefix + "/outboundOrderSeed";
     }
 
@@ -44,8 +42,7 @@ public class WhOutboundOrderSeedController extends BaseController
      */
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(WhOutboundOrderSeed whOutboundOrderSeed)
-    {
+    public TableDataInfo list(WhOutboundOrderSeed whOutboundOrderSeed) {
         startPage();
         List<WhOutboundOrderSeed> list = whOutboundOrderSeedService.selectWhOutboundOrderSeedList(whOutboundOrderSeed);
         return getDataTable(list);
@@ -57,8 +54,7 @@ public class WhOutboundOrderSeedController extends BaseController
     @Log(title = "商品出库单子表", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(WhOutboundOrderSeed whOutboundOrderSeed)
-    {
+    public AjaxResult addSave(WhOutboundOrderSeed whOutboundOrderSeed) {
         whOutboundOrderSeed.setDeptId(ShiroUtils.getDeptId());
         whOutboundOrderSeed.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(whOutboundOrderSeedService.insertWhOutboundOrderSeed(whOutboundOrderSeed));
@@ -70,8 +66,7 @@ public class WhOutboundOrderSeedController extends BaseController
     @Log(title = "商品出库单子表", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(WhOutboundOrderSeed whOutboundOrderSeed)
-    {
+    public AjaxResult editSave(WhOutboundOrderSeed whOutboundOrderSeed) {
         whOutboundOrderSeed.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(whOutboundOrderSeedService.updateWhOutboundOrderSeedRecalculate(whOutboundOrderSeed));
     }
@@ -80,34 +75,33 @@ public class WhOutboundOrderSeedController extends BaseController
      * 删除商品出库单子表
      */
     @Log(title = "商品出库单子表", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(whOutboundOrderSeedService.deleteWhOutboundOrderSeedByIds(ids));
     }
 
     /**
      * 确认拣货界面
+     *
      * @return
      */
     @GetMapping("/editComplete/{id}")
-    public String editComplete(@PathVariable("id") Long outboundOrderId, ModelMap mmap)
-    {
-        mmap.put("outboundOrderId",outboundOrderId);
+    public String editComplete(@PathVariable("id") Long outboundOrderId, ModelMap mmap) {
+        mmap.put("outboundOrderId", outboundOrderId);
         return prefix + "/editComplete";
     }
 
     /**
      * 确认拣货
+     *
      * @return
      */
-   @RequiresPermissions("wh:outboundOrderSeed::editComplete")
+    @RequiresPermissions("wh:outboundOrderSeed::editComplete")
     @Log(title = "商品入库单子", businessType = BusinessType.UPDATE)
-    @PostMapping( "/editCompleteSave")
+    @PostMapping("/editCompleteSave")
     @ResponseBody
-    public AjaxResult editCompleteSave(OutboundOrderSeedModel outboundOrderSeedModel)
-    {
+    public AjaxResult editCompleteSave(OutboundOrderSeedModel outboundOrderSeedModel) {
         outboundOrderSeedModel.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(whOutboundOrderSeedService.updateCompleteSave(outboundOrderSeedModel));
     }

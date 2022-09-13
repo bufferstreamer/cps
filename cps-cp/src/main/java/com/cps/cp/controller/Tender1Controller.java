@@ -1,43 +1,41 @@
 package com.cps.cp.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-
 import com.cps.audit.domain.AuditDocuments;
 import com.cps.audit.service.IAuditDocumentsService;
 import com.cps.bid.domain.CentralizedPurchaseRecord;
 import com.cps.bid.service.ICentralizedPurchaseRecordService;
+import com.cps.common.annotation.Log;
+import com.cps.common.core.controller.BaseController;
+import com.cps.common.core.domain.AjaxResult;
+import com.cps.common.core.page.TableDataInfo;
+import com.cps.common.enums.BusinessType;
 import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.ShiroUtils;
-import com.cps.cp.domain.QualificationReview;
-import com.cps.cp.service.IQualificationReviewService;
+import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.utils.uuid.IdUtils;
+import com.cps.cp.domain.QualificationReview;
+import com.cps.cp.domain.Tender;
+import com.cps.cp.service.IQualificationReviewService;
+import com.cps.cp.service.ITenderService;
 import com.cps.product.service.IProductIndexInfoService;
-import org.apache.poi.xwpf.usermodel.*;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import com.cps.common.annotation.Log;
-import com.cps.common.enums.BusinessType;
-import com.cps.cp.domain.Tender;
-import com.cps.cp.service.ITenderService;
-import com.cps.common.core.controller.BaseController;
-import com.cps.common.core.domain.AjaxResult;
-import com.cps.common.utils.poi.ExcelUtil;
-import com.cps.common.core.page.TableDataInfo;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * 招标Controller
@@ -59,6 +57,10 @@ public class Tender1Controller extends BaseController {
 
     @Autowired
     private IProductIndexInfoService productIndexInfoService;
+    @Autowired
+    private IAuditDocumentsService mAuditDocumentsService;
+    @Autowired
+    private ICentralizedPurchaseRecordService centralizedPurchaseRecordService;
 
     @RequiresPermissions("cp:tender1:view")
     @GetMapping()
@@ -218,7 +220,6 @@ public class Tender1Controller extends BaseController {
         return toAjax(tenderService.updateTender(tender));
     }
 
-
     /**
      * 删除招标
      */
@@ -354,23 +355,20 @@ public class Tender1Controller extends BaseController {
         System.out.println(providerInfoDictList);
         // 获取各个指标的排序信息
         ArrayList<ArrayList<Character>> indexSortList = new ArrayList<>();
-        for(int i=0;i<productNameList.size();++i){
+        for (int i = 0; i < productNameList.size(); ++i) {
             List<String> targetList = targetListList.get(i);
             ArrayList<Character> indexSort = new ArrayList<>();
             String productName = productNameList.get(i);
-            for(int j=0;j<targetList.size()-1;++j){// 数据库没有价格字段，避免查询该项
+            for (int j = 0; j < targetList.size() - 1; ++j) {// 数据库没有价格字段，避免查询该项
                 Character curSort = productIndexInfoService.selectIndexSortByProductNameAndIndexName(productName, targetList.get(j));
                 indexSort.add(curSort);
             }
             indexSort.add('2');//手动添加价格指标排序信息
             indexSortList.add(indexSort);
         }
-        mmap.put("indexSortList",indexSortList);
+        mmap.put("indexSortList", indexSortList);
         return prefix + "/qpcs";
     }
-
-    @Autowired
-    private IAuditDocumentsService mAuditDocumentsService;
 
     private boolean CanQualificationReview(QualificationReview review) {
         List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
@@ -394,13 +392,10 @@ public class Tender1Controller extends BaseController {
         return true;
     }
 
-    @Autowired
-    private ICentralizedPurchaseRecordService centralizedPurchaseRecordService;
-
-    private boolean CanPurchase(QualificationReview review, Tender tender){
-        if (review!=null&&review.getAuditStatus().equals("1")){
-            List<CentralizedPurchaseRecord> tempList = centralizedPurchaseRecordService.selectCentralizedPurchaseRecordsByTenderIdAndSupplyId(review.getTenderId(),ShiroUtils.getUserId().toString());
-            if (tempList.size()<tender.getBidNumber()){
+    private boolean CanPurchase(QualificationReview review, Tender tender) {
+        if (review != null && review.getAuditStatus().equals("1")) {
+            List<CentralizedPurchaseRecord> tempList = centralizedPurchaseRecordService.selectCentralizedPurchaseRecordsByTenderIdAndSupplyId(review.getTenderId(), ShiroUtils.getUserId().toString());
+            if (tempList.size() < tender.getBidNumber()) {
                 return true;
             }
         }

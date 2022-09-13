@@ -19,14 +19,13 @@ import java.util.List;
 
 /**
  * 客户资料Controller
- * 
+ *
  * @author miki
  * @date 2021-05-19
  */
 @Controller
 @RequestMapping("/basis/customer")
-public class BasisCustomerController extends BaseController
-{
+public class BasisCustomerController extends BaseController {
     private String prefix = "basis/customer";
 
     @Autowired
@@ -34,8 +33,7 @@ public class BasisCustomerController extends BaseController
 
     @RequiresPermissions("basis:customer:view")
     @GetMapping()
-    public String customer(ModelMap modelMap)
-    {
+    public String customer(ModelMap modelMap) {
         return prefix + "/customer";
     }
 
@@ -45,8 +43,7 @@ public class BasisCustomerController extends BaseController
     @RequiresPermissions("basis:customer:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(BasisCustomer basisCustomer)
-    {
+    public TableDataInfo list(BasisCustomer basisCustomer) {
         basisCustomer.setDeptId(ShiroUtils.getDeptId());
         startPage();
         List<BasisCustomer> list = basisCustomerService.selectBasisCustomerList(basisCustomer);
@@ -60,8 +57,7 @@ public class BasisCustomerController extends BaseController
     @Log(title = "客户资料", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(BasisCustomer basisCustomer)
-    {
+    public AjaxResult export(BasisCustomer basisCustomer) {
         List<BasisCustomer> list = basisCustomerService.selectBasisCustomerList(basisCustomer);
         ExcelUtil<BasisCustomer> util = new ExcelUtil<BasisCustomer>(BasisCustomer.class);
         return util.exportExcel(list, "客户资料数据");
@@ -82,8 +78,7 @@ public class BasisCustomerController extends BaseController
     @Log(title = "客户资料", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(BasisCustomer basisCustomer)
-    {
+    public AjaxResult addSave(BasisCustomer basisCustomer) {
         basisCustomer.setDeptId(ShiroUtils.getDeptId());
         basisCustomer.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(basisCustomerService.insertBasisCustomer(basisCustomer));
@@ -93,8 +88,7 @@ public class BasisCustomerController extends BaseController
      * 修改客户资料
      */
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Long id, ModelMap mmap)
-    {
+    public String edit(@PathVariable("id") Long id, ModelMap mmap) {
         BasisCustomer basisCustomer = basisCustomerService.selectBasisCustomerById(id);
         mmap.put("basisCustomer", basisCustomer);
         return prefix + "/edit";
@@ -107,8 +101,7 @@ public class BasisCustomerController extends BaseController
     @Log(title = "客户资料", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(BasisCustomer basisCustomer)
-    {
+    public AjaxResult editSave(BasisCustomer basisCustomer) {
         basisCustomer.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(basisCustomerService.updateBasisCustomer(basisCustomer));
     }
@@ -118,10 +111,9 @@ public class BasisCustomerController extends BaseController
      */
     @RequiresPermissions("basis:customer:remove")
     @Log(title = "客户资料", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(basisCustomerService.deleteBasisCustomerByIds(ids));
     }
 
@@ -130,8 +122,7 @@ public class BasisCustomerController extends BaseController
      */
     @RequiresPermissions("basis:customer:detail")
     @GetMapping("/detail/{id}")
-    public String detail(@PathVariable("id") Long id, ModelMap mmap)
-    {
+    public String detail(@PathVariable("id") Long id, ModelMap mmap) {
         mmap.put("basisCustomer", basisCustomerService.selectBasisCustomerById(id));
         return prefix + "/detail";
     }
@@ -141,8 +132,7 @@ public class BasisCustomerController extends BaseController
      */
     @PostMapping("/checkCustomerCodeUnique")
     @ResponseBody
-    public String checkCustomerCodeUnique(BasisCustomer basisCustomer)
-    {
+    public String checkCustomerCodeUnique(BasisCustomer basisCustomer) {
         return basisCustomerService.checkCustomerCodeUnique(basisCustomer.getCustomerCode());
     }
 
@@ -150,8 +140,7 @@ public class BasisCustomerController extends BaseController
      * 选择客户
      */
     @GetMapping("/selectCustomer")
-    public String selectCustomer(ModelMap mmap)
-    {
+    public String selectCustomer(ModelMap mmap) {
         return prefix + "/selectCustomer";
     }
 
@@ -160,8 +149,7 @@ public class BasisCustomerController extends BaseController
      */
     @PostMapping("/selectList")
     @ResponseBody
-    public TableDataInfo selectList(BasisCustomer basisCustomer)
-    {
+    public TableDataInfo selectList(BasisCustomer basisCustomer) {
         basisCustomer.setDeptId(ShiroUtils.getDeptId());
         startPage();
         List<BasisCustomer> list = basisCustomerService.selectBasisCustomerList(basisCustomer);

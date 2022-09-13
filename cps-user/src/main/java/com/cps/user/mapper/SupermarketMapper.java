@@ -1,19 +1,19 @@
 package com.cps.user.mapper;
 
-import java.util.List;
 import com.cps.user.domain.Supermarket;
+
+import java.util.List;
 
 /**
  * 超市角色Mapper接口
- * 
+ *
  * @author cps
  * @date 2022-08-18
  */
-public interface SupermarketMapper 
-{
+public interface SupermarketMapper {
     /**
      * 查询超市角色
-     * 
+     *
      * @param shopId 超市角色主键
      * @return 超市角色
      */
@@ -21,7 +21,7 @@ public interface SupermarketMapper
 
     /**
      * 查询超市角色列表
-     * 
+     *
      * @param supermarket 超市角色
      * @return 超市角色集合
      */
@@ -29,7 +29,7 @@ public interface SupermarketMapper
 
     /**
      * 新增超市角色
-     * 
+     *
      * @param supermarket 超市角色
      * @return 结果
      */
@@ -37,7 +37,7 @@ public interface SupermarketMapper
 
     /**
      * 修改超市角色
-     * 
+     *
      * @param supermarket 超市角色
      * @return 结果
      */
@@ -45,7 +45,7 @@ public interface SupermarketMapper
 
     /**
      * 删除超市角色
-     * 
+     *
      * @param shopId 超市角色主键
      * @return 结果
      */
@@ -53,7 +53,7 @@ public interface SupermarketMapper
 
     /**
      * 批量删除超市角色
-     * 
+     *
      * @param shopIds 需要删除的数据主键集合
      * @return 结果
      */

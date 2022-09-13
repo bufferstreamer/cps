@@ -1,69 +1,70 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('新增终止公告')" />
-    <th:block th:include="include :: datetimepicker-css" />
+    <th:block th:include="include :: header('新增终止公告')"/>
+    <th:block th:include="include :: datetimepicker-css"/>
     <th:block th:include="include :: bootstrap-fileinput-css"/>
 </head>
 <body class="white-bg">
-    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-terminationAnnouncement-add">
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">终止公告文件存储位置：</label>
-                <div class="col-sm-8">
-                    <input type="hidden" name="terminationAnnouncementDocument">
-                    <div class="file-loading">
-                        <input class="form-control file-upload" id="terminationAnnouncementDocument" name="file" type="file">
-                    </div>
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-terminationAnnouncement-add">
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">终止公告文件存储位置：</label>
+            <div class="col-sm-8">
+                <input name="terminationAnnouncementDocument" type="hidden">
+                <div class="file-loading">
+                    <input class="form-control file-upload" id="terminationAnnouncementDocument" name="file"
+                           type="file">
                 </div>
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">标书ID：</label>
-                <div class="col-sm-8">
-                    <input name="tenderId" class="form-control" type="text" required>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">标书ID：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="tenderId" required type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">时间：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input class="form-control" name="terminationTime" placeholder="yyyy-MM-dd" required type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
             </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">时间：</label>
-                <div class="col-sm-8">
-                    <div class="input-group date">
-                        <input name="terminationTime" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-    <th:block th:include="include :: footer" />
-    <th:block th:include="include :: datetimepicker-js" />
-    <th:block th:include="include :: bootstrap-fileinput-js"/>
-    <script th:inline="javascript">
-        var prefix = ctx + "cp/terminationAnnouncement"
-        $("#form-terminationAnnouncement-add").validate({
-            focusCleanup: true
-        });
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: datetimepicker-js"/>
+<th:block th:include="include :: bootstrap-fileinput-js"/>
+<script th:inline="javascript">
+    var prefix = ctx + "cp/terminationAnnouncement"
+    $("#form-terminationAnnouncement-add").validate({
+        focusCleanup: true
+    });
 
-        function submitHandler() {
-            if ($.validate.form()) {
-                $.operate.save(prefix + "/add", $('#form-terminationAnnouncement-add').serialize());
-            }
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/add", $('#form-terminationAnnouncement-add').serialize());
         }
+    }
 
-        $("input[name='terminationTime']").datetimepicker({
-            format: "yyyy-mm-dd",
-            minView: "month",
-            autoclose: true
-        });
+    $("input[name='terminationTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
 
-        $(".file-upload").fileinput({
-            uploadUrl: ctx + 'common/upload',
-            maxFileCount: 1,
-            autoReplace: true
-        }).on('fileuploaded', function (event, data, previewId, index) {
-            $("input[name='" + event.currentTarget.id + "']").val(data.response.url)
-        }).on('fileremoved', function (event, id, index) {
-            $("input[name='" + event.currentTarget.id + "']").val('')
-        })
-    </script>
+    $(".file-upload").fileinput({
+        uploadUrl: ctx + 'common/upload',
+        maxFileCount: 1,
+        autoReplace: true
+    }).on('fileuploaded', function (event, data, previewId, index) {
+        $("input[name='" + event.currentTarget.id + "']").val(data.response.url)
+    }).on('fileremoved', function (event, id, index) {
+        $("input[name='" + event.currentTarget.id + "']").val('')
+    })
+</script>
 </body>
 </html>

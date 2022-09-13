@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('查看小商超营业执照')" />
-    <th:block th:include="include :: datetimepicker-css" />
+    <th:block th:include="include :: header('查看小商超营业执照')"/>
+    <th:block th:include="include :: datetimepicker-css"/>
     <th:block th:include="include :: bootstrap-fileinput-css"/>
 </head>
 <body class="white-bg">
@@ -11,42 +11,43 @@
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">个体工商户营业执照：</label>
             <div class="col-sm-8">
-                <input type="hidden" name="businessLicense" th:value="*{businessLicense}">
+                <input name="businessLicense" th:value="*{businessLicense}" type="hidden">
                 <div class="file-loading">
-                    <input class="form-control file-upload" id="businessLicense" name="file" type="file" disabled>
+                    <input class="form-control file-upload" disabled id="businessLicense" name="file" type="file">
                 </div>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">个体工商户营业执照号码：</label>
             <div class="col-sm-8">
-                <input name="businessLicenseNumber" class="form-control" type="text" th:value="*{businessLicenseNumber}" disabled>
+                <input class="form-control" disabled name="businessLicenseNumber" th:value="*{businessLicenseNumber}"
+                       type="text">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">经营者：</label>
             <div class="col-sm-8">
-                <input name="managerName" class="form-control" type="text" th:value="*{managerName}" disabled>
+                <input class="form-control" disabled name="managerName" th:value="*{managerName}" type="text">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">小商超名称：</label>
             <div class="col-sm-8">
-                <input name="businessName" class="form-control" type="text" disabled th:value="*{businessName}">
+                <input class="form-control" disabled name="businessName" th:value="*{businessName}" type="text">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">经营场所位置：</label>
             <div class="col-sm-8">
-                <input name="businessPlace" class="form-control" type="text" disabled th:value="*{businessPlace}">
+                <input class="form-control" disabled name="businessPlace" th:value="*{businessPlace}" type="text">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">组成形式：</label>
             <div class="col-sm-8">
-                <select name="businessForm" class="form-control" disabled>
-                    <option value="1" th:selected="*{businessForm} eq '1'">个人经营</option>
-                    <option value="2" th:selected="*{businessForm} eq '2'">家庭经营</option>
+                <select class="form-control" disabled name="businessForm">
+                    <option th:selected="*{businessForm} eq '1'" value="1">个人经营</option>
+                    <option th:selected="*{businessForm} eq '2'" value="2">家庭经营</option>
                 </select>
             </div>
         </div>
@@ -54,7 +55,8 @@
             <label class="col-sm-3 control-label is-required">注册日期：</label>
             <div class="col-sm-8">
                 <div class="input-group date">
-                    <input name="registerDate" class="form-control" placeholder="yyyy-MM-dd" type="text" disabled th:value="${#dates.format(info.registerDate, 'yyyy-MM-dd')}">
+                    <input class="form-control" disabled name="registerDate" placeholder="yyyy-MM-dd" th:value="${#dates.format(info.registerDate, 'yyyy-MM-dd')}"
+                           type="text">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
             </div>
@@ -62,94 +64,95 @@
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">经营范围：</label>
             <div class="col-sm-8">
-                <textarea name="businessScope" class="form-control" disabled>[[*{businessScope}]]</textarea>
+                <textarea class="form-control" disabled name="businessScope">[[*{businessScope}]]</textarea>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">经营许可证：</label>
             <div class="col-sm-8">
-                <input type="hidden" name="businessCertificate" th:value="*{businessCertificate}">
+                <input name="businessCertificate" th:value="*{businessCertificate}" type="hidden">
                 <div class="file-loading">
-                    <input class="form-control file-upload" id="businessCertificate" name="file" type="file" disabled>
+                    <input class="form-control file-upload" disabled id="businessCertificate" name="file" type="file">
                 </div>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">联系人姓名：</label>
             <div class="col-sm-8">
-                <input name="contactPerson" class="form-control" type="text" disabled th:value="*{contactPerson}">
+                <input class="form-control" disabled name="contactPerson" th:value="*{contactPerson}" type="text">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">联系人证件类型：</label>
             <div class="col-sm-8">
-                <select name="contactCardType" class="form-control" id="contactCardType"  disabled>
-                    <option value="1" th:selected="*{contactCardType} eq '1'">身份证</option>
-                    <option value="2" th:selected="*{contactCardType} eq '2'">港澳居民来往内地通行证</option>
-                    <option value="3" th:selected="*{contactCardType} eq '3'">台湾居民来往大陆通行证</option>
-                    <option value="4" th:selected="*{contactCardType} eq '4'">普通护照</option>
-                    <option value="5" th:selected="*{contactCardType} eq '5'">外国人永久居留身份证</option>
+                <select class="form-control" disabled id="contactCardType" name="contactCardType">
+                    <option th:selected="*{contactCardType} eq '1'" value="1">身份证</option>
+                    <option th:selected="*{contactCardType} eq '2'" value="2">港澳居民来往内地通行证</option>
+                    <option th:selected="*{contactCardType} eq '3'" value="3">台湾居民来往大陆通行证</option>
+                    <option th:selected="*{contactCardType} eq '4'" value="4">普通护照</option>
+                    <option th:selected="*{contactCardType} eq '5'" value="5">外国人永久居留身份证</option>
                 </select>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">联系人证件号：</label>
             <div class="col-sm-8">
-                <input name="idNumber" class="form-control" type="text" disabled th:value="*{idNumber}">
+                <input class="form-control" disabled name="idNumber" th:value="*{idNumber}" type="text">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">联系人证件正面：</label>
             <div class="col-sm-8">
-                <input type="hidden" name="frontPhoto" th:value="*{frontPhoto}">
+                <input name="frontPhoto" th:value="*{frontPhoto}" type="hidden">
                 <div class="file-loading">
-                    <input class="form-control file-upload" id="frontPhoto" name="file" type="file" disabled>
+                    <input class="form-control file-upload" disabled id="frontPhoto" name="file" type="file">
                 </div>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">联系人证件反面：</label>
             <div class="col-sm-8">
-                <input type="hidden" name="backPhoto" th:value="*{backPhoto}">
+                <input name="backPhoto" th:value="*{backPhoto}" type="hidden">
                 <div class="file-loading">
-                    <input class="form-control file-upload" id="backPhoto" name="file" type="file" disabled>
+                    <input class="form-control file-upload" disabled id="backPhoto" name="file" type="file">
                 </div>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">联系人手机号：</label>
             <div class="col-sm-8">
-                <input name="contactPhone" class="form-control" type="text" th:value="*{contactPhone}" disabled>
+                <input class="form-control" disabled name="contactPhone" th:value="*{contactPhone}" type="text">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">联系人邮箱：</label>
             <div class="col-sm-8">
-                <input name="contactEmail" class="form-control" type="email" disabled th:value="*{contactEmail}">
+                <input class="form-control" disabled name="contactEmail" th:value="*{contactEmail}" type="email">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">审核状态：</label>
             <div class="col-sm-8">
-                <select name="auditStatus" id="auditStatus" class="form-control" disabled>
-                    <option value="1" th:selected="${auditStatus} eq '1'">未审核</option>
-                    <option value="2" th:selected="${auditStatus} eq '2'">审核通过</option>
+                <select class="form-control" disabled id="auditStatus" name="auditStatus">
+                    <option th:selected="${auditStatus} eq '1'" value="1">未审核</option>
+                    <option th:selected="${auditStatus} eq '2'" value="2">审核通过</option>
                 </select>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label">审核结果：</label>
             <div class="col-sm-8">
-                <textarea name="auditResult" class="form-control" disabled>[[${auditResult}]]</textarea>
+                <textarea class="form-control" disabled name="auditResult">[[${auditResult}]]</textarea>
             </div>
         </div>
     </form>
 </div>
-<th:block th:include="include :: footer" />
-<th:block th:include="include :: datetimepicker-js" />
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: datetimepicker-js"/>
 <th:block th:include="include :: bootstrap-fileinput-js"/>
 <script th:inline="javascript">
     console.log([[${info}]]);
+
     function submitHandler() {
         if ($.validate.form()) {
             $.modal.close();

@@ -7,15 +7,14 @@ import java.util.List;
 
 /**
  * 商品类别Mapper接口
- * 
+ *
  * @author miki
  * @date 2021-05-25
  */
-public interface ShopGoodsTypeMapper 
-{
+public interface ShopGoodsTypeMapper {
     /**
      * 查询商品类别
-     * 
+     *
      * @param id 商品类别ID
      * @return 商品类别
      */
@@ -23,7 +22,7 @@ public interface ShopGoodsTypeMapper
 
     /**
      * 查询商品类别列表
-     * 
+     *
      * @param shopGoodsType 商品类别
      * @return 商品类别集合
      */
@@ -31,7 +30,7 @@ public interface ShopGoodsTypeMapper
 
     /**
      * 新增商品类别
-     * 
+     *
      * @param shopGoodsType 商品类别
      * @return 结果
      */
@@ -39,7 +38,7 @@ public interface ShopGoodsTypeMapper
 
     /**
      * 修改商品类别
-     * 
+     *
      * @param shopGoodsType 商品类别
      * @return 结果
      */
@@ -47,7 +46,7 @@ public interface ShopGoodsTypeMapper
 
     /**
      * 删除商品类别
-     * 
+     *
      * @param id 商品类别ID
      * @return 结果
      */
@@ -55,7 +54,7 @@ public interface ShopGoodsTypeMapper
 
     /**
      * 批量删除商品类别
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */

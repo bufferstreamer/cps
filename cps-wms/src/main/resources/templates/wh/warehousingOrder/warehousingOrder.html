@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('商品入库单列表')" />
+    <th:block th:include="include :: header('商品入库单列表')"/>
 </head>
 <body class="gray-bg">
 <div class="container-div">
@@ -12,23 +12,25 @@
                     <ul>
                         <li>
                             <label style="width: 85px">入库单编号：</label>
-                            <input type="text" name="orderCode"/>
+                            <input name="orderCode" type="text"/>
                         </li>
                         <li>
                             <label>订单号：</label>
-                            <input type="text" name="orderName"/>
+                            <input name="orderName" type="text"/>
                         </li>
                         <li>
                             <label>订单日期：</label>
-                            <input type="text" class="time-input" placeholder="请选择订单日期" name="orderDate"/>
+                            <input class="time-input" name="orderDate" placeholder="请选择订单日期" type="text"/>
                         </li>
                         <li>
                             <label style="width: 85px">单位名称：</label>
-                            <input type="text" name="desWarehouseName"/>
+                            <input name="desWarehouseName" type="text"/>
                         </li>
                         <li>
-                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
-                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
                         </li>
                     </ul>
                 </div>
@@ -39,29 +41,31 @@
             <a class="btn btn-success" onclick="$.operate.addTab()" shiro:hasPermission="wh:warehousingOrder:add">
                 <i class="fa fa-plus"></i> 添加
             </a>
-            <a class="btn btn-primary single disabled" onclick="$.operate.editTab()" shiro:hasPermission="wh:warehousingOrder:edit">
+            <a class="btn btn-primary single disabled" onclick="$.operate.editTab()"
+               shiro:hasPermission="wh:warehousingOrder:edit">
                 <i class="fa fa-edit"></i> 修改
             </a>
-            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="wh:warehousingOrder:remove">
+            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()"
+               shiro:hasPermission="wh:warehousingOrder:remove">
                 <i class="fa fa-remove"></i> 删除
             </a>
-<!--            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="wh:warehousingOrder:export">
-                <i class="fa fa-download"></i> 导出
-            </a>-->
+            <!--            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="wh:warehousingOrder:export">
+                            <i class="fa fa-download"></i> 导出
+                        </a>-->
         </div>
         <div class="col-sm-12 select-table table-striped">
             <table id="bootstrap-table"></table>
         </div>
     </div>
 </div>
-<th:block th:include="include :: footer" />
+<th:block th:include="include :: footer"/>
 <script th:inline="javascript">
     var statusFlag = [[${@permission.hasPermi('wh:warehousingOrder:changeStatus')}]];
     var editFlag = [[${@permission.hasPermi('wh:warehousingOrder:edit')}]];
     var removeFlag = [[${@permission.hasPermi('wh:warehousingOrder:remove')}]];
     var prefix = ctx + "wh/warehousingOrder";
 
-    $(function() {
+    $(function () {
         var options = {
             url: prefix + "/list",
             createUrl: prefix + "/add",
@@ -73,7 +77,7 @@
             queryParams: queryParams,//其他入库订单和待到货状态
             modalName: "入库单",
             detailView: true,
-            onExpandRow : function(index, row, $detail) {
+            onExpandRow: function (index, row, $detail) {
                 initChildTable(index, row, $detail);
             },
             columns: [{
@@ -128,7 +132,7 @@
                 {
                     title: '操作',
                     align: 'center',
-                    formatter: function(value, row, index) {
+                    formatter: function (value, row, index) {
                         var actions = [];
                         actions.push('<a class="btn btn-success btn-xs ' + statusFlag + '" href="javascript:void(0)" onclick="editStauts(\'' + row.id + '\')"></i>确认到货</a> ');
                         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.editTab(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
@@ -141,21 +145,21 @@
 
         /********子视图***********/
         var orderSeedPrefix = ctx + "wh/warehousingOrderSeed";
-        initChildTable = function(index, row, $detail) {
+        initChildTable = function (index, row, $detail) {
             var childTable = $detail.html('<table style="table-layout:fixed"></table>').find('table');
             $(childTable).bootstrapTable({
                 url: orderSeedPrefix + "/list",
                 method: 'post',
                 sidePagination: "server",
                 contentType: "application/x-www-form-urlencoded",
-                queryParams : {
+                queryParams: {
                     warehousingOrderId: row.id
                 },
                 columns: [{
-                    field : 'id',
-                    title : 'id',
+                    field: 'id',
+                    title: 'id',
                     visible: false
-                     },
+                },
                     {
                         field: 'shopGoodsCode',
                         title: '商品名称'
@@ -197,9 +201,9 @@
     }
 
     /*******更改状态确认是否已到货*********/
-    function editStauts(id){
-        $.modal.confirm("确认ANS已到货,此操作不可逆。", function() {
-            $.operate.post(prefix + "/changeStatus", { "id": id, "status": '2' });
+    function editStauts(id) {
+        $.modal.confirm("确认ANS已到货,此操作不可逆。", function () {
+            $.operate.post(prefix + "/changeStatus", {"id": id, "status": '2'});
         })
     }
 </script>

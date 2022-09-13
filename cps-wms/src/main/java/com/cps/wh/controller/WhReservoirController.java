@@ -20,14 +20,13 @@ import java.util.List;
 
 /**
  * 库区设置Controller
- * 
+ *
  * @author miki
  * @date 2021-05-21
  */
 @Controller
 @RequestMapping("/wh/reservoir")
-public class WhReservoirController extends BaseController
-{
+public class WhReservoirController extends BaseController {
     private String prefix = "wh/reservoir";
 
     @Autowired
@@ -35,8 +34,7 @@ public class WhReservoirController extends BaseController
 
     @RequiresPermissions("wh:reservoir:view")
     @GetMapping()
-    public String reservoir()
-    {
+    public String reservoir() {
         return prefix + "/reservoir";
     }
 
@@ -46,8 +44,7 @@ public class WhReservoirController extends BaseController
     @RequiresPermissions("wh:reservoir:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(WhReservoir whReservoir)
-    {
+    public TableDataInfo list(WhReservoir whReservoir) {
         whReservoir.setDeptId(ShiroUtils.getDeptId());
         startPage();
         List<WhReservoirVo> list = whReservoirService.selectWhReservoirVoList(whReservoir);
@@ -61,8 +58,7 @@ public class WhReservoirController extends BaseController
     @Log(title = "库区设置", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(WhReservoir whReservoir)
-    {
+    public AjaxResult export(WhReservoir whReservoir) {
         List<WhReservoir> list = whReservoirService.selectWhReservoirList(whReservoir);
         ExcelUtil<WhReservoir> util = new ExcelUtil<WhReservoir>(WhReservoir.class);
         return util.exportExcel(list, "库区设置数据");
@@ -72,8 +68,7 @@ public class WhReservoirController extends BaseController
      * 新增库区设置
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -84,8 +79,7 @@ public class WhReservoirController extends BaseController
     @Log(title = "库区设置", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(WhReservoir whReservoir)
-    {
+    public AjaxResult addSave(WhReservoir whReservoir) {
         whReservoir.setDeptId(ShiroUtils.getDeptId());
         whReservoir.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(whReservoirService.insertWhReservoir(whReservoir));
@@ -95,8 +89,7 @@ public class WhReservoirController extends BaseController
      * 修改库区设置
      */
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Long id, ModelMap mmap)
-    {
+    public String edit(@PathVariable("id") Long id, ModelMap mmap) {
         WhReservoir whReservoir = whReservoirService.selectWhReservoirById(id);
         mmap.put("whReservoir", whReservoir);
         return prefix + "/edit";
@@ -109,8 +102,7 @@ public class WhReservoirController extends BaseController
     @Log(title = "库区设置", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(WhReservoir whReservoir)
-    {
+    public AjaxResult editSave(WhReservoir whReservoir) {
         whReservoir.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(whReservoirService.updateWhReservoir(whReservoir));
     }
@@ -120,10 +112,9 @@ public class WhReservoirController extends BaseController
      */
     @RequiresPermissions("wh:reservoir:remove")
     @Log(title = "库区设置", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(whReservoirService.deleteWhReservoirByIds(ids));
     }
 
@@ -132,8 +123,7 @@ public class WhReservoirController extends BaseController
      */
     @PostMapping("/checkReservoirCodeUnique")
     @ResponseBody
-    public String checkReservoirCodeUnique(WhReservoir whReservoir)
-    {
+    public String checkReservoirCodeUnique(WhReservoir whReservoir) {
         return whReservoirService.checkReservoirCodeUnique(whReservoir.getReservoirCode());
     }
 
@@ -142,8 +132,7 @@ public class WhReservoirController extends BaseController
      */
     @PostMapping("/ajaxList")
     @ResponseBody
-    public AjaxResult ajaxList(WhReservoir whReservoir)
-    {
+    public AjaxResult ajaxList(WhReservoir whReservoir) {
         whReservoir.setDeptId(ShiroUtils.getDeptId());
         List<WhReservoirVo> list = whReservoirService.selectWhReservoirVoList(whReservoir);
         return AjaxResult.success(list);

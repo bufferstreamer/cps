@@ -7,15 +7,14 @@ import java.util.List;
 
 /**
  * 商品出库单主表Service接口
- * 
+ *
  * @author miki
  * @date 2021-06-07
  */
-public interface IWhOutboundOrderService 
-{
+public interface IWhOutboundOrderService {
     /**
      * 查询商品出库单主表
-     * 
+     *
      * @param id 商品出库单主表ID
      * @return 商品出库单主表
      */
@@ -23,7 +22,7 @@ public interface IWhOutboundOrderService
 
     /**
      * 查询商品出库单主表列表
-     * 
+     *
      * @param whOutboundOrder 商品出库单主表
      * @return 商品出库单主表集合
      */
@@ -31,7 +30,7 @@ public interface IWhOutboundOrderService
 
     /**
      * 新增商品出库单主表
-     * 
+     *
      * @param whOutboundOrder 商品出库单主表
      * @return 结果
      */
@@ -39,7 +38,7 @@ public interface IWhOutboundOrderService
 
     /**
      * 修改商品出库单主表
-     * 
+     *
      * @param whOutboundOrder 商品出库单主表
      * @return 结果
      */
@@ -55,7 +54,7 @@ public interface IWhOutboundOrderService
 
     /**
      * 批量删除商品出库单主表
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
@@ -63,14 +62,14 @@ public interface IWhOutboundOrderService
 
     /**
      * 删除商品出库单主表信息
-     * 
+     *
      * @param id 商品出库单主表ID
      * @return 结果
      */
     public int deleteWhOutboundOrderById(Long id);
 
     /**
-     *  修改商品入库单状态-确认作废
+     * 修改商品入库单状态-确认作废
      *
      * @param whOutboundOrder 商品出库单主表
      * @return 结果
@@ -95,8 +94,9 @@ public interface IWhOutboundOrderService
 
     /**
      * 计算统计出库单主表各项价格
+     *
      * @param whOutboundOrder 商品出库单主表
-     * @param rate 出库主表供应商税率
+     * @param rate            出库主表供应商税率
      * @return 结果
      */
     public WhOutboundOrder calculate(WhOutboundOrder whOutboundOrder, BigDecimal rate);

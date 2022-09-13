@@ -5,28 +5,44 @@ package com.cps.common.constant;
  * @日期：2022/9/13 18:59
  */
 public class OrderConstants {
-    /** 入库单开头 */
+    /**
+     * 入库单开头
+     */
     public static final String ASN = "ASN";
 
-    /** 出库单开头 */
+    /**
+     * 出库单开头
+     */
     public static final String SF = "SF";
 
-    /** 退货单开头 */
+    /**
+     * 退货单开头
+     */
     public static final String IF = "IF";
 
-    /** 销退单开头 */
+    /**
+     * 销退单开头
+     */
     public static final String IB = "IB";
 
-    /** 采购单开头 */
+    /**
+     * 采购单开头
+     */
     public static final String BI = "BI";
 
-    /** 销售单开头 */
+    /**
+     * 销售单开头
+     */
     public static final String BF = "BF";
 
-    /** 受拔单开头 */
+    /**
+     * 受拔单开头
+     */
     public static final String AF = "AF";
 
-    /** 请拔单开头 */
+    /**
+     * 请拔单开头
+     */
     public static final String AI = "AI";
 
 }

@@ -1,49 +1,45 @@
 package com.cps.audit.controller;
 
-import java.util.List;
-
 import com.cps.audit.domain.AuditDocuments;
+import com.cps.audit.domain.SupplierLicenseInfo;
 import com.cps.audit.service.IAuditDocumentsService;
+import com.cps.audit.service.ISupplierLicenseInfoService;
+import com.cps.common.annotation.Log;
+import com.cps.common.core.controller.BaseController;
+import com.cps.common.core.domain.AjaxResult;
+import com.cps.common.core.page.TableDataInfo;
+import com.cps.common.enums.BusinessType;
 import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.ShiroUtils;
+import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.utils.uuid.CpsIdUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import com.cps.common.annotation.Log;
-import com.cps.common.enums.BusinessType;
-import com.cps.audit.domain.SupplierLicenseInfo;
-import com.cps.audit.service.ISupplierLicenseInfoService;
-import com.cps.common.core.controller.BaseController;
-import com.cps.common.core.domain.AjaxResult;
-import com.cps.common.utils.poi.ExcelUtil;
-import com.cps.common.core.page.TableDataInfo;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 供应商营业执照审核管理Controller
- * 
+ *
  * @author cps
  * @date 2022-08-16
  */
 @Controller
 @RequestMapping("/audit/supplierLicenseManage")
-public class SupplierLicenseInfoController extends BaseController
-{
+public class SupplierLicenseInfoController extends BaseController {
     private String prefix = "audit/supplierLicenseManage";
 
     @Autowired
     private ISupplierLicenseInfoService supplierLicenseInfoService;
+    @Autowired
+    private IAuditDocumentsService auditDocumentsService;
 
     @RequiresPermissions("audit:supplierLicenseManage:view")
     @GetMapping()
-    public String supplierLicenseManage()
-    {
+    public String supplierLicenseManage() {
         return prefix + "/supplierLicenseManage";
     }
 
@@ -53,8 +49,7 @@ public class SupplierLicenseInfoController extends BaseController
     @RequiresPermissions("audit:supplierLicenseManage:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(SupplierLicenseInfo supplierLicenseInfo)
-    {
+    public TableDataInfo list(SupplierLicenseInfo supplierLicenseInfo) {
         startPage();
         List<SupplierLicenseInfo> list = supplierLicenseInfoService.selectSupplierLicenseInfoList(supplierLicenseInfo);
         return getDataTable(list);
@@ -67,8 +62,7 @@ public class SupplierLicenseInfoController extends BaseController
     @Log(title = "供应商营业执照审核管理", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(SupplierLicenseInfo supplierLicenseInfo)
-    {
+    public AjaxResult export(SupplierLicenseInfo supplierLicenseInfo) {
         List<SupplierLicenseInfo> list = supplierLicenseInfoService.selectSupplierLicenseInfoList(supplierLicenseInfo);
         ExcelUtil<SupplierLicenseInfo> util = new ExcelUtil<SupplierLicenseInfo>(SupplierLicenseInfo.class);
         return util.exportExcel(list, "供应商营业执照审核管理数据");
@@ -78,8 +72,7 @@ public class SupplierLicenseInfoController extends BaseController
      * 新增供应商营业执照审核管理
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -90,8 +83,7 @@ public class SupplierLicenseInfoController extends BaseController
     @Log(title = "供应商营业执照审核管理", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SupplierLicenseInfo supplierLicenseInfo)
-    {
+    public AjaxResult addSave(SupplierLicenseInfo supplierLicenseInfo) {
         supplierLicenseInfo.setChecklistId(CpsIdUtils.createChecklistId('1'));
         supplierLicenseInfo.setCreateDatetime(DateUtils.parseDate(DateUtils.getTime()));
         return toAjax(supplierLicenseInfoService.insertSupplierLicenseInfo(supplierLicenseInfo));
@@ -102,8 +94,7 @@ public class SupplierLicenseInfoController extends BaseController
      */
     @RequiresPermissions("audit:supplierLicenseManage:edit")
     @GetMapping("/edit/{checklistId}")
-    public String edit(@PathVariable("checklistId") String checklistId, ModelMap mmap)
-    {
+    public String edit(@PathVariable("checklistId") String checklistId, ModelMap mmap) {
         SupplierLicenseInfo supplierLicenseInfo = supplierLicenseInfoService.selectSupplierLicenseInfoByChecklistId(checklistId);
         mmap.put("supplierLicenseInfo", supplierLicenseInfo);
         return prefix + "/edit";
@@ -116,8 +107,7 @@ public class SupplierLicenseInfoController extends BaseController
     @Log(title = "供应商营业执照审核管理", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(SupplierLicenseInfo supplierLicenseInfo)
-    {
+    public AjaxResult editSave(SupplierLicenseInfo supplierLicenseInfo) {
         return toAjax(supplierLicenseInfoService.updateSupplierLicenseInfo(supplierLicenseInfo));
     }
 
@@ -126,37 +116,33 @@ public class SupplierLicenseInfoController extends BaseController
      */
     @RequiresPermissions("audit:supplierLicenseManage:remove")
     @Log(title = "供应商营业执照审核管理", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(supplierLicenseInfoService.deleteSupplierLicenseInfoByChecklistIds(ids));
     }
 
-    @Autowired
-    private IAuditDocumentsService auditDocumentsService;
-
     @GetMapping("/detail")
-    public String detail(ModelMap map){
+    public String detail(ModelMap map) {
         List<AuditDocuments> tempList = auditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
 
-        AuditDocuments documentsResult=null;
+        AuditDocuments documentsResult = null;
 
-        SupplierLicenseInfo infoResult=null;
+        SupplierLicenseInfo infoResult = null;
 
-        for (AuditDocuments temp:tempList
+        for (AuditDocuments temp : tempList
         ) {
-            String id=temp.getChecklistId();
-            SupplierLicenseInfo info=supplierLicenseInfoService.selectSupplierLicenseInfoByChecklistId(id);
-            if (info!=null){
-                documentsResult=temp;
-                infoResult=info;
+            String id = temp.getChecklistId();
+            SupplierLicenseInfo info = supplierLicenseInfoService.selectSupplierLicenseInfoByChecklistId(id);
+            if (info != null) {
+                documentsResult = temp;
+                infoResult = info;
             }
         }
 
-        map.put("info",infoResult);
-        map.put("auditStatus",documentsResult.getAuditStatus());
-        map.put("auditResult",documentsResult.getAuditResult());
-        return prefix+"/detail";
+        map.put("info", infoResult);
+        map.put("auditStatus", documentsResult.getAuditStatus());
+        map.put("auditResult", documentsResult.getAuditResult());
+        return prefix + "/detail";
     }
 }

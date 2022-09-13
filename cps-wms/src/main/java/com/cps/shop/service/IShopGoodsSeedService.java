@@ -7,15 +7,14 @@ import java.util.List;
 
 /**
  * 商品库存信息Service接口
- * 
+ *
  * @author miki
  * @date 2021-05-25
  */
-public interface IShopGoodsSeedService 
-{
+public interface IShopGoodsSeedService {
     /**
      * 查询商品库存信息
-     * 
+     *
      * @param id 商品库存信息ID
      * @return 商品库存信息
      */
@@ -23,7 +22,7 @@ public interface IShopGoodsSeedService
 
     /**
      * 查询商品库存信息列表
-     * 
+     *
      * @param shopGoodsSeed 商品库存信息
      * @return 商品库存信息集合
      */
@@ -31,7 +30,7 @@ public interface IShopGoodsSeedService
 
     /**
      * 新增商品库存信息
-     * 
+     *
      * @param shopGoodsSeed 商品库存信息
      * @return 结果
      */
@@ -39,7 +38,7 @@ public interface IShopGoodsSeedService
 
     /**
      * 修改商品库存信息
-     * 
+     *
      * @param shopGoodsSeed 商品库存信息
      * @return 结果
      */
@@ -47,7 +46,7 @@ public interface IShopGoodsSeedService
 
     /**
      * 批量删除商品库存信息
-     * 
+     *
      * @param ids 需要删除的数据ID
      * @return 结果
      */
@@ -55,7 +54,7 @@ public interface IShopGoodsSeedService
 
     /**
      * 删除商品库存信息信息
-     * 
+     *
      * @param id 商品库存信息ID
      * @return 结果
      */

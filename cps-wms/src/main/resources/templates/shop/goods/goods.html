@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('商品信息列表')" />
+    <th:block th:include="include :: header('商品信息列表')"/>
 </head>
 <body class="gray-bg">
 <div class="container-div">
@@ -12,32 +12,36 @@
                     <ul>
                         <li>
                             <label>商品类别：</label>
-                            <input type="hidden" name="goodsTypeId" id="treeId"/>
-                            <input type="text" onclick="selectGoodsTypeTree()" id="treeName" name="treeName" readonly="true">
+                            <input id="treeId" name="goodsTypeId" type="hidden"/>
+                            <input id="treeName" name="treeName" onclick="selectGoodsTypeTree()" readonly="true"
+                                   type="text">
                         </li>
                         <li>
                             <label>商品编码：</label>
-                            <input type="text" name="goodsCode"/>
+                            <input name="goodsCode" type="text"/>
                         </li>
                         <li>
                             <label>商品名称：</label>
-                            <input type="text" name="goodsName"/>
+                            <input name="goodsName" type="text"/>
                         </li>
                         <li>
                             <label>商品条码：</label>
-                            <input type="text" name="goodsBarcode"/>
+                            <input name="goodsBarcode" type="text"/>
                         </li>
                         <li>
                             <label style="width: 95px">成本价锁定：</label>
                             <select name="isCost" th:with="type=${@dict.getType('sys_yes_no')}">
                                 <option value="">所有</option>
-                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                        th:value="${dict.dictValue}"></option>
                             </select>
                         </li>
 
                         <li>
-                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
-                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
                         </li>
                     </ul>
                 </div>
@@ -48,22 +52,24 @@
             <a class="btn btn-success" onclick="$.operate.addTab()" shiro:hasPermission="shop:goods:add">
                 <i class="fa fa-plus"></i> 添加
             </a>
-            <a class="btn btn-primary single disabled" onclick="$.operate.editTab()" shiro:hasPermission="shop:goods:edit">
+            <a class="btn btn-primary single disabled" onclick="$.operate.editTab()"
+               shiro:hasPermission="shop:goods:edit">
                 <i class="fa fa-edit"></i> 修改
             </a>
-            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="shop:goods:remove">
+            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()"
+               shiro:hasPermission="shop:goods:remove">
                 <i class="fa fa-remove"></i> 删除
             </a>
-<!--            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="shop:goods:export">
-                <i class="fa fa-download"></i> 导出
-            </a>-->
+            <!--            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="shop:goods:export">
+                            <i class="fa fa-download"></i> 导出
+                        </a>-->
         </div>
         <div class="col-sm-12 select-table table-striped">
             <table id="bootstrap-table"></table>
         </div>
     </div>
 </div>
-<th:block th:include="include :: footer" />
+<th:block th:include="include :: footer"/>
 <script th:inline="javascript">
     var editPriceFlag = [[${@permission.hasPermi('shop:goods:editPrice')}]];
     var editFlag = [[${@permission.hasPermi('shop:goods:edit')}]];
@@ -73,7 +79,7 @@
     var isCostDatas = [[${@dict.getType('sys_yes_no')}]];
     var prefix = ctx + "shop/goods";
 
-    $(function() {
+    $(function () {
         var options = {
             url: prefix + "/list",
             createUrl: prefix + "/add",
@@ -123,7 +129,7 @@
                 {
                     field: 'goodsUnit',
                     title: '商品单位',
-                    formatter: function(value, row, index) {
+                    formatter: function (value, row, index) {
                         return $.table.selectDictLabel(goodsUnitDatas, value);
                     }
                 },
@@ -151,11 +157,11 @@
                 {
                     field: 'isCost',
                     title: '成本价锁定',
-                    formatter: function(value, row, index) {
+                    formatter: function (value, row, index) {
                         /*return $.table.selectDictLabel(isCostDatas, value);*/
-                        if($.common.isEmpty(changeIsCostFlag)){
+                        if ($.common.isEmpty(changeIsCostFlag)) {
                             return statusTools(row);
-                        }else{
+                        } else {
                             return value;
                         }
                     }
@@ -176,7 +182,7 @@
                 {
                     title: '操作',
                     align: 'center',
-                    formatter: function(value, row, index) {
+                    formatter: function (value, row, index) {
                         var actions = [];
                         actions.push('<a class="btn btn-success btn-xs ' + editPriceFlag + '" href="javascript:void(0)" onclick="onEditPrice(\'' + row.id + '\')"><i class="fa fa-edit"></i>价格调整</a> ');
                         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.editTab(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
@@ -199,25 +205,26 @@
 
     /* 成本价锁定-停用 */
     function disable(id) {
-        $.modal.confirm("确认要解锁吗？", function() {
-            $.operate.post(prefix + "/changeIsCost", { "id": id, "isCost": 'N' });
+        $.modal.confirm("确认要解锁吗？", function () {
+            $.operate.post(prefix + "/changeIsCost", {"id": id, "isCost": 'N'});
         })
     }
 
     /* 成本价锁定启用 */
     function enable(id) {
-        $.modal.confirm("确认要锁定吗？", function() {
-            $.operate.post(prefix + "/changeIsCost", { "id": id, "isCost": 'Y' });
+        $.modal.confirm("确认要锁定吗？", function () {
+            $.operate.post(prefix + "/changeIsCost", {"id": id, "isCost": 'Y'});
         })
     }
 
     /* 价格调整 */
-    function onEditPrice(id){
-        var url = prefix + '/editPrice/'+id;
+    function onEditPrice(id) {
+        var url = prefix + '/editPrice/' + id;
         $.modal.open("商品移库", url);
     }
 
     var goodsTypePrefix = ctx + "shop/goodsType"
+
     /*商品类别-选择父商品类别树*/
     function selectGoodsTypeTree() {
         var options = {
@@ -229,7 +236,7 @@
         $.modal.openOptions(options);
     }
 
-    function doSubmit(index, layero){
+    function doSubmit(index, layero) {
         var body = layer.getChildFrame('body', index);
         $("#treeId").val(body.find('#treeId').val());
         $("#treeName").val(body.find('#treeName').val());
