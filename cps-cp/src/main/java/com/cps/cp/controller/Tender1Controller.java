@@ -354,16 +354,16 @@ public class Tender1Controller extends BaseController {
         mmap.put("providerInfoDictList", providerInfoDictList);
         System.out.println(providerInfoDictList);
         // 获取各个指标的排序信息
-        ArrayList<ArrayList<Character>> indexSortList = new ArrayList<>();
+        ArrayList<ArrayList<String>> indexSortList = new ArrayList<>();
         for (int i = 0; i < productNameList.size(); ++i) {
             List<String> targetList = targetListList.get(i);
-            ArrayList<Character> indexSort = new ArrayList<>();
+            ArrayList<String> indexSort = new ArrayList<>();
             String productName = productNameList.get(i);
             for (int j = 0; j < targetList.size() - 1; ++j) {// 数据库没有价格字段，避免查询该项
-                Character curSort = productIndexInfoService.selectIndexSortByProductNameAndIndexName(productName, targetList.get(j));
+                String curSort = productIndexInfoService.selectIndexSortByProductNameAndIndexName(productName, targetList.get(j)).getIndexStatus();
                 indexSort.add(curSort);
             }
-            indexSort.add('2');//手动添加价格指标排序信息
+            indexSort.add("2");//手动添加价格指标排序信息
             indexSortList.add(indexSort);
         }
         mmap.put("indexSortList", indexSortList);

@@ -50,8 +50,8 @@
         where product_index_id = #{productIndexId}
     </select>
 
-    <select id="selectIndexSortByProductNameAndIndexName" parameterType="String" resultType="java.lang.Character">
-        select index_status from product_index_info
+    <select id="selectIndexSortByProductNameAndIndexName" parameterType="String" resultMap="ProductIndexInfoResult">
+        <include refid="selectProductIndexInfoVo"/>
         <!--        <where>-->
         <!--            <if test="productName != null  and productName != ''"> and product_name = #{productName}</if>-->
         <!--            <if test="indexName != null  and indexName != ''"> and and index_name = #{indexName}</if>-->

@@ -87,7 +87,7 @@ public class ProductIndexInfoServiceImpl implements IProductIndexInfoService {
     }
 
     @Override
-    public char selectIndexSortByProductNameAndIndexName(String productName, String indexName) {
+    public ProductIndexInfo selectIndexSortByProductNameAndIndexName(String productName, String indexName) {
         return productIndexInfoMapper.selectIndexSortByProductNameAndIndexName(productName, indexName);
     }
 }

@@ -34,10 +34,10 @@
                 return;
             }
 
-            $.operate.save(prefix + "/add", $('#form-tender1-add').serialize());
-            $.modal.closeTab();
+                $.operate.save(prefix + "/add", $('#form-tender1-add').serialize());
+                // $.modal.closeTab();
+            }
         }
-    }
 
     $(".file-upload").fileinput({
         uploadUrl: ctx + 'common/upload',

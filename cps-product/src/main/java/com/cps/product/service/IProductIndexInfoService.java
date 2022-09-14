@@ -60,11 +60,11 @@ public interface IProductIndexInfoService {
     public int deleteProductIndexInfoByProductIndexId(String productIndexId);
 
     /**
-     * 通过产品名和指标名查询指标排序信息
+     * 通过产品名和指标名查询产品指标信息对象
      *
      * @param productName 产品名
      * @param indexName   指标名
      * @return 排序信息（1值大优先， 2值小优先）
      */
-    public char selectIndexSortByProductNameAndIndexName(String productName, String indexName);
+    public ProductIndexInfo selectIndexSortByProductNameAndIndexName(String productName, String indexName);
 }
