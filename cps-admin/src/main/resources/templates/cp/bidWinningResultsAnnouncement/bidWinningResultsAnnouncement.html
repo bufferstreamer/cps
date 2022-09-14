@@ -10,10 +10,10 @@
             <form id="formId">
                 <div class="select-list">
                     <ul>
-                        <li>
-                            <label>中标结果公告ID：</label>
-                            <input name="bidWinningResultsAnnouncementId" type="text"/>
-                        </li>
+<!--                            <li>-->
+<!--                                <label>中标结果公告ID：</label>-->
+<!--                                <input type="text" name="bidWinningResultsAnnouncementId"/>-->
+<!--                            </li>-->
                         <li>
                             <label>公告名：</label>
                             <input name="announcementName" type="text"/>
@@ -84,7 +84,7 @@
                 {
                     field: 'bidWinningResultsAnnouncementId',
                     title: '中标结果公告ID',
-                    visible: true
+                    visible: false
                 },
                 {
                     field: 'announcementName',
@@ -104,7 +104,7 @@
                     align: 'center',
                     formatter: function (value, row, index) {
                         var actions = [];
-                        actions.push('<a class="btn btn-info btn-xs ' + downloadFlag + '" href="javascript:void(0)" onclick="downloadFile(\'' + row.bidWinningResultsAnnouncementDocument + '\')"><i class="fa fa-download"></i>下载</a>');
+                        actions.push('<a class="btn btn-info btn-xs ' + downloadFlag + '" href="javascript:void(0)" onclick="downloadFile(\'' + row.bidWinningResultsAnnouncementDocument + '\')"><i class="fa fa-download"></i>下载公告文件</a>');
                         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.bidWinningResultsAnnouncementId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.bidWinningResultsAnnouncementId + '\')"><i class="fa fa-remove"></i>删除</a>');
                         return actions.join('');

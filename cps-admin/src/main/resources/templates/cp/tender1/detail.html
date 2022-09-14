@@ -11,77 +11,48 @@
         <input name="tenderId" th:field="*{tenderId}" type="hidden">
         <div class="form-group">
             <div class="col-sm-12">
-                <input class="form-control" name="projectName" readonly="readonly" style="height: 80px; border:0;background-color: white;text-align:center;font-size: xx-large;font-weight: bold;color: black"
-                       th:field="*{projectName}"
-                       type="text">
+                <input name="projectName" th:field="*{projectName}" class="form-control" type="text"  style="height: 90px; border:0;background-color: white;text-align:center;font-size: xx-large;font-weight: bold;color: black" readonly="readonly">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label is-required"
-                   style="padding-top: 10px;height: 45px; font-size: large;color: black">供销社ID</label>
+            <label class="col-sm-3 control-label is-required" style="padding-top: 10px;height: 45px; font-size: large;color: black">供销社ID</label>
             <div class="col-sm-3">
-                <input class="form-control" name="gxsId" readonly="readonly" style="height: 45px; border:0;background-color: white;font-size: large;color: black"
-                       th:field="*{gxsId}"
-                       type="text">
+                <input name="gxsId" th:field="*{gxsId}" class="form-control" type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly">
             </div>
-            <label class="col-sm-3 control-label is-required"
-                   style="padding-top: 10px;height: 45px; font-size: large;color: black">资质审核截止时间</label>
+            <label class="col-sm-3 control-label is-required" style="padding-top: 10px;height: 45px; font-size: large;color: black">资质审核截止时间</label>
             <div class="col-sm-3">
-                <input class="form-control"
-                       readonly="readonly" style="height: 45px; border:0;background-color: white;font-size: large;color: black"
-                       th:value="${#dates.format(tender.dealineForQualificationReview, 'yyyy-MM-dd')}"
-                       type="text">
+                <input th:value="${#dates.format(tender.dealineForQualificationReview, 'yyyy-MM-dd')}" class="form-control" type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label is-required"
-                   style="padding-top: 10px;height: 45px; font-size: large;color: black">联系人</label>
+            <label class="col-sm-3 control-label is-required" style="padding-top: 10px;height: 45px; font-size: large;color: black">联系人</label>
             <div class="col-sm-3">
-                <input class="form-control" name="contact" readonly="readonly" style="height: 45px; border:0;background-color: white;font-size: large;color: black"
-                       th:field="*{contact}"
-                       type="text">
+                <input name="contact" th:field="*{contact}" class="form-control" type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly">
             </div>
-            <label class="col-sm-3 control-label is-required"
-                   style="padding-top: 10px;height: 45px; font-size: large;color: black">竞标开始时间</label>
+            <label class="col-sm-3 control-label is-required" style="padding-top: 10px;height: 45px; font-size: large;color: black">竞标开始时间</label>
             <div class="col-sm-3">
-                <input class="form-control" readonly="readonly" style="height: 45px; border:0;background-color: white;font-size: large;color: black"
-                       th:value="${#dates.format(tender.bidStartTime, 'yyyy-MM-dd')}"
-                       type="text">
+                <input th:value="${#dates.format(tender.bidStartTime, 'yyyy-MM-dd')}" class="form-control" type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label is-required"
-                   style="padding-top: 10px;height: 45px; font-size: large;color: black">竞标次数</label>
+            <label class="col-sm-3 control-label is-required" style="padding-top: 10px;height: 45px; font-size: large;color: black">竞标次数</label>
             <div class="col-sm-3">
-                <input class="form-control" name="bidNumber" readonly="readonly" style="height: 45px; border:0;background-color: white;font-size: large;color: black"
-                       th:field="*{bidNumber}"
-                       type="text">
+                <input name="bidNumber" th:field="*{bidNumber}" class="form-control" type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly">
             </div>
-            <label class="col-sm-3 control-label is-required"
-                   style="padding-top: 10px;height: 45px; font-size: large;color: black">竞标结束时间</label>
+            <label class="col-sm-3 control-label is-required" style="padding-top: 10px;height: 45px; font-size: large;color: black">竞标结束时间</label>
             <div class="col-sm-3">
-                <input class="form-control" name="bidEndTime"
-                       readonly="readonly" style="height: 45px; border:0;background-color: white;font-size: large;color: black"
-                       th:value="${#dates.format(tender.bidEndTime, 'yyyy-MM-dd')}"
-                       type="text">
+                <input th:value="${#dates.format(tender.bidEndTime, 'yyyy-MM-dd')}" class="form-control"  type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly">
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-3 control-label is-required"
-                   style="padding-top: 10px;height: 45px; font-size: large;color: black">联系人手机号</label>
+            <label class="col-sm-3 control-label is-required" style="padding-top: 10px;height: 45px; font-size: large;color: black">联系人手机号</label>
             <div class="col-sm-3">
-                <input class="form-control" name="phoneOfContact" readonly="readonly" style="height: 45px; border:0;background-color: white;font-size: large;color: black"
-                       th:field="*{phoneOfContact}"
-                       type="text">
+                <input name="phoneOfContact" th:field="*{phoneOfContact}" class="form-control" type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly">
             </div>
-            <label class="col-sm-3 control-label is-required"
-                   style="padding-top: 10px;height: 45px; font-size: large;color: black">公布时间</label>
+            <label class="col-sm-3 control-label is-required" style="padding-top: 10px;height: 45px; font-size: large;color: black">公布时间</label>
             <div class="col-sm-3">
-                <input class="form-control" name="publishTime"
-                       readonly="readonly" style="height: 45px; border:0;background-color: white;font-size: large;color: black"
-                       th:value="${#dates.format(tender.publishTime, 'yyyy-MM-dd')}"
-                       type="text">
+                <input th:value="${#dates.format(tender.publishTime, 'yyyy-MM-dd')}" class="form-control" type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly">
             </div>
         </div>
         <!--            <div class="form-group">    -->
