@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cps.user.mapper.ProductParamsMapper">
+  <resultMap type="com.cps.user.domain.ProductParams" id="ProductParamsResult">
+    <result property="paramId"    column="param_id"    />
+    <result property="productId"    column="product_id"    />
+    <result property="productPlace"    column="product_place"    />
+    <result property="footPeriod"    column="foot_period"    />
+    <result property="brand"    column="brand"    />
+    <result property="factoryName"    column="factory_name"    />
+    <result property="factoryAddress"    column="factory_address"    />
+    <result property="packagingMethod"    column="packaging_method"    />
+    <result property="weight"    column="weight"    />
+    <result property="storageMethod"    column="storage_method"    />
+    <result property="eatMethod"    column="eat_method"    />
+    <result property="createTime"    column="create_time"    />
+    <result property="updateTime"    column="update_time"    />
+  </resultMap>
+
+  <sql id="selectProductParamsVo">
+    select param_id, product_id, product_place, foot_period, brand, factory_name, factory_address, packaging_method, weight, storage_method, eat_method, create_time, update_time from product_params
+  </sql>
+
+  <select id="selectProductParamsList" parameterType="com.cps.user.domain.ProductParams" resultMap="ProductParamsResult">
+    <include refid="selectProductParamsVo"/>
+    <where>
+      <if test="productId != null  and productId != ''"> and product_id = #{productId}</if>
+      <if test="productPlace != null  and productPlace != ''"> and product_place = #{productPlace}</if>
+      <if test="footPeriod != null  and footPeriod != ''"> and foot_period = #{footPeriod}</if>
+      <if test="brand != null  and brand != ''"> and brand = #{brand}</if>
+      <if test="factoryName != null  and factoryName != ''"> and factory_name like concat('%', #{factoryName}, '%')</if>
+      <if test="factoryAddress != null  and factoryAddress != ''"> and factory_address = #{factoryAddress}</if>
+      <if test="packagingMethod != null  and packagingMethod != ''"> and packaging_method = #{packagingMethod}</if>
+      <if test="weight != null  and weight != ''"> and weight = #{weight}</if>
+      <if test="storageMethod != null  and storageMethod != ''"> and storage_method = #{storageMethod}</if>
+      <if test="eatMethod != null  and eatMethod != ''"> and eat_method = #{eatMethod}</if>
+    </where>
+  </select>
+
+  <select id="selectProductParamsByParamId" parameterType="String" resultMap="ProductParamsResult">
+    <include refid="selectProductParamsVo"/>
+    where param_id = #{paramId}
+  </select>
+
+  <insert id="insertProductParams" parameterType="com.cps.user.domain.ProductParams">
+    insert into product_params
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="paramId != null">param_id,</if>
+      <if test="productId != null and productId != ''">product_id,</if>
+      <if test="productPlace != null and productPlace != ''">product_place,</if>
+      <if test="footPeriod != null and footPeriod != ''">foot_period,</if>
+      <if test="brand != null and brand != ''">brand,</if>
+      <if test="factoryName != null and factoryName != ''">factory_name,</if>
+      <if test="factoryAddress != null and factoryAddress != ''">factory_address,</if>
+      <if test="packagingMethod != null and packagingMethod != ''">packaging_method,</if>
+      <if test="weight != null and weight != ''">weight,</if>
+      <if test="storageMethod != null and storageMethod != ''">storage_method,</if>
+      <if test="eatMethod != null and eatMethod != ''">eat_method,</if>
+      <if test="createTime != null">create_time,</if>
+      <if test="updateTime != null">update_time,</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="paramId != null">#{paramId},</if>
+      <if test="productId != null and productId != ''">#{productId},</if>
+      <if test="productPlace != null and productPlace != ''">#{productPlace},</if>
+      <if test="footPeriod != null and footPeriod != ''">#{footPeriod},</if>
+      <if test="brand != null and brand != ''">#{brand},</if>
+      <if test="factoryName != null and factoryName != ''">#{factoryName},</if>
+      <if test="factoryAddress != null and factoryAddress != ''">#{factoryAddress},</if>
+      <if test="packagingMethod != null and packagingMethod != ''">#{packagingMethod},</if>
+      <if test="weight != null and weight != ''">#{weight},</if>
+      <if test="storageMethod != null and storageMethod != ''">#{storageMethod},</if>
+      <if test="eatMethod != null and eatMethod != ''">#{eatMethod},</if>
+      <if test="createTime != null">#{createTime},</if>
+      <if test="updateTime != null">#{updateTime},</if>
+    </trim>
+  </insert>
+
+  <update id="updateProductParams" parameterType="com.cps.user.domain.ProductParams">
+    update product_params
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="productId != null and productId != ''">product_id = #{productId},</if>
+      <if test="productPlace != null and productPlace != ''">product_place = #{productPlace},</if>
+      <if test="footPeriod != null and footPeriod != ''">foot_period = #{footPeriod},</if>
+      <if test="brand != null and brand != ''">brand = #{brand},</if>
+      <if test="factoryName != null and factoryName != ''">factory_name = #{factoryName},</if>
+      <if test="factoryAddress != null and factoryAddress != ''">factory_address = #{factoryAddress},</if>
+      <if test="packagingMethod != null and packagingMethod != ''">packaging_method = #{packagingMethod},</if>
+      <if test="weight != null and weight != ''">weight = #{weight},</if>
+      <if test="storageMethod != null and storageMethod != ''">storage_method = #{storageMethod},</if>
+      <if test="eatMethod != null and eatMethod != ''">eat_method = #{eatMethod},</if>
+      <if test="createTime != null">create_time = #{createTime},</if>
+      <if test="updateTime != null">update_time = #{updateTime},</if>
+    </trim>
+    where param_id = #{paramId}
+  </update>
+
+  <delete id="deleteProductParamsByParamId" parameterType="String">
+    delete from product_params where param_id = #{paramId}
+  </delete>
+
+  <delete id="deleteProductParamsByParamIds" parameterType="String">
+    delete from product_params where param_id in
+    <foreach item="paramId" collection="array" open="(" separator="," close=")">
+      #{paramId}
+    </foreach>
+  </delete>
+
+</mapper>
