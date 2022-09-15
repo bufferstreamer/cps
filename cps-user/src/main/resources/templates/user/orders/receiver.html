@@ -16,32 +16,33 @@
     var prefix = ctx + "user/orders";
     var myChart = echarts.init(document.getElementById("main"));
 
+    var pie=[];
+
+    var keys = Object.keys([[${orderDict}]]);
+    var values = Object.values([[${orderDict}]]);
+    for (var i=0;i<keys.length;i++){
+        var info={};
+        info.name=keys[i];
+        info.value=values[i];
+        pie.push(info);
+    }
+
     var option = {
-        tooltip: {
-            show: true
+        title: {
+            text: [[${goodName}]]+ '买家汇总',
+            left: 'center',
+            top: 20
         },
-        legend: {
-            data: ["订单数"]
+        tooltip : {
+            trigger: 'item',
+            formatter: "{b} : {c}({d}%)"
         },
         series: [
             {
                 name: "订单数",
-                type: "bar",
-                data: Object.values([[${orderDict}]])
-            }
-        ],
-        xAxis: [
-            {
-                data: Object.keys([[${orderDict}]]),
-                type: 'category',
-                axisLabel: {
-                    interval: 0  //设置间隔为0
-                }
-            }
-        ],
-        yAxis: [
-            {
-                type: 'value'
+                type: "pie",
+                radius:"55%",
+                data: pie
             }
         ]
     };

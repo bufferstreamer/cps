@@ -179,6 +179,7 @@ public class OrdersController extends BaseController {
             }
         }
 
+        map.put("goodName",goodName);
         map.put("orderDict", orderDict);
         return prefix + "/receiver";
     }
