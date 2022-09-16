@@ -9,9 +9,9 @@
     <form class="form-horizontal m" id="form-tender1-edit" th:object="${centralizedPurchaseRecord}">
         <input name="centralizedPurchaseRecordId" th:field="*{centralizedPurchaseRecordId}" type="hidden">
         <div class="form-group">
-            <label class="col-sm-3 control-label">是否中标“N”否 “Y”是：</label>
+            <label class="col-sm-3 control-label">是否中标：</label>
             <div class="col-sm-8">
-                <div class="radio-box" th:each="dict : ${@dict.getType('sys_yes_no')}">
+                <div class="radio-box" th:each="dict : ${@dict.getType('is_bid')}">
                     <input name="isBid" th:field="*{isBid}" th:id="${'isBid_' + dict.dictCode}" th:value="${dict.dictValue}"
                            type="radio">
                     <label th:for="${'isBid_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>

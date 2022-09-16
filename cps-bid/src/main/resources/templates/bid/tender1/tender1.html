@@ -51,7 +51,7 @@
 <script th:inline="javascript">
     var editFlag = [[${@permission.hasPermi('bid:tender1:edit')}]];
     var removeFlag = [[${@permission.hasPermi('bid:tender1:remove')}]];
-    var isBidDatas = [[${@dict.getType('sys_normal_disable')}]];
+    var isBidDatas = [[${@dict.getType('is_bid')}]];
     var prefix = ctx + "bid/tender1";
 
     $(function () {
@@ -93,7 +93,7 @@
                 },
                 {
                     field: 'isBid',
-                    title: '是否中标“0”否 “1”是',
+                    title: '是否中标',
                     formatter: function (value, row, index) {
                         return $.table.selectDictLabel(isBidDatas, value);
                     }

@@ -10,6 +10,7 @@ import com.cps.common.core.text.Convert;
 import com.cps.common.exception.BusinessException;
 import com.cps.common.exception.ServiceException;
 import com.cps.common.utils.DateUtils;
+import com.cps.common.utils.ServletUtils;
 import com.cps.common.utils.ShiroUtils;
 import com.cps.common.utils.StringUtils;
 import com.cps.common.utils.security.Md5Utils;
@@ -223,7 +224,15 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public boolean registerUser(SysUser user) {
         user.setUserType(UserConstants.REGISTER_USER_TYPE);
-        return userMapper.insertUser(user) > 0;
+        boolean regFlag = userMapper.insertUser(user) > 0;
+        if(regFlag){
+            SysUser tempUser = selectUserByLoginName(user.getUserName());
+            Long userRole = Long.valueOf(ServletUtils.getRequest().getParameter("userRole"));
+            Long[] userRoles = new Long[1];
+            userRoles[0] = userRole;
+            insertUserRole(tempUser.getUserId(),userRoles);
+        }
+        return regFlag;
     }
 
     /**

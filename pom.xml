@@ -6,6 +6,7 @@
     <groupId>com.cps</groupId>
     <artifactId>cps</artifactId>
     <version>4.7.4</version>
+    <packaging>pom</packaging>
 
 
     <properties>
@@ -256,7 +257,6 @@
         <module>cps-product</module>
         <module>cps-wms</module>
     </modules>
-    <packaging>pom</packaging>
 
 
     <build>
