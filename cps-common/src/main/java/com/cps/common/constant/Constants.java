@@ -114,4 +114,9 @@ public class Constants {
 
     public final static String NAME_UNIQUE = "0";
     public final static String NAME_NOT_UNIQUE = "1";
+
+    /**
+     * 信用评分临界分数
+     */
+    public final static int CREDIT_SCORE_MAIN = 60;
 }

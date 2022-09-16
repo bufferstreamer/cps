@@ -102,6 +102,13 @@
             <artifactId>cps-bid</artifactId>
             <version>${cps.version}</version>
         </dependency>
+
+        <!--信用评价模块-->
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-credit</artifactId>
+            <version>${cps.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

@@ -5,6 +5,7 @@ import com.cps.audit.service.IAuditDocumentsService;
 import com.cps.bid.domain.CentralizedPurchaseRecord;
 import com.cps.bid.service.ICentralizedPurchaseRecordService;
 import com.cps.common.annotation.Log;
+import com.cps.common.constant.Constants;
 import com.cps.common.core.controller.BaseController;
 import com.cps.common.core.domain.AjaxResult;
 import com.cps.common.core.page.TableDataInfo;
@@ -17,6 +18,8 @@ import com.cps.cp.domain.QualificationReview;
 import com.cps.cp.domain.Tender;
 import com.cps.cp.service.IQualificationReviewService;
 import com.cps.cp.service.ITenderService;
+import com.cps.credit.domain.UserCredit;
+import com.cps.credit.service.IUserCreditService;
 import com.cps.product.service.IProductIndexInfoService;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -62,6 +65,10 @@ public class Tender1Controller extends BaseController {
     @Autowired
     private ICentralizedPurchaseRecordService centralizedPurchaseRecordService;
 
+    @Autowired
+    private IUserCreditService userCreditService;
+
+
     @RequiresPermissions("cp:tender1:view")
     @GetMapping()
     public String tender1(ModelMap map) {
@@ -78,6 +85,10 @@ public class Tender1Controller extends BaseController {
 
         map.put("canQualificationReviewArr", canQualificationReviewArr);
         map.put("canPurchaseArr", canPurchaseArr);
+
+        UserCredit userCredit = userCreditService.selectUserCreditByUserId(ShiroUtils.getUserId());
+        map.put("userCreditScore",userCredit.getCreditScore());
+        map.put("CREDIT_SCORE_MAIN", Constants.CREDIT_SCORE_MAIN);
 
         return prefix + "/tender1";
     }
@@ -241,7 +252,6 @@ public class Tender1Controller extends BaseController {
     @RequestMapping("/qualificationReview/{tenderId}")
     public String qualificationReview(@PathVariable("tenderId") String tenderId, ModelMap mmap) {
         QualificationReview review = qualificationReviewService.selectQualificationReviewByTenderIdAndSupplyId(tenderId, ShiroUtils.getUserId().toString());
-
         if (review == null) {
             mmap.put("tenderId", tenderId);
             return "cp/qualificationReview/add";
