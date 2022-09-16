@@ -10,6 +10,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -32,27 +33,20 @@ public class SubmitSupermarketLicenseController extends BaseController {
     @Autowired
     private IBusinessLicenseInfoService mBusinessLicenseInfoService;
 
-    @RequiresPermissions("audit:businessLicenseManage:add")
+    @RequiresPermissions({"audit:businessLicenseManage:add","audit:businessLicenseManage:edit"})
     @GetMapping()
-    public String supermarketLicense(Model model) {
-        model.addAttribute("result", CanSubmit());
-        return prefix + "/supermarketLicense";
-    }
-
-    private boolean CanSubmit() {
+    public String supermarketLicense(ModelMap map) {
         List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
-        if (tempList == null || tempList.isEmpty()) {
-            return true;
-        }
 
+        map.put("status","0");
         for (int i = 0; i < tempList.size(); i++) {
             String id = tempList.get(i).getChecklistId();
             BusinessLicenseInfo info = mBusinessLicenseInfoService.selectBusinessLicenseInfoByBusinessAuditDocumentId(id);
             if (info != null) {
-                return false;
+                map.put("status",tempList.get(i).getAuditStatus());
+                map.put("businessAuditDocumentId",info.getBusinessAuditDocumentId());
             }
         }
-
-        return true;
+        return prefix + "/supermarketLicense";
     }
 }

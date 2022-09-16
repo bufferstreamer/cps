@@ -65,7 +65,7 @@ public class Tender1Controller extends BaseController {
     @RequiresPermissions("cp:tender1:view")
     @GetMapping()
     public String tender1(ModelMap map) {
-        List<Tender> tempList = tenderService.selectTender1List(null);
+        List<Tender> tempList = tenderService.selectTender1List(new Tender());
         boolean[] canQualificationReviewArr = new boolean[tempList.size()];
         boolean[] canPurchaseArr = new boolean[tempList.size()];
 

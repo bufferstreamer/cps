@@ -10,37 +10,36 @@
     <form class="form-horizontal m" id="form-businessLicenseManage-edit" th:object="${businessLicenseInfo}">
         <input name="businessAuditDocumentId" th:field="*{businessAuditDocumentId}" type="hidden">
         <div class="form-group">
-            <label class="col-sm-3 control-label">个体工商户营业执照jpg照片：</label>
+            <label class="col-sm-3 control-label is-required">个体工商户营业执照照片：</label>
             <div class="col-sm-8">
-                <input name="businessLicense" th:field="*{businessLicense}" type="hidden">
+                <input id="businessLicenseList" name="businessLicense" th:field="*{businessLicense}" type="hidden">
                 <div class="file-loading">
-                    <input class="form-control file-upload" id="businessLicense" name="file" type="file">
+                    <input class="form-control file-upload" id="businessLicense" name="file" type="file" accept=".bmp,.jpg,.jpeg,.png,.gif">
                 </div>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">个体工商户营业执照号码：</label>
             <div class="col-sm-8">
-                <input class="form-control" name="businessLicenseNumber" required th:field="*{businessLicenseNumber}"
-                       type="text">
+                <input class="form-control" name="businessLicenseNumber" required th:field="*{businessLicenseNumber}" type="text">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">经营者：</label>
+            <label class="col-sm-3 control-label is-required">经营者：</label>
             <div class="col-sm-8">
-                <input class="form-control" name="managerName" th:field="*{managerName}" type="text">
+                <input class="form-control" name="managerName" th:field="*{managerName}" type="text" required>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">小商超名称：</label>
+            <label class="col-sm-3 control-label is-required">小商超名称：</label>
             <div class="col-sm-8">
-                <input class="form-control" name="businessName" th:field="*{businessName}" type="text">
+                <input class="form-control" name="businessName" th:field="*{businessName}" type="text" required>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">经营场所位置：</label>
+            <label class="col-sm-3 control-label is-required">经营场所位置：</label>
             <div class="col-sm-8">
-                <input class="form-control" name="businessPlace" th:field="*{businessPlace}" type="text">
+                <input class="form-control" name="businessPlace" th:field="*{businessPlace}" type="text" required>
             </div>
         </div>
         <div class="form-group">
@@ -48,65 +47,53 @@
             <div class="col-sm-8">
                 <!--                    <input name="userId" class="form-control" type="text" required>-->
                 <select class="form-control" name="businessForm">
-                    <option selected value="1">个人经营</option>
-                    <option value="2">家庭经营</option>
+                    <option value="1" th:selected="*{businessForm} eq '1'">个人经营</option>
+                    <option value="2" th:selected="*{businessForm} eq '2'">家庭经营</option>
                 </select>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">注册日期：</label>
+            <label class="col-sm-3 control-label is-required">注册日期：</label>
             <div class="col-sm-8">
                 <div class="input-group date">
                     <input class="form-control"
                            name="registerDate"
-                           placeholder="yyyy-MM-dd" th:value="${#dates.format(businessLicenseInfo.registerDate, 'yyyy-MM-dd')}" type="text">
+                           placeholder="yyyy-MM-dd" th:value="${#dates.format(businessLicenseInfo.registerDate, 'yyyy-MM-dd')}" type="text" required>
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">经营范围：</label>
+            <label class="col-sm-3 control-label is-required">经营范围：</label>
             <div class="col-sm-8">
-                <textarea class="form-control" name="businessScope">[[*{businessScope}]]</textarea>
+                <textarea class="form-control" name="businessScope" required>[[*{businessScope}]]</textarea>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">经营许可证.jpg：</label>
+            <label class="col-sm-3 control-label is-required">经营许可证：</label>
             <div class="col-sm-8">
-                <input name="businessCertificate" th:field="*{businessCertificate}" type="hidden">
+                <input id="businessCertificateList" name="businessCertificate" th:field="*{businessCertificate}" type="hidden">
                 <div class="file-loading">
-                    <input class="form-control file-upload" id="businessCertificate" name="file" type="file">
+                    <input class="form-control file-upload" id="businessCertificate" name="file" type="file" accept=".bmp,.jpg,.jpeg,.png,.gif">
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">用户名：</label>
+            <label class="col-sm-3 control-label is-required">联系人姓名：</label>
             <div class="col-sm-8">
-                <input class="form-control" name="username" th:field="*{username}" type="text">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">密码：</label>
-            <div class="col-sm-8">
-                <input class="form-control" name="password" th:field="*{password}" type="text">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">联系人姓名：</label>
-            <div class="col-sm-8">
-                <input class="form-control" name="contactPerson" th:field="*{contactPerson}" type="text">
+                <input class="form-control" name="contactPerson" th:field="*{contactPerson}" type="text" required>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">联系人证件类型：</label>
             <div class="col-sm-8">
                 <!--                    <input name="userId" class="form-control" type="text" required>-->
-                <select class="form-control" name="contactCardType">
-                    <option selected value="1">身份证</option>
-                    <option value="2">港澳居民来往内地通行证</option>
-                    <option value="3">台湾居民来往大陆通行证</option>
-                    <option value="4">普通护照</option>
-                    <option value="5">外国人永久居留身份证</option>
+                <select class="form-control" name="contactCardType" id="contactCardType" onchange="setIdNumberRoleByCardType()">
+                    <option value="1" th:selected="*{contactCardType} eq '1'">身份证</option>
+                    <option value="2" th:selected="*{contactCardType} eq '2'">港澳居民来往内地通行证</option>
+                    <option value="3" th:selected="*{contactCardType} eq '3'">台湾居民来往大陆通行证</option>
+                    <option value="4" th:selected="*{contactCardType} eq '4'">普通护照</option>
+                    <option value="5" th:selected="*{contactCardType} eq '5'">外国人永久居留身份证</option>
                 </select>
             </div>
         </div>
@@ -117,44 +104,33 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">联系人证件正面jpg照片：</label>
+            <label class="col-sm-3 control-label is-required">联系人证件正面照片：</label>
             <div class="col-sm-8">
-                <input name="frontPhoto" th:field="*{frontPhoto}" type="hidden">
+                <input id="frontPhotoList" name="frontPhoto" th:field="*{frontPhoto}" type="hidden">
                 <div class="file-loading">
-                    <input class="form-control file-upload" id="frontPhoto" name="file" type="file">
+                    <input class="form-control file-upload" id="frontPhoto" name="file" type="file" accept=".bmp,.jpg,.jpeg,.png,.gif">
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">联系人证件反面jpg照片：</label>
+            <label class="col-sm-3 control-label is-required">联系人证件反面照片：</label>
             <div class="col-sm-8">
-                <input name="backPhoto" th:field="*{backPhoto}" type="hidden">
+                <input id="backPhotoList" name="backPhoto" th:field="*{backPhoto}" type="hidden">
                 <div class="file-loading">
-                    <input class="form-control file-upload" id="backPhoto" name="file" type="file">
+                    <input class="form-control file-upload" id="backPhoto" name="file" type="file" accept=".bmp,.jpg,.jpeg,.png,.gif">
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">联系人手机号：</label>
+            <label class="col-sm-3 control-label is-required">联系人手机号：</label>
             <div class="col-sm-8">
-                <input class="form-control" name="contactPhone" th:field="*{contactPhone}" type="text">
+                <input class="form-control" name="contactPhone" th:field="*{contactPhone}" type="text" required>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">联系人邮箱：</label>
+            <label class="col-sm-3 control-label is-required">联系人邮箱：</label>
             <div class="col-sm-8">
-                <input class="form-control" name="contactEmail" th:field="*{contactEmail}" type="text">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">创建时间：</label>
-            <div class="col-sm-8">
-                <div class="input-group date">
-                    <input class="form-control"
-                           name="createDatetime"
-                           placeholder="yyyy-MM-dd" th:value="${#dates.format(businessLicenseInfo.createDatetime, 'yyyy-MM-dd')}" type="text">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                </div>
+                <input class="form-control" name="contactEmail" th:field="*{contactEmail}" type="email" required>
             </div>
         </div>
     </form>
@@ -165,22 +141,64 @@
 <script th:inline="javascript">
     var prefix = ctx + "audit/businessLicenseManage";
     $("#form-businessLicenseManage-edit").validate({
-        focusCleanup: true
+        focusCleanup: true,
+        rules: {
+            businessLicenseNumber: {
+                digits: true,
+                rangelength: [18, 18]
+            },
+            managerName: "isName",
+            businessName: "isName",
+            businessPlace: "isAddress",
+            businessScope: {
+                maxlength: 50
+            },
+            contactPerson: "isName",
+            contactPhone: "isPhone"
+        },
+        messages: {
+            businessLicenseNumber: "请输入18位营业执照号码"
+        }
     });
+
+    setIdNumberRoleByCardType();
+
+    function setIdNumberRoleByCardType() {
+        var value = $("#contactCardType").val();
+
+        switch (value) {
+            case "1":
+                $("#idNumber").rules("remove");
+                $("#idNumber").rules("add", {isIdentity: true});
+                break;
+            case "2":
+                $("#idNumber").rules("remove");
+                $("#idNumber").rules("add", {isHKCard: true});
+                break;
+            case "3":
+                $("#idNumber").rules("remove");
+                $("#idNumber").rules("add", {isTWCard: true});
+                break;
+            case "4":
+                $("#idNumber").rules("remove");
+                $("#idNumber").rules("add", {isPassPortCard: true});
+                break;
+            case "5":
+                $("#idNumber").rules("remove");
+                $("#idNumber").rules("add", {isPRCard: true});
+                break;
+        }
+    }
 
     function submitHandler() {
         if ($.validate.form()) {
             $.operate.save(prefix + "/edit", $('#form-businessLicenseManage-edit').serialize());
+            $.modal.close();
+            $.modal.closeTab();
         }
     }
 
     $("input[name='registerDate']").datetimepicker({
-        format: "yyyy-mm-dd",
-        minView: "month",
-        autoclose: true
-    });
-
-    $("input[name='createDatetime']").datetimepicker({
         format: "yyyy-mm-dd",
         minView: "month",
         autoclose: true

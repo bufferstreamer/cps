@@ -110,6 +110,10 @@ public class SupplierCreditEvaluationInfoController extends BaseController {
     @PostMapping("/edit")
     @ResponseBody
     public AjaxResult editSave(SupplierCreditEvaluationInfo supplierCreditEvaluationInfo) {
+        AuditDocuments auditDocuments = auditDocumentsService.selectAuditDocumentsByChecklistId(supplierCreditEvaluationInfo.getChecklistId());
+        auditDocuments.setAuditStatus("1");
+        auditDocumentsService.updateAuditDocuments(auditDocuments);
+
         return toAjax(supplierCreditEvaluationInfoService.updateSupplierCreditEvaluationInfo(supplierCreditEvaluationInfo));
     }
 
@@ -122,29 +126,5 @@ public class SupplierCreditEvaluationInfoController extends BaseController {
     @ResponseBody
     public AjaxResult remove(String ids) {
         return toAjax(supplierCreditEvaluationInfoService.deleteSupplierCreditEvaluationInfoBySupplierCreditEvaluationAuditIds(ids));
-    }
-
-    @GetMapping("/detail")
-    public String detail(ModelMap map) {
-        List<AuditDocuments> tempList = auditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
-
-        AuditDocuments documentsResult = null;
-
-        SupplierCreditEvaluationInfo infoResult = null;
-
-        for (AuditDocuments temp : tempList
-        ) {
-            String id = temp.getChecklistId();
-            SupplierCreditEvaluationInfo info = supplierCreditEvaluationInfoService.selectSupplierCreditEvaluationInfoByChecklistId(id);
-            if (info != null) {
-                documentsResult = temp;
-                infoResult = info;
-            }
-        }
-
-        map.put("info", infoResult);
-        map.put("auditStatus", documentsResult.getAuditStatus());
-        map.put("auditResult", documentsResult.getAuditResult());
-        return prefix + "/detail";
     }
 }

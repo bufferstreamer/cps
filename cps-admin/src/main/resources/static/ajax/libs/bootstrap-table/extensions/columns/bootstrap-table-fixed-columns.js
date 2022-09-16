@@ -16,8 +16,8 @@ function normalizeWheel(event) {
     let pY = 0 // pixelY
 
     // Legacy
-    if ('detail' in event) {
-        sY = event.detail
+    if ('update.html' in event) {
+        sY = event.update
     }
     if ('wheelDelta' in event) {
         sY = -event.wheelDelta / 120

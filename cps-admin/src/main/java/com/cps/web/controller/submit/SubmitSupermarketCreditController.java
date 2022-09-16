@@ -10,6 +10,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -32,27 +33,22 @@ public class SubmitSupermarketCreditController extends BaseController {
     @Autowired
     private IBusinessCreditEvaluationInfoService mBusinessCreditEvaluationInfoService;
 
-    @RequiresPermissions("audit:businessCreditEvaluationManage:add")
+    @RequiresPermissions({"audit:businessCreditEvaluationManage:add","audit:businessCreditEvaluationManage:edit"})
     @GetMapping()
-    public String supermarketCredit(Model model) {
-        model.addAttribute("result", CanSubmit());
-        return prefix + "/supermarketCredit";
-    }
-
-    private boolean CanSubmit() {
+    public String supermarketCredit(ModelMap map) {
         List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
-        if (tempList == null || tempList.isEmpty()) {
-            return true;
-        }
 
+        map.put("status","0");
         for (int i = 0; i < tempList.size(); i++) {
             String id = tempList.get(i).getChecklistId();
             BusinessCreditEvaluationInfo info = mBusinessCreditEvaluationInfoService.selectBusinessCreditEvaluationInfoChecklistId(id);
             if (info != null) {
-                return false;
+                map.put("status",tempList.get(i).getAuditStatus());
+                map.put("businessCreditEvaluationAuditId",info.getBusinessCreditEvaluationAuditId());
             }
         }
 
-        return true;
+        return prefix + "/supermarketCredit";
     }
+
 }

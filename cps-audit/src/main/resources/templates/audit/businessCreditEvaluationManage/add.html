@@ -31,26 +31,11 @@
 <script th:inline="javascript">
     var prefix = ctx + "audit/businessCreditEvaluationManage"
     $("#form-businessCreditEvaluationManage-add").validate({
-        focusCleanup: true,
-        rules: {
-            txtName: {
-                required: true,
-                isIp: false
-            }
-        },
-        messages: {
-            txtName: {
-                required: "请输入你的名字",
-                isIp: "必须输入汉字"
-            }
-        }
+        focusCleanup: true
     });
 
     function submitHandler() {
         if ($.validate.form()) {
-            var txtName = document.getElementById("txtName");
-            console.log(txtName.value);
-
             $.operate.save(prefix + "/add", $('#form-businessCreditEvaluationManage-add').serialize());
         }
     }

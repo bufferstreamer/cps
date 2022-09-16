@@ -25,10 +25,6 @@ $(document).ready(function () {
         var reg = /^([A-Z]\d{6,10}(\(\w{1}\))?)$/;
         return this.optional(element) || (reg.test(value));
     }, "港澳居民来往内地通行证号码不合规");
-    jQuery.validator.addMethod("isAddress", function (value, element) {
-        var address = /^(?=.*?[\u4E00-\u9FA5])[\d\u4E00-\u9FA5]/;
-        return this.optional(element) || (address.test(value));
-    }, "请填写地址，只能填汉字和数字");
     //地址验证：只能输入汉字和数字
     jQuery.validator.addMethod("isAddress", function (value, element) {
         var address = /^(?=.*?[\u4E00-\u9FA5])[\d\u4E00-\u9FA5]/;
@@ -47,9 +43,9 @@ $(document).ready(function () {
     }, "请填写正确的座机号码");
     //姓名校验
     jQuery.validator.addMethod("isName", function (value, element) {
-        var name = /^[\u4e00-\u9fa5]{2,4}$/;
+        var name = /^[\u4e00-\u9fa5]{2,9}$/;
         return this.optional(element) || (name.test(value));
-    }, "姓名只能用汉字,长度2-4位");
+    }, "姓名只能用汉字,长度2-9位");
     //校验用户名
     jQuery.validator.addMethod("isUserName", function (value, element) {
         var userName = /^[a-zA-Z0-9]{2,13}$/;

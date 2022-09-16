@@ -108,6 +108,10 @@ public class SupplierLicenseInfoController extends BaseController {
     @PostMapping("/edit")
     @ResponseBody
     public AjaxResult editSave(SupplierLicenseInfo supplierLicenseInfo) {
+        AuditDocuments auditDocuments = auditDocumentsService.selectAuditDocumentsByChecklistId(supplierLicenseInfo.getChecklistId());
+        auditDocuments.setAuditStatus("1");
+        auditDocumentsService.updateAuditDocuments(auditDocuments);
+
         return toAjax(supplierLicenseInfoService.updateSupplierLicenseInfo(supplierLicenseInfo));
     }
 
@@ -120,29 +124,5 @@ public class SupplierLicenseInfoController extends BaseController {
     @ResponseBody
     public AjaxResult remove(String ids) {
         return toAjax(supplierLicenseInfoService.deleteSupplierLicenseInfoByChecklistIds(ids));
-    }
-
-    @GetMapping("/detail")
-    public String detail(ModelMap map) {
-        List<AuditDocuments> tempList = auditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
-
-        AuditDocuments documentsResult = null;
-
-        SupplierLicenseInfo infoResult = null;
-
-        for (AuditDocuments temp : tempList
-        ) {
-            String id = temp.getChecklistId();
-            SupplierLicenseInfo info = supplierLicenseInfoService.selectSupplierLicenseInfoByChecklistId(id);
-            if (info != null) {
-                documentsResult = temp;
-                infoResult = info;
-            }
-        }
-
-        map.put("info", infoResult);
-        map.put("auditStatus", documentsResult.getAuditStatus());
-        map.put("auditResult", documentsResult.getAuditResult());
-        return prefix + "/detail";
     }
 }

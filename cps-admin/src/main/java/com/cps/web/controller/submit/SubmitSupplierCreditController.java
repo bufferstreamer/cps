@@ -10,6 +10,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -32,27 +33,20 @@ public class SubmitSupplierCreditController extends BaseController {
     @Autowired
     private ISupplierCreditEvaluationInfoService mSupplierCreditEvaluationInfoService;
 
-    @RequiresPermissions("audit:supplierCreditEvaluationManage:add")
+    @RequiresPermissions({"audit:supplierCreditEvaluationManage:add","audit:supplierCreditEvaluationManage:edit"})
     @GetMapping()
-    public String supplierCredit(Model model) {
-        model.addAttribute("result", CanSubmit());
-        return prefix + "/supplierCredit";
-    }
-
-    private boolean CanSubmit() {
+    public String supplierCredit(ModelMap map) {
         List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
-        if (tempList == null || tempList.isEmpty()) {
-            return true;
-        }
 
+        map.put("status","0");
         for (int i = 0; i < tempList.size(); i++) {
             String id = tempList.get(i).getChecklistId();
             SupplierCreditEvaluationInfo info = mSupplierCreditEvaluationInfoService.selectSupplierCreditEvaluationInfoByChecklistId(id);
             if (info != null) {
-                return false;
+                map.put("status",tempList.get(i).getAuditStatus());
+                map.put("supplierCreditEvaluationAuditId",info.getSupplierCreditEvaluationAuditId());
             }
         }
-
-        return true;
+        return prefix + "/supplierCredit";
     }
 }
