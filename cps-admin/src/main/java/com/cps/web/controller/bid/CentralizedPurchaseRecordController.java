@@ -143,15 +143,15 @@ public class CentralizedPurchaseRecordController extends BaseController {
                     }
                 }
             }
-            XWPFTableRow bidRowPrice = rows.get(productIndex1);
-            XWPFTableRow tenderRowPrice = tenderRows.get(productIndex1);
-            double bidPrice = Double.parseDouble(bidRowPrice.getTableCells().get(3).getText());
-            double tenderPrice = Double.parseDouble(tenderRowPrice.getTableCells().get(4).getText());
-            if(bidPrice>tenderPrice){
-                String msg = "产品:"+productName+" 价格超出招标方预算\r\n";
-                errorMsg=errorMsg.concat(msg);
-//                errorMsgData.add(msg);
-            }
+//            XWPFTableRow bidRowPrice = rows.get(productIndex1);
+//            XWPFTableRow tenderRowPrice = tenderRows.get(productIndex1);
+//            double bidPrice = Double.parseDouble(bidRowPrice.getTableCells().get(3).getText());
+//            double tenderPrice = Double.parseDouble(tenderRowPrice.getTableCells().get(5).getText());
+//            if(bidPrice>tenderPrice){
+//                String msg = "产品:"+productName+" 价格超出招标方预算\r\n";
+//                errorMsg=errorMsg.concat(msg);
+////                errorMsgData.add(msg);
+//            }
         }
         if(!errorMsg.equals("")){
             return error("产品指标数据未达到招标方规定！\r\n"+errorMsg);

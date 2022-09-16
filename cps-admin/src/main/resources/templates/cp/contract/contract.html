@@ -53,7 +53,7 @@
     var signatureADatas = [[${@dict.getType('contract_signature')}]];
     var signatureBDatas = [[${@dict.getType('contract_signature')}]];
     var prefix = ctx + "cp/contract";
-    var downloadFlag = [[${@permission.hasPermi('cp:contract:downloadFlag')}]];
+    var downloadFlag = [[${@permission.hasPermi('cp:contract:download')}]];
     var detailFlag = [[${@permission.hasPermi('cp:contract:detail')}]];
 
     function downloadFile(value) {
@@ -123,7 +123,7 @@
                     formatter: function (value, row, index) {
                         var actions = [];
                         // actions.push('<a class="btn btn-success btn-xs ' +detailFlag + '" href="javascript:void(0)" onclick="detl(\'' + row.contractId + '\')"><i class="fa fa-edit"></i>查看</a>');
-                        actions.push('<a class="btn btn-success btn-xs ' + detailFlag + '" href="javascript:void(0)" onclick="$.operate.detail(\'' + row.contractId + '\')"><i class="fa fa-search"></i>查看</a>');
+                        actions.push('<a class="btn btn-primary btn-xs ' + detailFlag + '" href="javascript:void(0)" onclick="$.operate.detail(\'' + row.contractId + '\')"><i class="fa fa-search"></i>查看</a>');
                         actions.push('<a class="btn btn-info btn-xs ' + downloadFlag + '" href="javascript:void(0)" onclick="downloadFile(\'' + row.contractDocument + '\')"><i class="fa fa-download"></i>下载</a>');
                         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.contractId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.contractId + '\')"><i class="fa fa-remove"></i>删除</a>');
