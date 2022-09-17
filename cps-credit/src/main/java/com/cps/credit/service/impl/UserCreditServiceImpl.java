@@ -85,6 +85,7 @@ public class UserCreditServiceImpl implements IUserCreditService {
      */
     @Override
     public int updateUserCredit(UserCredit userCredit) {
+        userCredit.setUpdateDatetime(DateUtils.parseDate(DateUtils.getTime()));
         return userCreditMapper.updateUserCredit(userCredit);
     }
 
