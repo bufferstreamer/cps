@@ -61,8 +61,14 @@
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">经营范围：</label>
-            <div class="col-sm-8">
-                <textarea class="form-control" name="businessScope" required></textarea>
+            <div class="col-sm-4">
+                <select class="form-control" name="businessType" onchange="setScopeList(this.value)">
+                    <option th:each="name:${typeNameList}" th:value="${name}" th:text="${name}"></option>
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <select class="form-control" name="businessScope" id="businessScope" multiple>
+                </select>
             </div>
         </div>
         <div class="form-group">
@@ -83,9 +89,9 @@
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">联系人证件类型：</label>
             <div class="col-sm-8">
-                <select class="form-control" id="contactCardType" name="contactCardType"
-                        onchange="setIdNumberRoleByCardType()" required>
-                    <option selected value="1">身份证</option>
+                <select class="form-control" name="contactCardType"
+                        onchange="setIdNumberRoleByCardType(this.value)" required>
+                    <option value="1" selected>身份证</option>
                     <option value="2">港澳居民来往内地通行证</option>
                     <option value="3">台湾居民来往大陆通行证</option>
                     <option value="4">普通护照</option>
@@ -156,11 +162,9 @@
             businessLicenseNumber: "请输入18位营业执照号码"
         }
     });
-    setIdNumberRoleByCardType();
 
-    function setIdNumberRoleByCardType() {
-        var value = $("#contactCardType").val();
-
+    setIdNumberRoleByCardType("1");
+    function setIdNumberRoleByCardType(value) {
         switch (value) {
             case "1":
                 $("#idNumber").rules("remove");
@@ -183,6 +187,18 @@
                 $("#idNumber").rules("add", {isPRCard: true});
                 break;
         }
+    }
+
+    setScopeList([[${typeNameList}]][0]);
+    function setScopeList(value) {
+        // var options = $("#businessScope").options;
+        var options = document.getElementById("businessScope");
+        options.length=0;
+        var index = [[${typeNameList}]].indexOf(value);
+        var scopeList=[[${scopeList}]][index];
+        scopeList.forEach(function (value) {
+            options.add(new Option(value.deptName));
+        })
     }
 
     function submitHandler() {

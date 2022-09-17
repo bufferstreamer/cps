@@ -78,9 +78,15 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label is-required">营业范围：</label>
-            <div class="col-sm-8">
-                <textarea class="form-control" name="businessScope" required></textarea>
+            <label class="col-sm-3 control-label is-required">经营范围：</label>
+            <div class="col-sm-4">
+                <select class="form-control" name="businessType" onchange="setScopeList(this.value)">
+                    <option th:each="name:${typeNameList}" th:value="${name}" th:text="${name}"></option>
+                </select>
+            </div>
+            <div class="col-sm-4">
+                <select class="form-control" name="businessScope" id="businessScope" multiple>
+                </select>
             </div>
         </div>
         <div class="form-group">
@@ -129,7 +135,7 @@
             idNumber: "isIdentity",
             businessLicenseLocation: "isName",
             businessLicenseAddress: "isAddress",
-            registeredCapital: "digits",
+            registeredCapital: "isMoney",
             businessScope: {
                 maxlength: 50
             },
@@ -141,6 +147,18 @@
             registrationNumber: "请输入18位全国信息代码号"
         }
     });
+
+    setScopeList([[${typeNameList}]][0]);
+    function setScopeList(value) {
+        // var options = $("#businessScope").options;
+        var options = document.getElementById("businessScope");
+        options.length=0;
+        var index = [[${typeNameList}]].indexOf(value);
+        var scopeList=[[${scopeList}]][index];
+        scopeList.forEach(function (value) {
+            options.add(new Option(value.deptName));
+        })
+    }
 
     function submitHandler() {
         if ($.validate.form()) {
