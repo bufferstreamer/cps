@@ -22,7 +22,11 @@
             <artifactId>cps-common</artifactId>
             <version>${cps.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-system</artifactId>
+            <version>${cps.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

@@ -29,6 +29,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -68,6 +69,8 @@ public class Tender1Controller extends BaseController {
     @Autowired
     private IUserCreditService userCreditService;
 
+    @Value("${cps.profile}")
+    private String profile;
 
     @RequiresPermissions("cp:tender1:view")
     @GetMapping()
@@ -86,8 +89,12 @@ public class Tender1Controller extends BaseController {
         map.put("canQualificationReviewArr", canQualificationReviewArr);
         map.put("canPurchaseArr", canPurchaseArr);
 
-        UserCredit userCredit = userCreditService.selectUserCreditByUserId(ShiroUtils.getUserId());
-        map.put("userCreditScore",userCredit.getCreditScore());
+        if(userCreditService.selectUserCreditByUserId(ShiroUtils.getUserId())!=null){
+            UserCredit userCredit = userCreditService.selectUserCreditByUserId(ShiroUtils.getUserId());
+            map.put("userCreditScore",userCredit.getCreditScore());
+        }else{
+            map.put("userCreditScore",Constants.CREDIT_SCORE_FULL);
+        }
         map.put("CREDIT_SCORE_MAIN", Constants.CREDIT_SCORE_MAIN);
 
         return prefix + "/tender1";
@@ -143,7 +150,7 @@ public class Tender1Controller extends BaseController {
         tender.setCreateDatetime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
 //        String readFilePath = "G:\\Code\\Test\\zhaobiao.docx";
         logger.info(tender.getTenderDocument());
-        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", "D:/cps/uploadPath");
+        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", profile);
         File file = new File(readFilePath);
         FileInputStream fileInputStream = new FileInputStream(readFilePath);
 
@@ -268,7 +275,7 @@ public class Tender1Controller extends BaseController {
     public String qpcs(@PathVariable("tenderId") String tenderId, ModelMap mmap) throws IOException {
         Tender tender = tenderService.selectTenderByTenderId(tenderId);
 //        mmap.put("tender", tender);
-        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", "D:/cps/uploadPath");
+        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", profile);
 //        String readFilePath = "G:/Code/Test/zhaobiao3.docx";
 
         File file = new File(readFilePath);
@@ -320,7 +327,7 @@ public class Tender1Controller extends BaseController {
         for (int i = 0; i < productNumber; i++) {
             HashMap<String, ArrayList> gysDataMap = new HashMap<>();
             for (CentralizedPurchaseRecord centralizedPurchaseRecord : centralizedPurchaseRecordList) {
-                String readCPRFilePath = centralizedPurchaseRecord.getTenderDocument().replace("http://localhost/cps/profile", "D:/cps/uploadPath");
+                String readCPRFilePath = centralizedPurchaseRecord.getTenderDocument().replace("http://localhost/cps/profile", profile);
 
                 FileInputStream fileInputStream1 = new FileInputStream(readCPRFilePath);
 
@@ -380,6 +387,7 @@ public class Tender1Controller extends BaseController {
         return prefix + "/qpcs";
     }
 
+    //资质审核
     private boolean CanQualificationReview(QualificationReview review) {
         List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
         if (tempList == null) {

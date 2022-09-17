@@ -118,5 +118,6 @@ public class Constants {
     /**
      * 信用评分临界分数
      */
+    public final static int CREDIT_SCORE_FULL = 100;
     public final static int CREDIT_SCORE_MAIN = 60;
 }

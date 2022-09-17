@@ -8,20 +8,24 @@
 <body>
 <th:block th:include="include :: footer"/>
 <script th:inline="javascript">
-    switch ([[${status}]]) {
-        case "0"://未提交
-            $.modal.open("提交营业执照", "audit/businessLicenseManage/add");
-            break;
-        case "1"://未审核
-            $.modal.alert("审核中，请等待");
-            break;
-        case "2"://审核通过
-            $.modal.alertSuccess("审核通过");
-            break;
-        case "3"://审核未通过
-            $.modal.open("修改信用评价", "audit/businessLicenseManage/edit/"+[[${businessAuditDocumentId}]]);
-            $.modal.alertError("审核未通过，请修改");
-            break;
+    if([[${userCreditScore}]] < [[${CREDIT_SCORE_MAIN}]]){
+        $.modal.alertError("您的信用评分不足"+ [[${CREDIT_SCORE_MAIN}]]+"，无法提交审核材料");
+    }else{
+        switch ([[${status}]]) {
+            case "0"://未提交
+                $.modal.open("提交营业执照", "audit/businessLicenseManage/add");
+                break;
+            case "1"://未审核
+                $.modal.alert("审核中，请等待");
+                break;
+            case "2"://审核通过
+                $.modal.alertSuccess("审核通过");
+                break;
+            case "3"://审核未通过
+                $.modal.open("修改营业执照", "audit/businessLicenseManage/edit/"+[[${businessAuditDocumentId}]]);
+                $.modal.alertError("审核未通过，请修改");
+                break;
+        }
     }
 </script>
 </body>
