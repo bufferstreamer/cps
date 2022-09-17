@@ -86,8 +86,12 @@ public class Tender1Controller extends BaseController {
         map.put("canQualificationReviewArr", canQualificationReviewArr);
         map.put("canPurchaseArr", canPurchaseArr);
 
-        UserCredit userCredit = userCreditService.selectUserCreditByUserId(ShiroUtils.getUserId());
-        map.put("userCreditScore",userCredit.getCreditScore());
+        if(userCreditService.selectUserCreditByUserId(ShiroUtils.getUserId())!=null){
+            UserCredit userCredit = userCreditService.selectUserCreditByUserId(ShiroUtils.getUserId());
+            map.put("userCreditScore",userCredit.getCreditScore());
+        }else{
+            map.put("userCreditScore",Constants.CREDIT_SCORE_FULL);
+        }
         map.put("CREDIT_SCORE_MAIN", Constants.CREDIT_SCORE_MAIN);
 
         return prefix + "/tender1";
