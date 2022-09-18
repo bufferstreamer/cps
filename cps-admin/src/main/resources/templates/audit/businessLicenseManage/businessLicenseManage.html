@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('小商超审核管理列表')"/>
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            <label>个体工商户营业执照号码：</label>
+                            <input name="businessLicenseNumber" type="text"/>
+                        </li>
+                        <li>
+                            <label>经营者：</label>
+                            <input name="managerName" type="text"/>
+                        </li>
+                        <li>
+                            <label>小商超名称：</label>
+                            <input name="businessName" type="text"/>
+                        </li>
+                        <li>
+                            <label>经营场所位置：</label>
+                            <input name="businessPlace" type="text"/>
+                        </li>
+                        <!--                            <li>-->
+                        <!--                                <label>注册日期：</label>-->
+                        <!--                                <input type="text" class="time-input" placeholder="请选择注册日期" name="registerDate"/>-->
+                        <!--                            </li>-->
+                        <li>
+                            <label>用户名：</label>
+                            <input name="username" type="text"/>
+                        </li>
+                        <li>
+                            <label>密码：</label>
+                            <input name="password" type="text"/>
+                        </li>
+                        <li>
+                            <label>联系人姓名：</label>
+                            <input name="contactPerson" type="text"/>
+                        </li>
+                        <li>
+                            <label>联系人证件号：</label>
+                            <input name="idNumber" type="text"/>
+                        </li>
+                        <li>
+                            <label>联系人手机号：</label>
+                            <input name="contactPhone" type="text"/>
+                        </li>
+                        <li>
+                            <label>联系人邮箱：</label>
+                            <input name="contactEmail" type="text"/>
+                        </li>
+                        <!--                            <li>-->
+                        <!--                                <label>创建时间：</label>-->
+                        <!--                                <input type="text" class="time-input" placeholder="请选择创建时间" name="createDatetime"/>-->
+                        <!--                            </li>-->
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
+                                    class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i
+                                    class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="audit:businessLicenseManage:add">
+                <i class="fa fa-plus"></i> 添加
+            </a>
+            <!--                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="audit:businessLicenseManage:edit">-->
+            <!--                    <i class="fa fa-edit"></i> 修改-->
+            <!--                </a>-->
+            <!--                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="audit:businessLicenseManage:remove">-->
+            <!--                    <i class="fa fa-remove"></i> 删除-->
+            <!--                </a>-->
+            <a class="btn btn-warning" onclick="$.table.exportExcel()"
+               shiro:hasPermission="audit:businessLicenseManage:export">
+                <i class="fa fa-download"></i> 导出
+            </a>
+        </div>
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table"></table>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('audit:businessLicenseManage:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('audit:businessLicenseManage:remove')}]];
+    var auditStateDatas = [[${@dict.getType('sys_examine_status')}]];
+    var prefix = ctx + "audit/businessLicenseManage";
+
+    $(function () {
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            // updateUrl: prefix + "/edit/{id}",
+            updateUrl: ctx + "audit/auditDocumentsManage" + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            modalName: "小商超审核管理",
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'businessAuditDocumentId',
+                    title: '审核状态',
+                    formatter: function (value, row, index) {
+                        let auditStatus = "1";
+                        let data = {"checklistId": value};
+                        $.ajax({
+                            url: ctx + "audit/auditDocumentsManage/search-status",
+                            type: "post",
+                            dataType: "json",
+                            data: data,
+                            async: false,
+                            success: function (result) {
+                                auditStatus = result;
+                            }
+                        })
+                        auditStatus -= 1;
+                        return $.table.selectDictLabel(auditStateDatas, auditStatus);
+                    }
+                },
+                {
+                    field: 'businessAuditDocumentId',
+                    title: '审核单id',
+                    visible: false
+                },
+                {
+                    field: 'businessLicense',
+                    title: '个体工商户营业执照',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<img alt="个体工商户营业执照" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="' + row.businessLicense + '">');
+                        return actions.join('');
+                    }
+                },
+                {
+                    field: 'businessLicenseNumber',
+                    title: '个体工商户营业执照号码'
+                },
+                {
+                    field: 'managerName',
+                    title: '经营者'
+                },
+                {
+                    field: 'businessName',
+                    title: '小商超名称'
+                },
+                {
+                    field: 'businessPlace',
+                    title: '经营场所位置'
+                },
+                {
+                    field: 'businessForm',
+                    title: '组成形式',
+                    formatter: function (value, row) {
+                        switch (value) {
+                            case '1':
+                                return '个人经营'
+                            case '2':
+                                return '家庭经营'
+                            default:
+                                return '未知的组成形式'
+                        }
+                    }
+                },
+                {
+                    field: 'registerDate',
+                    title: '注册日期'
+                },
+                {
+                    field: 'businessScope',
+                    title: '经营范围'
+                },
+                {
+                    field: 'businessCertificate',
+                    title: '经营许可证',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<img alt="经营许可证" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="' + row.businessCertificate + '">');
+                        return actions.join('');
+                    }
+                },
+                {
+                    field: 'username',
+                    title: '用户名'
+                },
+                {
+                    field: 'password',
+                    title: '密码'
+                },
+                {
+                    field: 'contactPerson',
+                    title: '联系人姓名'
+                },
+                {
+                    field: 'contactCardType',
+                    title: '联系人证件类型: ',
+                    formatter: function (value, row) {
+                        switch (value) {
+                            case '1':
+                                return '身份证'
+                            case '2':
+                                return '港澳居民来往内地通行证'
+                            case '3':
+                                return '台湾居民来往大陆通行证'
+                            case '4':
+                                return '普通护照'
+                            case '5':
+                                return '外国人永久居留身份证'
+                            default:
+                                return '未知的证件类型'
+                        }
+                    }
+                },
+                {
+                    field: 'idNumber',
+                    title: '联系人证件号'
+                },
+                {
+                    field: 'frontPhoto',
+                    title: '联系人证件正面',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<img alt="联系人证件正面jpg照片" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="' + row.frontPhoto + '">');
+                        return actions.join('');
+                    }
+                },
+                {
+                    field: 'backPhoto',
+                    title: '联系人证件反面',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<img alt="联系人证件反面" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="' + row.backPhoto + '">');
+                        return actions.join('');
+                    }
+                },
+                {
+                    field: 'contactPhone',
+                    title: '联系人手机号'
+                },
+                {
+                    field: 'contactEmail',
+                    title: '联系人邮箱'
+                },
+                {
+                    field: 'createDatetime',
+                    title: '创建时间'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.businessAuditDocumentId + '\')"><i class="fa fa-edit"></i>审核</a> ');
+                        // actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.businessAuditDocumentId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+</script>
+</body>
+</html>

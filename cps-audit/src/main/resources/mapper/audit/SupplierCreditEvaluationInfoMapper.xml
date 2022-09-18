@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cps.audit.mapper.SupplierCreditEvaluationInfoMapper">
+
+    <resultMap type="SupplierCreditEvaluationInfo" id="SupplierCreditEvaluationInfoResult">
+        <result property="supplierCreditEvaluationAuditId" column="supplier_credit_evaluation_audit_id"/>
+        <result property="checklistId" column="checklist_id"/>
+        <result property="corporateName" column="corporate_name"/>
+        <result property="corporateCreditInfo" column="corporate_credit_info"/>
+        <result property="frName" column="fr_name"/>
+        <result property="frCriminalRecord" column="fr_criminal_record"/>
+        <result property="createDatetime" column="create_datetime"/>
+    </resultMap>
+
+    <sql id="selectSupplierCreditEvaluationInfoVo">
+        select supplier_credit_evaluation_audit_id,
+               checklist_id,
+               corporate_name,
+               corporate_credit_info,
+               fr_name,
+               fr_criminal_record,
+               create_datetime
+        from audit_supplier_credit_evaluation_info
+    </sql>
+
+    <select id="selectSupplierCreditEvaluationInfoList" parameterType="SupplierCreditEvaluationInfo"
+            resultMap="SupplierCreditEvaluationInfoResult">
+        <include refid="selectSupplierCreditEvaluationInfoVo"/>
+        <where>
+            <if test="checklistId != null  and checklistId != ''">and checklist_id = #{checklistId}</if>
+            <if test="corporateName != null  and corporateName != ''">and corporate_name like concat('%',
+                #{corporateName}, '%')
+            </if>
+            <if test="corporateCreditInfo != null  and corporateCreditInfo != ''">and corporate_credit_info =
+                #{corporateCreditInfo}
+            </if>
+            <if test="frName != null  and frName != ''">and fr_name like concat('%', #{frName}, '%')</if>
+            <if test="frCriminalRecord != null  and frCriminalRecord != ''">and fr_criminal_record =
+                #{frCriminalRecord}
+            </if>
+            <if test="createDatetime != null ">and create_datetime = #{createDatetime}</if>
+        </where>
+    </select>
+
+    <select id="selectSupplierCreditEvaluationInfoBySupplierCreditEvaluationAuditId" parameterType="String"
+            resultMap="SupplierCreditEvaluationInfoResult">
+        <include refid="selectSupplierCreditEvaluationInfoVo"/>
+        where supplier_credit_evaluation_audit_id = #{supplierCreditEvaluationAuditId}
+    </select>
+
+    <select id="selectSupplierCreditEvaluationInfoByChecklistId" parameterType="String"
+            resultMap="SupplierCreditEvaluationInfoResult">
+        <include refid="selectSupplierCreditEvaluationInfoVo"/>
+        where checklist_id = #{checklistId}
+    </select>
+
+    <insert id="insertSupplierCreditEvaluationInfo" parameterType="SupplierCreditEvaluationInfo">
+        insert into audit_supplier_credit_evaluation_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="supplierCreditEvaluationAuditId != null">supplier_credit_evaluation_audit_id,</if>
+            <if test="checklistId != null and checklistId != ''">checklist_id,</if>
+            <if test="corporateName != null">corporate_name,</if>
+            <if test="corporateCreditInfo != null">corporate_credit_info,</if>
+            <if test="frName != null">fr_name,</if>
+            <if test="frCriminalRecord != null">fr_criminal_record,</if>
+            <if test="createDatetime != null">create_datetime,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="supplierCreditEvaluationAuditId != null">#{supplierCreditEvaluationAuditId},</if>
+            <if test="checklistId != null and checklistId != ''">#{checklistId},</if>
+            <if test="corporateName != null">#{corporateName},</if>
+            <if test="corporateCreditInfo != null">#{corporateCreditInfo},</if>
+            <if test="frName != null">#{frName},</if>
+            <if test="frCriminalRecord != null">#{frCriminalRecord},</if>
+            <if test="createDatetime != null">#{createDatetime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSupplierCreditEvaluationInfo" parameterType="SupplierCreditEvaluationInfo">
+        update audit_supplier_credit_evaluation_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="checklistId != null and checklistId != ''">checklist_id = #{checklistId},</if>
+            <if test="corporateName != null">corporate_name = #{corporateName},</if>
+            <if test="corporateCreditInfo != null">corporate_credit_info = #{corporateCreditInfo},</if>
+            <if test="frName != null">fr_name = #{frName},</if>
+            <if test="frCriminalRecord != null">fr_criminal_record = #{frCriminalRecord},</if>
+            <if test="createDatetime != null">create_datetime = #{createDatetime},</if>
+        </trim>
+        where supplier_credit_evaluation_audit_id = #{supplierCreditEvaluationAuditId}
+    </update>
+
+    <delete id="deleteSupplierCreditEvaluationInfoBySupplierCreditEvaluationAuditId" parameterType="String">
+        delete
+        from audit_supplier_credit_evaluation_info
+        where supplier_credit_evaluation_audit_id = #{supplierCreditEvaluationAuditId}
+    </delete>
+
+    <delete id="deleteSupplierCreditEvaluationInfoBySupplierCreditEvaluationAuditIds" parameterType="String">
+        delete from audit_supplier_credit_evaluation_info where supplier_credit_evaluation_audit_id in
+        <foreach item="supplierCreditEvaluationAuditId" collection="array" open="(" separator="," close=")">
+            #{supplierCreditEvaluationAuditId}
+        </foreach>
+    </delete>
+
+</mapper>

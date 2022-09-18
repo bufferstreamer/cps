@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>cps</artifactId>
+        <groupId>com.cps</groupId>
+        <version>4.7.4</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>cps-cp</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-audit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-bid</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-product</artifactId>
+        </dependency>
+        <!--信用评价模块-->
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-credit</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:include="include :: header('供应商提交信用审查')"/>
+</head>
+
+<body>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    if([[${userCreditScore}]] < [[${CREDIT_SCORE_MAIN}]]){
+        $.modal.alertError("您的信用评分不足"+ [[${CREDIT_SCORE_MAIN}]]+"，无法提交审核材料");
+    }else{
+        switch ([[${status}]]) {
+            case "0"://未提交
+                $.modal.open("提交信用评价", "audit/supplierCreditEvaluationManage/add");
+                break;
+            case "1"://未审核
+                $.modal.alert("审核中，请等待");
+                break;
+            case "2"://审核通过
+                $.modal.alertSuccess("审核通过");
+                break;
+            case "3"://审核未通过
+                $.modal.open("修改信用评价", "audit/supplierCreditEvaluationManage/edit/"+[[${supplierCreditEvaluationAuditId}]]);
+                $.modal.alertError("审核未通过，请修改");
+                break;
+        }
+    }
+
+</script>
+</body>
+</html>

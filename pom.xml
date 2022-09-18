@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.cps</groupId>
     <artifactId>cps</artifactId>
     <version>4.7.4</version>
+    <packaging>pom</packaging>
 
 
-    
     <properties>
         <cps.version>4.7.4</cps.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,7 +34,7 @@
     <!-- 依赖声明 -->
     <dependencyManagement>
         <dependencies>
-        
+
             <!-- SpringBoot的依赖配置-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -43,14 +43,14 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            
+
             <!-- 阿里数据库连接池 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
-            
+
             <!-- 验证码 -->
             <dependency>
                 <groupId>com.github.penggle</groupId>
@@ -197,9 +197,58 @@
                 <version>${cps.version}</version>
             </dependency>
 
+            <!-- 审核模块-->
+            <dependency>
+                <groupId>com.cps</groupId>
+                <artifactId>cps-audit</artifactId>
+                <version>${cps.version}</version>
+            </dependency>
+
+            <!--标书&公告模块-->
+            <dependency>
+                <groupId>com.cps</groupId>
+                <artifactId>cps-cp</artifactId>
+                <version>${cps.version}</version>
+            </dependency>
+
+            <!--产品模块-->
+            <dependency>
+                <groupId>com.cps</groupId>
+                <artifactId>cps-product</artifactId>
+                <version>${cps.version}</version>
+            </dependency>
+
+            <!--bid模块-->
+            <dependency>
+                <groupId>com.cps</groupId>
+                <artifactId>cps-bid</artifactId>
+                <version>${cps.version}</version>
+            </dependency>
+            <!--仓库模块-->
+            <dependency>
+                <groupId>com.cps</groupId>
+                <artifactId>cps-wms</artifactId>
+                <version>${cps.version}</version>
+            </dependency>
+            <!--信用评价模块-->
+            <dependency>
+                <groupId>com.cps</groupId>
+                <artifactId>cps-credit</artifactId>
+                <version>${cps.version}</version>
+            </dependency>
+            <!--poi-->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>4.1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>4.1.2</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-
     <modules>
         <module>cps-admin</module>
         <module>cps-framework</module>
@@ -207,10 +256,14 @@
         <module>cps-quartz</module>
         <module>cps-generator</module>
         <module>cps-common</module>
+        <module>cps-user</module>
+        <module>cps-audit</module>
+        <module>cps-cp</module>
+        <module>cps-bid</module>
+        <module>cps-product</module>
+        <module>cps-wms</module>
+        <module>cps-credit</module>
     </modules>
-    <packaging>pom</packaging>
-
-
 
 
     <build>

@@ -2,11 +2,10 @@ package com.cps.common.constant;
 
 /**
  * 通用常量信息
- * 
+ *
  * @author cps
  */
-public class Constants
-{
+public class Constants {
     /**
      * UTF-8 字符集
      */
@@ -105,11 +104,20 @@ public class Constants
     /**
      * 定时任务白名单配置（仅允许访问的包名，如其他需要可以自行添加）
      */
-    public static final String[] JOB_WHITELIST_STR = { "com.cps" };
+    public static final String[] JOB_WHITELIST_STR = {"com.cps"};
 
     /**
      * 定时任务违规的字符
      */
-    public static final String[] JOB_ERROR_STR = { "java.net.URL", "javax.naming.InitialContext", "org.yaml.snakeyaml",
-            "org.springframework", "org.apache", "com.cps.common.utils.file" };
+    public static final String[] JOB_ERROR_STR = {"java.net.URL", "javax.naming.InitialContext", "org.yaml.snakeyaml",
+            "org.springframework", "org.apache", "com.cps.common.utils.file"};
+
+    public final static String NAME_UNIQUE = "0";
+    public final static String NAME_NOT_UNIQUE = "1";
+
+    /**
+     * 信用评分临界分数
+     */
+    public final static int CREDIT_SCORE_FULL = 100;
+    public final static int CREDIT_SCORE_MAIN = 60;
 }

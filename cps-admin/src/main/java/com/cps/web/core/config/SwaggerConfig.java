@@ -1,10 +1,10 @@
 package com.cps.web.core.config;
 
+import com.cps.common.config.CpsConfig;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.cps.common.config.RuoYiConfig;
-import io.swagger.annotations.ApiOperation;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -15,22 +15,22 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 /**
  * Swagger2的接口配置
- * 
+ *
  * @author cps
  */
 @Configuration
-public class SwaggerConfig
-{
-    /** 是否开启swagger */
+public class SwaggerConfig {
+    /**
+     * 是否开启swagger
+     */
     @Value("${swagger.enabled}")
     private boolean enabled;
-    
+
     /**
      * 创建API
      */
     @Bean
-    public Docket createRestApi()
-    {
+    public Docket createRestApi() {
         return new Docket(DocumentationType.OAS_30)
                 // 是否启用Swagger
                 .enable(enabled)
@@ -50,18 +50,17 @@ public class SwaggerConfig
     /**
      * 添加摘要信息
      */
-    private ApiInfo apiInfo()
-    {
+    private ApiInfo apiInfo() {
         // 用ApiInfoBuilder进行定制
         return new ApiInfoBuilder()
                 // 设置标题
-                .title("标题：若依管理系统_接口文档")
+                .title("集中采购后台管理系统_接口文档")
                 // 描述
-                .description("描述：用于管理集团旗下公司的人员信息,具体包括XXX,XXX模块...")
+                .description("描述：用于集采系统")
                 // 作者信息
-                .contact(new Contact(RuoYiConfig.getName(), null, null))
+                .contact(new Contact(CpsConfig.getName(), "https://www.baidu.com", "517631523@qq.com"))
                 // 版本
-                .version("版本号:" + RuoYiConfig.getVersion())
+                .version("版本号:" + CpsConfig.getVersion())
                 .build();
     }
 }

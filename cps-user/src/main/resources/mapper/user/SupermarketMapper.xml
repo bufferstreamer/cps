@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cps.user.mapper.SupermarketMapper">
+
+    <resultMap type="Supermarket" id="SupermarketResult">
+        <result property="shopId" column="shop_id"/>
+        <result property="shopName" column="shop_name"/>
+        <result property="nickname" column="nickname"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="contactPerson" column="contact_person"/>
+        <result property="contactCardType" column="contact_card_type"/>
+        <result property="cardId" column="card_id"/>
+        <result property="contactPhone" column="contact_phone"/>
+        <result property="contactEmail" column="contact_email"/>
+        <result property="registerTime" column="register_time"/>
+        <result property="lastLogin" column="last_login"/>
+        <result property="shopState" column="shop_state"/>
+    </resultMap>
+
+    <sql id="selectSupermarketVo">
+        select shop_id,
+               shop_name,
+               nickname,
+               username,
+               password,
+               contact_person,
+               contact_card_type,
+               card_id,
+               contact_phone,
+               contact_email,
+               register_time,
+               last_login,
+               shop_state
+        from supermarket
+    </sql>
+
+    <select id="selectSupermarketList" parameterType="Supermarket" resultMap="SupermarketResult">
+        <include refid="selectSupermarketVo"/>
+        <where>
+            <if test="shopName != null  and shopName != ''">and shop_name like concat('%', #{shopName}, '%')</if>
+            <if test="nickname != null  and nickname != ''">and nickname like concat('%', #{nickname}, '%')</if>
+        </where>
+    </select>
+
+    <select id="selectSupermarketByShopId" parameterType="Long" resultMap="SupermarketResult">
+        <include refid="selectSupermarketVo"/>
+        where shop_id = #{shopId}
+    </select>
+
+    <insert id="insertSupermarket" parameterType="Supermarket">
+        insert into supermarket
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">shop_id,</if>
+            <if test="shopName != null and shopName != ''">shop_name,</if>
+            <if test="nickname != null and nickname != ''">nickname,</if>
+            <if test="username != null and username != ''">username,</if>
+            <if test="password != null and password != ''">password,</if>
+            <if test="contactPerson != null and contactPerson != ''">contact_person,</if>
+            <if test="contactCardType != null and contactCardType != ''">contact_card_type,</if>
+            <if test="cardId != null and cardId != ''">card_id,</if>
+            <if test="contactPhone != null and contactPhone != ''">contact_phone,</if>
+            <if test="contactEmail != null and contactEmail != ''">contact_email,</if>
+            <if test="registerTime != null">register_time,</if>
+            <if test="lastLogin != null">last_login,</if>
+            <if test="shopState != null">shop_state,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">#{shopId},</if>
+            <if test="shopName != null and shopName != ''">#{shopName},</if>
+            <if test="nickname != null and nickname != ''">#{nickname},</if>
+            <if test="username != null and username != ''">#{username},</if>
+            <if test="password != null and password != ''">#{password},</if>
+            <if test="contactPerson != null and contactPerson != ''">#{contactPerson},</if>
+            <if test="contactCardType != null and contactCardType != ''">#{contactCardType},</if>
+            <if test="cardId != null and cardId != ''">#{cardId},</if>
+            <if test="contactPhone != null and contactPhone != ''">#{contactPhone},</if>
+            <if test="contactEmail != null and contactEmail != ''">#{contactEmail},</if>
+            <if test="registerTime != null">#{registerTime},</if>
+            <if test="lastLogin != null">#{lastLogin},</if>
+            <if test="shopState != null">#{shopState},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSupermarket" parameterType="Supermarket">
+        update supermarket
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="shopName != null and shopName != ''">shop_name = #{shopName},</if>
+            <if test="nickname != null and nickname != ''">nickname = #{nickname},</if>
+            <if test="username != null and username != ''">username = #{username},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="contactPerson != null and contactPerson != ''">contact_person = #{contactPerson},</if>
+            <if test="contactCardType != null and contactCardType != ''">contact_card_type = #{contactCardType},</if>
+            <if test="cardId != null and cardId != ''">card_id = #{cardId},</if>
+            <if test="contactPhone != null and contactPhone != ''">contact_phone = #{contactPhone},</if>
+            <if test="contactEmail != null and contactEmail != ''">contact_email = #{contactEmail},</if>
+            <if test="registerTime != null">register_time = #{registerTime},</if>
+            <if test="lastLogin != null">last_login = #{lastLogin},</if>
+            <if test="shopState != null">shop_state = #{shopState},</if>
+        </trim>
+        where shop_id = #{shopId}
+    </update>
+
+    <delete id="deleteSupermarketByShopId" parameterType="Long">
+        delete
+        from supermarket
+        where shop_id = #{shopId}
+    </delete>
+
+    <delete id="deleteSupermarketByShopIds" parameterType="String">
+        delete from supermarket where shop_id in
+        <foreach item="shopId" collection="array" open="(" separator="," close=")">
+            #{shopId}
+        </foreach>
+    </delete>
+
+</mapper>

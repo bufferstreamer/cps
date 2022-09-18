@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cps.user.mapper.SupplierMapper">
+
+    <resultMap type="Supplier" id="SupplierResult">
+        <result property="supplyId" column="supply_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="companyName" column="company_name"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="companyProperty" column="company_property"/>
+        <result property="companyType" column="company_type"/>
+        <result property="useCode" column="use_code"/>
+        <result property="codeId" column="code_id"/>
+        <result property="contactPerson" column="contact_person"/>
+        <result property="contactCardType" column="contact_card_type"/>
+        <result property="cardId" column="card_id"/>
+        <result property="contactPhone" column="contact_phone"/>
+        <result property="contactEmail" column="contact_email"/>
+        <result property="registerTime" column="register_time"/>
+        <result property="lastLogin" column="last_login"/>
+        <result property="supplyState" column="supply_state"/>
+    </resultMap>
+
+    <sql id="selectSupplierVo">
+        select supply_id,
+               nickname,
+               company_name,
+               username,
+               password,
+               company_property,
+               company_type,
+               use_code,
+               code_id,
+               contact_person,
+               contact_card_type,
+               card_id,
+               contact_phone,
+               contact_email,
+               register_time,
+               last_login,
+               supply_state
+        from supplier
+    </sql>
+
+    <select id="selectSupplierList" parameterType="Supplier" resultMap="SupplierResult">
+        <include refid="selectSupplierVo"/>
+        <where>
+            <if test="nickname != null  and nickname != ''">and nickname like concat('%', #{nickname}, '%')</if>
+            <if test="companyName != null  and companyName != ''">and company_name like concat('%', #{companyName},
+                '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectSupplierBySupplyId" parameterType="Long" resultMap="SupplierResult">
+        <include refid="selectSupplierVo"/>
+        where supply_id = #{supplyId}
+    </select>
+
+    <insert id="insertSupplier" parameterType="Supplier">
+        insert into supplier
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="supplyId != null">supply_id,</if>
+            <if test="nickname != null and nickname != ''">nickname,</if>
+            <if test="companyName != null and companyName != ''">company_name,</if>
+            <if test="username != null and username != ''">username,</if>
+            <if test="password != null and password != ''">password,</if>
+            <if test="companyProperty != null and companyProperty != ''">company_property,</if>
+            <if test="companyType != null and companyType != ''">company_type,</if>
+            <if test="useCode != null and useCode != ''">use_code,</if>
+            <if test="codeId != null">code_id,</if>
+            <if test="contactPerson != null and contactPerson != ''">contact_person,</if>
+            <if test="contactCardType != null and contactCardType != ''">contact_card_type,</if>
+            <if test="cardId != null and cardId != ''">card_id,</if>
+            <if test="contactPhone != null and contactPhone != ''">contact_phone,</if>
+            <if test="contactEmail != null and contactEmail != ''">contact_email,</if>
+            <if test="registerTime != null">register_time,</if>
+            <if test="lastLogin != null">last_login,</if>
+            <if test="supplyState != null">supply_state,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="supplyId != null">#{supplyId},</if>
+            <if test="nickname != null and nickname != ''">#{nickname},</if>
+            <if test="companyName != null and companyName != ''">#{companyName},</if>
+            <if test="username != null and username != ''">#{username},</if>
+            <if test="password != null and password != ''">#{password},</if>
+            <if test="companyProperty != null and companyProperty != ''">#{companyProperty},</if>
+            <if test="companyType != null and companyType != ''">#{companyType},</if>
+            <if test="useCode != null and useCode != ''">#{useCode},</if>
+            <if test="codeId != null">#{codeId},</if>
+            <if test="contactPerson != null and contactPerson != ''">#{contactPerson},</if>
+            <if test="contactCardType != null and contactCardType != ''">#{contactCardType},</if>
+            <if test="cardId != null and cardId != ''">#{cardId},</if>
+            <if test="contactPhone != null and contactPhone != ''">#{contactPhone},</if>
+            <if test="contactEmail != null and contactEmail != ''">#{contactEmail},</if>
+            <if test="registerTime != null">#{registerTime},</if>
+            <if test="lastLogin != null">#{lastLogin},</if>
+            <if test="supplyState != null">#{supplyState},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSupplier" parameterType="Supplier">
+        update supplier
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="nickname != null and nickname != ''">nickname = #{nickname},</if>
+            <if test="companyName != null and companyName != ''">company_name = #{companyName},</if>
+            <if test="username != null and username != ''">username = #{username},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="companyProperty != null and companyProperty != ''">company_property = #{companyProperty},</if>
+            <if test="companyType != null and companyType != ''">company_type = #{companyType},</if>
+            <if test="useCode != null and useCode != ''">use_code = #{useCode},</if>
+            <if test="codeId != null">code_id = #{codeId},</if>
+            <if test="contactPerson != null and contactPerson != ''">contact_person = #{contactPerson},</if>
+            <if test="contactCardType != null and contactCardType != ''">contact_card_type = #{contactCardType},</if>
+            <if test="cardId != null and cardId != ''">card_id = #{cardId},</if>
+            <if test="contactPhone != null and contactPhone != ''">contact_phone = #{contactPhone},</if>
+            <if test="contactEmail != null and contactEmail != ''">contact_email = #{contactEmail},</if>
+            <if test="registerTime != null">register_time = #{registerTime},</if>
+            <if test="lastLogin != null">last_login = #{lastLogin},</if>
+            <if test="supplyState != null">supply_state = #{supplyState},</if>
+        </trim>
+        where supply_id = #{supplyId}
+    </update>
+
+    <delete id="deleteSupplierBySupplyId" parameterType="Long">
+        delete
+        from supplier
+        where supply_id = #{supplyId}
+    </delete>
+
+    <delete id="deleteSupplierBySupplyIds" parameterType="String">
+        delete from supplier where supply_id in
+        <foreach item="supplyId" collection="array" open="(" separator="," close=")">
+            #{supplyId}
+        </foreach>
+    </delete>
+
+</mapper>

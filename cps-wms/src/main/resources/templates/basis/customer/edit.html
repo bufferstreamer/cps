@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('修改客户资料')"/>
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-customer-edit" th:object="${basisCustomer}">
+        <input name="id" th:field="*{id}" type="hidden">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">客户编码：</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" maxlength="16" name="customerCode" readonly
+                               required th:field="*{customerCode}" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">客户名称：</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" maxlength="30" name="customerName" required
+                               th:field="*{customerName}" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">营业执照(税号)：</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" name="businessLicense" th:field="*{businessLicense}" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">联系人：</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" maxlength="6" name="contactPerson" required
+                               th:field="*{contactPerson}" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">电话：</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" maxlength="16" name="telephone" required th:field="*{telephone}"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">手机：</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" maxlength="11" name="mobilePhone" th:field="*{mobilePhone}"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">邮箱：</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" maxlength="50" name="email" th:field="*{email}" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">地址：</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" maxlength="100" name="address" required th:field="*{address}"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">级别：</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="customerLevel" required
+                                th:with="type=${@dict.getType('wms_level')}">
+                            <option th:each="dict : ${type}" th:field="*{customerLevel}" th:text="${dict.dictLabel}"
+                                    th:value="${dict.dictValue}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">联系人1：</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" maxlength="6" name="contactPersonOne" th:field="*{contactPersonOne}"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">电话1：</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" maxlength="16" name="telephoneOne" th:field="*{telephoneOne}"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">发票抬头：</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" maxlength="64" name="invoiceLookedUp" required
+                               th:field="*{invoiceLookedUp}" type="text">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">发票税率：</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" maxlength="4" name="invoiceTax" required th:field="*{invoiceTax}"
+                               type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">发票种类：</label>
+                    <div class="col-sm-8">
+                        <select class="form-control m-b" name="invoiceType"
+                                th:with="type=${@dict.getType('sys_invoice')}">
+                            <option th:each="dict : ${type}" th:field="*{invoiceType}" th:text="${dict.dictLabel}"
+                                    th:value="${dict.dictValue}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">备注：</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" maxlength="200" name="remark">[[*{remark}]]</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    var prefix = ctx + "basis/customer";
+    $("#form-customer-edit").validate({
+        onkeyup: false,
+        rules: {
+            email: {
+                email: true,
+            },
+            mobilePhone: {
+                isPhone: true,
+            },
+            telephoneOne: {
+                isPhone: true,
+            },
+            invoiceTax: {
+                min: 0,
+                max: 1,
+                number: true,
+            },
+        },
+        messages: {
+            "email": {
+                remote: "Email格式不对"
+            },
+            "mobilePhone": {
+                remote: "手机号码格式不对"
+            },
+            "telephoneOne": {
+                remote: "手机号码格式不对"
+            },
+            "invoiceTax": {
+                remote: "必须输入合法的数字(包含小数)"
+            }
+        },
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit", $('#form-customer-edit').serialize());
+        }
+    }
+</script>
+</body>
+</html>

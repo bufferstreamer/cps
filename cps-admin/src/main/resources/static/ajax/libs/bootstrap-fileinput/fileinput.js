@@ -44,13 +44,13 @@
             return [].concat(this.map(lambda));
         };
     }
-    
+
     if (!document.currentScript) {
-        document.currentScript = function() {
+        document.currentScript = function () {
             var scripts = document.getElementsByTagName('script');
             return scripts[scripts.length - 1];
         }();
-	}
+    }
 
     var $h, FileInput, getLoadingUrl = function () {
         var src = document.currentScript.src, srcPath = src.substring(0, src.lastIndexOf("/"));
@@ -357,7 +357,7 @@
         },
         dataURI2Blob: function (dataURI) {
             var BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder ||
-                window.MSBlobBuilder, canBlob = $h.hasBlobSupport(), byteStr, arrayBuffer, intArray, i, mimeStr, bb,
+                    window.MSBlobBuilder, canBlob = $h.hasBlobSupport(), byteStr, arrayBuffer, intArray, i, mimeStr, bb,
                 canProceed = (canBlob || BlobBuilder) && window.atob && window.ArrayBuffer && window.Uint8Array;
             if (!canProceed) {
                 return null;
@@ -1596,7 +1596,7 @@
                         return;
                     }
                     var fd, outData, fnBefore, fnSuccess, fnError, fnComplete, slice = file.slice ? 'slice' :
-                        (file.mozSlice ? 'mozSlice' : (file.webkitSlice ? 'webkitSlice' : 'slice')),
+                            (file.mozSlice ? 'mozSlice' : (file.webkitSlice ? 'webkitSlice' : 'slice')),
                         blob = file[slice](chunkSize * index, chunkSize * (index + 1));
                     fd = new FormData();
                     f = fm.stack[id];
@@ -2338,7 +2338,7 @@
         _showFileError: function (msg, params, event) {
             var self = this, $error = self.$errorContainer, ev = event || 'fileuploaderror',
                 fId = params && params.fileId || '', e = params && params.id ?
-                '<li data-thumb-id="' + params.id + '" data-file-id="' + fId + '">' + msg + '</li>' : '<li>' + msg + '</li>';
+                    '<li data-thumb-id="' + params.id + '" data-file-id="' + fId + '">' + msg + '</li>' : '<li>' + msg + '</li>';
 
             if ($error.find('ul').length === 0) {
                 self._addError('<ul>' + e + '</ul>');
@@ -2562,7 +2562,7 @@
         _autoFitContent: function () {
             var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
                 self = this, config = width < 400 ? (self.previewSettingsSmall || self.defaults.previewSettingsSmall) :
-                (self.previewSettings || self.defaults.previewSettings), sel;
+                    (self.previewSettings || self.defaults.previewSettings), sel;
             $.each(config, function (cat, settings) {
                 sel = '.file-preview-frame .file-preview-' + cat;
                 self.$preview.find(sel + '.kv-preview-data,' + sel + ' .kv-preview-data').css(settings);
@@ -5342,7 +5342,7 @@
                 fileExt = self.allowedFileExtensions, strExt = $h.isEmpty(fileExt) ? '' : fileExt.join(', '),
                 throwError = function (msg, file, previewId, index, fileId) {
                     var $thumb, p1 = $.extend(true, {}, self._getOutData(null, {}, {}, files),
-                        {id: previewId, index: index, fileId: fileId}),
+                            {id: previewId, index: index, fileId: fileId}),
                         p2 = {id: previewId, index: index, fileId: fileId, file: file, files: files};
                     self._previewDefault(file, true);
                     $thumb = self._getFrame(previewId, true);
@@ -6054,7 +6054,7 @@
             return $container.html();
         },
         previewZoomButtonIcons: {
-        	prev: '<i class="glyphicon glyphicon-triangle-left"></i>',
+            prev: '<i class="glyphicon glyphicon-triangle-left"></i>',
             next: '<i class="glyphicon glyphicon-triangle-right"></i>',
             toggleheader: '<i class="glyphicon glyphicon-resize-vertical"></i>',
             fullscreen: '<i class="glyphicon glyphicon-fullscreen"></i>',
@@ -6287,9 +6287,9 @@
             close: 'Close detailed preview'
         }
     };
-    
+
     $.fn.fileinputLocales.zh = {
-		sizeUnits: ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'], 
+        sizeUnits: ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
         bitRateUnits: ['B/s', 'KB/s', 'MB/s', 'GB/s', 'TB/s', 'PB/s', 'EB/s', 'ZB/s', 'YB/s'],
         fileSingle: '文件',
         filePlural: '个文件',
@@ -6356,7 +6356,7 @@
         msgAjaxError: '{operation} 发生错误. 请重试!',
         msgAjaxProgressError: '{operation} 失败',
         msgDuplicateFile: '文件 "{name}",大小 "{size} KB" 已经被选中.忽略相同的文件.',
-        msgResumableUploadRetriesExceeded:  '文件 <b>{file}</b> 上传失败超过 <b>{max}</b> 次重试 ! 错误详情: <pre>{error}</pre>',
+        msgResumableUploadRetriesExceeded: '文件 <b>{file}</b> 上传失败超过 <b>{max}</b> 次重试 ! 错误详情: <pre>{error}</pre>',
         msgPendingTime: '{time} 剩余',
         msgCalculatingTime: '计算剩余时间',
         ajaxOperations: {
@@ -6378,7 +6378,7 @@
             indicatorSuccessTitle: '上传',
             indicatorErrorTitle: '上传错误',
             indicatorPausedTitle: '上传已暂停',
-            indicatorLoadingTitle:  '上传 &hellip;'
+            indicatorLoadingTitle: '上传 &hellip;'
         },
         previewZoomButtonTitles: {
             prev: '预览上一个文件',
@@ -6389,7 +6389,7 @@
             close: '关闭当前预览'
         }
     };
-    
+
     $.fn.fileinput.Constructor = FileInput;
 
     /**

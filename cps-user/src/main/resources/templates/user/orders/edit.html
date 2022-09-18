@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('修改订单')"/>
+    <th:block th:include="include :: datetimepicker-css"/>
+    <th:block th:include="include :: bootstrap-fileinput-css"/>
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-orders-edit" th:object="${orders}">
+        <input name="orderId" th:field="*{orderId}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">产品名称：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="untitled" th:field="*{untitled}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">收货人快照：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="receiverName" required th:field="*{receiverName}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">收货人手机号快照：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="receiverMobile" required th:field="*{receiverMobile}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">收货地址快照：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="receiverAddress" required th:field="*{receiverAddress}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">订单总价格：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="totalAmount" th:field="*{totalAmount}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">实际支付总价格：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="actualAmount" th:field="*{actualAmount}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">支付方式 1:微信 2:支付宝：</label>
+            <div class="col-sm-8">
+                <select class="form-control m-b" name="payType" th:with="type=${@dict.getType('pay_type')}">
+                    <option th:each="dict : ${type}" th:field="*{payType}" th:text="${dict.dictLabel}"
+                            th:value="${dict.dictValue}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">订单备注：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="orderRemark" th:field="*{orderRemark}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">订单状态 1:待付款 2:待发货 3:待收货 4:待评价 5:已完成
+                6:已关闭：</label>
+            <div class="col-sm-8">
+                <div class="radio-box" th:each="dict : ${@dict.getType('order_status')}">
+                    <input name="status" th:field="*{status}" th:id="${'status_' + dict.dictCode}" th:value="${dict.dictValue}"
+                           type="radio">
+                    <label th:for="${'status_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">配送方式：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="deliveryType" th:field="*{deliveryType}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">物流单号：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="deliveryFlowId" th:field="*{deliveryFlowId}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">订单运费 默认可以为零，代表包邮：</label>
+            <div class="col-sm-8">
+                <input class="form-control" name="orderFreight" th:field="*{orderFreight}" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">逻辑删除状态 1: 删除 0:未删除：</label>
+            <div class="col-sm-8">
+                <div class="radio-box" th:each="dict : ${@dict.getType('delete_status')}">
+                    <input name="deleteStatus" th:field="*{deleteStatus}" th:id="${'deleteStatus_' + dict.dictCode}"
+                           th:value="${dict.dictValue}" type="radio">
+                    <label th:for="${'deleteStatus_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">付款时间：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input class="form-control" name="payTime" placeholder="yyyy-MM-dd"
+                           th:value="${#dates.format(orders.payTime, 'yyyy-MM-dd')}" type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">发货时间：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input class="form-control" name="deliveryTime"
+                           placeholder="yyyy-MM-dd" th:value="${#dates.format(orders.deliveryTime, 'yyyy-MM-dd')}" type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">完成时间：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input class="form-control" name="flishTime"
+                           placeholder="yyyy-MM-dd" th:value="${#dates.format(orders.flishTime, 'yyyy-MM-dd')}" type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">取消时间：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input class="form-control" name="cancelTime"
+                           placeholder="yyyy-MM-dd" th:value="${#dates.format(orders.cancelTime, 'yyyy-MM-dd')}" type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">订单关闭类型1-超时未支付 2-退款关闭 4-买家取消
+                15-已通过货到付款交易：</label>
+            <div class="col-sm-8">
+                <select class="form-control m-b" name="closeType" th:with="type=${@dict.getType('order_close_type')}">
+                    <option th:each="dict : ${type}" th:field="*{closeType}" th:text="${dict.dictLabel}"
+                            th:value="${dict.dictValue}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">订单交割时间：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input class="form-control" name="dueTime" placeholder="yyyy-MM-dd"
+                           th:value="${#dates.format(orders.dueTime, 'yyyy-MM-dd')}" type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: datetimepicker-js"/>
+<th:block th:include="include :: bootstrap-fileinput-js"/>
+<script th:inline="javascript">
+    var prefix = ctx + "user/orders";
+    $("#form-orders-edit").validate({
+        focusCleanup: true,
+        rules: {
+            receiverName: "isName",
+            receiverMobile: "isPhone",
+            receiverAddress: "isAddress",
+            totalAmount: "isMoney",
+            actualAmount: "isMoney",
+            orderFreight: "isMoney"
+        }
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit", $('#form-orders-edit').serialize());
+        }
+    }
+
+    $("input[name='payTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
+
+    $("input[name='deliveryTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
+
+    $("input[name='flishTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
+
+    $("input[name='cancelTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
+
+    $("input[name='dueTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
+
+    $(".file-upload").each(function (i) {
+        var val = $("input[name='" + this.id + "']").val()
+        $(this).fileinput({
+            'uploadUrl': ctx + 'common/upload',
+            initialPreviewAsData: true,
+            initialPreview: [val],
+            maxFileCount: 1,
+            autoReplace: true
+        }).on('fileuploaded', function (event, data, previewId, index) {
+            $("input[name='" + event.currentTarget.id + "']").val(data.response.url)
+        }).on('fileremoved', function (event, id, index) {
+            $("input[name='" + event.currentTarget.id + "']").val('')
+        })
+        $(this).fileinput('_initFileActions');
+    });
+</script>
+</body>
+</html>

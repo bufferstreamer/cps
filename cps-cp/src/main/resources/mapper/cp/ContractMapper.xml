@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cps.cp.mapper.ContractMapper">
+
+    <resultMap type="Contract" id="ContractResult">
+        <result property="contractId" column="contract_id"/>
+        <result property="tenderId" column="tender_id"/>
+        <result property="contractType" column="contract_type"/>
+        <result property="contractDocument" column="contract_document"/>
+        <result property="signatureA" column="signature_a"/>
+        <result property="signatureB" column="signature_b"/>
+        <result property="contractTime" column="contract_time"/>
+    </resultMap>
+
+    <sql id="selectContractVo">
+        select contract_id, tender_id, contract_type, contract_document, signature_a, signature_b, contract_time
+        from contract
+    </sql>
+
+    <select id="selectContractList" parameterType="Contract" resultMap="ContractResult">
+        <include refid="selectContractVo"/>
+        <where>
+            <if test="contractId != null  and contractId != ''">and contract_id = #{contractId}</if>
+        </where>
+    </select>
+
+    <select id="selectContractByContractId" parameterType="String" resultMap="ContractResult">
+        <include refid="selectContractVo"/>
+        where contract_id = #{contractId}
+    </select>
+
+    <insert id="insertContract" parameterType="Contract">
+        insert into contract
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="contractId != null">contract_id,</if>
+            <if test="tenderId != null and tenderId != ''">tender_id,</if>
+            <if test="contractType != null and contractType != ''">contract_type,</if>
+            <if test="contractDocument != null and contractDocument != ''">contract_document,</if>
+            <if test="signatureA != null and signatureA != ''">signature_a,</if>
+            <if test="signatureB != null and signatureB != ''">signature_b,</if>
+            <if test="contractTime != null">contract_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="contractId != null">#{contractId},</if>
+            <if test="tenderId != null and tenderId != ''">#{tenderId},</if>
+            <if test="contractType != null and contractType != ''">#{contractType},</if>
+            <if test="contractDocument != null and contractDocument != ''">#{contractDocument},</if>
+            <if test="signatureA != null and signatureA != ''">#{signatureA},</if>
+            <if test="signatureB != null and signatureB != ''">#{signatureB},</if>
+            <if test="contractTime != null">#{contractTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateContract" parameterType="Contract">
+        update contract
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="tenderId != null and tenderId != ''">tender_id = #{tenderId},</if>
+            <if test="contractType != null and contractType != ''">contract_type = #{contractType},</if>
+            <if test="contractDocument != null and contractDocument != ''">contract_document = #{contractDocument},</if>
+            <if test="signatureA != null and signatureA != ''">signature_a = #{signatureA},</if>
+            <if test="signatureB != null and signatureB != ''">signature_b = #{signatureB},</if>
+            <if test="contractTime != null">contract_time = #{contractTime},</if>
+        </trim>
+        where contract_id = #{contractId}
+    </update>
+
+    <delete id="deleteContractByContractId" parameterType="String">
+        delete
+        from contract
+        where contract_id = #{contractId}
+    </delete>
+
+    <delete id="deleteContractByContractIds" parameterType="String">
+        delete from contract where contract_id in
+        <foreach item="contractId" collection="array" open="(" separator="," close=")">
+            #{contractId}
+        </foreach>
+    </delete>
+
+</mapper>
