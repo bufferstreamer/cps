@@ -8,12 +8,14 @@ import com.cps.common.annotation.Log;
 import com.cps.common.constant.Constants;
 import com.cps.common.core.controller.BaseController;
 import com.cps.common.core.domain.AjaxResult;
+import com.cps.common.core.domain.entity.SysUser;
 import com.cps.common.core.page.TableDataInfo;
 import com.cps.common.enums.BusinessType;
 import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.ShiroUtils;
 import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.utils.uuid.IdUtils;
+import com.cps.common.utils.uuid.Seq;
 import com.cps.cp.domain.QualificationReview;
 import com.cps.cp.domain.Tender;
 import com.cps.cp.service.IQualificationReviewService;
@@ -25,6 +27,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -145,8 +148,12 @@ public class Tender1Controller extends BaseController {
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult addSave(Tender tender) throws IOException {
+        // 获取当前的用户信息
+        SysUser currentUser = ShiroUtils.getSysUser();
         tender.setBidNumber(1);
-        tender.setTenderId(IdUtils.fastSimpleUUID().substring(0, 22));
+//        tender.setTenderId(IdUtils.fastSimpleUUID().substring(0, 22));
+        tender.setGxsId(currentUser.getUserId());
+        tender.setTenderId("zb"+ Seq.getId());
         tender.setCreateDatetime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
 //        String readFilePath = "G:\\Code\\Test\\zhaobiao.docx";
         logger.info(tender.getTenderDocument());

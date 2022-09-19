@@ -79,7 +79,8 @@
     function downloadFile(value) {
         window.location.href = ctx + "common/download/resource?resource=" + value;
     }
-        function detl( id) {  $.modal.open("公告详情",ctx+"cp/tender1/detail/"+id,1200,630); }
+
+    function detl( id) {  $.modal.open("公告详情",ctx+"cp/tender1/detail/"+id,1200,630); }
 
     function qualificationReview(tenderId) {
         if([[${userCreditScore}]] < [[${CREDIT_SCORE_MAIN}]]){

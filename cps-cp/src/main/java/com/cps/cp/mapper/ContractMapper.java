@@ -28,6 +28,14 @@ public interface ContractMapper {
     public List<Contract> selectContractList(Contract contract);
 
     /**
+     * 查询合同列表
+     *
+     * @param userId 签名方用户ID
+     * @return 合同集合
+     */
+    public List<Contract> selectContractListByUserId(Long userId);
+
+    /**
      * 新增合同
      *
      * @param contract 合同

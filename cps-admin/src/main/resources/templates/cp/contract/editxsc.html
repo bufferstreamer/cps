@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div id="yi" class="form-group">
+        <div id="yi" class="form-group" hidden>
             <label class="col-sm-3 control-label is-required">乙方是否签名：</label>
             <div class="col-sm-8">
                 <div class="radio-box" th:each="dict : ${@dict.getType('contract_signature')}">
@@ -86,13 +86,6 @@
         }
         return null;
     }
-    var contractTypeValue = GetRadioValue("contractType");
-    if (contractTypeValue == 1){
-        $("#jia").hide()
-    } else {
-        $("#yi").hide()
-    }
-
 
     function submitHandler() {
         if ($.validate.form()) {

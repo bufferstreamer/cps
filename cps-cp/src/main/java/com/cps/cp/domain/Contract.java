@@ -60,6 +60,20 @@ public class Contract extends BaseEntity {
     @Excel(name = "合同签定时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date contractTime;
 
+    /**
+     * 非管理员签名方的ID
+     */
+    @Excel(name = "非管理员签名方的ID")
+    private Long signatureUserId;
+
+    public Long getSignatureUserId() {
+        return signatureUserId;
+    }
+
+    public void setSignatureUserId(Long signatureUserId) {
+        this.signatureUserId = signatureUserId;
+    }
+
     public String getContractId() {
         return contractId;
     }
@@ -126,6 +140,7 @@ public class Contract extends BaseEntity {
                 .append("signatureA", getSignatureA())
                 .append("signatureB", getSignatureB())
                 .append("contractTime", getContractTime())
+                .append("signatureUserId",getSignatureUserId())
                 .toString();
     }
 }

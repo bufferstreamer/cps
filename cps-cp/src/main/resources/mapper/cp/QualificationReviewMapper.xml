@@ -33,8 +33,9 @@
         <where>  
 <!--            <if test="qualificationReviewId != null  and qualificationReviewId != ''"> and qualification_review_id like concat('%', #{qualificationReviewId}, '%')</if>-->
             <if test="supplyId != null  and supplyId != ''"> and supply_Id like concat('%', #{supplyId}, '%')</if>
-            <if test="goodsId != null  and goodsId != ''"> and goods_Id like concat('%', #{goodsId}, '%')</if>
+<!--            <if test="goodsId != null  and goodsId != ''"> and goods_Id like concat('%', #{goodsId}, '%')</if>-->
             <if test="tenderId != null  and tenderId != ''"> and tender_Id like concat('%', #{tenderId}, '%')</if>
+            <if test="auditStatus != null  and auditStatus != ''">and audit_status = #{auditStatus}</if>
         </where>
     </select>
 
