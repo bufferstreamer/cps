@@ -45,10 +45,10 @@
                shiro:hasPermission="user:orders:edit">
                 <i class="fa fa-edit"></i> 修改
             </a>
-            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()"
-               shiro:hasPermission="user:orders:remove">
-                <i class="fa fa-remove"></i> 删除
-            </a>
+<!--            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()"-->
+<!--               shiro:hasPermission="user:orders:remove">-->
+<!--                <i class="fa fa-remove"></i> 删除-->
+<!--            </a>-->
             <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="user:orders:export">
                 <i class="fa fa-download"></i> 导出
             </a>
@@ -189,7 +189,7 @@
                         var actions = [];
                         actions.push('<a class="btn btn-info btn-xs ' + detailFlag + '" href="javascript:void(0)" onclick="showDetail(\'' + row.orderId + '\')"><i class="fa fa-search"></i>查看</a> ');
                         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.orderId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.orderId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        // actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.orderId + '\')"><i class="fa fa-remove"></i>删除</a>');
                         return actions.join('');
                     }
                 }]

@@ -59,6 +59,10 @@ public class SupplierCreditEvaluationInfo extends BaseEntity {
     @Excel(name = "创建时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date createDatetime;
 
+    /** 邮箱 */
+    @Excel(name = "邮箱")
+    private String email;
+
     public String getSupplierCreditEvaluationAuditId() {
         return supplierCreditEvaluationAuditId;
     }
@@ -115,6 +119,16 @@ public class SupplierCreditEvaluationInfo extends BaseEntity {
         this.createDatetime = createDatetime;
     }
 
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+
+    public String getEmail()
+    {
+        return email;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
@@ -125,6 +139,7 @@ public class SupplierCreditEvaluationInfo extends BaseEntity {
                 .append("frName", getFrName())
                 .append("frCriminalRecord", getFrCriminalRecord())
                 .append("createDatetime", getCreateDatetime())
+                .append("email",getEmail())
                 .toString();
     }
 }
