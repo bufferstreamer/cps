@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cps.user.mapper.CategoryMapper">
+
+    <resultMap type="Category" id="CategoryResult">
+            <result property="categoryId" column="category_id"/>
+            <result property="categoryLevel" column="category_level"/>
+            <result property="parentId" column="parent_id"/>
+            <result property="categoryName" column="category_name"/>
+    </resultMap>
+
+    <sql id="selectCategoryVo">
+        select category_id, category_level, parent_id, category_name
+        from category
+    </sql>
+
+    <select id="selectCategoryList" parameterType="Category" resultMap="CategoryResult">
+        <include refid="selectCategoryVo"/>
+        <where>
+                        <if test="categoryLevel != null  and categoryLevel != ''">
+                            and category_level = #{categoryLevel}
+                        </if>
+                        <if test="parentId != null  and parentId != ''">
+                            and parent_id = #{parentId}
+                        </if>
+                        <if test="categoryName != null  and categoryName != ''">
+                            and category_name like concat('%', #{categoryName}, '%')
+                        </if>
+        </where>
+    </select>
+
+    <select id="selectCategoryByCategoryId" parameterType="String"
+            resultMap="CategoryResult">
+            <include refid="selectCategoryVo"/>
+            where category_id = #{categoryId}
+    </select>
+
+    <insert id="insertCategory" parameterType="Category">
+        insert into category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="categoryId != null">category_id,
+                    </if>
+                    <if test="categoryLevel != null">category_level,
+                    </if>
+                    <if test="parentId != null">parent_id,
+                    </if>
+                    <if test="categoryName != null">category_name,
+                    </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="categoryId != null">#{categoryId},
+                    </if>
+                    <if test="categoryLevel != null">#{categoryLevel},
+                    </if>
+                    <if test="parentId != null">#{parentId},
+                    </if>
+                    <if test="categoryName != null">#{categoryName},
+                    </if>
+        </trim>
+    </insert>
+
+    <update id="updateCategory" parameterType="Category">
+        update category
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="categoryLevel != null">category_level =
+                        #{categoryLevel},
+                    </if>
+                    <if test="parentId != null">parent_id =
+                        #{parentId},
+                    </if>
+                    <if test="categoryName != null">category_name =
+                        #{categoryName},
+                    </if>
+        </trim>
+        where category_id = #{categoryId}
+    </update>
+
+    <delete id="deleteCategoryByCategoryId" parameterType="String">
+        delete
+        from category where category_id = #{categoryId}
+    </delete>
+
+    <delete id="deleteCategoryByCategoryIds" parameterType="String">
+        delete from category where category_id in
+        <foreach item="categoryId" collection="array" open="(" separator="," close=")">
+            #{categoryId}
+        </foreach>
+    </delete>
+
+</mapper>
