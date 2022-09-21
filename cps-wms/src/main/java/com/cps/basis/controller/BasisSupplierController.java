@@ -44,7 +44,8 @@ public class BasisSupplierController extends BaseController {
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo list(BasisSupplier basisSupplier) {
-        basisSupplier.setDeptId(ShiroUtils.getDeptId());
+        //注释了有关供应商管理展示的限制（有关deptId）
+//        basisSupplier.setDeptId(ShiroUtils.getDeptId());
         startPage();
         List<BasisSupplier> list = basisSupplierService.selectBasisSupplierList(basisSupplier);
         return getDataTable(list);

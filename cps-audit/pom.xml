@@ -27,6 +27,10 @@
             <artifactId>cps-system</artifactId>
             <version>${cps.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-wms</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
