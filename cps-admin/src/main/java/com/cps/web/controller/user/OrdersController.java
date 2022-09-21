@@ -8,8 +8,11 @@ import com.cps.common.core.page.TableDataInfo;
 import com.cps.common.enums.BusinessType;
 import com.cps.common.utils.StringUtils;
 import com.cps.common.utils.poi.ExcelUtil;
+import com.cps.framework.web.domain.server.Sys;
 import com.cps.system.service.ISysUserService;
+import com.cps.user.domain.OrderItem;
 import com.cps.user.domain.Orders;
+import com.cps.user.service.IOrderItemService;
 import com.cps.user.service.IOrdersService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -182,5 +186,28 @@ public class OrdersController extends BaseController {
         map.put("goodName",goodName);
         map.put("orderDict", orderDict);
         return prefix + "/receiver";
+    }
+
+    @Autowired
+    private IOrderItemService orderItemService;
+
+    @RequiresPermissions("user:orders:detail")
+    @GetMapping("/detail/{orderId}")
+    public String detail(@PathVariable("orderId") String orderId, ModelMap map){
+        OrderItem item=new OrderItem();
+        item.setOrderId(orderId);
+        List<OrderItem> itemList = orderItemService.selectOrderItemList(item);
+
+        float total = 0;
+        for (OrderItem temp:itemList)
+        {
+            temp.setProductPrice(temp.getProductPrice().setScale(2,BigDecimal.ROUND_DOWN));
+            temp.setTotalAmount(temp.getTotalAmount().setScale(2,BigDecimal.ROUND_DOWN));
+            total += temp.getTotalAmount().doubleValue();
+        }
+        map.put("itemList",itemList);
+        map.put("total",String.format("%.2f", total));
+
+        return prefix+"/detail";
     }
 }
