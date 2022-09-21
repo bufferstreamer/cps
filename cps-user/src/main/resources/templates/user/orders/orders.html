@@ -52,7 +52,7 @@
             <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="user:orders:export">
                 <i class="fa fa-download"></i> 导出
             </a>
-            <a class="btn btn-warning" onclick="$.operate.echartsFull()">
+            <a class="btn btn-warning" onclick="showCategory(0)">
                 <i class="fa fa-download"></i> 饼状图
             </a>
         </div>
@@ -75,6 +75,10 @@
         $.modal.open("产品列表",prefix+"/detail/"+orderId);
     }
 
+    function showCategory(parentId){
+        $.modal.openTab("订单分类图", prefix+"/category/"+parentId);
+    }
+
     $(function () {
         var options = {
             url: prefix + "/list",
@@ -82,8 +86,7 @@
             updateUrl: prefix + "/edit/{id}",
             removeUrl: prefix + "/remove",
             exportUrl: prefix + "/export",
-            echartUrl: prefix + "/goods",
-            modalName: "商品订单",
+            modalName: "订单汇总",
             columns: [{
                 checkbox: true
             },

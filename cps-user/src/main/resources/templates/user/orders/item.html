@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('商品订单')"/>
+    <th:block th:include="include :: header('商品销量')"/>
     <script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
     <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
     <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js" type="text/javascript"></script>
@@ -19,14 +19,14 @@
     var myChart = echarts.init(document.getElementById("main"));
 
     myChart.on("click", function (params) {
-        console.log(params.name);
+        console.log(params);
         $.modal.openTab("商品买家图", prefix + "/receiver/" + params.name);
     });
 
     var pie=[];
 
-    var keys = Object.keys([[${orderDict}]]);
-    var values = Object.values([[${orderDict}]]);
+    var keys = Object.keys([[${itemDict}]]);
+    var values = Object.values([[${itemDict}]]);
     for (var i=0;i<keys.length;i++){
         var info={};
         info.name=keys[i];
@@ -36,7 +36,7 @@
 
     var option = {
         title: {
-            text: '商品订单汇总',
+            text: '商品销量汇总',
             left: 'center',
             top: 20
         },
@@ -46,7 +46,7 @@
         },
         series: [
             {
-                name: "订单数",
+                name: "销量",
                 type: "pie",
                 radius:"55%",
                 data: pie
