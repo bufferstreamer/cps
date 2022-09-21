@@ -3,9 +3,11 @@ package com.cps.cp.controller;
 import com.cps.common.annotation.Log;
 import com.cps.common.core.controller.BaseController;
 import com.cps.common.core.domain.AjaxResult;
+import com.cps.common.core.domain.entity.SysUser;
 import com.cps.common.core.page.TableDataInfo;
 import com.cps.common.enums.BusinessType;
 import com.cps.common.utils.DateUtils;
+import com.cps.common.utils.ShiroUtils;
 import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.utils.uuid.IdUtils;
 import com.cps.cp.domain.Contract;
@@ -46,7 +48,20 @@ public class ContractController extends BaseController {
     @ResponseBody
     public TableDataInfo list(Contract contract) {
         startPage();
-        List<Contract> list = contractService.selectContractList(contract);
+        // 获取当前的用户信息
+        SysUser currentUser = ShiroUtils.getSysUser();
+//        Long roleId = currentUser.getRoleId();
+        String userLoginName = currentUser.getLoginName();
+        List<Contract> list = null;
+        Long userId = currentUser.getUserId();
+        System.out.println("UserId : "+userId);
+        //103供应商 102超市 1管理员
+        if(userLoginName.equals("admin")){
+            list = contractService.selectContractList(contract);
+        }else{
+            list = contractService.selectContractListByUserId(userId);
+        }
+
         return getDataTable(list);
     }
 
@@ -81,6 +96,9 @@ public class ContractController extends BaseController {
     public AjaxResult addSave(Contract contract) {
         contract.setContractTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
         contract.setContractId(IdUtils.fastSimpleUUID());
+        //签名设置成 未签名
+        contract.setSignatureA("0");
+        contract.setSignatureB("0");
         return toAjax(contractService.insertContract(contract));
     }
 
@@ -92,7 +110,21 @@ public class ContractController extends BaseController {
     public String edit(@PathVariable("contractId") String contractId, ModelMap mmap) {
         Contract contract = contractService.selectContractByContractId(contractId);
         mmap.put("contract", contract);
-        return prefix + "/edit";
+        String resultUrl = "";
+        // 获取当前的用户信息
+        SysUser currentUser = ShiroUtils.getSysUser();
+        String userLoginName = currentUser.getLoginName();
+        if(userLoginName.equals("admin")){
+            resultUrl = prefix + "/edit";
+        }else{
+            if(contract.getContractType().equals("0")){
+                resultUrl = prefix + "/editgys";
+            }else{
+                resultUrl = prefix + "/editxsc";
+            }
+        }
+
+        return resultUrl;
     }
 
     /**
@@ -129,5 +161,11 @@ public class ContractController extends BaseController {
     @RequestMapping("/search/")
     public String queryTender() {
         return prefix + "/search";
+    }
+
+    // 查询用户
+    @RequestMapping("/user/")
+    public String queryUser() {
+        return prefix + "/user";
     }
 }

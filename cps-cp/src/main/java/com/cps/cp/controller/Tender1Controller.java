@@ -8,12 +8,14 @@ import com.cps.common.annotation.Log;
 import com.cps.common.constant.Constants;
 import com.cps.common.core.controller.BaseController;
 import com.cps.common.core.domain.AjaxResult;
+import com.cps.common.core.domain.entity.SysUser;
 import com.cps.common.core.page.TableDataInfo;
 import com.cps.common.enums.BusinessType;
 import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.ShiroUtils;
 import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.utils.uuid.IdUtils;
+import com.cps.common.utils.uuid.Seq;
 import com.cps.cp.domain.QualificationReview;
 import com.cps.cp.domain.Tender;
 import com.cps.cp.service.IQualificationReviewService;
@@ -25,10 +27,12 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -68,6 +72,8 @@ public class Tender1Controller extends BaseController {
     @Autowired
     private IUserCreditService userCreditService;
 
+    @Value("${cps.profile}")
+    private String profile;
 
     @RequiresPermissions("cp:tender1:view")
     @GetMapping()
@@ -142,12 +148,16 @@ public class Tender1Controller extends BaseController {
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult addSave(Tender tender) throws IOException {
+        // 获取当前的用户信息
+        SysUser currentUser = ShiroUtils.getSysUser();
         tender.setBidNumber(1);
-        tender.setTenderId(IdUtils.fastSimpleUUID().substring(0, 22));
+//        tender.setTenderId(IdUtils.fastSimpleUUID().substring(0, 22));
+        tender.setGxsId(currentUser.getUserId());
+        tender.setTenderId("zb"+ Seq.getId());
         tender.setCreateDatetime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
 //        String readFilePath = "G:\\Code\\Test\\zhaobiao.docx";
         logger.info(tender.getTenderDocument());
-        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", "D:/cps/uploadPath");
+        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", profile);
         File file = new File(readFilePath);
         FileInputStream fileInputStream = new FileInputStream(readFilePath);
 
@@ -272,7 +282,7 @@ public class Tender1Controller extends BaseController {
     public String qpcs(@PathVariable("tenderId") String tenderId, ModelMap mmap) throws IOException {
         Tender tender = tenderService.selectTenderByTenderId(tenderId);
 //        mmap.put("tender", tender);
-        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", "D:/cps/uploadPath");
+        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", profile);
 //        String readFilePath = "G:/Code/Test/zhaobiao3.docx";
 
         File file = new File(readFilePath);
@@ -324,7 +334,7 @@ public class Tender1Controller extends BaseController {
         for (int i = 0; i < productNumber; i++) {
             HashMap<String, ArrayList> gysDataMap = new HashMap<>();
             for (CentralizedPurchaseRecord centralizedPurchaseRecord : centralizedPurchaseRecordList) {
-                String readCPRFilePath = centralizedPurchaseRecord.getTenderDocument().replace("http://localhost/cps/profile", "D:/cps/uploadPath");
+                String readCPRFilePath = centralizedPurchaseRecord.getTenderDocument().replace("http://localhost/cps/profile", profile);
 
                 FileInputStream fileInputStream1 = new FileInputStream(readCPRFilePath);
 
@@ -384,6 +394,7 @@ public class Tender1Controller extends BaseController {
         return prefix + "/qpcs";
     }
 
+    //资质审核
     private boolean CanQualificationReview(QualificationReview review) {
         List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
         if (tempList == null) {

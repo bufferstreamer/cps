@@ -9412,115 +9412,166 @@ VALUES ('28', '1', '成功', '0', 'sys_common_status', '', 'primary', 'N', '0', 
 INSERT INTO `sys_dict_data`
 VALUES ('29', '2', '失败', '1', 'sys_common_status', '', 'danger', 'N', '0', 'admin', '2022-08-18 19:11:50', '', null,
         '停用状态');
+INSERT INTO `sys_dict_data` VALUES ('100', 1, '一级', '1', 'wms_level', NULL, NULL, 'Y', '0', 'admin', '2021-05-19 21:04:59', '', NULL, NULL);
+INSERT INTO `sys_dict_data` VALUES ('101', 2, '二级', '2', 'wms_level', NULL, NULL, 'Y', '0', 'admin', '2021-05-19 21:05:06', '', NULL, NULL);
+INSERT INTO `sys_dict_data` VALUES ('102', 3, '三级', '3', 'wms_level', NULL, NULL, 'Y', '0', 'admin', '2021-05-19 21:05:13', '', NULL, NULL);
+INSERT INTO `sys_dict_data` VALUES ('103', 1, '收货储位', '1', 'wms_storage_type', NULL, NULL, 'Y', '0', 'admin', '2021-05-23 18:25:24', '', NULL, '收货储位');
+INSERT INTO `sys_dict_data` VALUES ('104', 2, '存储储位', '2', 'wms_storage_type', NULL, NULL, 'Y', '0', 'admin', '2021-05-23 18:25:47', '', NULL, '存储储位');
+INSERT INTO `sys_dict_data` VALUES ('105', 3, '发货储位', '3', 'wms_storage_type', NULL, NULL, 'Y', '0', 'admin', '2021-05-23 18:26:06', '', NULL, '发货储位');
+INSERT INTO `sys_dict_data` VALUES ('106', 4, '暂存储位', '4', 'wms_storage_type', NULL, NULL, 'Y', '0', 'admin', '2021-05-23 18:26:27', '', NULL, '暂存储位');
+INSERT INTO `sys_dict_data` VALUES ('107', 5, '良品区', '5', 'wms_storage_type', NULL, NULL, 'Y', '0', 'admin', '2021-05-23 18:26:46', '', NULL, '良品区');
+INSERT INTO `sys_dict_data` VALUES ('108', 6, '不良品区', '6', 'wms_storage_type', NULL, NULL, 'Y', '0', 'admin', '2021-05-23 18:27:19', '', NULL, '不良品区');
+INSERT INTO `sys_dict_data` VALUES ('109', 1, '冷藏', '1', 'wms_storage_attribute', NULL, NULL, 'Y', '0', 'admin', '2021-05-23 18:27:49', '', NULL, '冷藏');
+INSERT INTO `sys_dict_data` VALUES ('110', 2, '恒温', '2', 'wms_storage_attribute', NULL, NULL, 'Y', '0', 'admin', '2021-05-23 18:28:02', '', NULL, '恒温');
+INSERT INTO `sys_dict_data` VALUES ('111', 3, '超低温', '3', 'wms_storage_attribute', NULL, NULL, 'Y', '0', 'admin', '2021-05-23 18:28:14', '', NULL, '超低温');
+INSERT INTO `sys_dict_data` VALUES ('112', 4, '低温', '4', 'wms_storage_attribute', NULL, NULL, 'Y', '0', 'admin', '2021-05-23 18:28:29', '', NULL, '低温');
+INSERT INTO `sys_dict_data` VALUES ('113', 5, '常温', '5', 'wms_storage_attribute', NULL, NULL, 'Y', '0', 'admin', '2021-05-23 18:28:46', '', NULL, '常温');
+INSERT INTO `sys_dict_data` VALUES ('115', 1, '份', '1', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:08:10', '', NULL, '份');
+INSERT INTO `sys_dict_data` VALUES ('116', 2, '筒', '2', 'MEASURING_UNIT', '', '', 'Y', '1', 'admin', '2021-05-25 13:08:20', 'admin', '2021-05-25 21:18:32', '筒');
+INSERT INTO `sys_dict_data` VALUES ('117', 3, '对', '3', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:08:31', '', NULL, '对');
+INSERT INTO `sys_dict_data` VALUES ('118', 4, '打', '4', 'MEASURING_UNIT', '', '', 'Y', '1', 'admin', '2021-05-25 13:08:44', 'admin', '2021-05-25 21:19:11', '打');
+INSERT INTO `sys_dict_data` VALUES ('119', 5, '平方', '5', 'MEASURING_UNIT', '', '', 'Y', '1', 'admin', '2021-05-25 13:08:57', 'admin', '2021-05-25 21:19:03', '平方');
+INSERT INTO `sys_dict_data` VALUES ('120', 6, '面', '6', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:09:07', '', NULL, '面');
+INSERT INTO `sys_dict_data` VALUES ('121', 7, '罐', '7', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:09:27', '', NULL, '罐');
+INSERT INTO `sys_dict_data` VALUES ('122', 8, '片', '8', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:09:55', '', NULL, '片');
+INSERT INTO `sys_dict_data` VALUES ('123', 9, '辆', '9', 'MEASURING_UNIT', '', '', 'Y', '1', 'admin', '2021-05-25 13:10:14', 'admin', '2021-05-25 21:19:20', '辆');
+INSERT INTO `sys_dict_data` VALUES ('124', 10, '捆', '10', 'MEASURING_UNIT', '', '', 'Y', '1', 'admin', '2021-05-25 13:10:43', 'admin', '2021-05-25 21:18:43', '捆');
+INSERT INTO `sys_dict_data` VALUES ('125', 11, '斤', '11', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:10:59', '', NULL, '斤');
+INSERT INTO `sys_dict_data` VALUES ('126', 12, '排', '12', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:11:13', '', NULL, '排');
+INSERT INTO `sys_dict_data` VALUES ('127', 13, '粒', '13', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:11:25', '', NULL, '粒');
+INSERT INTO `sys_dict_data` VALUES ('128', 14, '把', '14', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:11:42', '', NULL, '把');
+INSERT INTO `sys_dict_data` VALUES ('129', 15, '套', '15', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:11:55', '', NULL, '套');
+INSERT INTO `sys_dict_data` VALUES ('130', 16, '袋', '16', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:12:11', '', NULL, '袋');
+INSERT INTO `sys_dict_data` VALUES ('131', 17, '台', '17', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:12:24', '', NULL, '台');
+INSERT INTO `sys_dict_data` VALUES ('132', 18, '卷', '18', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:13:23', '', NULL, NULL);
+INSERT INTO `sys_dict_data` VALUES ('133', 19, '只', '19', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:13:37', '', NULL, '只');
+INSERT INTO `sys_dict_data` VALUES ('134', 20, '块', '20', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:13:50', '', NULL, '块');
+INSERT INTO `sys_dict_data` VALUES ('135', 21, '件', '21', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:14:16', '', NULL, '件');
+INSERT INTO `sys_dict_data` VALUES ('136', 22, '升', '22', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:14:28', '', NULL, '升');
+INSERT INTO `sys_dict_data` VALUES ('137', 23, '根', '23', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:14:41', '', NULL, '根');
+INSERT INTO `sys_dict_data` VALUES ('138', 24, '组', '24', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:15:04', '', NULL, '组');
+INSERT INTO `sys_dict_data` VALUES ('139', 25, '张', '25', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:15:41', '', NULL, '张');
+INSERT INTO `sys_dict_data` VALUES ('140', 26, '个', '26', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:15:54', '', NULL, '个');
+INSERT INTO `sys_dict_data` VALUES ('141', 27, '条', '27', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:16:21', '', NULL, '条');
+INSERT INTO `sys_dict_data` VALUES ('142', 28, '桶', '28', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:16:34', '', NULL, '桶');
+INSERT INTO `sys_dict_data` VALUES ('143', 29, '瓶', '29', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:16:46', '', NULL, '瓶');
+INSERT INTO `sys_dict_data` VALUES ('144', 30, '支', '30', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:16:59', '', NULL, '支');
+INSERT INTO `sys_dict_data` VALUES ('145', 31, '包', '31', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:17:10', '', NULL, '包');
+INSERT INTO `sys_dict_data` VALUES ('146', 32, '箱', '32', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:17:19', '', NULL, '箱');
+INSERT INTO `sys_dict_data` VALUES ('147', 33, '盒', '33', 'MEASURING_UNIT', NULL, NULL, 'Y', '0', 'admin', '2021-05-25 13:17:31', '', NULL, '盒');
+INSERT INTO `sys_dict_data` VALUES ('148', 1, '销售发票', '1', 'sys_invoice', NULL, NULL, 'Y', '0', 'admin', '2021-05-31 21:10:23', '', NULL, '销售发票');
+INSERT INTO `sys_dict_data` VALUES ('149', 2, '增值税普票', '2', 'sys_invoice', NULL, NULL, 'Y', '0', 'admin', '2021-05-31 21:10:39', '', NULL, '增值税普票');
+INSERT INTO `sys_dict_data` VALUES ('150', 3, '增值税专票', '3', 'sys_invoice', NULL, NULL, 'Y', '0', 'admin', '2021-05-31 21:10:50', '', NULL, '增值税专票');
 INSERT INTO `sys_dict_data`
-VALUES ('100', '1', '待审核', '0', 'sys_examine_status', '', 'info', 'Y', '0', 'admin', '2022-08-16 17:31:14', 'admin',
+VALUES ('1000', '1', '待审核', '0', 'sys_examine_status', '', 'info', 'Y', '0', 'admin', '2022-08-16 17:31:14', 'admin',
         '2022-08-16 17:33:24', '');
 INSERT INTO `sys_dict_data`
-VALUES ('101', '2', '审核通过', '1', 'sys_examine_status', '', 'success', 'Y', '0', 'admin', '2022-08-16 17:32:06',
+VALUES ('1001', '2', '审核通过', '1', 'sys_examine_status', '', 'success', 'Y', '0', 'admin', '2022-08-16 17:32:06',
         'admin', '2022-08-16 17:33:09', '');
 INSERT INTO `sys_dict_data`
-VALUES ('102', '3', '审核失败', '2', 'sys_examine_status', '', 'warning', 'Y', '0', 'admin', '2022-08-16 17:33:44', '',
+VALUES ('1002', '3', '审核失败', '2', 'sys_examine_status', '', 'warning', 'Y', '0', 'admin', '2022-08-16 17:33:44', '',
         '2022-08-18 19:29:57', '');
 INSERT INTO `sys_dict_data`
-VALUES ('103', '4', '账号异常', '3', 'sys_examine_status', '', 'danger', 'Y', '0', 'admin', '2022-08-16 17:34:15', '',
+VALUES ('1003', '4', '账号异常', '3', 'sys_examine_status', '', 'danger', 'Y', '0', 'admin', '2022-08-16 17:34:15', '',
         '2022-08-18 19:30:03', '');
 INSERT INTO `sys_dict_data`
-VALUES ('104', '1', '身份证', '1', 'con_card_type', '', '', 'Y', '0', 'admin', '2022-08-16 19:41:30', '',
+VALUES ('1004', '1', '身份证', '1', 'con_card_type', '', '', 'Y', '0', 'admin', '2022-08-16 19:41:30', '',
         '2022-08-18 19:30:06', '');
 INSERT INTO `sys_dict_data`
-VALUES ('105', '2', '港澳居民来往内地通行证', '2', 'con_card_type', '', '', 'Y', '0', 'admin', '2022-08-16 19:41:57',
+VALUES ('1005', '2', '港澳居民来往内地通行证', '2', 'con_card_type', '', '', 'Y', '0', 'admin', '2022-08-16 19:41:57',
         '', '2022-08-18 19:30:08', '');
 INSERT INTO `sys_dict_data`
-VALUES ('106', '3', '台湾居民来往大陆通行证', '3', 'con_card_type', '', '', 'Y', '0', 'admin', '2022-08-16 19:42:30',
+VALUES ('1006', '3', '台湾居民来往大陆通行证', '3', 'con_card_type', '', '', 'Y', '0', 'admin', '2022-08-16 19:42:30',
         '', '2022-08-18 19:30:10', '');
 INSERT INTO `sys_dict_data`
-VALUES ('107', '4', '普通护照', '4', 'con_card_type', '', '', 'Y', '0', 'admin', '2022-08-16 19:42:40', '',
+VALUES ('1007', '4', '普通护照', '4', 'con_card_type', '', '', 'Y', '0', 'admin', '2022-08-16 19:42:40', '',
         '2022-08-18 19:30:13', '');
 INSERT INTO `sys_dict_data`
-VALUES ('108', '5', '外国人永久居留身份证', '5', 'con_card_type', '', '', 'Y', '0', 'admin', '2022-08-16 19:42:52', '',
+VALUES ('1008', '5', '外国人永久居留身份证', '5', 'con_card_type', '', '', 'Y', '0', 'admin', '2022-08-16 19:42:52', '',
         '2022-08-18 19:30:15', '');
 INSERT INTO `sys_dict_data`
-VALUES ('109', '1', '企业', '0', 'company_pro', '', 'info', 'Y', '0', 'admin', '2022-08-16 20:05:53', '',
+VALUES ('1009', '1', '企业', '0', 'company_pro', '', 'info', 'Y', '0', 'admin', '2022-08-16 20:05:53', '',
         '2022-08-18 19:30:17', '');
 INSERT INTO `sys_dict_data`
-VALUES ('110', '2', '个人', '1', 'company_pro', '', 'info', 'Y', '0', 'admin', '2022-08-16 20:06:12', '',
+VALUES ('1010', '2', '个人', '1', 'company_pro', '', 'info', 'Y', '0', 'admin', '2022-08-16 20:06:12', '',
         '2022-08-18 19:30:19', '');
 INSERT INTO `sys_dict_data`
-VALUES ('111', '1', '国有企业', '0', 'company_type', '', '', 'Y', '0', 'admin', '2022-08-16 20:08:21', '',
+VALUES ('1011', '1', '国有企业', '0', 'company_type', '', '', 'Y', '0', 'admin', '2022-08-16 20:08:21', '',
         '2022-08-18 19:30:22', '');
 INSERT INTO `sys_dict_data`
-VALUES ('112', '2', '集体所有制企业', '1', 'company_type', '', '', 'Y', '0', 'admin', '2022-08-16 20:08:41', '',
+VALUES ('1012', '2', '集体所有制企业', '1', 'company_type', '', '', 'Y', '0', 'admin', '2022-08-16 20:08:41', '',
         '2022-08-18 19:30:24', '');
 INSERT INTO `sys_dict_data`
-VALUES ('113', '3', '私营企业', '2', 'company_type', '', '', 'Y', '0', 'admin', '2022-08-16 20:08:55', '',
+VALUES ('1013', '3', '私营企业', '2', 'company_type', '', '', 'Y', '0', 'admin', '2022-08-16 20:08:55', '',
         '2022-08-18 19:30:27', '');
 INSERT INTO `sys_dict_data`
-VALUES ('114', '4', '股份制企业', '3', 'company_type', '', '', 'Y', '0', 'admin', '2022-08-16 20:09:28', '',
+VALUES ('1014', '4', '股份制企业', '3', 'company_type', '', '', 'Y', '0', 'admin', '2022-08-16 20:09:28', '',
         '2022-08-18 19:30:30', '');
 INSERT INTO `sys_dict_data`
-VALUES ('200', '1', '供应商与供销社', '0', 'contract_type', '', 'info', 'Y', '0', 'admin', '2022-08-16 19:45:02',
+VALUES ('2000', '1', '供应商与供销社', '0', 'contract_type', '', 'info', 'Y', '0', 'admin', '2022-08-16 19:45:02',
         'admin', '2022-09-05 19:05:41', '');
 INSERT INTO `sys_dict_data`
-VALUES ('201', '2', '小商超与供销社', '1', 'contract_type', '', 'primary', 'Y', '0', 'admin', '2022-08-16 19:46:31',
+VALUES ('2001', '2', '小商超与供销社', '1', 'contract_type', '', 'primary', 'Y', '0', 'admin', '2022-08-16 19:46:31',
         'admin', '2022-09-05 19:00:51', '');
 INSERT INTO `sys_dict_data`
-VALUES ('202', '1', '否', '0', 'contract_signature', '', 'danger', 'Y', '0', 'admin', '2022-08-16 19:49:44', 'admin',
+VALUES ('2002', '1', '否', '0', 'contract_signature', '', 'danger', 'Y', '0', 'admin', '2022-08-16 19:49:44', 'admin',
         '2022-09-05 19:03:09', '');
 INSERT INTO `sys_dict_data`
-VALUES ('203', '2', '是', '1', 'contract_signature', '', 'primary', 'Y', '0', 'admin', '2022-08-16 19:49:52', 'admin',
+VALUES ('2003', '2', '是', '1', 'contract_signature', '', 'primary', 'Y', '0', 'admin', '2022-08-16 19:49:52', 'admin',
         '2022-09-05 19:03:16', '');
 INSERT INTO `sys_dict_data`
-VALUES ('204', '1', '未审核', '0', 'audit_status', '', 'warning', 'Y', '0', 'admin', '2022-08-16 20:27:08', 'admin',
+VALUES ('2004', '1', '未审核', '0', 'audit_status', '', 'warning', 'Y', '0', 'admin', '2022-08-16 20:27:08', 'admin',
         '2022-09-05 18:58:15', '');
 INSERT INTO `sys_dict_data`
-VALUES ('205', '2', '审核通过', '1', 'audit_status', '', 'info', 'Y', '0', 'admin', '2022-08-16 20:27:29', 'admin',
+VALUES ('2005', '2', '审核通过', '1', 'audit_status', '', 'info', 'Y', '0', 'admin', '2022-08-16 20:27:29', 'admin',
         '2022-09-05 18:58:32', '');
 INSERT INTO `sys_dict_data`
-VALUES ('206', '3', '审核未通过', '2', 'audit_status', '', 'danger', 'Y', '0', 'admin', '2022-08-16 20:28:40', 'admin',
+VALUES ('2006', '3', '审核未通过', '2', 'audit_status', '', 'danger', 'Y', '0', 'admin', '2022-08-16 20:28:40', 'admin',
         '2022-09-05 18:58:36', '');
 INSERT INTO `sys_dict_data`
-VALUES ('207', '1', '微信', '1', 'pay_type', '', 'primary', 'Y', '0', 'admin', '2022-09-08 10:14:44', 'admin',
+VALUES ('2007', '1', '微信', '1', 'pay_type', '', 'primary', 'Y', '0', 'admin', '2022-09-08 10:14:44', 'admin',
         '2022-09-08 10:15:41', '');
 INSERT INTO `sys_dict_data`
-VALUES ('208', '2', '支付宝', '2', 'pay_type', null, 'primary', 'Y', '0', 'admin', '2022-09-08 10:15:33', '', null,
+VALUES ('2008', '2', '支付宝', '2', 'pay_type', null, 'primary', 'Y', '0', 'admin', '2022-09-08 10:15:33', '', null,
         null);
 INSERT INTO `sys_dict_data`
-VALUES ('209', '1', '待付款', '1', 'order_status', '', 'warning', 'Y', '0', 'admin', '2022-09-08 10:43:57', 'admin',
+VALUES ('2009', '1', '待付款', '1', 'order_status', '', 'warning', 'Y', '0', 'admin', '2022-09-08 10:43:57', 'admin',
         '2022-09-08 10:47:22', '');
 INSERT INTO `sys_dict_data`
-VALUES ('210', '2', '待发货', '2', 'order_status', '', 'info', 'Y', '0', 'admin', '2022-09-08 10:44:23', 'admin',
+VALUES ('2010', '2', '待发货', '2', 'order_status', '', 'info', 'Y', '0', 'admin', '2022-09-08 10:44:23', 'admin',
         '2022-09-08 10:44:45', '');
 INSERT INTO `sys_dict_data`
-VALUES ('211', '3', '待收货', '3', 'order_status', null, 'primary', 'Y', '0', 'admin', '2022-09-08 10:45:02', '', null,
+VALUES ('2011', '3', '待收货', '3', 'order_status', null, 'primary', 'Y', '0', 'admin', '2022-09-08 10:45:02', '', null,
         null);
 INSERT INTO `sys_dict_data`
-VALUES ('212', '4', '待评价', '4', 'order_status', null, 'primary', 'Y', '0', 'admin', '2022-09-08 10:45:21', '', null,
+VALUES ('2012', '4', '待评价', '4', 'order_status', null, 'primary', 'Y', '0', 'admin', '2022-09-08 10:45:21', '', null,
         null);
 INSERT INTO `sys_dict_data`
-VALUES ('213', '5', '已完成', '5', 'order_status', null, 'success', 'Y', '0', 'admin', '2022-09-08 10:47:05', '', null,
+VALUES ('2013', '5', '已完成', '5', 'order_status', null, 'success', 'Y', '0', 'admin', '2022-09-08 10:47:05', '', null,
         null);
 INSERT INTO `sys_dict_data`
-VALUES ('214', '6', '已关闭', '6', 'order_status', null, 'info', 'Y', '0', 'admin', '2022-09-08 10:47:45', '', null,
+VALUES ('2014', '6', '已关闭', '6', 'order_status', null, 'info', 'Y', '0', 'admin', '2022-09-08 10:47:45', '', null,
         null);
 INSERT INTO `sys_dict_data`
-VALUES ('215', '1', '未删除', '0', 'delete_status', null, 'primary', 'Y', '0', 'admin', '2022-09-08 10:51:38', '', null,
+VALUES ('2015', '1', '未删除', '0', 'delete_status', null, 'primary', 'Y', '0', 'admin', '2022-09-08 10:51:38', '', null,
         null);
 INSERT INTO `sys_dict_data`
-VALUES ('216', '2', '删除', '1', 'delete_status', null, 'success', 'Y', '0', 'admin', '2022-09-08 10:53:10', '', null,
+VALUES ('2016', '2', '删除', '1', 'delete_status', null, 'success', 'Y', '0', 'admin', '2022-09-08 10:53:10', '', null,
         null);
 INSERT INTO `sys_dict_data`
-VALUES ('217', '1', '超时未支付', '1', 'order_close_type', '', 'info', 'Y', '0', 'admin', '2022-09-08 10:55:01',
+VALUES ('2017', '1', '超时未支付', '1', 'order_close_type', '', 'info', 'Y', '0', 'admin', '2022-09-08 10:55:01',
         'admin', '2022-09-08 10:55:24', '');
 INSERT INTO `sys_dict_data`
-VALUES ('218', '2', '退款关闭', '2', 'order_close_type', null, 'warning', 'Y', '0', 'admin', '2022-09-08 10:56:21', '',
+VALUES ('2018', '2', '退款关闭', '2', 'order_close_type', null, 'warning', 'Y', '0', 'admin', '2022-09-08 10:56:21', '',
         null, null);
 INSERT INTO `sys_dict_data`
-VALUES ('219', '4', '买家取消', '4', 'order_close_type', null, 'primary', 'Y', '0', 'admin', '2022-09-08 10:57:00', '',
+VALUES ('2019', '4', '买家取消', '4', 'order_close_type', null, 'primary', 'Y', '0', 'admin', '2022-09-08 10:57:00', '',
         null, null);
 INSERT INTO `sys_dict_data`
-VALUES ('220', '5', '已通过货到付款交易', '5', 'order_close_type', null, 'success', 'Y', '0', 'admin',
+VALUES ('2020', '5', '已通过货到付款交易', '5', 'order_close_type', null, 'success', 'Y', '0', 'admin',
         '2022-09-08 10:57:34', '', null, null);
-
+INSERT INTO `sys_dict_data` VALUES ('2021', 1, '否', '0', 'is_bid', '', 'primary', 'Y', '0', 'admin', '2022-09-18 09:56:26', 'admin', '2022-09-18 09:56:52', '没中标');
+INSERT INTO `sys_dict_data` VALUES ('2022', 2, '是', '1', 'is_bid', '', 'danger', 'Y', '0', 'admin', '2022-09-18 09:56:42', 'admin', '2022-09-18 09:56:57', '中标');
 -- ----------------------------
 -- Table structure for sys_dict_type
 -- ----------------------------
@@ -9567,36 +9618,47 @@ VALUES ('9', '操作类型', 'sys_oper_type', '0', 'admin', '2022-08-18 19:11:50
 INSERT INTO `sys_dict_type`
 VALUES ('10', '系统状态', 'sys_common_status', '0', 'admin', '2022-08-18 19:11:50', '', null, '登录状态列表');
 INSERT INTO `sys_dict_type`
-VALUES ('100', '审核状态', 'sys_examine_status', '0', 'admin', '2022-08-16 17:29:41', 'admin', '2022-08-18 19:32:15',
+VALUES ('100', '级别', 'wms_level', '0', 'admin', '2021-05-19 21:02:40', '', NULL, '级别');
+INSERT INTO `sys_dict_type`
+VALUES ('101', '库位类型', 'wms_storage_type', '0', 'admin', '2021-05-23 18:17:53', '', NULL, '库位类型');
+INSERT INTO `sys_dict_type`
+VALUES ('102', '库位属性', 'wms_storage_attribute', '0', 'admin', '2021-05-23 18:18:22', '', NULL, '库位属性');
+INSERT INTO `sys_dict_type`
+VALUES ('103', '计量单位', 'MEASURING_UNIT', '0', 'admin', '2021-05-25 13:07:43', '', NULL, '计量单位');
+INSERT INTO `sys_dict_type`
+VALUES ('105', '发票种类', 'sys_invoice', '0', 'admin', '2021-05-31 21:09:28', '', NULL, '发票种类');
+INSERT INTO `sys_dict_type`
+VALUES ('106', '审核状态', 'sys_examine_status', '0', 'admin', '2022-08-16 17:29:41', 'admin', '2022-08-18 19:32:15',
         '商家状态列表');
 INSERT INTO `sys_dict_type`
-VALUES ('101', '证件类型', 'con_card_type', '0', 'admin', '2022-08-16 19:38:49', 'admin', '2022-08-16 19:39:47',
+VALUES ('107', '证件类型', 'con_card_type', '0', 'admin', '2022-08-16 19:38:49', 'admin', '2022-08-16 19:39:47',
         '证件类型列表');
 INSERT INTO `sys_dict_type`
-VALUES ('102', '公司性质', 'company_pro', '0', 'admin', '2022-08-16 20:05:19', 'admin', '2022-08-18 19:33:17',
+VALUES ('108', '公司性质', 'company_pro', '0', 'admin', '2022-08-16 20:05:19', 'admin', '2022-08-18 19:33:17',
         '公司性质列表');
 INSERT INTO `sys_dict_type`
-VALUES ('103', '企业类型', 'company_type', '0', 'admin', '2022-08-16 20:08:00', 'admin', '2022-08-18 19:33:45',
+VALUES ('109', '企业类型', 'company_type', '0', 'admin', '2022-08-16 20:08:00', 'admin', '2022-08-18 19:33:45',
         '企业类型列表');
 INSERT INTO `sys_dict_type`
-VALUES ('104', '合同类别', 'contract_type', '0', 'admin', '2022-08-16 19:42:11', 'admin', '2022-09-05 19:00:18',
+VALUES ('110', '合同类别', 'contract_type', '0', 'admin', '2022-08-16 19:42:11', 'admin', '2022-09-05 19:00:18',
         '合同类别');
 INSERT INTO `sys_dict_type`
-VALUES ('105', '是否签名', 'contract_signature', '0', 'admin', '2022-08-16 19:49:23', 'admin', '2022-08-24 15:58:26',
+VALUES ('111', '是否签名', 'contract_signature', '0', 'admin', '2022-08-16 19:49:23', 'admin', '2022-08-24 15:58:26',
         '合同签名');
 INSERT INTO `sys_dict_type`
-VALUES ('106', '审核状态', 'audit_status', '0', 'admin', '2022-08-16 20:26:14', 'admin', '2022-08-24 15:58:35',
+VALUES ('112', '审核状态', 'audit_status', '0', 'admin', '2022-08-16 20:26:14', 'admin', '2022-08-24 15:58:35',
         '资质审核状态');
 INSERT INTO `sys_dict_type`
-VALUES ('110', '支付方式', 'pay_type', '0', 'admin', '2022-09-08 10:14:17', 'admin', '2022-09-08 10:43:00', '支付方式');
+VALUES ('113', '支付方式', 'pay_type', '0', 'admin', '2022-09-08 10:14:17', 'admin', '2022-09-08 10:43:00', '支付方式');
 INSERT INTO `sys_dict_type`
-VALUES ('111', '订单状态', 'order_status', '0', 'admin', '2022-09-08 10:42:49', 'admin', '2022-09-08 10:43:10',
+VALUES ('114', '订单状态', 'order_status', '0', 'admin', '2022-09-08 10:42:49', 'admin', '2022-09-08 10:43:10',
         '订单状态');
 INSERT INTO `sys_dict_type`
-VALUES ('112', '订单逻辑删除状态', 'delete_status', '0', 'admin', '2022-09-08 10:51:00', '', null, '逻辑删除状态');
+VALUES ('115', '订单逻辑删除状态', 'delete_status', '0', 'admin', '2022-09-08 10:51:00', '', null, '逻辑删除状态');
 INSERT INTO `sys_dict_type`
-VALUES ('113', '订单关闭类型', 'order_close_type', '0', 'admin', '2022-09-08 10:53:49', '', null, '订单关闭类型');
-
+VALUES ('116', '订单关闭类型', 'order_close_type', '0', 'admin', '2022-09-08 10:53:49', '', null, '订单关闭类型');
+INSERT INTO `sys_dict_type`
+VALUES ('117', '是否中标', 'is_bid', '0', 'admin', '2022-09-18 09:55:36', '', NULL, '是否中标');
 -- ----------------------------
 -- Table structure for sys_job
 -- ----------------------------

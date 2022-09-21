@@ -4,8 +4,11 @@ import com.cps.audit.domain.AuditDocuments;
 import com.cps.audit.domain.SupplierCreditEvaluationInfo;
 import com.cps.audit.service.IAuditDocumentsService;
 import com.cps.audit.service.ISupplierCreditEvaluationInfoService;
+import com.cps.common.constant.Constants;
 import com.cps.common.core.controller.BaseController;
 import com.cps.common.utils.ShiroUtils;
+import com.cps.credit.domain.UserCredit;
+import com.cps.credit.service.IUserCreditService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +36,9 @@ public class SubmitSupplierCreditController extends BaseController {
     @Autowired
     private ISupplierCreditEvaluationInfoService mSupplierCreditEvaluationInfoService;
 
+    @Autowired
+    private IUserCreditService userCreditService;
+
     @RequiresPermissions({"audit:supplierCreditEvaluationManage:add","audit:supplierCreditEvaluationManage:edit"})
     @GetMapping()
     public String supplierCredit(ModelMap map) {
@@ -47,6 +53,13 @@ public class SubmitSupplierCreditController extends BaseController {
                 map.put("supplierCreditEvaluationAuditId",info.getSupplierCreditEvaluationAuditId());
             }
         }
+        if(userCreditService.selectUserCreditByUserId(ShiroUtils.getUserId())!=null){
+            UserCredit userCredit = userCreditService.selectUserCreditByUserId(ShiroUtils.getUserId());
+            map.put("userCreditScore",userCredit.getCreditScore());
+        }else{
+            map.put("userCreditScore", Constants.CREDIT_SCORE_FULL);
+        }
+        map.put("CREDIT_SCORE_MAIN", Constants.CREDIT_SCORE_MAIN);
         return prefix + "/supplierCredit";
     }
 }

@@ -43,6 +43,17 @@ public class ContractServiceImpl implements IContractService {
     }
 
     /**
+     * 查询合同列表
+     *
+     * @param userId 签名方用户ID
+     * @return 合同集合
+     */
+    @Override
+    public List<Contract> selectContractListByUserId(Long userId) {
+        return contractMapper.selectContractListByUserId(userId);
+    }
+
+    /**
      * 新增合同
      *
      * @param contract 合同
