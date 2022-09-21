@@ -69,7 +69,7 @@
             </if>
             <if test="invoiceTax != null ">and invoice_tax = #{invoiceTax}</if>
             <if test="invoiceType != null  and invoiceType != ''">and invoice_type = #{invoiceType}</if>
-#             <if test="deptId != null ">and dept_id = #{deptId}</if>
+            <if test="deptId != null ">and dept_id = #{deptId}</if>
         </where>
     </select>
 
