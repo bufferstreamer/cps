@@ -23,6 +23,7 @@
     <sql id="selectOrderItemVo">
         select item_id, order_id, product_id, product_name, product_img, sku_id, sku_name, product_price, buy_counts, total_amount, basket_date, buy_time, is_comment
         from order_item
+        order by buy_counts desc
     </sql>
 
     <select id="selectOrderItemList" parameterType="OrderItem" resultMap="OrderItemResult">

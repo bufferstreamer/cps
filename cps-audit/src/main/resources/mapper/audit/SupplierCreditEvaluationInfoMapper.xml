@@ -12,13 +12,13 @@
         <result property="frName" column="fr_name"/>
         <result property="frCriminalRecord" column="fr_criminal_record"/>
         <result property="createDatetime" column="create_datetime"/>
-        <result property="email" column="email"/>
     </resultMap>
 
     <sql id="selectSupplierCreditEvaluationInfoVo">
-        select supplier_credit_evaluation_audit_id, checklist_id, corporate_name, corporate_credit_info, fr_name, fr_criminal_record, create_datetime, email
+        select supplier_credit_evaluation_audit_id, checklist_id, corporate_name, corporate_credit_info, fr_name, fr_criminal_record, create_datetime
         from audit_supplier_credit_evaluation_info
     </sql>
+
 
     <select id="selectSupplierCreditEvaluationInfoList" parameterType="SupplierCreditEvaluationInfo"
             resultMap="SupplierCreditEvaluationInfoResult">
@@ -68,8 +68,6 @@
             </if>
             <if test="createDatetime != null">create_datetime,
             </if>
-            <if test="email != null and email != ''">email,
-            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="supplierCreditEvaluationAuditId != null">#{supplierCreditEvaluationAuditId},
@@ -85,8 +83,6 @@
             <if test="frCriminalRecord != null">#{frCriminalRecord},
             </if>
             <if test="createDatetime != null">#{createDatetime},
-            </if>
-            <if test="email != null and email != ''">#{email},
             </if>
         </trim>
     </insert>
@@ -111,9 +107,6 @@
             </if>
             <if test="createDatetime != null">create_datetime =
                 #{createDatetime},
-            </if>
-            <if test="email != null and email != ''">email =
-                #{email},
             </if>
         </trim>
         where supplier_credit_evaluation_audit_id = #{supplierCreditEvaluationAuditId}

@@ -22,26 +22,11 @@
         <result property="emergencyContact" column="emergency_contact"/>
         <result property="emergencyContactPhone" column="emergency_contact_phone"/>
         <result property="createDatetime" column="create_datetime"/>
+        <result property="contactEmail" column="contact_email"/>
     </resultMap>
 
     <sql id="selectSupplierLicenseInfoVo">
-        select checklist_id,
-               corporate_name,
-               registration_number,
-               fr_name,
-               id_number,
-               front_photo,
-               back_photo,
-               business_license_location,
-               business_license_address,
-               incorporation_date,
-               registered_capital,
-               business_scope,
-               business_license,
-               office_phone,
-               emergency_contact,
-               emergency_contact_phone,
-               create_datetime
+        select checklist_id, corporate_name, registration_number, fr_name, id_number, front_photo, back_photo, business_license_location, business_license_address, incorporation_date, registered_capital, business_scope, business_license, office_phone, emergency_contact, emergency_contact_phone, create_datetime, contact_email
         from audit_supplier_license_info
     </sql>
 
@@ -88,69 +73,141 @@
     <insert id="insertSupplierLicenseInfo" parameterType="SupplierLicenseInfo">
         insert into audit_supplier_license_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="checklistId != null">checklist_id,</if>
-            <if test="corporateName != null">corporate_name,</if>
-            <if test="registrationNumber != null and registrationNumber != ''">registration_number,</if>
-            <if test="frName != null">fr_name,</if>
-            <if test="idNumber != null">id_number,</if>
-            <if test="frontPhoto != null">front_photo,</if>
-            <if test="backPhoto != null">back_photo,</if>
-            <if test="businessLicenseLocation != null">business_license_location,</if>
-            <if test="businessLicenseAddress != null">business_license_address,</if>
-            <if test="incorporationDate != null">incorporation_date,</if>
-            <if test="registeredCapital != null">registered_capital,</if>
-            <if test="businessScope != null">business_scope,</if>
-            <if test="businessLicense != null">business_license,</if>
-            <if test="officePhone != null">office_phone,</if>
-            <if test="emergencyContact != null">emergency_contact,</if>
-            <if test="emergencyContactPhone != null">emergency_contact_phone,</if>
-            <if test="createDatetime != null">create_datetime,</if>
+            <if test="checklistId != null">checklist_id,
+            </if>
+            <if test="corporateName != null">corporate_name,
+            </if>
+            <if test="registrationNumber != null and registrationNumber != ''">registration_number,
+            </if>
+            <if test="frName != null">fr_name,
+            </if>
+            <if test="idNumber != null">id_number,
+            </if>
+            <if test="frontPhoto != null">front_photo,
+            </if>
+            <if test="backPhoto != null">back_photo,
+            </if>
+            <if test="businessLicenseLocation != null">business_license_location,
+            </if>
+            <if test="businessLicenseAddress != null">business_license_address,
+            </if>
+            <if test="incorporationDate != null">incorporation_date,
+            </if>
+            <if test="registeredCapital != null">registered_capital,
+            </if>
+            <if test="businessScope != null">business_scope,
+            </if>
+            <if test="businessLicense != null">business_license,
+            </if>
+            <if test="officePhone != null">office_phone,
+            </if>
+            <if test="emergencyContact != null">emergency_contact,
+            </if>
+            <if test="emergencyContactPhone != null">emergency_contact_phone,
+            </if>
+            <if test="createDatetime != null">create_datetime,
+            </if>
+            <if test="contactEmail != null">contact_email,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="checklistId != null">#{checklistId},</if>
-            <if test="corporateName != null">#{corporateName},</if>
-            <if test="registrationNumber != null and registrationNumber != ''">#{registrationNumber},</if>
-            <if test="frName != null">#{frName},</if>
-            <if test="idNumber != null">#{idNumber},</if>
-            <if test="frontPhoto != null">#{frontPhoto},</if>
-            <if test="backPhoto != null">#{backPhoto},</if>
-            <if test="businessLicenseLocation != null">#{businessLicenseLocation},</if>
-            <if test="businessLicenseAddress != null">#{businessLicenseAddress},</if>
-            <if test="incorporationDate != null">#{incorporationDate},</if>
-            <if test="registeredCapital != null">#{registeredCapital},</if>
-            <if test="businessScope != null">#{businessScope},</if>
-            <if test="businessLicense != null">#{businessLicense},</if>
-            <if test="officePhone != null">#{officePhone},</if>
-            <if test="emergencyContact != null">#{emergencyContact},</if>
-            <if test="emergencyContactPhone != null">#{emergencyContactPhone},</if>
-            <if test="createDatetime != null">#{createDatetime},</if>
+            <if test="checklistId != null">#{checklistId},
+            </if>
+            <if test="corporateName != null">#{corporateName},
+            </if>
+            <if test="registrationNumber != null and registrationNumber != ''">#{registrationNumber},
+            </if>
+            <if test="frName != null">#{frName},
+            </if>
+            <if test="idNumber != null">#{idNumber},
+            </if>
+            <if test="frontPhoto != null">#{frontPhoto},
+            </if>
+            <if test="backPhoto != null">#{backPhoto},
+            </if>
+            <if test="businessLicenseLocation != null">#{businessLicenseLocation},
+            </if>
+            <if test="businessLicenseAddress != null">#{businessLicenseAddress},
+            </if>
+            <if test="incorporationDate != null">#{incorporationDate},
+            </if>
+            <if test="registeredCapital != null">#{registeredCapital},
+            </if>
+            <if test="businessScope != null">#{businessScope},
+            </if>
+            <if test="businessLicense != null">#{businessLicense},
+            </if>
+            <if test="officePhone != null">#{officePhone},
+            </if>
+            <if test="emergencyContact != null">#{emergencyContact},
+            </if>
+            <if test="emergencyContactPhone != null">#{emergencyContactPhone},
+            </if>
+            <if test="createDatetime != null">#{createDatetime},
+            </if>
+            <if test="contactEmail != null">#{contactEmail},
+            </if>
         </trim>
     </insert>
 
     <update id="updateSupplierLicenseInfo" parameterType="SupplierLicenseInfo">
         update audit_supplier_license_info
         <trim prefix="SET" suffixOverrides=",">
-            <if test="corporateName != null">corporate_name = #{corporateName},</if>
+            <if test="corporateName != null">corporate_name =
+                #{corporateName},
+            </if>
             <if test="registrationNumber != null and registrationNumber != ''">registration_number =
                 #{registrationNumber},
             </if>
-            <if test="frName != null">fr_name = #{frName},</if>
-            <if test="idNumber != null">id_number = #{idNumber},</if>
-            <if test="frontPhoto != null">front_photo = #{frontPhoto},</if>
-            <if test="backPhoto != null">back_photo = #{backPhoto},</if>
-            <if test="businessLicenseLocation != null">business_license_location = #{businessLicenseLocation},</if>
-            <if test="businessLicenseAddress != null">business_license_address = #{businessLicenseAddress},</if>
-            <if test="incorporationDate != null">incorporation_date = #{incorporationDate},</if>
-            <if test="registeredCapital != null">registered_capital = #{registeredCapital},</if>
-            <if test="businessScope != null">business_scope = #{businessScope},</if>
-            <if test="businessLicense != null">business_license = #{businessLicense},</if>
-            <if test="officePhone != null">office_phone = #{officePhone},</if>
-            <if test="emergencyContact != null">emergency_contact = #{emergencyContact},</if>
-            <if test="emergencyContactPhone != null">emergency_contact_phone = #{emergencyContactPhone},</if>
-            <if test="createDatetime != null">create_datetime = #{createDatetime},</if>
+            <if test="frName != null">fr_name =
+                #{frName},
+            </if>
+            <if test="idNumber != null">id_number =
+                #{idNumber},
+            </if>
+            <if test="frontPhoto != null">front_photo =
+                #{frontPhoto},
+            </if>
+            <if test="backPhoto != null">back_photo =
+                #{backPhoto},
+            </if>
+            <if test="businessLicenseLocation != null">business_license_location =
+                #{businessLicenseLocation},
+            </if>
+            <if test="businessLicenseAddress != null">business_license_address =
+                #{businessLicenseAddress},
+            </if>
+            <if test="incorporationDate != null">incorporation_date =
+                #{incorporationDate},
+            </if>
+            <if test="registeredCapital != null">registered_capital =
+                #{registeredCapital},
+            </if>
+            <if test="businessScope != null">business_scope =
+                #{businessScope},
+            </if>
+            <if test="businessLicense != null">business_license =
+                #{businessLicense},
+            </if>
+            <if test="officePhone != null">office_phone =
+                #{officePhone},
+            </if>
+            <if test="emergencyContact != null">emergency_contact =
+                #{emergencyContact},
+            </if>
+            <if test="emergencyContactPhone != null">emergency_contact_phone =
+                #{emergencyContactPhone},
+            </if>
+            <if test="createDatetime != null">create_datetime =
+                #{createDatetime},
+            </if>
+            <if test="contactEmail != null">contact_email =
+                #{contactEmail},
+            </if>
         </trim>
         where checklist_id = #{checklistId}
     </update>
+
 
     <delete id="deleteSupplierLicenseInfoByChecklistId" parameterType="String">
         delete

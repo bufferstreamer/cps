@@ -121,6 +121,10 @@ public class SupplierLicenseInfo extends BaseEntity {
     @Excel(name = "创建时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date createDatetime;
 
+    /** 联系人邮箱 */
+    @Excel(name = "联系人邮箱")
+    private String contactEmail;
+
     public String getChecklistId() {
         return checklistId;
     }
@@ -257,6 +261,16 @@ public class SupplierLicenseInfo extends BaseEntity {
         this.createDatetime = createDatetime;
     }
 
+    public void setContactEmail(String contactEmail)
+    {
+        this.contactEmail = contactEmail;
+    }
+
+    public String getContactEmail()
+    {
+        return contactEmail;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
@@ -277,6 +291,7 @@ public class SupplierLicenseInfo extends BaseEntity {
                 .append("emergencyContact", getEmergencyContact())
                 .append("emergencyContactPhone", getEmergencyContactPhone())
                 .append("createDatetime", getCreateDatetime())
+                .append("contactEmail",getContactEmail())
                 .toString();
     }
 }
