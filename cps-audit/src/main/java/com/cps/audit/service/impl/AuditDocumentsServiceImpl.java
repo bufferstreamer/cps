@@ -1,9 +1,18 @@
 package com.cps.audit.service.impl;
 
 import com.cps.audit.domain.AuditDocuments;
+import com.cps.audit.domain.BusinessLicenseInfo;
+import com.cps.audit.domain.SupplierLicenseInfo;
 import com.cps.audit.mapper.AuditDocumentsMapper;
+import com.cps.audit.mapper.BusinessLicenseInfoMapper;
+import com.cps.audit.mapper.SupplierLicenseInfoMapper;
 import com.cps.audit.service.IAuditDocumentsService;
+import com.cps.basis.domain.BasisSupplier;
+import com.cps.basis.service.IBasisSupplierService;
+import com.cps.common.core.domain.entity.SysUser;
 import com.cps.common.core.text.Convert;
+import com.cps.common.utils.ShiroUtils;
+import com.cps.system.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +28,14 @@ import java.util.List;
 public class AuditDocumentsServiceImpl implements IAuditDocumentsService {
     @Autowired
     private AuditDocumentsMapper auditDocumentsMapper;
+    @Autowired
+    private SupplierLicenseInfoMapper supplierLicenseInfoMapper;
+    @Autowired
+    private SysUserMapper sysUserMapper;
+    @Autowired
+    private IBasisSupplierService basisSupplierService;
+    @Autowired
+    private BusinessLicenseInfoMapper businessLicenseInfoMapper;
 
     /**
      * 查询审核单据管理
@@ -66,6 +83,51 @@ public class AuditDocumentsServiceImpl implements IAuditDocumentsService {
      */
     @Override
     public int updateAuditDocuments(AuditDocuments auditDocuments) {
+        //这里表示在审核通过后在进销存系统中添加有可能向系统发货的客户信息
+        if(auditDocuments.getAuditStatus().equals("2")){
+            BasisSupplier basisSupplier = new BasisSupplier();
+            SysUser sysUser = new SysUser();
+            //获取用户id
+            sysUser.setUserId(auditDocuments.getUserId());
+            //AuditType==1时表示为供应商
+            if (auditDocuments.getAuditType().equals("1")){
+                System.out.println("正在处理供应商审核单");
+                //依据审核单id查询供应商的信息
+                SupplierLicenseInfo supplierLicenseInfo = supplierLicenseInfoMapper.selectSupplierLicenseInfoByChecklistId(auditDocuments.getChecklistId());
+                //补全用户信息
+                sysUser.setPhonenumber(supplierLicenseInfo.getOfficePhone());//获得供应商联系方式，获得供应商邮件
+                //补全供应商管理信息
+                basisSupplier.setSupplierName(supplierLicenseInfo.getCorporateName());
+                basisSupplier.setContactPerson(supplierLicenseInfo.getEmergencyContact());
+                basisSupplier.setTelephone(supplierLicenseInfo.getEmergencyContactPhone());
+                basisSupplier.setAddress(supplierLicenseInfo.getBusinessLicenseAddress());
+
+            }
+            if (auditDocuments.getAuditType().equals("2")){
+                System.out.println("正在处理小商超审核单");
+                BusinessLicenseInfo businessLicenseInfo = businessLicenseInfoMapper.selectBusinessLicenseInfoByBusinessAuditDocumentId(auditDocuments.getChecklistId());
+                //补全用户信息
+                sysUser.setPhonenumber(businessLicenseInfo.getContactPhone());//获得供应商联系方式，获得供应商邮件
+                sysUser.setEmail(businessLicenseInfo.getContactEmail());
+                //补全供应商管理信息
+                basisSupplier.setSupplierName(businessLicenseInfo.getBusinessName());
+                basisSupplier.setContactPerson(businessLicenseInfo.getContactPerson());
+                basisSupplier.setTelephone(businessLicenseInfo.getContactPhone());
+                basisSupplier.setAddress(businessLicenseInfo.getBusinessPlace());
+                basisSupplier.setEmail(businessLicenseInfo.getContactEmail());
+
+            }
+            //将联系方式和邮件信息存入sys_user
+            sysUserMapper.updateUser(sysUser);
+            //这里设置部门为100，便于admin查找，后期要根据供应商查询规则修改
+            basisSupplier.setDeptId(ShiroUtils.getDeptId());
+            basisSupplier.setCreateBy(ShiroUtils.getLoginName());
+            basisSupplier.setSupplierCode(String.valueOf(auditDocuments.getUserId()));
+            //将审核信息插入值供应商管理表
+            basisSupplierService.insertBasisSupplier(basisSupplier);
+
+        }
+
         return auditDocumentsMapper.updateAuditDocuments(auditDocuments);
     }
 
