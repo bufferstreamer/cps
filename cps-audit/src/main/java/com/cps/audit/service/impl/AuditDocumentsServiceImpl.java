@@ -96,11 +96,13 @@ public class AuditDocumentsServiceImpl implements IAuditDocumentsService {
                 SupplierLicenseInfo supplierLicenseInfo = supplierLicenseInfoMapper.selectSupplierLicenseInfoByChecklistId(auditDocuments.getChecklistId());
                 //补全用户信息
                 sysUser.setPhonenumber(supplierLicenseInfo.getOfficePhone());//获得供应商联系方式，获得供应商邮件
+                sysUser.setEmail(supplierLicenseInfo.getContactEmail());
                 //补全供应商管理信息
                 basisSupplier.setSupplierName(supplierLicenseInfo.getCorporateName());
                 basisSupplier.setContactPerson(supplierLicenseInfo.getEmergencyContact());
                 basisSupplier.setTelephone(supplierLicenseInfo.getEmergencyContactPhone());
                 basisSupplier.setAddress(supplierLicenseInfo.getBusinessLicenseAddress());
+                basisSupplier.setEmail(supplierLicenseInfo.getContactEmail());
 
             }
             if (auditDocuments.getAuditType().equals("2")){
