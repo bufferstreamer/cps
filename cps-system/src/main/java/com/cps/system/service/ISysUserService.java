@@ -3,6 +3,7 @@ package com.cps.system.service;
 import com.cps.common.core.domain.entity.SysUser;
 import com.cps.system.domain.SysUserRole;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -213,4 +214,12 @@ public interface ISysUserService {
      * @return 结果
      */
     public int changeStatus(SysUser user);
+
+    /**
+     * 发招标通知邮件
+     * @param subject 邮件主题
+     * @param notice 邮件内容
+     * @param deptId 通知部门id
+     */
+    public String noticeByMail(String subject,String notice,Long[] deptId);
 }

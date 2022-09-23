@@ -101,6 +101,16 @@
                  left join sys_user_dept p on u.user_id = p.user_id
     </sql>
 
+    <select id="getEmailByDeptid" parameterType="java.util.List" resultType="String">
+        SELECT email
+        FROM sys_user u
+        WHERE u.dept_id in
+        <foreach collection="array" item="deptId" index="index"
+                 open="(" close=")" separator=",">
+            #{deptId}
+        </foreach>
+    </select>
+
     <select id="selectUserList" parameterType="SysUser" resultMap="SysUserResult">
         select u.user_id, u.dept_id, u.login_name, u.user_name, u.user_type, u.email, u.avatar, u.phonenumber,
         u.password, u.sex, u.salt, u.status, u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.remark,

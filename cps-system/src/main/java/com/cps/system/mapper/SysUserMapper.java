@@ -2,6 +2,7 @@ package com.cps.system.mapper;
 
 import com.cps.common.core.domain.entity.SysUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -123,4 +124,6 @@ public interface SysUserMapper {
      * @return 结果
      */
     public SysUser checkEmailUnique(String email);
+
+    ArrayList<String> getEmailByDeptid(Long[] deptIds);
 }

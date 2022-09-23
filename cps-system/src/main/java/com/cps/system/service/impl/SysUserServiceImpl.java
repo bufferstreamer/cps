@@ -1,5 +1,6 @@
 package com.cps.system.service.impl;
 
+import cn.hutool.extra.mail.MailUtil;
 import com.cps.common.annotation.DataScope;
 import com.cps.common.constant.UserConstants;
 import com.cps.common.core.domain.entity.SysDept;
@@ -532,5 +533,17 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public int changeStatus(SysUser user) {
         return userMapper.updateUser(user);
+    }
+
+    /**
+     * 发招标通知邮件
+     * @param subject 邮件主题
+     * @param notice 邮件内容
+     * @param deptId 通知部门id
+     */
+    @Override
+    public String noticeByMail(String subject, String notice, Long[] deptId) {
+        ArrayList<String> address = userMapper.getEmailByDeptid(deptId);
+        return  MailUtil.send(address,subject,notice,false);
     }
 }
