@@ -94,30 +94,32 @@ public class AuditDocumentsServiceImpl implements IAuditDocumentsService {
                 System.out.println("正在处理供应商审核单");
                 //依据审核单id查询供应商的信息
                 SupplierLicenseInfo supplierLicenseInfo = supplierLicenseInfoMapper.selectSupplierLicenseInfoByChecklistId(auditDocuments.getChecklistId());
-                //补全用户信息
-                sysUser.setPhonenumber(supplierLicenseInfo.getOfficePhone());//获得供应商联系方式，获得供应商邮件
-                sysUser.setEmail(supplierLicenseInfo.getContactEmail());
-                //补全供应商管理信息
-                basisSupplier.setSupplierName(supplierLicenseInfo.getCorporateName());
-                basisSupplier.setContactPerson(supplierLicenseInfo.getEmergencyContact());
-                basisSupplier.setTelephone(supplierLicenseInfo.getEmergencyContactPhone());
-                basisSupplier.setAddress(supplierLicenseInfo.getBusinessLicenseAddress());
-                basisSupplier.setEmail(supplierLicenseInfo.getContactEmail());
-
+                if(supplierLicenseInfo!=null){
+                    //补全用户信息
+                    sysUser.setPhonenumber(supplierLicenseInfo.getOfficePhone());//获得供应商联系方式，获得供应商邮件
+                    sysUser.setEmail(supplierLicenseInfo.getContactEmail());
+                    //补全供应商管理信息
+                    basisSupplier.setSupplierName(supplierLicenseInfo.getCorporateName());
+                    basisSupplier.setContactPerson(supplierLicenseInfo.getEmergencyContact());
+                    basisSupplier.setTelephone(supplierLicenseInfo.getEmergencyContactPhone());
+                    basisSupplier.setAddress(supplierLicenseInfo.getBusinessLicenseAddress());
+                    basisSupplier.setEmail(supplierLicenseInfo.getContactEmail());
+                }
             }
             if (auditDocuments.getAuditType().equals("2")){
                 System.out.println("正在处理小商超审核单");
                 BusinessLicenseInfo businessLicenseInfo = businessLicenseInfoMapper.selectBusinessLicenseInfoByBusinessAuditDocumentId(auditDocuments.getChecklistId());
-                //补全用户信息
-                sysUser.setPhonenumber(businessLicenseInfo.getContactPhone());//获得供应商联系方式，获得供应商邮件
-                sysUser.setEmail(businessLicenseInfo.getContactEmail());
-                //补全供应商管理信息
-                basisSupplier.setSupplierName(businessLicenseInfo.getBusinessName());
-                basisSupplier.setContactPerson(businessLicenseInfo.getContactPerson());
-                basisSupplier.setTelephone(businessLicenseInfo.getContactPhone());
-                basisSupplier.setAddress(businessLicenseInfo.getBusinessPlace());
-                basisSupplier.setEmail(businessLicenseInfo.getContactEmail());
-
+                if(businessLicenseInfo!=null){
+                    //补全用户信息
+                    sysUser.setPhonenumber(businessLicenseInfo.getContactPhone());//获得供应商联系方式，获得供应商邮件
+                    sysUser.setEmail(businessLicenseInfo.getContactEmail());
+                    //补全供应商管理信息
+                    basisSupplier.setSupplierName(businessLicenseInfo.getBusinessName());
+                    basisSupplier.setContactPerson(businessLicenseInfo.getContactPerson());
+                    basisSupplier.setTelephone(businessLicenseInfo.getContactPhone());
+                    basisSupplier.setAddress(businessLicenseInfo.getBusinessPlace());
+                    basisSupplier.setEmail(businessLicenseInfo.getContactEmail());
+                }
             }
             //将联系方式和邮件信息存入sys_user
             sysUserMapper.updateUser(sysUser);
@@ -153,5 +155,15 @@ public class AuditDocumentsServiceImpl implements IAuditDocumentsService {
     @Override
     public int deleteAuditDocumentsByChecklistId(String checklistId) {
         return auditDocumentsMapper.deleteAuditDocumentsByChecklistId(checklistId);
+    }
+
+    @Override
+    public boolean getUserAuditStatus(long userId) {
+        List<AuditDocuments> auditDocumentsList = selectAuditDocumentsByUserId(userId);
+        if(auditDocumentsList.size()<2)return false;
+        for(AuditDocuments auditDocuments:auditDocumentsList){
+            if(auditDocuments.getAuditStatus().equals("1"))return false;
+        }
+        return true;
     }
 }

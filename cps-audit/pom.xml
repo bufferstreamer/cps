@@ -31,6 +31,10 @@
             <groupId>com.cps</groupId>
             <artifactId>cps-wms</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-credit</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

@@ -76,6 +76,10 @@
             <groupId>com.cps</groupId>
             <artifactId>cps-system</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-credit</artifactId>
+        </dependency>
 
     </dependencies>
 

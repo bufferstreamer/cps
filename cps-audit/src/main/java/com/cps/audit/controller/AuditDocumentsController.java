@@ -1,13 +1,18 @@
 package com.cps.audit.controller;
 
 import com.cps.audit.domain.AuditDocuments;
+import com.cps.audit.domain.SupplierLicenseInfo;
 import com.cps.audit.service.IAuditDocumentsService;
+import com.cps.audit.service.ISupplierLicenseInfoService;
 import com.cps.common.annotation.Log;
 import com.cps.common.core.controller.BaseController;
 import com.cps.common.core.domain.AjaxResult;
 import com.cps.common.core.page.TableDataInfo;
+import com.cps.common.core.text.Convert;
 import com.cps.common.enums.BusinessType;
 import com.cps.common.utils.poi.ExcelUtil;
+import com.cps.credit.domain.UserCredit;
+import com.cps.credit.service.IUserCreditService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +34,12 @@ public class AuditDocumentsController extends BaseController {
 
     @Autowired
     private IAuditDocumentsService auditDocumentsService;
+
+    @Autowired
+    private ISupplierLicenseInfoService supplierLicenseInfoService;
+
+    @Autowired
+    private IUserCreditService userCreditService;
 
     @RequiresPermissions("audit:auditDocumentsManage:view")
     @GetMapping()
@@ -100,7 +111,18 @@ public class AuditDocumentsController extends BaseController {
     @PostMapping("/edit")
     @ResponseBody
     public AjaxResult editSave(AuditDocuments auditDocuments) {
-        return toAjax(auditDocumentsService.updateAuditDocuments(auditDocuments));
+        int auditAnswer = auditDocumentsService.updateAuditDocuments(auditDocuments);
+        if(auditDocumentsService.getUserAuditStatus(auditDocuments.getUserId())){
+            List<AuditDocuments> auditDocumentsList = auditDocumentsService.selectAuditDocumentsByUserId(auditDocuments.getUserId());
+            for(AuditDocuments auditDocuments1:auditDocumentsList){
+                SupplierLicenseInfo supplierLicenseInfo = supplierLicenseInfoService.selectSupplierLicenseInfoByChecklistId(auditDocuments1.getChecklistId());
+                if(supplierLicenseInfo!=null){
+                    UserCredit userCredit = userCreditService.selectUserCreditByUserId(auditDocuments1.getUserId());
+                    userCreditService.initUserCreditByCapital(userCredit, Convert.toDouble(supplierLicenseInfo.getRegisteredCapital()));
+                }
+            }
+        }
+        return toAjax(auditAnswer);
     }
 
     /**
