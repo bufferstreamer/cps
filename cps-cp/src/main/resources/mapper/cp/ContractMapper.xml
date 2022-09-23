@@ -12,17 +12,28 @@
         <result property="signatureA" column="signature_a"/>
         <result property="signatureB" column="signature_b"/>
         <result property="contractTime" column="contract_time"/>
+        <result property="signatureUserId" column="signature_user_id"/>
     </resultMap>
 
     <sql id="selectContractVo">
-        select contract_id, tender_id, contract_type, contract_document, signature_a, signature_b, contract_time
+        select contract_id, tender_id, contract_type, contract_document, signature_a, signature_b, contract_time, signature_user_id
         from contract
     </sql>
 
     <select id="selectContractList" parameterType="Contract" resultMap="ContractResult">
         <include refid="selectContractVo"/>
         <where>
-            <if test="contractId != null  and contractId != ''">and contract_id = #{contractId}</if>
+<!--            <if test="contractId != null  and contractId != ''">and contract_id = #{contractId}</if>-->
+            <if test="tenderId != null  and tenderId != ''">and tender_Id like concat('%', #{tenderId}, '%')</if>
+            <if test="contractType != null  and contractType != ''">and contract_type = #{contractType}</if>
+
+        </where>
+    </select>
+
+    <select id="selectContractListByUserId" parameterType="Long" resultMap="ContractResult">
+        <include refid="selectContractVo"/>
+        <where>
+            signature_user_id = #{userId}
         </where>
     </select>
 
@@ -41,6 +52,7 @@
             <if test="signatureA != null and signatureA != ''">signature_a,</if>
             <if test="signatureB != null and signatureB != ''">signature_b,</if>
             <if test="contractTime != null">contract_time,</if>
+            <if test="signatureUserId != null and signatureUserId != ''">signature_user_id,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="contractId != null">#{contractId},</if>
@@ -50,6 +62,7 @@
             <if test="signatureA != null and signatureA != ''">#{signatureA},</if>
             <if test="signatureB != null and signatureB != ''">#{signatureB},</if>
             <if test="contractTime != null">#{contractTime},</if>
+            <if test="signatureUserId != null and signatureUserId != ''">#{signatureUserId},</if>
         </trim>
     </insert>
 
@@ -62,6 +75,7 @@
             <if test="signatureA != null and signatureA != ''">signature_a = #{signatureA},</if>
             <if test="signatureB != null and signatureB != ''">signature_b = #{signatureB},</if>
             <if test="contractTime != null">contract_time = #{contractTime},</if>
+            <if test="signatureUserId != null and signatureUserId != ''">signature_user_id = #{signatureUserId},</if>
         </trim>
         where contract_id = #{contractId}
     </update>

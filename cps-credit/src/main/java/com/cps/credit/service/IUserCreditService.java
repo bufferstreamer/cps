@@ -93,4 +93,72 @@ public interface IUserCreditService {
      *
      */
     public void initUserCredit();
+
+    /**
+     * 通过注册资本初始化供应商的信用评分
+     * @param userCredit 要更新的对象
+     * @param capital 注册资本值
+     * @return 结果
+     */
+    public int initUserCreditByCapital(UserCredit userCredit,double capital);
+
+    /**
+     * 更新注册资本后更新信用评分
+     * @param userCredit 要更新的对象
+     * @param oldCapital 旧的注册资本值
+     * @param newCapital 新的注册资本值
+     * @return 结果
+     */
+    public int updateUserCreditByCapital(UserCredit userCredit,double oldCapital,double newCapital);
+
+    /**
+     * 检测注册资本等级
+     * @param capital 注册资本
+     * @return 结果
+     */
+    public int checkCapitalLevel(double capital);
+
+    /**
+     * 根据盈利能力更新信用评分
+     * @param userCredit 要更新的对象
+     * @param profit 流水
+     * @return 结果
+     */
+    public int updateUserCreditByProfitability(UserCredit userCredit, double profit);
+
+    /**
+     * 根据退换货率更新信用评分
+     * @param userCredit 要更新的对象
+     * @param returnRate 退换货率
+     * @return 结果
+     */
+    public int updateUserCreditByReturnRate(UserCredit userCredit, double returnRate);
+
+    /**
+     * 供应商成功交易更新信用评分
+     * @param userCredit 更新对象
+     * @return 结果
+     */
+    public int updateSupplierCreditWhenKeepAContract(UserCredit userCredit);
+
+    /**
+     * 供应商违约更新信用评分
+     * @param userCredit 更新对象
+     * @return 结果
+     */
+    public int updateSupplierCreditWhenBreakAContract(UserCredit userCredit);
+
+    /**
+     * 小商超成功交易更新信用评分
+     * @param userCredit 更新对象
+     * @return 结果
+     */
+    public int updateBusinessCreditWhenKeepAContract(UserCredit userCredit);
+
+    /**
+     * 小商超违约交易更新信用评分
+     * @param userCredit 更新对象
+     * @return 结果
+     */
+    public int updateBusinessCreditWhenBreakAContract(UserCredit userCredit);
 }

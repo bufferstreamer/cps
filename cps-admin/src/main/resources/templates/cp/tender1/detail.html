@@ -121,9 +121,10 @@
     });
 
     function submitHandler() {
-        if ($.validate.form()) {
-            $.operate.cancel(prefix + "/detail", $('#form-tender1-detail').serialize());
-        }
+        // if ($.validate.form()) {
+        //     $.operate.cancel(prefix + "/detail", $('#form-tender1-detail').serialize());
+        // }
+        $.modal.close();
     }
 
     $("input[name='createDatetime']").datetimepicker({

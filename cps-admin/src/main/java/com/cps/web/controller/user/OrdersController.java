@@ -9,8 +9,14 @@ import com.cps.common.enums.BusinessType;
 import com.cps.common.utils.StringUtils;
 import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.system.service.ISysUserService;
+import com.cps.user.domain.Category;
+import com.cps.user.domain.OrderItem;
 import com.cps.user.domain.Orders;
+import com.cps.user.domain.Product;
+import com.cps.user.service.ICategoryService;
+import com.cps.user.service.IOrderItemService;
 import com.cps.user.service.IOrdersService;
+import com.cps.user.service.IProductService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +24,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -136,51 +144,103 @@ public class OrdersController extends BaseController {
         return toAjax(ordersService.deleteOrdersByOrderIds(ids));
     }
 
+    @Autowired
+    private ICategoryService categoryService;
+
+    @Autowired
+    private IProductService productService;
+
     /*跳转到指定的界面echart*/
-    @GetMapping("/goods")
-    public String goods(ModelMap map) {
-        List<Orders> list = ordersService.selectOrdersList(new Orders());
-        HashMap<String, Integer> orderDict = new HashMap<>();
-        for (Orders order : list) {
-            String[] untitledArr = order.getUntitled().split(",");
-            for (String untitled : untitledArr) {
-                if (StringUtils.isEmpty(untitled))
-                    continue;
-
-                if (!orderDict.containsKey(untitled)) {
-                    orderDict.put(untitled, 0);
-                }
-
-                int value = orderDict.get(untitled);
-                orderDict.replace(untitled, value + 1);
-            }
+    @GetMapping("/category/{parentId}")
+    public String category(@PathVariable("parentId") String parentId, ModelMap map) {
+        Category category = new Category();
+        category.setParentId(parentId);
+        List<Category> categoryList = categoryService.selectCategoryList(category);
+        if (categoryList.size()!=0){
+            map.put("categoryList", categoryList);
+            return prefix+"/category";
         }
-
-        map.put("orderDict", orderDict);
-        return prefix + "/goods";
+        else {
+            //TODO:修改
+            return item(Integer.valueOf(parentId),map);
+        }
     }
 
-    @GetMapping("/receiver/{goodName}")
-    public String receiver(@PathVariable("goodName") String goodName, ModelMap map) {
-        List<Orders> list = ordersService.selectOrdersList(new Orders());
-        HashMap<String, Integer> orderDict = new HashMap<>();
-        for (Orders order : list) {
-            String[] untitledArr = order.getUntitled().split(",");
-            for (String untitled : untitledArr) {
-                if (untitled.equals(goodName)) {
-                    String receiverName = order.getReceiverName();
-                    if (!orderDict.containsKey(receiverName)) {
-                        orderDict.put(receiverName, 0);
-                    }
+    public String item(int categoryId, ModelMap map){
+        Product product = new Product();
+        product.setCategoryId(categoryId);
+        List<Product> productList = productService.selectProductList(product);
 
-                    int value = orderDict.get(receiverName);
-                    orderDict.replace(receiverName, value + 1);
-                }
-            }
+        List<OrderItem> itemList = new ArrayList<>();
+        for (Product temp:productList)
+        {
+            OrderItem item = new OrderItem();
+            item.setProductId(temp.getProductId());
+            itemList.addAll(orderItemService.selectOrderItemList(item));
         }
 
-        map.put("goodName",goodName);
+        HashMap<String,Integer> itemDict= new HashMap<>();
+        for (OrderItem temp:itemList)
+        {
+            if (!itemDict.containsKey(temp.getProductName()))
+            {
+                itemDict.put(temp.getProductName(),0);
+            }
+
+            int value = itemDict.get(temp.getProductName());
+            value+=temp.getBuyCounts();
+            itemDict.replace(temp.getProductName(),value);
+        }
+
+        map.put("itemDict",itemDict);
+        return prefix+"/item";
+    }
+
+    @GetMapping("/receiver/{productName}")
+    public String receiver(@PathVariable("productName") String productName, ModelMap map) {
+        OrderItem item = new OrderItem();
+        item.setProductName(productName);
+        List<OrderItem> itemList = orderItemService.selectOrderItemList(item);
+        HashMap<String, Integer> orderDict = new HashMap<>();
+        for (OrderItem temp:itemList)
+        {
+            String receiverName = ordersService
+                    .selectOrdersByOrderId(temp.getOrderId())
+                    .getReceiverName();
+            if (!orderDict.containsKey(receiverName)){
+                orderDict.put(receiverName,0);
+            }
+
+            int value=orderDict.get(receiverName);
+            value+=temp.getBuyCounts();
+            orderDict.replace(receiverName,value);
+        }
+
+        map.put("productName",productName);
         map.put("orderDict", orderDict);
         return prefix + "/receiver";
+    }
+
+    @Autowired
+    private IOrderItemService orderItemService;
+
+    @RequiresPermissions("user:orders:detail")
+    @GetMapping("/detail/{orderId}")
+    public String detail(@PathVariable("orderId") String orderId, ModelMap map){
+        OrderItem item=new OrderItem();
+        item.setOrderId(orderId);
+        List<OrderItem> itemList = orderItemService.selectOrderItemList(item);
+
+        float total = 0;
+        for (OrderItem temp:itemList)
+        {
+            temp.setProductPrice(temp.getProductPrice().setScale(2,BigDecimal.ROUND_DOWN));
+            temp.setTotalAmount(temp.getTotalAmount().setScale(2,BigDecimal.ROUND_DOWN));
+            total += temp.getTotalAmount().doubleValue();
+        }
+        map.put("itemList",itemList);
+        map.put("total",String.format("%.2f", total));
+
+        return prefix+"/detail";
     }
 }

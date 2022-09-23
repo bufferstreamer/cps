@@ -53,7 +53,7 @@ public class WhWarehousingOrderController extends BaseController {
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo list(WhWarehousingOrder whWarehousingOrder) {
-        whWarehousingOrder.setDeptId(ShiroUtils.getDeptId());
+//        whWarehousingOrder.setDeptId(ShiroUtils.getDeptId());
         startPage();
         List<WhWarehousingOrder> list = whWarehousingOrderService.selectWhWarehousingOrderList(whWarehousingOrder);
         return getDataTable(list);

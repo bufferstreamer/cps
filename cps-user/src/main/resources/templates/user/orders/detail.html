@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">>
+<head>
+    <th:block th:include="include :: header('查看订单')"/>
+</head>
+<table border="1" width="500" bgcolor="#00bfff" cellspacing="0" align="center">
+    <tr>
+        <td style="text-align: center"><font size="5">产品名称</font></td>
+        <td style="text-align: center"><font size="5">产品单价</font></td>
+        <td style="text-align: center"><font size="5">购买数量</font></td>
+        <td style="text-align: center"><font size="5">总计</font></td>
+    </tr>
+    <tr th:each="item:${itemList}">
+        <td style="text-align: center"><font size="5" th:text="${item.skuName}"></font></td>
+        <td style="text-align: center"><font size="5" th:text="${item.productPrice}"></font></td>
+        <td style="text-align: center"><font size="5" th:text="${item.buyCounts}"></font></td>
+        <td style="text-align: center"><font size="5" th:text="${item.totalAmount}"></font></td>
+    </tr>
+    <tr>
+        <td colspan="4" style="text-align: center"><font size="5">总计[[${total}]]元</font></td>
+    </tr>
+
+    <th:block th:include="include :: footer"/>
+    <script th:inline="javascript">
+        function submitHandler() {
+            $.modal.close();
+        }
+    </script>
+</table>
+</html>

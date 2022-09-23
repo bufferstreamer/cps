@@ -15,15 +15,10 @@
     </resultMap>
 
     <sql id="selectSupplierCreditEvaluationInfoVo">
-        select supplier_credit_evaluation_audit_id,
-               checklist_id,
-               corporate_name,
-               corporate_credit_info,
-               fr_name,
-               fr_criminal_record,
-               create_datetime
+        select supplier_credit_evaluation_audit_id, checklist_id, corporate_name, corporate_credit_info, fr_name, fr_criminal_record, create_datetime
         from audit_supplier_credit_evaluation_info
     </sql>
+
 
     <select id="selectSupplierCreditEvaluationInfoList" parameterType="SupplierCreditEvaluationInfo"
             resultMap="SupplierCreditEvaluationInfoResult">
@@ -59,34 +54,60 @@
     <insert id="insertSupplierCreditEvaluationInfo" parameterType="SupplierCreditEvaluationInfo">
         insert into audit_supplier_credit_evaluation_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="supplierCreditEvaluationAuditId != null">supplier_credit_evaluation_audit_id,</if>
-            <if test="checklistId != null and checklistId != ''">checklist_id,</if>
-            <if test="corporateName != null">corporate_name,</if>
-            <if test="corporateCreditInfo != null">corporate_credit_info,</if>
-            <if test="frName != null">fr_name,</if>
-            <if test="frCriminalRecord != null">fr_criminal_record,</if>
-            <if test="createDatetime != null">create_datetime,</if>
+            <if test="supplierCreditEvaluationAuditId != null">supplier_credit_evaluation_audit_id,
+            </if>
+            <if test="checklistId != null and checklistId != ''">checklist_id,
+            </if>
+            <if test="corporateName != null">corporate_name,
+            </if>
+            <if test="corporateCreditInfo != null">corporate_credit_info,
+            </if>
+            <if test="frName != null">fr_name,
+            </if>
+            <if test="frCriminalRecord != null">fr_criminal_record,
+            </if>
+            <if test="createDatetime != null">create_datetime,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="supplierCreditEvaluationAuditId != null">#{supplierCreditEvaluationAuditId},</if>
-            <if test="checklistId != null and checklistId != ''">#{checklistId},</if>
-            <if test="corporateName != null">#{corporateName},</if>
-            <if test="corporateCreditInfo != null">#{corporateCreditInfo},</if>
-            <if test="frName != null">#{frName},</if>
-            <if test="frCriminalRecord != null">#{frCriminalRecord},</if>
-            <if test="createDatetime != null">#{createDatetime},</if>
+            <if test="supplierCreditEvaluationAuditId != null">#{supplierCreditEvaluationAuditId},
+            </if>
+            <if test="checklistId != null and checklistId != ''">#{checklistId},
+            </if>
+            <if test="corporateName != null">#{corporateName},
+            </if>
+            <if test="corporateCreditInfo != null">#{corporateCreditInfo},
+            </if>
+            <if test="frName != null">#{frName},
+            </if>
+            <if test="frCriminalRecord != null">#{frCriminalRecord},
+            </if>
+            <if test="createDatetime != null">#{createDatetime},
+            </if>
         </trim>
     </insert>
 
     <update id="updateSupplierCreditEvaluationInfo" parameterType="SupplierCreditEvaluationInfo">
         update audit_supplier_credit_evaluation_info
         <trim prefix="SET" suffixOverrides=",">
-            <if test="checklistId != null and checklistId != ''">checklist_id = #{checklistId},</if>
-            <if test="corporateName != null">corporate_name = #{corporateName},</if>
-            <if test="corporateCreditInfo != null">corporate_credit_info = #{corporateCreditInfo},</if>
-            <if test="frName != null">fr_name = #{frName},</if>
-            <if test="frCriminalRecord != null">fr_criminal_record = #{frCriminalRecord},</if>
-            <if test="createDatetime != null">create_datetime = #{createDatetime},</if>
+            <if test="checklistId != null and checklistId != ''">checklist_id =
+                #{checklistId},
+            </if>
+            <if test="corporateName != null">corporate_name =
+                #{corporateName},
+            </if>
+            <if test="corporateCreditInfo != null">corporate_credit_info =
+                #{corporateCreditInfo},
+            </if>
+            <if test="frName != null">fr_name =
+                #{frName},
+            </if>
+            <if test="frCriminalRecord != null">fr_criminal_record =
+                #{frCriminalRecord},
+            </if>
+            <if test="createDatetime != null">create_datetime =
+                #{createDatetime},
+            </if>
         </trim>
         where supplier_credit_evaluation_audit_id = #{supplierCreditEvaluationAuditId}
     </update>

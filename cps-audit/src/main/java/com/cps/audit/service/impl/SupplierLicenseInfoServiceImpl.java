@@ -7,9 +7,12 @@ import com.cps.audit.mapper.SupplierLicenseInfoMapper;
 import com.cps.audit.service.ISupplierLicenseInfoService;
 import com.cps.common.core.text.Convert;
 import com.cps.common.utils.ShiroUtils;
+import com.cps.credit.domain.UserCredit;
+import com.cps.credit.service.IUserCreditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -25,6 +28,9 @@ public class SupplierLicenseInfoServiceImpl implements ISupplierLicenseInfoServi
 
     @Autowired
     private AuditDocumentsMapper auditDocumentsMapper;
+
+    @Autowired
+    private IUserCreditService userCreditService;
 
     /**
      * 查询供应商营业执照审核管理
@@ -104,5 +110,22 @@ public class SupplierLicenseInfoServiceImpl implements ISupplierLicenseInfoServi
     @Override
     public int deleteSupplierLicenseInfoByChecklistId(String checklistId) {
         return supplierLicenseInfoMapper.deleteSupplierLicenseInfoByChecklistId(checklistId);
+    }
+
+    /**
+     * 更新注册资本信息，同时更新信用评分
+     * @param checklistId 审核单id
+     * @param newCapital 更新的注册资本
+     * @return 结果
+     */
+    @Override
+    public int updateCapitalByChecklistId(String checklistId, double newCapital) {
+        SupplierLicenseInfo supplierLicenseInfo = selectSupplierLicenseInfoByChecklistId(checklistId);
+        double oldCapital = Convert.toDouble(supplierLicenseInfo.getRegisteredCapital());
+        long userId = auditDocumentsMapper.selectAuditDocumentsByChecklistId(checklistId).getUserId();
+        UserCredit userCredit = userCreditService.selectUserCreditByUserId(userId);
+        userCreditService.updateUserCreditByCapital(userCredit,oldCapital,newCapital);
+        supplierLicenseInfo.setRegisteredCapital(BigDecimal.valueOf(newCapital));
+        return updateSupplierLicenseInfo(supplierLicenseInfo);
     }
 }

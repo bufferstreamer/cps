@@ -55,6 +55,7 @@
                close_type,
                due_time
         from orders
+        order by create_time desc
     </sql>
 
     <select id="selectOrdersList" parameterType="Orders" resultMap="OrdersResult">

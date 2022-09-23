@@ -1,6 +1,6 @@
 
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">集采系统 v4.7.4</h1>
-<h4 align="center">基于SpringBoot开发的轻量级Java快速开发框架</h4>
+<h4 align="center">基于SpringBoot开发的轻量级Java后台管理程序</h4>
 
 
 ## 平台简介

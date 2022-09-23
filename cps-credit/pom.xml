@@ -25,10 +25,5 @@
             <groupId>com.cps</groupId>
             <artifactId>cps-system</artifactId>
         </dependency>
-        <!-- 审核模块-->
-        <dependency>
-            <groupId>com.cps</groupId>
-            <artifactId>cps-audit</artifactId>
-        </dependency>
     </dependencies>
 </project>

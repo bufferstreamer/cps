@@ -14,13 +14,20 @@
                             <label>供应商ID：</label>
                             <input type="text" name="supplyId"/>
                         </li>
-                        <li>
-                            <label>商品编号：</label>
-                            <input name="goodsId" type="text"/>
-                        </li>
+<!--                        <li>-->
+<!--                            <label>商品编号：</label>-->
+<!--                            <input name="goodsId" type="text"/>-->
+<!--                        </li>-->
                         <li>
                             <label>标书ID：</label>
                             <input name="tenderId" type="text"/>
+                        </li>
+                        <li>
+                            审核状态：<select name="auditStatus" th:with="type=${@dict.getType('audit_status')}">
+                            <option value="">所有</option>
+                            <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                    th:value="${dict.dictValue}"></option>
+                        </select>
                         </li>
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
