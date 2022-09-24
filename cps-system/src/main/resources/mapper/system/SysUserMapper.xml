@@ -109,6 +109,10 @@
                  open="(" close=")" separator=",">
             #{deptId}
         </foreach>
+          AND
+              u.email IS NOT NULL
+          AND
+              u.email != ''
     </select>
 
     <select id="selectUserList" parameterType="SysUser" resultMap="SysUserResult">

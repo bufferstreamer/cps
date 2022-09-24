@@ -1,5 +1,8 @@
 package com.cps.system.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.collection.ListUtil;
 import cn.hutool.extra.mail.MailUtil;
 import com.cps.common.annotation.DataScope;
 import com.cps.common.constant.UserConstants;
@@ -544,6 +547,9 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public String noticeByMail(String subject, String notice, Long[] deptId) {
         ArrayList<String> address = userMapper.getEmailByDeptid(deptId);
-        return  MailUtil.send(address,subject,notice,false);
+        if(CollUtil.isEmpty(address)){
+            return "未查询到所选择经营范围的供应商!";
+        }
+        return String.format("共通知 %d 位供应商，Message_ID为 %s。",address.size(),MailUtil.send(address,subject,notice,false));
     }
 }
