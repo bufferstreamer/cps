@@ -103,7 +103,7 @@ public class WhOutboundOrderServiceImpl implements IWhOutboundOrderService {
         //步骤1
         whOutboundOrder.setUpdateTime(DateUtils.getNowDate());
         BasisCustomer basisCustomer = basisCustomerService.selectBasisCustomerById(whOutboundOrder.getCustomerId());
-        whOutboundOrder.setRate(basisCustomer.getInvoiceTax());
+//        whOutboundOrder.setRate(basisCustomer.getInvoiceTax());
 
         //步骤2
         WhOutboundOrderSeed whOutboundOrderSeed = new WhOutboundOrderSeed();

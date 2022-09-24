@@ -476,6 +476,60 @@ var sub = {
         var count = $("#" + currentId).bootstrapTable('getData').length;
         sub.editRow();
         $("#" + currentId).bootstrapTable('insertRow', {index: count + 1, row: row});
+    },
+    editColumn: function() {
+        var dataColumns = [];
+        for (var columnIndex = 0; columnIndex < table.options.columns.length; columnIndex++) {
+            if (table.options.columns[columnIndex].visible != false) {
+                dataColumns.push(table.options.columns[columnIndex]);
+            }
+        }
+        var params = new Array();
+        var data = $("#" + table.options.id).bootstrapTable('getData');
+        var count = data.length;
+        for (var dataIndex = 0; dataIndex < count; dataIndex++) {
+            var columns = $('#' + table.options.id + ' tr[data-index="' + dataIndex + '"] td');
+            var obj = new Object();
+            for (var i = 0; i < columns.length; i++) {
+                var inputValue = $(columns[i]).find('input');
+                var selectValue = $(columns[i]).find('select');
+                var textareaValue = $(columns[i]).find('textarea');
+                var key = dataColumns[i].field;
+                if ($.common.isNotEmpty(inputValue.val())) {
+                    obj[key] = inputValue.val();
+                } else if ($.common.isNotEmpty(selectValue.val())) {
+                    obj[key] = selectValue.val();
+                } else if ($.common.isNotEmpty(textareaValue.val())) {
+                    obj[key] = textareaValue.val();
+                } else {
+                    obj[key] = "";
+                }
+            }
+            var item = data[dataIndex];
+            var extendObj = $.extend({}, item, obj);
+            params.push({ index: dataIndex, row: extendObj });
+        }
+        $("#" + table.options.id).bootstrapTable("updateRow", params);
+    },
+    delColumn: function(column) {
+        sub.editColumn();
+        var subColumn = $.common.isEmpty(column) ? "index" : column;
+        var ids = $.table.selectColumns(subColumn);
+        if (ids.length == 0) {
+            $.modal.alertWarning("请至少选择一条记录");
+            return;
+        }
+        $("#" + table.options.id).bootstrapTable('remove', { field: subColumn, values: ids });
+    },
+    addColumn: function(row, tableId) {
+        var currentId = $.common.isEmpty(tableId) ? table.options.id : tableId;
+        table.set(currentId);
+        var count = $("#" + currentId).bootstrapTable('getData').length;
+        sub.editColumn();
+        $("#" + currentId).bootstrapTable('insertRow', {
+            index: count + 1,
+            row: row
+        });
     }
 };
 

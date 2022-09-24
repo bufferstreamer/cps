@@ -1331,6 +1331,7 @@ var table = {
                     var $contentWindow = $('.cps_iframe[data-id="' + currentId + '"]', topWindow)[0].contentWindow;
                     $.modal.close();
                     $contentWindow.$.modal.msgSuccess(result.msg);
+
                     $contentWindow.$(".layui-layer-padding").removeAttr("style");
                     if ($contentWindow.table.options.type == table_type.bootstrapTable) {
                         $contentWindow.$.table.refresh();

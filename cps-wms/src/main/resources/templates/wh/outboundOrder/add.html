@@ -53,6 +53,7 @@
                                type="hidden">
                         <input class="form-control" id="customerId" name="customerId" th:value="${whOutboundOrder.customerId}"
                                type="hidden">
+                        <input class="form-control" id="customerAddress" name="customerAddress" type="hidden">
                         <input class="form-control" id="customerName" name="customerName" onclick="selectCustomer()"
                                readonly required th:value="${whOutboundOrder.customerName}" type="text">
                     </div>
@@ -60,12 +61,10 @@
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">承运商名称：</label>
+                    <label class="col-sm-4 control-label">收货地址：</label>
                     <div class="col-sm-8">
-                        <input class="form-control" id="carriersId" name="carriersId" th:value="${whOutboundOrder.carriersId}"
-                               type="hidden">
-                        <input class="form-control" id="carriersName" name="carriersName" onclick="selectCarriers()"
-                               readonly th:value="${whOutboundOrder.carriersName}" type="text">
+                        <input class="form-control" id="address" name="address"
+                               readonly th:value="${whOutboundOrder.address}" type="text">
                     </div>
                 </div>
             </div>
@@ -73,7 +72,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label is-required">税率：</label>
                     <div class="col-sm-8">
-                        <input class="form-control" id="rate" name="rate" readonly required
+                        <input class="form-control" id="rate" name="rate"  required
                                th:value="${whOutboundOrder.rate}" type="text">
                     </div>
                 </div>
@@ -378,6 +377,7 @@
     //删除行
     function delColumn() {
         sub.editColumn();
+
         var column = "id";
         var subColumn = $.common.isEmpty(column) ? "index" : column;
         var ids = $.table.selectColumns(subColumn);
@@ -419,10 +419,12 @@
         $('#customerId').val(rows.join())
         var warehouseId = iframeWin.selectColumns("warehouseId").join();//调用子页面的方法 获取ID
         $('#warehouseId').val(warehouseId)
-        var customerName = iframeWin.selectColumns("customerName").join();//调用子页面的方法 获取ID
+        var customerName = iframeWin.selectColumns("supplierName").join();//调用子页面的方法 获取ID
         $('#customerName').val(customerName)
         var rate = iframeWin.selectColumns("invoiceTax").join();//调用子页面的方法 获取ID
         $('#rate').val(rate);
+        var address = iframeWin.selectColumns("address").join();
+        $('#address').val(address);
         //存储
         $.operate.post(prefix + "/edit", {
             "id": $('#id').val(),
