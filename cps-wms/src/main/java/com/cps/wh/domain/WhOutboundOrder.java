@@ -62,116 +62,108 @@ public class WhOutboundOrder extends BaseEntity {
     @Excel(name = "客户名称")
     private String customerName;
 
+    @Excel(name = "收货地址")
+    private String address;
     /**
      * 单位关系主键ID
      */
     @Excel(name = "单位关系主键ID")
     private Long warehouseId;
-
     /**
      * 对象单位主键ID
      */
     @Excel(name = "对象单位主键ID")
     private Long desWarehouseId;
-
     /**
      * 对象单位名称
      */
     @Excel(name = "对象单位名称")
     private String desWarehouseName;
-
     /**
      * 承运商ID
      */
     @Excel(name = "承运商ID")
     private Long carriersId;
-
     /**
      * 承运商名称
      */
     @Excel(name = "承运商名称")
     private String carriersName;
-
     /**
      * 税率
      */
     @Excel(name = "税率")
     private BigDecimal rate;
-
     /**
      * 税额
      */
     @Excel(name = "税额")
     private BigDecimal tax;
-
     /**
      * 折扣率
      */
     @Excel(name = "折扣率")
     private BigDecimal discountRate;
-
     /**
      * 折扣金额
      */
     @Excel(name = "折扣金额")
     private BigDecimal discountAmount;
-
     /**
      * 折让金额
      */
     @Excel(name = "折让金额")
     private BigDecimal discountPrice;
-
     /**
      * 其他费用
      */
     @Excel(name = "其他费用")
     private BigDecimal otherFee;
-
     /**
      * 未税金额
      */
     @Excel(name = "未税金额")
     private BigDecimal untaxedAmount;
-
     /**
      * 含税金额
      */
     @Excel(name = "含税金额")
     private BigDecimal totalAmount;
-
     /**
      * 状态(新发货单、待拣货、已拣货、已发货、签收回单)
      */
     @Excel(name = "状态(新发货单、待拣货、已拣货、已发货、签收回单)")
     private String status;
-
     /**
      * 删除标志（0代表存在 2代表删除）
      */
     private String delFlag;
-
     /**
      * 部门ID
      */
     @Excel(name = "部门ID")
     private Long deptId;
-
     /**
      * 关联入库单主键
      */
     @Excel(name = "关联入库单主键")
     private Long warehousingOrderId;
-
     /**
      * 状态描述(新发货单、待拣货、已拣货、已发货、签收回单)
      */
     private String statusDesc;
-
     /**
      * 单据类型描述
      */
     private String orderTypeDesc;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public Long getId() {
         return id;

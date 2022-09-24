@@ -1,5 +1,7 @@
 package com.cps.wh.controller;
 
+import com.cps.basis.domain.BasisSupplier;
+import com.cps.basis.service.IBasisSupplierService;
 import com.cps.common.annotation.Log;
 import com.cps.common.constant.OrderConstants;
 import com.cps.common.core.controller.BaseController;
@@ -38,6 +40,9 @@ public class WhOutboundOrderController extends BaseController {
 
     @Autowired
     private IWhOutboundOrderService whOutboundOrderService;
+
+    @Autowired
+    private IBasisSupplierService basisSupplierService;
 
     @Autowired
     private IWhOutboundOrderSeedService whOutboundOrderSeedService;

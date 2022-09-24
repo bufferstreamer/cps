@@ -12,6 +12,7 @@
         <result property="orderDate" column="order_date"/>
         <result property="customerId" column="customer_id"/>
         <result property="customerName" column="customer_name"/>
+        <result property="address" column="address"/>
         <result property="warehouseId" column="warehouse_id"/>
         <result property="desWarehouseId" column="des_warehouse_id"/>
         <result property="desWarehouseName" column="des_warehouse_name"/>
@@ -44,6 +45,7 @@
                order_date,
                customer_id,
                customer_name,
+               address,
                warehouse_id,
                des_warehouse_id,
                des_warehouse_name,
@@ -124,6 +126,7 @@
             <if test="orderDate != null">order_date,</if>
             <if test="customerId != null">customer_id,</if>
             <if test="customerName != null">customer_name,</if>
+            <if test="address != null">address,</if>
             <if test="warehouseId != null">warehouse_id,</if>
             <if test="desWarehouseId != null">des_warehouse_id,</if>
             <if test="desWarehouseName != null">des_warehouse_name,</if>
@@ -154,6 +157,7 @@
             <if test="orderDate != null">#{orderDate},</if>
             <if test="customerId != null">#{customerId},</if>
             <if test="customerName != null">#{customerName},</if>
+            <if test="address != null">#{address},</if>
             <if test="warehouseId != null">#{warehouseId},</if>
             <if test="desWarehouseId != null">#{desWarehouseId},</if>
             <if test="desWarehouseName != null">#{desWarehouseName},</if>
@@ -188,6 +192,7 @@
             <if test="orderDate != null">order_date = #{orderDate},</if>
             <if test="customerId != null">customer_id = #{customerId},</if>
             <if test="customerName != null">customer_name = #{customerName},</if>
+            <if test="address != null">address = #{address},</if>
             <if test="warehouseId != null">warehouse_id = #{warehouseId},</if>
             <if test="desWarehouseId != null">des_warehouse_id = #{desWarehouseId},</if>
             <if test="desWarehouseName != null">des_warehouse_name = #{desWarehouseName},</if>
