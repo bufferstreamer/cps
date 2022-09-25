@@ -268,6 +268,12 @@ public class Tender1Controller extends BaseController {
         return prefix + "/detail";
     }
 
+    // 查询经营范围
+    @RequestMapping("/range/")
+    public String queryTender() {
+        return prefix + "/dept";
+    }
+
     @RequestMapping("/qualificationReview/{tenderId}")
     public String qualificationReview(@PathVariable("tenderId") String tenderId, ModelMap mmap) {
         QualificationReview review = qualificationReviewService.selectQualificationReviewByTenderIdAndSupplyId(tenderId, ShiroUtils.getUserId().toString());

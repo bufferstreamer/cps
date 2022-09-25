@@ -28,6 +28,13 @@
         <!--                </div>-->
         <!--            </div>-->
         <div class="form-group">
+            <label class="col-sm-3 control-label is-required">招标范围：</label>
+            <div class="col-sm-8">
+                <input class="form-control" id="addRange" name="deptName" required type="text"><a
+                    class="btn btn-primary btn-rounded btn-sm" onclick="queryRange()"><i class="fa fa-search"></i>&nbsp;选择范围</a>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-sm-3 control-label is-required">上传标书：</label>
             <div class="col-sm-8">
                 <input name="tenderDocument" type="hidden">
@@ -94,8 +101,24 @@
 
     function submitHandler() {
         if ($.validate.form()) {
+            if ($.common.isEmpty($("#tenderDocument").val())) {
+                $.modal.msgWarning("请上传标书");
+                return;
+            }
+
             $.operate.save(prefix + "/add", $('#form-tender1-add').serialize());
+
         }
+    }
+
+    function queryRange() {
+        $.modal.open("选择招标范围", ctx + "cp/tender1/range/", '1200', '600', function (index, layero) {
+            // 获取弹窗参数（方式二）
+            // console.log($(layero).find("iframe")[0].contentWindow.document.getElementById("test123").value);
+            // $('#addTenderId').val($(layero).find("iframe")[0].contentWindow.document.getElementById("test123").value);
+            var v1 = $(layero).find("iframe")[0].contentWindow.submitHandler();
+            $("#addRange").val(v1);
+        })
     }
 
     $("input[name='createDatetime']").datetimepicker({

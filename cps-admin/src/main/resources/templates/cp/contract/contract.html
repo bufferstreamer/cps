@@ -19,7 +19,7 @@
                             <input name="tenderId" type="text"/>
                         </li>
                         <li>
-                            合同类型：<select name="contractType" th:with="type=${@dict.getType('contract_type')}">
+                            合同类别：<select name="contractType" th:with="type=${@dict.getType('contract_type')}">
                             <option value="">所有</option>
                             <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
                                     th:value="${dict.dictValue}"></option>
