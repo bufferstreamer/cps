@@ -93,6 +93,20 @@ public class Tender extends BaseEntity {
     @Excel(name = "公布时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date publishTime;
 
+    /**
+     * 招标范围
+     */
+    @Excel(name = "招标范围")
+    private String deptName;
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
     public String getTenderId() {
         return tenderId;
     }
@@ -204,6 +218,7 @@ public class Tender extends BaseEntity {
                 .append("bidStartTime", getBidStartTime())
                 .append("bidEndTime", getBidEndTime())
                 .append("publishTime", getPublishTime())
+                .append("deptName",getDeptName())
                 .toString();
     }
 }

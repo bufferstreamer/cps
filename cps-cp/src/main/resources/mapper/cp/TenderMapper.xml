@@ -12,6 +12,7 @@
         <result property="bidNumber" column="bid_number"/>
         <result property="phoneOfContact" column="phone_of_contact"/>
         <result property="tenderDocument" column="tender_document"/>
+        <result property="deptName" column="dept_name"/>
         <result property="createDatetime" column="create_datetime"/>
         <result property="dealineForQualificationReview" column="dealine_for_qualification_review"/>
         <result property="bidStartTime" column="bid_start_time"/>
@@ -36,6 +37,7 @@
                bid_number,
                phone_of_contact,
                tender_document,
+               dept_name,
                create_datetime,
                dealine_for_qualification_review,
                bid_start_time,
@@ -97,6 +99,7 @@
             <if test="bidNumber != null and bidNumber != ''">bid_number,</if>
             <if test="phoneOfContact != null and phoneOfContact != ''">phone_of_contact,</if>
             <if test="tenderDocument != null and tenderDocument != ''">tender_document,</if>
+            <if test="deptName != null and deptName != ''">dept_name,</if>
             <if test="createDatetime != null">create_datetime,</if>
             <if test="dealineForQualificationReview != null">dealine_for_qualification_review,</if>
             <if test="bidStartTime != null">bid_start_time,</if>
@@ -111,6 +114,7 @@
             <if test="bidNumber != null and bidNumber != ''">#{bidNumber},</if>
             <if test="phoneOfContact != null and phoneOfContact != ''">#{phoneOfContact},</if>
             <if test="tenderDocument != null and tenderDocument != ''">#{tenderDocument},</if>
+            <if test="deptName != null and deptName != ''">#{deptName},</if>
             <if test="createDatetime != null">#{createDatetime},</if>
             <if test="dealineForQualificationReview != null">#{dealineForQualificationReview},</if>
             <if test="bidStartTime != null">#{bidStartTime},</if>
@@ -129,9 +133,7 @@
             <if test="phoneOfContact != null and phoneOfContact != ''">phone_of_contact = #{phoneOfContact},</if>
             <if test="tenderDocument != null and tenderDocument != ''">tender_document = #{tenderDocument},</if>
             <if test="createDatetime != null">create_datetime = #{createDatetime},</if>
-            <if test="dealineForQualificationReview != null">dealine_for_qualification_review =
-                #{dealineForQualificationReview},
-            </if>
+            <if test="dealineForQualificationReview != null">dealine_for_qualification_review = #{dealineForQualificationReview},</if>
             <if test="bidStartTime != null">bid_start_time = #{bidStartTime},</if>
             <if test="bidEndTime != null">bid_end_time = #{bidEndTime},</if>
             <if test="publishTime != null">publish_time = #{publishTime},</if>
