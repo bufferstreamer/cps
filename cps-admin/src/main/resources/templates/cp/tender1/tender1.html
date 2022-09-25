@@ -2,6 +2,7 @@
 <html lang="zh" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="include :: header('招标列表')"/>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body class="gray-bg">
 <div class="container-div">
@@ -54,9 +55,9 @@
             <!--                <a class="btn btn-info" onclick="downloadFile('http://localhost:8081/cps/profile/upload/template/zhaobiao.docx')" >-->
             <!--                    -->
             <!--                </a>-->
-            <a class="btn btn-info" download="" href="http://localhost:80/cps/documentTemplate/zhaobiao3.docx"><i
+            <a class="btn btn-info" download="" href="http://localhost:80/cps/documentTemplate/zhaobiao3.docx" shiro:hasPermission="cp:tender1:zb"><i
                     class="fa fa-download"></i> 下载招标模板</a>
-            <a class="btn btn-warning" download="" href="http://localhost:80/cps/documentTemplate/toubiao.docx"><i
+            <a class="btn btn-info" download="" href="http://localhost:80/cps/documentTemplate/toubiao.docx" shiro:hasPermission="cp:tender1:tb"><i
                     class="fa fa-download"></i> 下载投标模板</a>
         </div>
 
@@ -75,6 +76,7 @@
     var detailFlag = [[${@permission.hasPermi('cp:tender1:detail')}]];
     var qualificationReviewFlag = [[${@permission.hasPermi('cp:tender1:qualificationReview')}]];
     var centralizedPurchaseFlag = [[${@permission.hasPermi('bid:tender1:add')}]];
+    var informFlag = [[${@permission.hasPermi('cp:tender1:inform')}]];
 
     function downloadFile(value) {
         window.location.href = ctx + "common/download/resource?resource=" + value;
@@ -92,6 +94,10 @@
 
     function centralizedPurchase(tenderId) {
         $.modal.open("参与竞标", ctx + "bid/tender1/add/" + tenderId);
+    }
+
+    function inform(tenderId) {
+        $.modal.open("一键通知", prefix + "/inform/" + tenderId);
     }
 
     function openQpcs(tenderId) {
@@ -170,14 +176,15 @@
                         // actions.push('<a class="btn btn-success btn-xs ' + detailFlag + '" href="javascript:void(0)" onclick="$.operate.detail(\'' + row.tenderId + '\')"><i class="fa fa-edit"></i>详细</a>');
                         actions.push('<a class="btn btn-info btn-xs ' + downloadFlag + '" href="javascript:void(0)" onclick="downloadFile(\'' + row.tenderDocument + '\')"><i class="fa fa-download"></i>下载</a>');
                         // actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.tenderId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.tenderId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.tenderId + '\')"><i class="fa fa-trash"></i>删除</a>');
                         if ([[${canQualificationReviewArr}]][index]) {
                             actions.push('<a class="btn btn-warning btn-xs ' + qualificationReviewFlag + '" href="javascript:void(0)" onclick="qualificationReview(\'' + row.tenderId + '\')"><i class="fa fa-review"></i>资质审核</a> ');
                         }
                         if ([[${canPurchaseArr}]][index]) {
                             actions.push('<a class="btn btn-warning btn-xs ' + centralizedPurchaseFlag + '" href="javascript:void(0)" onclick="centralizedPurchase(\'' + row.tenderId + '\')"><i class="fa fa-review"></i>投标</a> ');
                         }
-                        actions.push('<a class="btn btn-success btn-xs ' + true + '" href="javascript:void(0)" onclick="openQpcs(\'' + row.tenderId + '\')"><i class="fa fa-edit"></i>比质比价</a> ');
+                        actions.push('<a class="btn btn-success btn-xs ' + true + '" href="javascript:void(0)" onclick="openQpcs(\'' + row.tenderId + '\')"><i class="fa fa-cny"></i>比质比价</a> ');
+                        actions.push('<a class="btn btn-primary btn-xs ' + informFlag + '" href="javascript:void(0)" onclick="inform(\'' + row.tenderId + '\')"><i class="fa fa-bell-o"></i>一键通知</a> ');
                         return actions.join('');
                     }
                 }]

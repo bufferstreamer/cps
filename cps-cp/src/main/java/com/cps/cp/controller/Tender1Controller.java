@@ -427,4 +427,15 @@ public class Tender1Controller extends BaseController {
 
         return false;
     }
+
+    /**
+     * 通知
+     */
+    @RequiresPermissions("cp:tender1:inform")
+    @GetMapping("/inform/{tenderId}")
+    public String inform(@PathVariable("tenderId") String tenderId, ModelMap mmap) {
+//        Tender tender = tenderService.selectTenderByTenderId(tenderId);
+//        mmap.put("tender", tender);
+        return prefix + "/inform";
+    }
 }

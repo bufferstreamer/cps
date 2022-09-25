@@ -106,6 +106,7 @@
     function submitHandler() {
         if ($.validate.form()) {
             $.operate.save(prefix + "/add", $('#form-contract-add').serialize());
+            parent.location.reload();
         }
     }
 
