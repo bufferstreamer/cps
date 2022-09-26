@@ -1,7 +1,11 @@
 package com.cps.web.controller.user;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
+import com.cps.framework.web.domain.server.Sys;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,8 +51,26 @@ public class OrderItemController extends BaseController {
         @PostMapping("/list")
         @ResponseBody
         public TableDataInfo list(OrderItem orderItem) {
-            startPage();
             List<OrderItem> list = orderItemService.selectOrderItemList(orderItem);
+
+            HashMap<String,OrderItem> itemDict = new HashMap<>();
+            for (OrderItem item:list)
+            {
+                if (!itemDict.containsKey(item.getSkuName())){
+                    itemDict.put(item.getSkuName(),item);
+                }
+                else {
+                    OrderItem curItem = itemDict.get(item.getSkuName());
+                    curItem.setBuyCounts(curItem.getBuyCounts()+item.getBuyCounts());
+                    curItem.setTotalAmount(curItem.getTotalAmount().add(item.getTotalAmount()));
+                }
+            }
+
+            list.clear();
+
+            startPage();
+            list.addAll(itemDict.values());
+            list.sort((arg1,arg2)-> (int)(arg2.getBuyCounts()-arg1.getBuyCounts()));
             return getDataTable(list);
         }
 

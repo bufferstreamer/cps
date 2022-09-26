@@ -124,4 +124,10 @@ public class ProductController extends BaseController
     {
         return toAjax(productService.deleteProductByProductIds(ids));
     }
+
+    @PostMapping("search-status")
+    @ResponseBody
+    public String selectBidStatusByProductId(String productId){
+        return productService.selectProductByProductId(productId).getIsBid();
+    }
 }
