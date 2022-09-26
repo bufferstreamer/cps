@@ -266,4 +266,13 @@ public class SysUserController extends BaseController {
         userService.checkUserDataScope(user.getUserId());
         return toAjax(userService.changeStatus(user));
     }
+
+    /**
+     * 给供应商发送email
+     */
+    @PostMapping("/sentEmail2Provider")
+    @ResponseBody
+    public String sentEmail2Provider(String subject,String notice,Long[] deptId){
+        return userService.noticeByMail(subject,notice,deptId);
+    }
 }

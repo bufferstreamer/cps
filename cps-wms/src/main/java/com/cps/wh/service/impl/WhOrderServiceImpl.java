@@ -30,9 +30,7 @@ import java.util.List;
 
 /**
  * @description: 单据精灵接口实现类
- * @author: miki
- * @modified By：注意：本内容仅限于湖南索孚威尔科技有限公司内部传阅，禁止外泄以及用于其他的商业目的
- * @time: 2021-06-13 12:18
+ * @author: cps
  */
 @Service
 public class WhOrderServiceImpl implements IWhOrderService {

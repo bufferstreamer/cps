@@ -44,7 +44,7 @@
 <th:block th:include="include :: footer"/>
 <script th:inline="javascript">
     var customerLevelDatas = [[${@dict.getType('wms_level')}]];
-    var prefix = ctx + "basis/customer";
+    var prefix = ctx + "basis/supplier";
 
     $(function () {
         var options = {
@@ -54,20 +54,21 @@
             showToggle: false,
             showColumns: false,
             modalName: "客户资料",
-            columns: [{
+            columns: [
+                {
                 radio: true
-            },
+                },
                 {
                     field: 'id',
                     title: '客户资料id',
                     visible: false
                 },
                 {
-                    field: 'customerCode',
+                    field: 'supplierCode',
                     title: '客户编码'
                 },
                 {
-                    field: 'customerName',
+                    field: 'supplierName',
                     title: '客户名称'
                 },
                 {
@@ -85,14 +86,13 @@
                 {
                     field: 'email',
                     title: '邮箱',
-                    visible: false
                 },
                 {
                     field: 'address',
                     title: '地址'
                 },
                 {
-                    field: 'customerLevel',
+                    field: 'supplierLevel',
                     title: '级别',
                     formatter: function (value, row, index) {
                         return $.table.selectDictLabel(customerLevelDatas, value);

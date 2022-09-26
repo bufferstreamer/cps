@@ -50,7 +50,7 @@ public class ShopGoodsTypeController extends BaseController {
     @PostMapping("/list")
     @ResponseBody
     public List<ShopGoodsType> list(ShopGoodsType shopGoodsType) {
-        shopGoodsType.setDeptId(ShiroUtils.getDeptId());
+//        shopGoodsType.setDeptId(ShiroUtils.getDeptId());
         List<ShopGoodsType> list = shopGoodsTypeService.selectShopGoodsTypeList(shopGoodsType);
         return list;
     }

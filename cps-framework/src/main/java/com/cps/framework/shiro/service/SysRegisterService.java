@@ -5,6 +5,8 @@ import com.cps.common.constant.ShiroConstants;
 import com.cps.common.constant.UserConstants;
 import com.cps.common.core.domain.entity.SysUser;
 import com.cps.common.utils.*;
+import com.cps.credit.domain.UserCredit;
+import com.cps.credit.service.IUserCreditService;
 import com.cps.framework.manager.AsyncManager;
 import com.cps.framework.manager.factory.AsyncFactory;
 import com.cps.system.service.ISysUserService;
@@ -23,6 +25,9 @@ public class SysRegisterService {
 
     @Autowired
     private SysPasswordService passwordService;
+
+    @Autowired
+    private IUserCreditService userCreditService;
 
     /**
      * 注册
@@ -53,6 +58,11 @@ public class SysRegisterService {
                 msg = "注册失败,请联系系统管理人员";
             } else {
                 AsyncManager.me().execute(AsyncFactory.recordLogininfor(loginName, Constants.REGISTER, MessageUtils.message("user.register.success")));
+                UserCredit userCredit = new UserCredit();
+                userCredit.setCreditScore((long) Constants.CREDIT_SCORE_FULL);
+                userCredit.setUserId(user.getUserId());
+                userCredit.setUserName(user.getUserName());
+                userCreditService.insertUserCredit(userCredit);
             }
         }
         return msg;

@@ -15,11 +15,10 @@
     }
 </style>
 <body class="hold-transition box box-main">
-<input id="treeId" name="treeId" th:value="${shopGoodsType?.id}" type="hidden"/>
-<input id="treeName" name="treeName" th:value="${shopGoodsType?.goodsTypeName}" type="hidden"/>
-<div class="wrapper">
-    <div class="treeShowHideButton" onclick="$.tree.toggleSearch();">
-        <label id="btnShow" style="display:none;" title="显示搜索">︾</label>
+    <input id="treeId"   name="treeId"    type="hidden" th:value="${shopGoodsType?.id}"/>
+    <input id="treeName" name="treeName"  type="hidden" th:value="${shopGoodsType?.goodsTypeName}"/>
+    <div class="wrapper"><div class="treeShowHideButton" onclick="$.tree.toggleSearch();">
+        <label id="btnShow" title="显示搜索" style="display:none;">︾</label>
         <label id="btnHide" title="隐藏搜索">︽</label>
     </div>
     <div class="treeSearchInput" id="search">
@@ -48,6 +47,9 @@
     function zOnClick(event, treeId, treeNode) {
         var treeId = treeNode.id;
         var treeName = treeNode.name;
+ /*       console.log($("#treeId").val());
+        console.log(treeId);
+        console.log(treeName);*/
         $("#treeId").val(treeId);
         $("#treeName").val(treeName);
     }

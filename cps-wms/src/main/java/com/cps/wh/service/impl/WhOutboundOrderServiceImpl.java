@@ -103,7 +103,7 @@ public class WhOutboundOrderServiceImpl implements IWhOutboundOrderService {
         //步骤1
         whOutboundOrder.setUpdateTime(DateUtils.getNowDate());
         BasisCustomer basisCustomer = basisCustomerService.selectBasisCustomerById(whOutboundOrder.getCustomerId());
-        whOutboundOrder.setRate(basisCustomer.getInvoiceTax());
+//        whOutboundOrder.setRate(basisCustomer.getInvoiceTax());
 
         //步骤2
         WhOutboundOrderSeed whOutboundOrderSeed = new WhOutboundOrderSeed();
@@ -213,7 +213,7 @@ public class WhOutboundOrderServiceImpl implements IWhOutboundOrderService {
     public WhOutboundOrder calculate(WhOutboundOrder whOutboundOrder, BigDecimal rate) {
         BasisDiscountPermission basisDiscountPermission = basisDiscountPermissionService.selectBasisDiscountPermissionByUserId(ShiroUtils.getUserId());
         if (StringUtils.isNull(basisDiscountPermission)) {
-            throw new BusinessException("未开通折扣或折让权限");
+//            throw new BusinessException("未开通折扣或折让权限");
         }
 
         if (StringUtils.isNotNull(whOutboundOrder.getDiscountRate()) && !WhWarehousingOrderType.TRANSFER.getCode().equals(whOutboundOrder.getOrderType()) && whOutboundOrder.getDiscountRate().compareTo(BigDecimal.ONE) == -1) {//a小于b

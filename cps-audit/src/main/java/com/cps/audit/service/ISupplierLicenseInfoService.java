@@ -58,4 +58,12 @@ public interface ISupplierLicenseInfoService {
      * @return 结果
      */
     public int deleteSupplierLicenseInfoByChecklistId(String checklistId);
+
+    /**
+     * 更新注册资本信息，同时更新信用评分
+     * @param checklistId 审核单id
+     * @param newCapital 更新的注册资本
+     * @return 结果
+     */
+    public int updateCapitalByChecklistId(String checklistId, double newCapital);
 }

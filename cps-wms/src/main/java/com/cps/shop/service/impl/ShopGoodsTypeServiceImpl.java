@@ -144,7 +144,7 @@ public class ShopGoodsTypeServiceImpl implements IShopGoodsTypeService {
     @Override
     public List<Ztree> selectShopGoodsTypeTree() {
         ShopGoodsType goodsType = new ShopGoodsType();
-        goodsType.setDeptId(ShiroUtils.getDeptId());
+//        goodsType.setDeptId(ShiroUtils.getDeptId());
         List<ShopGoodsType> shopGoodsTypeList = shopGoodsTypeMapper.selectShopGoodsTypeList(goodsType);
         List<Ztree> ztrees = new ArrayList<Ztree>();
         for (ShopGoodsType shopGoodsType : shopGoodsTypeList) {

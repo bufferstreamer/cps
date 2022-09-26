@@ -14,7 +14,6 @@ import com.cps.common.enums.BusinessType;
 import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.ShiroUtils;
 import com.cps.common.utils.poi.ExcelUtil;
-import com.cps.common.utils.uuid.IdUtils;
 import com.cps.common.utils.uuid.Seq;
 import com.cps.cp.domain.QualificationReview;
 import com.cps.cp.domain.Tender;
@@ -23,6 +22,7 @@ import com.cps.cp.service.ITenderService;
 import com.cps.credit.domain.UserCredit;
 import com.cps.credit.service.IUserCreditService;
 import com.cps.product.service.IProductIndexInfoService;
+import com.cps.system.service.ISysUserService;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -37,6 +37,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -71,6 +73,9 @@ public class Tender1Controller extends BaseController {
 
     @Autowired
     private IUserCreditService userCreditService;
+
+    @Resource
+    private ISysUserService sysUserService;
 
     @Value("${cps.profile}")
     private String profile;
@@ -263,6 +268,12 @@ public class Tender1Controller extends BaseController {
         return prefix + "/detail";
     }
 
+    // 查询经营范围
+    @RequestMapping("/range/")
+    public String queryTender() {
+        return prefix + "/dept";
+    }
+
     @RequestMapping("/qualificationReview/{tenderId}")
     public String qualificationReview(@PathVariable("tenderId") String tenderId, ModelMap mmap) {
         QualificationReview review = qualificationReviewService.selectQualificationReviewByTenderIdAndSupplyId(tenderId, ShiroUtils.getUserId().toString());
@@ -426,5 +437,30 @@ public class Tender1Controller extends BaseController {
         }
 
         return false;
+    }
+
+    /**
+     * 通知
+     */
+    @RequiresPermissions("cp:tender1:inform")
+    @GetMapping("/inform/{tenderId}")
+    public String inform(@PathVariable("tenderId") String tenderId, ModelMap mmap, HttpServletRequest request) {
+//        Tender tender = tenderService.selectTenderByTenderId(tenderId);
+//        mmap.put("tender", tender);
+        return prefix + "/inform";
+    }
+
+    @RequiresPermissions("cp:tender1:inform")
+    @PostMapping("/noticeByEmail")
+    @ResponseBody
+    public AjaxResult inform(ModelMap mmap, HttpServletRequest request,  Long[] deptId) {
+        String informWay = request.getParameter("informWay");
+        String subject = request.getParameter("informSubject");
+        String notice = request.getParameter("informContent");
+        //给供应商发送email
+        if (informWay.equals("1") ||informWay.equals("3")){
+            return AjaxResult.success(sysUserService.noticeByMail(subject,notice,deptId));
+        }
+        return AjaxResult.error();
     }
 }

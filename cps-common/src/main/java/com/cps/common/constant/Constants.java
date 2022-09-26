@@ -118,6 +118,35 @@ public class Constants {
     /**
      * 信用评分临界分数
      */
-    public final static int CREDIT_SCORE_FULL = 100;
+    public final static int CREDIT_SCORE_FULL = 95;
     public final static int CREDIT_SCORE_MAIN = 60;
+    /**
+     * 信用评分加减分基数
+     */
+    public final static int CREDIT_SCORE_ADD_BASE = 1;
+    public final static int CREDIT_SCORE_REDUCE_BASE = 1;
+    /**
+     * 注册资本等级划分
+     */
+    public final static double REGISTERED_CAPITAL_LEVEL_1 = 100000;
+    public final static double REGISTERED_CAPITAL_LEVEL_2 = 500000;
+    public final static double REGISTERED_CAPITAL_LEVEL_3 = 2000000;
+    public final static double REGISTERED_CAPITAL_LEVEL_4 = 5000000;
+    public final static double REGISTERED_CAPITAL_LEVEL_5 = 10000000;
+    /**
+     * 盈利能力加减基数
+     */
+    public final static int TURNOVER_MONTH_CEILING = 500000;
+    public final static int TURNOVER_MONTH_FLOOR = 100000;
+    /**
+     * 退换货率基数
+     */
+    public final static double RETURN_RATE = 0.05;
+    /**
+     * 供应商/小商超履约/违约加减分基数
+     */
+    public final static int SUPPLIER_KEEP_A_CONTRACT_ADD = 1;
+    public final static int SUPPLIER_BREAK_A_CONTRACT_REDUCE = 5;
+    public final static int BUSINESS_KEEP_A_CONTRACT_ADD = 1;
+    public final static int BUSINESS_BREAK_A_CONTRACT_REDUCE = 1;
 }

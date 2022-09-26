@@ -61,4 +61,11 @@ public interface IAuditDocumentsService {
      * @return 结果
      */
     public int deleteAuditDocumentsByChecklistId(String checklistId);
+
+    /**
+     * 通过用户id查询小商超/供应商是否通过信用评价和营业执照审核
+     * @param UserId 用户id
+     * @return 结果
+     */
+    public boolean getUserAuditStatus(long userId);
 }

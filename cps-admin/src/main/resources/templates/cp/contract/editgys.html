@@ -88,10 +88,14 @@
     }
 
 
-
     function submitHandler() {
         if ($.validate.form()) {
             $.operate.save(prefix + "/edit", $('#form-contract-edit').serialize());
+            var signAValue = GetRadioValue("signatureA");
+            var signBValue = GetRadioValue("signatureB");
+            if(signAValue==1&&signBValue==1){
+                parent.location.reload();
+            }
         }
     }
 
