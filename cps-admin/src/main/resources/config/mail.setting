@@ -2,5 +2,6 @@
 from = fangy233@163.com
 # 密码
 pass = EAHETQADUYQCGANJ
-
+# 使用SSL安全连接
+sslEnable = true
 port = 465
