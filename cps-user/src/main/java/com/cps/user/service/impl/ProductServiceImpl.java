@@ -11,6 +11,7 @@ import com.cps.user.mapper.ProductMapper;
 import com.cps.user.domain.Product;
 import com.cps.user.service.IProductService;
 import com.cps.common.core.text.Convert;
+import com.cps.common.utils.uuid.IdUtils;
 
 /**
  * 商品 商品信息相关：分类，商品图片，商品规格，商品参数Service业务层处理
@@ -58,7 +59,7 @@ public class ProductServiceImpl implements IProductService
     @Override
     public int insertProduct(Product product)
     {
-        product.setProductId("99");
+        product.setProductId(IdUtils.simpleUUID());
         product.setSoldNum(0);
         product.setProductStatus(1);
         product.setCreateTime(DateUtils.getNowDate());

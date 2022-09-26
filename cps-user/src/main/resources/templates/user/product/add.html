@@ -14,22 +14,31 @@
                     <input name="productName" class="form-control" type="text" required>
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label is-required">一级分类id</label>
+                <div class="col-sm-8">
+                    <select id="rootCategoryId" onchange="getCategory(1)" name="rootCategoryId">
+                        <option value="选择分类">选择分类</option>
+                    </select>
+                    <select id="CategoryId2" onchange="getCategory(2)">
+                        <option value="选择分类">选择分类</option>
+                    </select>
+                    <select id="CategoryId3" onchange="getCategory(3)">
+                        <option value="选择分类">选择分类</option>
+                    </select>
+                    <select id="CategoryId4" onchange="getCategory(4)">
+                        <option value="选择分类">选择分类</option>
+                    </select>
+<!--                    <input name="rootCategoryId" class="form-control" type="text" required>-->
+                </div>
+            </div>
             <div class="form-group">    
                 <label class="col-sm-3 control-label is-required">分类id</label>
                 <div class="col-sm-8">
-                    <input name="categoryId" class="form-control" type="text" required>
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">一级分类id</label>
-                <div class="col-sm-8">
-                    <input name="rootCategoryId" class="form-control" type="text" required>
-                </div>
-            </div>
-            <div class="form-group">    
-                <label class="col-sm-3 control-label is-required">销量</label>
-                <div class="col-sm-8">
-                    <input name="soldNum" class="form-control" type="text" required>
+                    <select id="categoryId" name="categoryId">
+                        <option value="选择分类">选择分类</option>
+                    </select>
+<!--                    <input name="categoryId" class="form-control" type="text" required>-->
                 </div>
             </div>
             <div class="form-group">    
@@ -44,18 +53,68 @@
     <th:block th:include="include :: footer" />
     <th:block th:include="include :: summernote-js" />
     <script th:inline="javascript">
-        var prefix = ctx + "user/product"
+        var prefix = ctx + "user/product";
         $("#form-product-add").validate({
             focusCleanup: true
         });
-
         function submitHandler() {
             if ($.validate.form()) {
                 $.operate.save(prefix + "/add", $('#form-product-add').serialize());
             }
         }
 
+        $.operate.get(prefix+"/Firstcategory",function(res){
+            var categoryElement=document.getElementById("rootCategoryId");
+            var categoryList = res;
+            //清空下拉列表项，设置保留的个数
+            // cityElement.length=1;
+            for (var i = 0; i < categoryList.length; i++) {
+                var optionElement=document.createElement("option");//创建option元素
+                optionElement.appendChild(document.createTextNode(categoryList[i].categoryName));
+                optionElement.setAttribute("value",categoryList[i].categoryId);
+                categoryElement.appendChild(optionElement);
+            }
+        });
+        function getCategory(num){
+            if(num==1){
+                var myselect=document.getElementById("rootCategoryId");
+                var categoryElement=document.getElementById("CategoryId2");
+            } else if(num==2){
+                var myselect=document.getElementById("CategoryId2");
+                var categoryElement=document.getElementById("CategoryId3");
+            }else if(num==3){
+                var myselect=document.getElementById("CategoryId3");
+                var categoryElement=document.getElementById("CategoryId4");
+            }else if(num==4){
+                var myselect=document.getElementById("CategoryId4");
+                var categoryElement=document.getElementById("categoryId");
+            }
+            var index=myselect.selectedIndex;
+            var parentId = myselect.options[index].value;
+            $.operate.get(prefix+"/category/"+parentId,function(res){
+                var categoryList = res;
+                if(categoryList.length==0){
+                    categoryElement.length=1;
+                    var optionElement=document.createElement("option");//创建option元素
+                    optionElement.appendChild(document.createTextNode("其他"));
+                    optionElement.setAttribute("value",parentId);
+                    categoryElement.appendChild(optionElement);
+
+                }else {
+                    //清空下拉列表项，设置保留的个数
+                    categoryElement.length=1;
+                    for (var i = 0; i < categoryList.length; i++) {
+                        var optionElement=document.createElement("option");//创建option元素
+                        optionElement.appendChild(document.createTextNode(categoryList[i].categoryName));
+                        optionElement.setAttribute("value",categoryList[i].categoryId);
+                        categoryElement.appendChild(optionElement);
+                    }
+                }
+            });
+        }
+
         $(function() {
+
             $('.summernote').summernote({
                 lang: 'zh-CN',
                 dialogsInBody: true,

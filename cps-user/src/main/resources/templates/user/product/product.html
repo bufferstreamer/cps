@@ -36,16 +36,16 @@
             </div>
 
             <div class="btn-group-sm" id="toolbar" role="group">
-                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:product:add">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="user:product:add">
                     <i class="fa fa-plus"></i> 添加
                 </a>
-                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="system:product:edit">
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="user:product:edit">
                     <i class="fa fa-edit"></i> 修改
                 </a>
-                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:product:remove">
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="user:product:remove">
                     <i class="fa fa-remove"></i> 删除
                 </a>
-                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:product:export">
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="user:product:export">
                     <i class="fa fa-download"></i> 导出
                 </a>
             </div>
@@ -58,8 +58,22 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('user:product:edit')}]];
         var removeFlag = [[${@permission.hasPermi('user:product:remove')}]];
+        var productDatas = [[${@dict.getType('product_status')}]];
         var prefix = ctx + "user/product";
-
+        // var categoryList = [];
+        // function showCategory(parentId){
+        //     console.log(parentId);
+        //     category=parentId;
+        //     alert(category);
+        //     $.modal.openTab("订单分类图", prefix+"/category/"+parentId);
+        // }
+        // var categoryList = [[${categoryList}]];
+        // for (var i=0;i<categoryList.length;i++){
+        //     var info={};
+        //     info.name=categoryList[i].categoryName;
+        //     info.categoryId=categoryList[i].categoryId;
+        //     console.log(info);
+        // }
         $(function() {
             var options = {
                 url: prefix + "/list",
@@ -74,7 +88,6 @@
                 {
                     field: 'productId',
                     title: '商品ID',
-                    visible: false
                 },
                 {
                     field: 'productName',
@@ -94,7 +107,10 @@
                 },
                 {
                     field: 'productStatus',
-                    title: '状态'
+                    title: '状态',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(productDatas, value);
+                    }
                 },
                 {
                     field: 'content',

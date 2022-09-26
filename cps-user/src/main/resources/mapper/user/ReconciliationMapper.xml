@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cps.user.mapper.ReconciliationMapper">
+
+    <resultMap type="com.cps.user.domain.Reconciliation" id="ReconciliationResult">
+            <result property="recordId" column="record_id"/>
+            <result property="userId" column="user_id"/>
+            <result property="orderId" column="order_id"/>
+            <result property="orderContent" column="order_content"/>
+            <result property="amountsPayable" column="amounts_payable"/>
+            <result property="amountPaid" column="amount_paid"/>
+            <result property="createTime" column="create_time"/>
+            <result property="finalPayment" column="final_payment"/>
+            <result property="isFinished" column="is_finished"/>
+    </resultMap>
+
+    <sql id="selectReconciliationVo">
+        select record_id, user_id, order_id, order_content, amounts_payable, amount_paid, create_time, final_payment, is_finished
+        from reconciliation
+    </sql>
+
+    <select id="selectReconciliationList" parameterType="com.cps.user.domain.Reconciliation" resultMap="ReconciliationResult">
+        <include refid="selectReconciliationVo"/>
+        <where>
+                        <if test="userId != null  and userId != ''">
+                            and user_id = #{userId}
+                        </if>
+                        <if test="orderId != null  and orderId != ''">
+                            and order_id = #{orderId}
+                        </if>
+                        <if test="orderContent != null  and orderContent != ''">
+                            and order_content = #{orderContent}
+                        </if>
+                        <if test="amountsPayable != null ">
+                            and amounts_payable = #{amountsPayable}
+                        </if>
+                        <if test="amountPaid != null ">
+                            and amount_paid = #{amountPaid}
+                        </if>
+                        <if test="finalPayment != null ">
+                            and final_payment = #{finalPayment}
+                        </if>
+                        <if test="isFinished != null  and isFinished != ''">
+                            and is_finished = #{isFinished}
+                        </if>
+        </where>
+    </select>
+
+    <select id="selectReconciliationByRecordId" parameterType="String"
+            resultMap="ReconciliationResult">
+            <include refid="selectReconciliationVo"/>
+            where record_id = #{recordId}
+    </select>
+
+    <insert id="insertReconciliation" parameterType="com.cps.user.domain.Reconciliation">
+        insert into reconciliation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="recordId != null">record_id,
+                    </if>
+                    <if test="userId != null">user_id,
+                    </if>
+                    <if test="orderId != null and orderId != ''">order_id,
+                    </if>
+                    <if test="orderContent != null">order_content,
+                    </if>
+                    <if test="amountsPayable != null">amounts_payable,
+                    </if>
+                    <if test="amountPaid != null">amount_paid,
+                    </if>
+                    <if test="createTime != null">create_time,
+                    </if>
+                    <if test="finalPayment != null">final_payment,
+                    </if>
+                    <if test="isFinished != null">is_finished,
+                    </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="recordId != null">#{recordId},
+                    </if>
+                    <if test="userId != null">#{userId},
+                    </if>
+                    <if test="orderId != null and orderId != ''">#{orderId},
+                    </if>
+                    <if test="orderContent != null">#{orderContent},
+                    </if>
+                    <if test="amountsPayable != null">#{amountsPayable},
+                    </if>
+                    <if test="amountPaid != null">#{amountPaid},
+                    </if>
+                    <if test="createTime != null">#{createTime},
+                    </if>
+                    <if test="finalPayment != null">#{finalPayment},
+                    </if>
+                    <if test="isFinished != null">#{isFinished},
+                    </if>
+        </trim>
+    </insert>
+
+    <update id="updateReconciliation" parameterType="com.cps.user.domain.Reconciliation">
+        update reconciliation
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="userId != null">user_id =
+                        #{userId},
+                    </if>
+                    <if test="orderId != null and orderId != ''">order_id =
+                        #{orderId},
+                    </if>
+                    <if test="orderContent != null">order_content =
+                        #{orderContent},
+                    </if>
+                    <if test="amountsPayable != null">amounts_payable =
+                        #{amountsPayable},
+                    </if>
+                    <if test="amountPaid != null">amount_paid =
+                        #{amountPaid},
+                    </if>
+                    <if test="createTime != null">create_time =
+                        #{createTime},
+                    </if>
+                    <if test="finalPayment != null">final_payment =
+                        #{finalPayment},
+                    </if>
+                    <if test="isFinished != null">is_finished =
+                        #{isFinished},
+                    </if>
+        </trim>
+        where record_id = #{recordId}
+    </update>
+
+    <delete id="deleteReconciliationByRecordId" parameterType="String">
+        delete
+        from reconciliation where record_id = #{recordId}
+    </delete>
+
+    <delete id="deleteReconciliationByRecordIds" parameterType="String">
+        delete from reconciliation where record_id in
+        <foreach item="recordId" collection="array" open="(" separator="," close=")">
+            #{recordId}
+        </foreach>
+    </delete>
+
+</mapper>

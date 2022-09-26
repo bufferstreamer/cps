@@ -1,15 +1,14 @@
 package com.cps.web.controller.user;
 
 import java.util.List;
+
+import com.cps.user.domain.Category;
+import com.cps.user.service.ICategoryService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.cps.common.annotation.Log;
 import com.cps.common.enums.BusinessType;
 import com.cps.user.domain.Product;
@@ -33,6 +32,9 @@ public class ProductController extends BaseController
 
     @Autowired
     private IProductService productService;
+
+    @Autowired
+    private ICategoryService categoryService;
 
     @RequiresPermissions("user:product:view")
     @GetMapping()
@@ -80,6 +82,7 @@ public class ProductController extends BaseController
     /**
      * 新增保存商品 商品信息相关：分类，商品图片，商品规格，商品参数
      */
+//    @CrossOrigin
     @RequiresPermissions("user:product:add")
     @Log(title = "商品 商品信息相关：分类，商品图片，商品规格，商品参数", businessType = BusinessType.INSERT)
     @PostMapping("/add")
@@ -129,5 +132,40 @@ public class ProductController extends BaseController
     @ResponseBody
     public String selectBidStatusByProductId(String productId){
         return productService.selectProductByProductId(productId).getIsBid();
+    }
+
+//    @ResponseBody
+//    @GetMapping("/Firstcategory")
+//    public String category(ModelMap map) {
+//        Category category = new Category();
+//        category.setParentId("0");
+//        List<Category> categoryList = categoryService.selectCategoryList(category);
+//        map.put("categoryList", categoryList);
+//        System.out.println("此函数已被调用");
+//        return prefix + "/add";
+//
+//    }
+
+    @CrossOrigin
+    @ResponseBody
+    @GetMapping("/Firstcategory")
+    public List<Category> category(ModelMap map) {
+        Category category = new Category();
+        category.setParentId("0");
+        List<Category> categoryList = categoryService.selectCategoryList(category);
+//        map.put("categoryList", categoryList);
+        return categoryList;
+
+    }
+
+    @ResponseBody
+    @GetMapping("/category/{parentId}")
+    public List<Category> category(@PathVariable("parentId") String parentId,ModelMap map) {
+        Category category = new Category();
+        category.setParentId(parentId);
+        List<Category> categoryList = categoryService.selectCategoryList(category);
+//        map.put("categoryList2", categoryList);
+        return categoryList;
+
     }
 }
