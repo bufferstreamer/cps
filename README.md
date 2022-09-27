@@ -33,13 +33,11 @@
 
 ### 登录界面
 
-![image-20220915141159941](D:\idea\project\cps\README.assets\image-20220915141159941.png)
+![image-20220915141159941](.\README.assets\image-20220915141159941.png)
 
 ### 注册界面
 
 ![image-20220915141226799](D:\idea\project\cps\README.assets\image-20220915141226799.png)
-
-
 
 ### 首页
 
