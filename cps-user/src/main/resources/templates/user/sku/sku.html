@@ -74,6 +74,7 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('user:sku:edit')}]];
         var removeFlag = [[${@permission.hasPermi('user:sku:remove')}]];
+        var statusDatas = [[${@dict.getType('sku_status')}]];
         var prefix = ctx + "user/sku";
 
         $(function() {
@@ -126,7 +127,10 @@
                 },
                 {
                     field: 'status',
-                    title: 'sku状态'
+                    title: 'sku状态',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(statusDatas, value);
+                    }
                 },
                 {
                     title: '操作',

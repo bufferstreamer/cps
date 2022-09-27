@@ -1,6 +1,6 @@
 
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">集采系统 v4.7.4</h1>
-<h4 align="center">基于SpringBoot开发的轻量级Java后台管理程序</h4>
+<h4 align="center">基于SpringBoot开发的轻量级Java快速开发框架</h4>
 
 
 ## 平台简介
@@ -9,7 +9,7 @@
 ## 内置功能
 
 1.  用户管理：用户是系统操作者，该功能主要完成系统用户配置。
-2.  部门管理：配置系统组织机构（公司、部门、小组），树结构展现支持数据权限。
+2.  行业管理：配置供应商所属行业，树结构展现支持数据权限。
 3.  岗位管理：配置系统用户所属担任职务。
 4.  菜单管理：配置系统菜单，操作权限，按钮权限标识等。
 5.  角色管理：角色菜单权限分配、设置角色按机构进行数据范围权限划分。
@@ -29,45 +29,44 @@
 
 
 
-## 演示图
+## 功能演示
 
-<table>
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-42e518aa72a24d228427a1261cb3679f395.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-7f20dd0edba25e5187c5c4dd3ec7d3d9797.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-2dae3d87f6a8ca05057db059cd9a411d51d.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-ea4d98423471e55fba784694e45d12bd4bb.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-7f6c6e9f5873efca09bd2870ee8468b8fce.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-c708b65f2c382a03f69fe1efa8d341e6cff.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-9ab586c47dd5c7b92bca0d727962c90e3b8.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-ef954122a2080e02013112db21754b955c6.png"/></td>
-    </tr>	 
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-088edb4d531e122415a1e2342bccb1a9691.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-f886fe19bd820c0efae82f680223cac196c.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-c7a2eb71fa65d6e660294b4bccca613d638.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-e60137fb0787defe613bd83331dc4755a70.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-7c51c1b5758f0a0f92ed3c60469b7526f9f.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-15181aed45bb2461aa97b594cbf2f86ea5f.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-83326ad52ea63f67233d126226738054d98.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-3bd6d31e913b70df00107db51d64ef81df7.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-70a2225836bc82042a6785edf6299e2586a.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-0184d6ab01fdc6667a14327fcaf8b46345d.png"/></td>
+### 登录界面
 
-</table>
+![image-20220915141159941](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915141159941.png)
 
+### 注册界面
 
+![image-20220915141226799](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915141226799.png)
+
+### 首页
+
+![](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915141658593.png)
+
+### 系统管理
+
+![image-20220915142018631](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915142018631.png)
+
+### 系统监控
+
+![image-20220915142103231](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915142103231.png)
+
+### 仓库系统
+
+![image-20220915142433074](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915142433074.png)
+
+### 审核管理
+
+![image-20220915142506973](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915142506973.png)
+
+### 集采系统
+
+![image-20220915142538237](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915142538237.png)
+
+### 订单管理
+
+![image-20220915142607683](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915142607683.png)
+
+### 产品指标库管理
+
+![image-20220915142626094](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915142626094.png)
