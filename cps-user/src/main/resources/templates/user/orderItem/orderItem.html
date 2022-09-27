@@ -106,13 +106,13 @@
                     title: '商品总金额'
                 },
                 {
-                    field: 'productId',
-                    title: '是否中标',
+                    field: 'skuId',
+                    title: '是否招标',
                     formatter: function (value, row, index) {
                         var isBidStatus = "N";
-                        var data = {"productId": value};
+                        var data = {"skuId": value};
                         $.ajax({
-                            url: ctx + "user/product/search-status",
+                            url: ctx + "user/productBid/search-status",
                             type: "post",
                             text: "json",
                             data: data,

@@ -14,11 +14,10 @@
     <result property="content" column="content"/>
     <result property="createTime" column="create_time"/>
     <result property="updateTime" column="update_time"/>
-    <result property="isBid" column="is_bid"/>
   </resultMap>
 
   <sql id="selectProductVo">
-        select product_id, product_name, category_id, root_category_id, sold_num, product_status, content, create_time, update_time, is_bid
+        select product_id, product_name, category_id, root_category_id, sold_num, product_status, content, create_time, update_time
         from product
     </sql>
 
@@ -67,8 +66,6 @@
       </if>
       <if test="updateTime != null">update_time,
       </if>
-      <if test="isBid != null and isBid != ''">is_bid,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="productId != null">#{productId},
@@ -88,8 +85,6 @@
       <if test="createTime != null">#{createTime},
       </if>
       <if test="updateTime != null">#{updateTime},
-      </if>
-      <if test="isBid != null and isBid != ''">#{isBid},
       </if>
     </trim>
   </insert>
@@ -121,12 +116,10 @@
       <if test="updateTime != null">update_time =
         #{updateTime},
       </if>
-      <if test="isBid != null and isBid != ''">is_bid =
-        #{isBid},
-      </if>
     </trim>
     where product_id = #{productId}
   </update>
+
 
   <delete id="deleteProductByProductId" parameterType="String">
         delete

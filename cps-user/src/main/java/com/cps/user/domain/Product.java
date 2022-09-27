@@ -49,9 +49,6 @@ public class Product {
      */
     private String content;
 
-    /** 是否投标“N”否 “Y”是 */
-    private String isBid;
-
     /**
      * 获取商品主键id
      *
@@ -214,16 +211,6 @@ public class Product {
         this.content = content;
     }
 
-    public void setIsBid(String isBid)
-    {
-        this.isBid = isBid;
-    }
-
-    public String getIsBid()
-    {
-        return isBid;
-    }
-
     @Override
     public String toString(){
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
@@ -236,7 +223,6 @@ public class Product {
                 .append("content",getContent())
                 .append("createTime",getCreateTime())
                 .append("updateTime",getUpdateTime())
-                .append("isBid",getIsBid())
                 .toString();
     }
 }
