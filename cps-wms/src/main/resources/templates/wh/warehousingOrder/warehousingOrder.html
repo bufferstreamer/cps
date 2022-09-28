@@ -62,6 +62,7 @@
 <script th:inline="javascript">
     var statusFlag = [[${@permission.hasPermi('wh:warehousingOrder:changeStatus')}]];
     var editFlag = [[${@permission.hasPermi('wh:warehousingOrder:edit')}]];
+    var selectFlag = [[${@permission.hasPermi('wh:warehousingOrder:select')}]];
     var removeFlag = [[${@permission.hasPermi('wh:warehousingOrder:remove')}]];
     var prefix = ctx + "wh/warehousingOrder";
 
@@ -71,6 +72,7 @@
             createUrl: prefix + "/add",
             updateUrl: prefix + "/edit/{id}",
             removeUrl: prefix + "/remove",
+            detailUrl: prefix + "/select/{id}",
             exportUrl: prefix + "/export",
             sortName: "createTime",
             sortOrder: "desc",
@@ -90,45 +92,57 @@
                 },
                 {
                     field: 'orderCode',
-                    title: '入库单编号'
+                    title: '入库单编号',
+                    visible: false
                 },
                 {
                     field: 'orderName',
-                    title: '订单号'
+                    title: '订单号',
+                    visible: false
                 },
                 {
-                    field: 'orderDate',
-                    title: '订单日期'
+                    field: 'remark',
+                    title: '入库单名称'
                 },
+
                 {
                     field: 'desWarehouseName',
                     title: '交易单位名称'
                 },
-                // {
-                //     field: 'rate',
-                //     title: '税率'
-                // },
-                // {
-                //     field: 'tax',
-                //     title: '税额'
-                // },
-                // {
-                //     field: 'untaxedAmount',
-                //     title: '未税金额'
-                // },
-                // {
-                //     field: 'totalAmount',
-                //     title: '含税金额(合计)'
-                // },
                 {
-                    field: 'statusDesc',
-                    title: '状态'
+                    field: 'orderDate',
+                    title: '订单到货日期'
                 },
                 {
-                    field: 'remark',
-                    title: '备注',
+                    field: 'createTime',
+                    title: '订单创建日期'
+                },
+                {
+                    field: 'rate',
+                    title: '税率',
                     visible: false
                 },
+                {
+                    field: 'tax',
+                    title: '税额',
+                    visible: false
+                },
+                {
+                    field: 'untaxedAmount',
+                    title: '未税金额',
+                    visible: false
+                },
+                {
+                    field: 'totalAmount',
+                    title: '含税金额(合计)',
+                    visible: false
+                },
+                {
+                    field: 'statusDesc',
+                    title: '状态',
+                    visible: false
+                },
+
                 {
                     title: '操作',
                     align: 'center',
@@ -136,6 +150,7 @@
                         var actions = [];
                         actions.push('<a class="btn btn-success btn-xs ' + statusFlag + '" href="javascript:void(0)" onclick="editStauts(\'' + row.id + '\')"></i>确认到货</a> ');
                         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.editTab(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-success btn-xs ' + selectFlag + '" href="javascript:void(0)" onclick="$.operate.detail(\'' + row.id + '\')"><i class="fa fa-edit"></i>查看</a> ');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
                         return actions.join('');
                     }

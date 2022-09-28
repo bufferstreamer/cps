@@ -33,7 +33,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label class="col-sm-3 control-label is-required">订单日期：</label>
+                    <label class="col-sm-3 control-label is-required">订单到货日期：</label>
                     <div class="col-sm-8">
                         <div class="input-group date">
                             <input class="form-control" id="orderDate" name="orderDate" placeholder="yyyy-MM-dd"
@@ -110,7 +110,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">备注：</label>
+                    <label class="col-sm-3 control-label">入库单名称：</label>
                     <div class="col-sm-8">
                         <textarea class="form-control" name="remark"></textarea>
                     </div>
@@ -168,7 +168,8 @@
             elem: '#orderDate',//指定元素
             theme: 'molv',//theme - 主题
             trigger: 'click', //采用click弹出
-            max: 0 //min/max - 最小/大范围内的日期时间值
+            max: 365, //min/max - 最小/大范围内的日期时间值
+            min: -365
         });
     });
 
