@@ -19,11 +19,13 @@ import com.cps.common.utils.ShiroUtils;
 import com.cps.common.utils.StringUtils;
 import com.cps.common.utils.security.Md5Utils;
 import com.cps.common.utils.spring.SpringUtils;
+import com.cps.system.domain.SysNotice;
 import com.cps.system.domain.SysPost;
 import com.cps.system.domain.SysUserPost;
 import com.cps.system.domain.SysUserRole;
 import com.cps.system.mapper.*;
 import com.cps.system.service.ISysConfigService;
+import com.cps.system.service.ISysNoticeService;
 import com.cps.system.service.ISysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,6 +68,9 @@ public class SysUserServiceImpl implements ISysUserService {
 
     @Autowired
     private SysDeptMapper deptMapper;
+
+    @Autowired
+    private ISysNoticeService sysNoticeService;
 
     /**
      * 根据条件分页查询用户列表
@@ -545,11 +550,28 @@ public class SysUserServiceImpl implements ISysUserService {
      * @param deptId 通知部门id
      */
     @Override
-    public String noticeByMail(String subject, String notice, Long[] deptId) {
+    public String noticeByMail(String subject, String notice, Long[] deptId, String operator) {
         ArrayList<String> address = userMapper.getEmailByDeptid(deptId);
-        if(CollUtil.isEmpty(address)){
-            return "未查询到所选择经营范围的供应商!";
-        }
-        return String.format("共通知 %d 位供应商，Message_ID为 %s。",address.size(),MailUtil.send(address,subject,notice,false));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String result;
+                SysNotice noticeRecord = new SysNotice();
+                noticeRecord.setNoticeType("1");
+                noticeRecord.setNoticeContent(notice);
+                noticeRecord.setNoticeTitle(subject);
+                noticeRecord.setCreateBy(operator);
+                if(CollUtil.isEmpty(address)){
+                    result = "未查询到所选择经营范围的供应商!";
+                    noticeRecord.setStatus("1");
+                } else {
+                    result = String.format("共通知 %d 位供应商，Message_ID为 %s。", address.size(), MailUtil.send(address, subject, notice, false));
+                    noticeRecord.setStatus("0");
+                }
+                noticeRecord.setRemark(result);
+                sysNoticeService.insertNotice(noticeRecord);
+            }
+        }).run();
+        return "操作成功";
     }
 }
