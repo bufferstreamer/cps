@@ -23,48 +23,20 @@
     <sql id="selectOrderItemVo">
         select item_id, order_id, product_id, product_name, product_img, sku_id, sku_name, product_price, buy_counts, total_amount, basket_date, buy_time, is_comment
         from order_item
-        order by buy_counts desc
     </sql>
 
     <select id="selectOrderItemList" parameterType="OrderItem" resultMap="OrderItemResult">
         <include refid="selectOrderItemVo"/>
         <where>
-                        <if test="orderId != null  and orderId != ''">
-                            and order_id = #{orderId}
-                        </if>
-                        <if test="productId != null  and productId != ''">
-                            and product_id = #{productId}
-                        </if>
-                        <if test="productName != null  and productName != ''">
-                            and product_name like concat('%', #{productName}, '%')
-                        </if>
-                        <if test="productImg != null  and productImg != ''">
-                            and product_img = #{productImg}
-                        </if>
-                        <if test="skuId != null  and skuId != ''">
-                            and sku_id = #{skuId}
-                        </if>
-                        <if test="skuName != null  and skuName != ''">
-                            and sku_name like concat('%', #{skuName}, '%')
-                        </if>
-                        <if test="productPrice != null ">
-                            and product_price = #{productPrice}
-                        </if>
-                        <if test="buyCounts != null ">
-                            and buy_counts = #{buyCounts}
-                        </if>
-                        <if test="totalAmount != null ">
-                            and total_amount = #{totalAmount}
-                        </if>
-                        <if test="basketDate != null ">
-                            and basket_date = #{basketDate}
-                        </if>
-                        <if test="buyTime != null ">
-                            and buy_time = #{buyTime}
-                        </if>
-                        <if test="isComment != null ">
-                            and is_comment = #{isComment}
-                        </if>
+            <if test="productName != null  and productName != ''">
+                and product_name like concat('%', #{productName}, '%')
+            </if>
+            <if test="skuName != null  and skuName != ''">
+                and sku_name like concat('%', #{skuName}, '%')
+            </if>
+            <if test="params.beginBuyTime != null and params.beginBuyTime != '' and params.endBuyTime != null and params.endBuyTime != ''">
+                and buy_time between #{params.beginBuyTime} and #{params.endBuyTime}
+            </if>
         </where>
     </select>
 

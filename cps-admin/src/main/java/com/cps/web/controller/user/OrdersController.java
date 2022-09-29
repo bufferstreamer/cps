@@ -17,7 +17,9 @@ import com.cps.user.service.ICategoryService;
 import com.cps.user.service.IOrderItemService;
 import com.cps.user.service.IOrdersService;
 import com.cps.user.service.IProductService;
+import org.apache.poi.util.Internal;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -25,10 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * 订单Controller
@@ -150,74 +149,108 @@ public class OrdersController extends BaseController {
     @Autowired
     private IProductService productService;
 
+    //键：productId,值：销量
+    private HashMap<String,Long> itemSoldDict=new HashMap<>();
+    //键：categoryId,值：销量
+    private HashMap<String,Long> categorySoldDict = new HashMap<>();
+
+    private void InitCategorySoldDict(){
+        List<OrderItem> itemList = orderItemService.selectOrderItemList(new OrderItem());
+        for (OrderItem item:itemList)
+        {
+            String productId = item.getProductId();
+            long oldValue = itemSoldDict.getOrDefault(productId,(long)0);
+            itemSoldDict.put(productId,oldValue+item.getBuyCounts());
+        }
+        for (String productId:itemSoldDict.keySet())
+        {
+            String categoryId = productService.selectProductByProductId(productId).getCategoryId().toString();
+            long oldValue = categorySoldDict.getOrDefault(categoryId, (long)0);
+            categorySoldDict.put(categoryId,oldValue+itemSoldDict.getOrDefault(productId,(long)0));
+        }
+        List<String> keys=new ArrayList<>(categorySoldDict.keySet());
+
+        for (String categoryId:keys)
+        {
+            long subValue = categorySoldDict.getOrDefault(categoryId,(long)0);
+            String parentId = categoryService.selectCategoryByCategoryId(categoryId).getParentId();
+            while (!parentId.equals("0")){
+                long oldValue = categorySoldDict.getOrDefault(parentId,(long)0);
+                categorySoldDict.put(parentId,oldValue+subValue);
+                parentId = categoryService.selectCategoryByCategoryId(parentId).getParentId();
+            }
+        }
+    }
+
     /*跳转到指定的界面echart*/
     @GetMapping("/category/{parentId}")
     public String category(@PathVariable("parentId") String parentId, ModelMap map) {
+        if (categorySoldDict.size()==0){
+            InitCategorySoldDict();
+        }
+
         Category category = new Category();
         category.setParentId(parentId);
         List<Category> categoryList = categoryService.selectCategoryList(category);
-        if (categoryList.size()!=0){
-            map.put("categoryList", categoryList);
+        if (categoryList.size()!=0)
+        {
+            List<Long> soldNumList = new ArrayList<>();
+            for (int i=0;i<categoryList.size();i++){
+                String categoryId = categoryList.get(i).getCategoryId();
+                if (categorySoldDict.containsKey(categoryId)){
+                    long soldNum = categorySoldDict.get(categoryId);
+                    soldNumList.add(soldNum);
+                }
+                else {
+                    categoryList.remove(i);
+                    i--;
+                }
+            }
+            map.put("categoryList",categoryList);
+            map.put("soldNumList",soldNumList);
             return prefix+"/category";
         }
         else {
             //TODO:修改
-            return item(Integer.valueOf(parentId),map);
+            return item(parentId,map);
         }
     }
 
-    public String item(int categoryId, ModelMap map){
-        Product product = new Product();
-        product.setCategoryId(categoryId);
-        List<Product> productList = productService.selectProductList(product);
-
-        List<OrderItem> itemList = new ArrayList<>();
-        for (Product temp:productList)
+    public String item(String categoryId, ModelMap map){
+        List<Product> productList = new ArrayList<>();
+        List<Long> soldNumList = new ArrayList<>();
+        for (String productId:itemSoldDict.keySet())
         {
-            OrderItem item = new OrderItem();
-            item.setProductId(temp.getProductId());
-            itemList.addAll(orderItemService.selectOrderItemList(item));
-        }
-
-        HashMap<String,Integer> itemDict= new HashMap<>();
-        for (OrderItem temp:itemList)
-        {
-            if (!itemDict.containsKey(temp.getProductName()))
-            {
-                itemDict.put(temp.getProductName(),0);
+            Product product = productService.selectProductByProductId(productId);
+            if (product.getCategoryId().equals(categoryId)){
+                productList.add(product);
+                soldNumList.add(itemSoldDict.get(productId));
             }
-
-            int value = itemDict.get(temp.getProductName());
-            value+=temp.getBuyCounts();
-            itemDict.replace(temp.getProductName(),value);
         }
 
-        map.put("itemDict",itemDict);
+        map.put("productList",productList);
+        map.put("soldNumList",soldNumList);
         return prefix+"/item";
     }
 
-    @GetMapping("/receiver/{productName}")
-    public String receiver(@PathVariable("productName") String productName, ModelMap map) {
-        OrderItem item = new OrderItem();
-        item.setProductName(productName);
-        List<OrderItem> itemList = orderItemService.selectOrderItemList(item);
-        HashMap<String, Integer> orderDict = new HashMap<>();
+    @GetMapping("/receiver/{productId}")
+    public String receiver(@PathVariable("productId") String productId, ModelMap map) {
+        List<OrderItem> itemList = orderItemService.selectOrderItemList(new OrderItem());
+
+        HashMap<String,Long> soldNumDict = new HashMap<>();
         for (OrderItem temp:itemList)
         {
+            if (!temp.getProductId().equals(productId))
+                continue;
+
             String receiverName = ordersService
                     .selectOrdersByOrderId(temp.getOrderId())
                     .getReceiverName();
-            if (!orderDict.containsKey(receiverName)){
-                orderDict.put(receiverName,0);
-            }
-
-            int value=orderDict.get(receiverName);
-            value+=temp.getBuyCounts();
-            orderDict.replace(receiverName,value);
+            long oldValue = soldNumDict.getOrDefault(receiverName,(long)0);
+            soldNumDict.put(receiverName,oldValue+temp.getBuyCounts());
         }
-
-        map.put("productName",productName);
-        map.put("orderDict", orderDict);
+        map.put("productName",productService.selectProductByProductId(productId).getProductName());
+        map.put("soldNumDict", soldNumDict);
         return prefix + "/receiver";
     }
 

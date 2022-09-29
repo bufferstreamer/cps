@@ -1,5 +1,8 @@
 package com.cps.user.domain;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import java.util.Date;
 
 public class Product {
@@ -13,10 +16,8 @@ public class Product {
      */
     private String productName;
 
-    /**
-     * 分类外键id 分类id
-     */
-    private Integer categoryId;
+    /** 分类外键id 分类id */
+    private String categoryId;
 
     /**
      * 一级分类外键id 一级分类id，用于优化查询
@@ -89,7 +90,7 @@ public class Product {
      *
      * @return category_id - 分类外键id 分类id
      */
-    public Integer getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
@@ -98,7 +99,7 @@ public class Product {
      *
      * @param categoryId 分类外键id 分类id
      */
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -208,5 +209,20 @@ public class Product {
      */
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public String toString(){
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("productId",getProductId())
+                .append("productName",getProductName())
+                .append("categoryId",getCategoryId())
+                .append("rootCategoryId",getRootCategoryId())
+                .append("soldNum",getSoldNum())
+                .append("productStatus",getProductStatus())
+                .append("content",getContent())
+                .append("createTime",getCreateTime())
+                .append("updateTime",getUpdateTime())
+                .toString();
     }
 }

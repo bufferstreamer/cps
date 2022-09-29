@@ -4,83 +4,127 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cps.user.mapper.ProductMapper">
 
-  <resultMap type="com.cps.user.domain.Product" id="ProductResult">
-    <result property="productId"    column="product_id"    />
-    <result property="productName"    column="product_name"    />
-    <result property="categoryId"    column="category_id"    />
-    <result property="rootCategoryId"    column="root_category_id"    />
-    <result property="soldNum"    column="sold_num"    />
-    <result property="productStatus"    column="product_status"    />
-    <result property="content"    column="content"    />
-    <result property="createTime"    column="create_time"    />
-    <result property="updateTime"    column="update_time"    />
+  <resultMap type="Product" id="ProductResult">
+    <result property="productId" column="product_id"/>
+    <result property="productName" column="product_name"/>
+    <result property="categoryId" column="category_id"/>
+    <result property="rootCategoryId" column="root_category_id"/>
+    <result property="soldNum" column="sold_num"/>
+    <result property="productStatus" column="product_status"/>
+    <result property="content" column="content"/>
+    <result property="createTime" column="create_time"/>
+    <result property="updateTime" column="update_time"/>
   </resultMap>
 
   <sql id="selectProductVo">
-    select product_id, product_name, category_id, root_category_id, sold_num, product_status, content, create_time, update_time from product
-  </sql>
+        select product_id, product_name, category_id, root_category_id, sold_num, product_status, content, create_time, update_time
+        from product
+    </sql>
 
-  <select id="selectProductList" parameterType="com.cps.user.domain.Product" resultMap="ProductResult">
+  <select id="selectProductList" parameterType="Product" resultMap="ProductResult">
     <include refid="selectProductVo"/>
     <where>
-      <if test="productName != null  and productName != ''"> and product_name like concat('%', #{productName}, '%')</if>
-      <if test="categoryId != null "> and category_id = #{categoryId}</if>
-      <if test="rootCategoryId != null "> and root_category_id = #{rootCategoryId}</if>
-      <if test="soldNum != null "> and sold_num = #{soldNum}</if>
-      <if test="productStatus != null "> and product_status = #{productStatus}</if>
-      <if test="content != null  and content != ''"> and content = #{content}</if>
+      <if test="productName != null  and productName != ''">
+        and product_name like concat('%', #{productName}, '%')
+      </if>
+      <if test="categoryId != null  and categoryId != ''">
+        and category_id = #{categoryId}
+      </if>
+      <if test="rootCategoryId != null ">
+        and root_category_id = #{rootCategoryId}
+      </if>
+      <if test="soldNum != null ">
+        and sold_num = #{soldNum}
+      </if>
     </where>
   </select>
 
-  <select id="selectProductByProductId" parameterType="String" resultMap="ProductResult">
+  <select id="selectProductByProductId" parameterType="String"
+          resultMap="ProductResult">
     <include refid="selectProductVo"/>
     where product_id = #{productId}
   </select>
 
-  <insert id="insertProduct" parameterType="com.cps.user.domain.Product">
+  <insert id="insertProduct" parameterType="Product">
     insert into product
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="productId != null">product_id,</if>
-      <if test="productName != null and productName != ''">product_name,</if>
-      <if test="categoryId != null">category_id,</if>
-      <if test="rootCategoryId != null">root_category_id,</if>
-      <if test="soldNum != null">sold_num,</if>
-      <if test="productStatus != null">product_status,</if>
-      <if test="content != null and content != ''">content,</if>
-      <if test="createTime != null">create_time,</if>
-      <if test="updateTime != null">update_time,</if>
+      <if test="productId != null">product_id,
+      </if>
+      <if test="productName != null and productName != ''">product_name,
+      </if>
+      <if test="categoryId != null and categoryId != ''">category_id,
+      </if>
+      <if test="rootCategoryId != null">root_category_id,
+      </if>
+      <if test="soldNum != null">sold_num,
+      </if>
+      <if test="productStatus != null">product_status,
+      </if>
+      <if test="content != null and content != ''">content,
+      </if>
+      <if test="createTime != null">create_time,
+      </if>
+      <if test="updateTime != null">update_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="productId != null">#{productId},</if>
-      <if test="productName != null and productName != ''">#{productName},</if>
-      <if test="categoryId != null">#{categoryId},</if>
-      <if test="rootCategoryId != null">#{rootCategoryId},</if>
-      <if test="soldNum != null">#{soldNum},</if>
-      <if test="productStatus != null">#{productStatus},</if>
-      <if test="content != null and content != ''">#{content},</if>
-      <if test="createTime != null">#{createTime},</if>
-      <if test="updateTime != null">#{updateTime},</if>
+      <if test="productId != null">#{productId},
+      </if>
+      <if test="productName != null and productName != ''">#{productName},
+      </if>
+      <if test="categoryId != null and categoryId != ''">#{categoryId},
+      </if>
+      <if test="rootCategoryId != null">#{rootCategoryId},
+      </if>
+      <if test="soldNum != null">#{soldNum},
+      </if>
+      <if test="productStatus != null">#{productStatus},
+      </if>
+      <if test="content != null and content != ''">#{content},
+      </if>
+      <if test="createTime != null">#{createTime},
+      </if>
+      <if test="updateTime != null">#{updateTime},
+      </if>
     </trim>
   </insert>
 
-  <update id="updateProduct" parameterType="com.cps.user.domain.Product">
+  <update id="updateProduct" parameterType="Product">
     update product
     <trim prefix="SET" suffixOverrides=",">
-      <if test="productName != null and productName != ''">product_name = #{productName},</if>
-      <if test="categoryId != null">category_id = #{categoryId},</if>
-      <if test="rootCategoryId != null">root_category_id = #{rootCategoryId},</if>
-      <if test="soldNum != null">sold_num = #{soldNum},</if>
-      <if test="productStatus != null">product_status = #{productStatus},</if>
-      <if test="content != null and content != ''">content = #{content},</if>
-      <if test="createTime != null">create_time = #{createTime},</if>
-      <if test="updateTime != null">update_time = #{updateTime},</if>
+      <if test="productName != null and productName != ''">product_name =
+        #{productName},
+      </if>
+      <if test="categoryId != null and categoryId != ''">category_id =
+        #{categoryId},
+      </if>
+      <if test="rootCategoryId != null">root_category_id =
+        #{rootCategoryId},
+      </if>
+      <if test="soldNum != null">sold_num =
+        #{soldNum},
+      </if>
+      <if test="productStatus != null">product_status =
+        #{productStatus},
+      </if>
+      <if test="content != null and content != ''">content =
+        #{content},
+      </if>
+      <if test="createTime != null">create_time =
+        #{createTime},
+      </if>
+      <if test="updateTime != null">update_time =
+        #{updateTime},
+      </if>
     </trim>
     where product_id = #{productId}
   </update>
 
+
   <delete id="deleteProductByProductId" parameterType="String">
-    delete from product where product_id = #{productId}
-  </delete>
+        delete
+        from product where product_id = #{productId}
+    </delete>
 
   <delete id="deleteProductByProductIds" parameterType="String">
     delete from product where product_id in

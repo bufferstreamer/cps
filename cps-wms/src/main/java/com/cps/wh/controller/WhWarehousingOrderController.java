@@ -100,6 +100,16 @@ public class WhWarehousingOrderController extends BaseController {
     }
 
     /**
+     * 查看商品入库单子表
+     */
+    @GetMapping("/select/{id}")
+    public String select(@PathVariable("id") Long id, ModelMap mmap) {
+        WhWarehousingOrder whWarehousingOrder = whWarehousingOrderService.selectWhWarehousingOrderById(id);
+        mmap.put("whWarehousingOrder", whWarehousingOrder);
+        return prefix + "/select";
+    }
+
+    /**
      * 修改保存商品入库单主表
      */
     @RequiresPermissions("wh:warehousingOrder:edit")

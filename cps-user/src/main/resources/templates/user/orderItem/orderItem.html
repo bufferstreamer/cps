@@ -10,22 +10,22 @@
             <form id="formId">
                 <div class="select-list">
                     <ul>
-                                    <li>
-                                        <label>订单ID：</label>
-                                        <input type="text" name="orderId"/>
-                                    </li>
-                                    <li>
-                                        <label>商品名称：</label>
-                                        <input type="text" name="productName"/>
-                                    </li>
-                                    <li class="select-time">
-                                        <label>加入购物车时间：</label>
-                                        <input type="text" class="time-input" id="startTime" placeholder="开始时间"
-                                               name="params[beginBasketDate]"/>
-                                        <span>-</span>
-                                        <input type="text" class="time-input" id="endTime" placeholder="结束时间"
-                                               name="params[endBasketDate]"/>
-                                    </li>
+                        <li>
+                            <label>商品名称：</label>
+                            <input type="text" name="productName"/>
+                        </li>
+                        <li>
+                            <label>sku名称：</label>
+                            <input type="text" name="skuName"/>
+                        </li>
+                        <li class="select-time">
+                            <label>购买时间：</label>
+                            <input type="text" class="time-input" id="startTime" placeholder="开始时间"
+                                   name="params[beginBuyTime]"/>
+                            <span>-</span>
+                            <input type="text" class="time-input" id="endTime" placeholder="结束时间"
+                                   name="params[endBuyTime]"/>
+                        </li>
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
                                     class="fa fa-search"></i>&nbsp;搜索</a>
@@ -62,8 +62,8 @@
 <script th:inline="javascript">
     var editFlag = [[${@permission.hasPermi('user:orderItem:edit')}]];
     var removeFlag = [[${@permission.hasPermi('user:orderItem:remove')}]];
-            var isCommentDatas = [[${@dict.getType('comment_status')}]];
     var prefix = ctx + "user/orderItem";
+    var isBidDatas = [[${@dict.getType('sys_yes_no')}]];
 
     $(function () {
         var options = {
@@ -76,54 +76,54 @@
             columns: [{
                 checkbox: true
             },
-                        {
-                            field: 'itemId',
-                            title: '订单项ID',
-                            visible: false
-                        },
-                        {
-                            field: 'orderId',
-                            title: '订单ID'
-                        },
-                        {
-                            field: 'productName',
-                            title: '商品名称'
-                        },
-                        {
-                            field: 'productImg',
-                            title: '商品图片'
-                        },
-                        {
-                            field: 'skuName',
-                            title: 'sku名称'
-                        },
-                        {
-                            field: 'productPrice',
-                            title: '商品价格'
-                        },
-                        {
-                            field: 'buyCounts',
-                            title: '购买数量'
-                        },
-                        {
-                            field: 'totalAmount',
-                            title: '商品总金额'
-                        },
-                        {
-                            field: 'basketDate',
-                            title: '加入购物车时间'
-                        },
-                        {
-                            field: 'buyTime',
-                            title: '购买时间'
-                        },
-                        {
-                            field: 'isComment',
-                            title: '评论状态： 0 未评价  1 已评价',
-                            formatter: function (value, row, index) {
-                                return $.table.selectDictLabel(isCommentDatas, value);
+                {
+                    field: 'itemId',
+                    title: '订单项ID',
+                    visible: false
+                },
+                {
+                    field: 'productName',
+                    title: '商品名称'
+                },
+                {
+                    field: 'productImg',
+                    title: '商品图片'
+                },
+                {
+                    field: 'skuName',
+                    title: 'sku名称'
+                },
+                {
+                    field: 'productPrice',
+                    title: '商品价格'
+                },
+                {
+                    field: 'buyCounts',
+                    title: '购买数量'
+                },
+                {
+                    field: 'totalAmount',
+                    title: '商品总金额'
+                },
+                {
+                    field: 'skuId',
+                    title: '是否招标',
+                    formatter: function (value, row, index) {
+                        var isBidStatus = "N";
+                        var data = {"skuId": value};
+                        $.ajax({
+                            url: ctx + "user/productBid/search-status",
+                            type: "post",
+                            text: "json",
+                            data: data,
+                            async: false,
+                            success: function (result) {
+                                isBidStatus = result;
                             }
-                        },
+                        });
+                        return $.table.selectDictLabel(isBidDatas, isBidStatus);
+                    }
+                },
                 {
                     title: '操作',
                     align: 'center',

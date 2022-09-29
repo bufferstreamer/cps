@@ -19,17 +19,19 @@
     var myChart = echarts.init(document.getElementById("main"));
 
     myChart.on("click", function (params) {
+        console.log(params.data);
         $.modal.openTab("订单分类图", prefix+"/category/"+ params.data.categoryId);
     });
 
     var pie=[];
 
     var categoryList = [[${categoryList}]];
-    for (var i=0;i<categoryList.length;i++){
+    var soldNumList=[[${soldNumList}]];
+    for (var i=0;i<soldNumList.length;i++){
         var info={};
         info.name=categoryList[i].categoryName;
         info.categoryId=categoryList[i].categoryId;
-        info.value=1;
+        info.value= soldNumList[i];
         pie.push(info);
     }
 
