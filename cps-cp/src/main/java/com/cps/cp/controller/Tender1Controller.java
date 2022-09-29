@@ -452,7 +452,7 @@ public class Tender1Controller extends BaseController {
 
     @RequiresPermissions("cp:tender1:inform")
     @PostMapping("/noticeByEmail")
-    @Log(title = "邮件通知", businessType = BusinessType.EXPORT)
+    @Log(title = "邮件通知", businessType = BusinessType.INSERT)
     @ResponseBody
     public AjaxResult inform(ModelMap mmap, HttpServletRequest request,  Long[] deptId) {
         String informWay = request.getParameter("informWay");
