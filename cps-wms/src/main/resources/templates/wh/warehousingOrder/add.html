@@ -357,7 +357,8 @@
             "supplierId": rows.join(),
             "supplierName": supplierName
         });
-        layer.close(index);
+        $.modal.close(index);
+
     }
 
     /* 选择商品 */
@@ -406,7 +407,7 @@
             return;
         }
 
-        layer.close(index);
+        $.modal.close(index);
 
         //更新表格数据 ajax 调用后台存储
         var _data = {
