@@ -2,8 +2,7 @@ package com.cps.wh.enums;
 
 /**
  * 出库订单状态
- *
- * @author miki
+ * @author cps
  */
 public enum OutboundOrderStatus {
     //新发货单、待拣货、已拣货、已发货、签收回单

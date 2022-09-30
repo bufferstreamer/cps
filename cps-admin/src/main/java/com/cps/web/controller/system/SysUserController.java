@@ -273,6 +273,6 @@ public class SysUserController extends BaseController {
     @PostMapping("/sentEmail2Provider")
     @ResponseBody
     public String sentEmail2Provider(String subject,String notice,Long[] deptId){
-        return userService.noticeByMail(subject,notice,deptId);
+        return userService.noticeByMail(subject,notice,deptId,getLoginName());
     }
 }

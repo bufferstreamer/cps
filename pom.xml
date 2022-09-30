@@ -5,12 +5,12 @@
 
     <groupId>com.cps</groupId>
     <artifactId>cps</artifactId>
-    <version>4.7.4</version>
+    <version>4.7.5</version>
     <packaging>pom</packaging>
 
 
     <properties>
-        <cps.version>4.7.4</cps.version>
+        <cps.version>4.7.5</cps.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>

@@ -2,8 +2,7 @@ package com.cps.wh.enums;
 
 /**
  * 入库订单状态
- *
- * @author miki
+ * @author cps
  */
 public enum WarehousingOrderStatus {
     //待到货、待卸货、待分拣、已分拣

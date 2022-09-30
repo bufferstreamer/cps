@@ -464,14 +464,15 @@ public class Tender1Controller extends BaseController {
 
     @RequiresPermissions("cp:tender1:inform")
     @PostMapping("/noticeByEmail")
+    @Log(title = "邮件通知", businessType = BusinessType.INSERT)
     @ResponseBody
-    public AjaxResult inform(ModelMap mmap, HttpServletRequest request,  Long[] deptId) {
+    public AjaxResult inform(HttpServletRequest request, Long[] deptId) {
         String informWay = request.getParameter("informWay");
         String subject = request.getParameter("informSubject");
         String notice = request.getParameter("informContent");
         //给供应商发送email
         if (informWay.equals("1") ||informWay.equals("3")){
-            return AjaxResult.success(sysUserService.noticeByMail(subject,notice,deptId));
+            return AjaxResult.success(sysUserService.noticeByMail(subject,notice,deptId,getLoginName()));
         }
         return AjaxResult.error();
     }

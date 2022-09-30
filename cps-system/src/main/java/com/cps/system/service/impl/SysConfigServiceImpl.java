@@ -184,7 +184,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
      * 设置cache key
      *
      * @param configKey 参数键
-     * @return 缓存键key
+     * @return 缓存键key@
      */
     private String getCacheKey(String configKey) {
         return Constants.SYS_CONFIG_KEY + configKey;

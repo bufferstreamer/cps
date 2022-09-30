@@ -110,9 +110,7 @@
             #{deptId}
         </foreach>
           AND
-              u.email IS NOT NULL
-          AND
-              u.email != ''
+              u.email > ''
     </select>
 
     <select id="selectUserList" parameterType="SysUser" resultMap="SysUserResult">

@@ -221,5 +221,6 @@ public interface ISysUserService {
      * @param notice 邮件内容
      * @param deptId 通知部门id
      */
-    public String noticeByMail(String subject,String notice,Long[] deptId);
+    public String noticeByMail(String subject,String notice,Long[] deptId,String operator);
+
 }
