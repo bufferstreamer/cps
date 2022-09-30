@@ -454,7 +454,7 @@ public class Tender1Controller extends BaseController {
     @PostMapping("/noticeByEmail")
     @Log(title = "邮件通知", businessType = BusinessType.INSERT)
     @ResponseBody
-    public AjaxResult inform(ModelMap mmap, HttpServletRequest request,  Long[] deptId) {
+    public AjaxResult inform(HttpServletRequest request, Long[] deptId) {
         String informWay = request.getParameter("informWay");
         String subject = request.getParameter("informSubject");
         String notice = request.getParameter("informContent");

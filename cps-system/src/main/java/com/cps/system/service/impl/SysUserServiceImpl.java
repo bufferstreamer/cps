@@ -552,26 +552,23 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public String noticeByMail(String subject, String notice, Long[] deptId, String operator) {
         ArrayList<String> address = userMapper.getEmailByDeptid(deptId);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String result;
-                SysNotice noticeRecord = new SysNotice();
-                noticeRecord.setNoticeType("1");
-                noticeRecord.setNoticeContent(notice);
-                noticeRecord.setNoticeTitle(subject);
-                noticeRecord.setCreateBy(operator);
-                if(CollUtil.isEmpty(address)){
-                    result = "未查询到所选择经营范围的供应商!";
-                    noticeRecord.setStatus("1");
-                } else {
-                    result = String.format("共通知 %d 位供应商，Message_ID为 %s。", address.size(), MailUtil.send(address, subject, notice, false));
-                    noticeRecord.setStatus("0");
-                }
-                noticeRecord.setRemark(result);
-                sysNoticeService.insertNotice(noticeRecord);
+        new Thread(() -> {
+            String result;
+            SysNotice noticeRecord = new SysNotice();
+            noticeRecord.setNoticeType("1");
+            noticeRecord.setNoticeContent(notice);
+            noticeRecord.setNoticeTitle(subject);
+            noticeRecord.setCreateBy(operator);
+            if(CollUtil.isEmpty(address)){
+                result = "未查询到所选择经营范围的供应商!";
+                noticeRecord.setStatus("1");
+            } else {
+                result = String.format("共通知 %d 位供应商，Message_ID为 %s。", address.size(), MailUtil.send(address, subject, notice, false));
+                noticeRecord.setStatus("0");
             }
-        }).run();
+            noticeRecord.setRemark(result);
+            sysNoticeService.insertNotice(noticeRecord);
+        }).start();
         return "操作成功";
     }
 }
