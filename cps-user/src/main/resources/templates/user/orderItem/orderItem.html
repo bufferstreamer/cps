@@ -63,7 +63,7 @@
     var editFlag = [[${@permission.hasPermi('user:orderItem:edit')}]];
     var removeFlag = [[${@permission.hasPermi('user:orderItem:remove')}]];
     var prefix = ctx + "user/orderItem";
-    var isBidDatas = [[${@dict.getType('sys_yes_no')}]];
+    // var isBidDatas = [[${@dict.getType('sys_yes_no')}]];
 
     $(function () {
         var options = {
@@ -74,7 +74,7 @@
             exportUrl: prefix + "/export",
             modalName: "订单项/快照",
             columns: [{
-                checkbox: true
+                checkbox: false
             },
                 {
                     field: 'itemId',
@@ -104,36 +104,17 @@
                 {
                     field: 'totalAmount',
                     title: '商品总金额'
-                },
-                {
-                    field: 'skuId',
-                    title: '是否招标',
-                    formatter: function (value, row, index) {
-                        var isBidStatus = "N";
-                        var data = {"skuId": value};
-                        $.ajax({
-                            url: ctx + "user/productBid/search-status",
-                            type: "post",
-                            text: "json",
-                            data: data,
-                            async: false,
-                            success: function (result) {
-                                isBidStatus = result;
-                            }
-                        });
-                        return $.table.selectDictLabel(isBidDatas, isBidStatus);
-                    }
-                },
-                {
-                    title: '操作',
-                    align: 'center',
-                    formatter: function (value, row, index) {
-                        var actions = [];
-                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.itemId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.itemId + '\')"><i class="fa fa-remove"></i>删除</a>');
-                        return actions.join('');
-                    }
                 }]
+                // {
+                //     title: '操作',
+                //     align: 'center',
+                //     formatter: function (value, row, index) {
+                //         var actions = [];
+                //         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.itemId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                //         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.itemId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                //         return actions.join('');
+                //     }
+                // }]
         };
         $.table.init(options);
     });

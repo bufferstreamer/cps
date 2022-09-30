@@ -35,9 +35,6 @@ public class QualificationReviewController extends BaseController {
     @Autowired
     private IQualificationReviewService qualificationReviewService;
 
-    @Autowired
-    private ITenderService mTenderService;
-
     @RequiresPermissions("cp:qualificationReview:view")
     @GetMapping()
     public String qualificationReview() {
@@ -88,13 +85,6 @@ public class QualificationReviewController extends BaseController {
         //if (qualificationReview.getTenderId())
         qualificationReview.setQualificationReviewId(IdUtils.fastSimpleUUID());
         return toAjax(qualificationReviewService.insertQualificationReview(qualificationReview));
-    }
-
-    private boolean ContainsTender(String tenderId) {
-        Tender tender = mTenderService.selectTenderByTenderId(tenderId);
-        List<Tender> tenderList = mTenderService.selectTender1List(tender);
-
-        return tenderList.size() != 0;
     }
 
     /**

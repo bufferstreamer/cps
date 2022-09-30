@@ -89,9 +89,18 @@ public class Tender1Controller extends BaseController {
 
         for (int i = 0; i < tempList.size(); i++) {
             String tenderId = tempList.get(i).getTenderId();
-            QualificationReview review = qualificationReviewService.selectQualificationReviewByTenderIdAndSupplyId(tenderId, ShiroUtils.getUserId().toString());
-            canQualificationReviewArr[i] = CanQualificationReview(review);
-            canPurchaseArr[i] = CanPurchase(review, tempList.get(i));
+            QualificationReview review = new QualificationReview();
+            review.setTenderId(tenderId);
+            review.setSupplyId(ShiroUtils.getUserId());
+            List<QualificationReview> list = qualificationReviewService.selectQualificationReviewList(review);
+            if(list.size()>0){
+                canQualificationReviewArr[i] = CanQualificationReview(list.get(0));
+                canPurchaseArr[i] = CanPurchase(list.get(0), tempList.get(i));
+            }
+            else {
+                canQualificationReviewArr[i] = CanQualificationReview(null);
+                canPurchaseArr[i] = false;
+            }
         }
 
         map.put("canQualificationReviewArr", canQualificationReviewArr);
@@ -276,12 +285,15 @@ public class Tender1Controller extends BaseController {
 
     @RequestMapping("/qualificationReview/{tenderId}")
     public String qualificationReview(@PathVariable("tenderId") String tenderId, ModelMap mmap) {
-        QualificationReview review = qualificationReviewService.selectQualificationReviewByTenderIdAndSupplyId(tenderId, ShiroUtils.getUserId().toString());
-        if (review == null) {
+        QualificationReview review = new QualificationReview();
+        review.setTenderId(tenderId);
+        review.setSupplyId(ShiroUtils.getUserId());
+        List<QualificationReview> list = qualificationReviewService.selectQualificationReviewList(review);
+        if (list.size()==0) {
             mmap.put("tenderId", tenderId);
             return "cp/qualificationReview/add";
         } else {
-            mmap.put("qualificationReview", review);
+            mmap.put("qualificationReview", list.get(0));
             return "cp/qualificationReview/update";
         }
     }

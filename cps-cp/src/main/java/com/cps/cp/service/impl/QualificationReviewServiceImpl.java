@@ -33,10 +33,6 @@ public class QualificationReviewServiceImpl implements IQualificationReviewServi
         return qualificationReviewMapper.selectQualificationReviewByQualificationReviewId(qualificationReviewId);
     }
 
-    public QualificationReview selectQualificationReviewByTenderIdAndSupplyId(String tenderId, String supplyId) {
-        return qualificationReviewMapper.selectQualificationReviewByTenderIdAndSupplyId(tenderId, supplyId);
-    }
-
     /**
      * 查询资质审核列表
      *

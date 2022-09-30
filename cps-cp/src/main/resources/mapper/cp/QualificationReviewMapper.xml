@@ -45,13 +45,6 @@
         where qualification_review_id = #{qualificationReviewId}
     </select>
 
-    <select id="selectQualificationReviewByTenderIdAndSupplyId" resultMap="QualificationReviewResult">
-        select *
-        from qualification_review
-        where supply_id = #{supply_id}
-          and tender_id = #{tender_id}
-    </select>
-
     <insert id="insertQualificationReview" parameterType="QualificationReview">
         insert into qualification_review
         <trim prefix="(" suffix=")" suffixOverrides=",">

@@ -20,8 +20,6 @@ public interface QualificationReviewMapper {
      */
     public QualificationReview selectQualificationReviewByQualificationReviewId(String qualificationReviewId);
 
-    public QualificationReview selectQualificationReviewByTenderIdAndSupplyId(@Param("tender_id") String tenderId, @Param("supply_id") String supplyId);
-
     /**
      * 查询资质审核列表
      *
