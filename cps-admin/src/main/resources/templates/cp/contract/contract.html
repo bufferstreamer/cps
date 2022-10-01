@@ -77,6 +77,23 @@
         $.modal.open("合同详情", ctx + "cp/contract/detail/" + id,1200,600);
     }
 
+    function editSignatrue(id,A,B){
+        // console.log(id)
+
+        $.modal.confirm("确认签名后将无法修改!",function () {
+            $.operate.post(prefix + "/editSignature/" + id);
+            //停0.7秒刷新
+            setTimeout(function (){
+                $.modal.reload();
+            }, 700);
+            // $.modal.reload();
+        });
+        //刷新页面
+        // location.reload();
+    }
+
+
+
     $(function () {
         var options = {
             url: prefix + "/list",
@@ -96,7 +113,8 @@
                 },
                 {
                     field: 'tenderId',
-                    title: '标书ID'
+                    title: '标书ID',
+                    visible: false
                 },
                 {
                     field: 'contractType',
@@ -140,8 +158,11 @@
                         // actions.push('<a class="btn btn-success btn-xs ' +detailFlag + '" href="javascript:void(0)" onclick="detl(\'' + row.contractId + '\')"><i class="fa fa-edit"></i>查看</a>');
                         actions.push('<a class="btn btn-primary btn-xs ' + detailFlag + '" href="javascript:void(0)" onclick="detl(\'' + row.contractId + '\')"><i class="fa fa-search"></i>查看</a>');
                         actions.push('<a class="btn btn-info btn-xs ' + downloadFlag + '" href="javascript:void(0)" onclick="downloadFile(\'' + row.contractDocument + '\')"><i class="fa fa-download"></i>下载合同文件</a>');
+                        // if ([[${canSignatureArr}]][index]) {
+                        //     actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.contractId + '\')"><i class="fa fa-edit"></i>签名确认</a> ');
+                        // }
                         if ([[${canSignatureArr}]][index]) {
-                            actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.contractId + '\')"><i class="fa fa-edit"></i>签名确认</a> ');
+                            actions.push('<a class="btn btn-success btn-xs ' + '" href="javascript:void(0)" onclick="editSignatrue(\'' + row.contractId + '\',\'' + row.signatureA + '\',\'' + row.signatureB + '\')"><i class="fa fa-edit"></i>签名确认</a> ');
                         }
                         if ([[${canDeleteArr}]][index]) {
                             actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.contractId + '\')"><i class="fa fa-remove"></i>删除</a>');

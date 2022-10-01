@@ -65,6 +65,7 @@
                 <div class="checkbox-custom" th:if="${isRemembered}" th:classappend="${captchaEnabled==false} ? 'm-t'">
                     <input type="checkbox" id="rememberme" name="rememberme"> <label for="rememberme" style="color: black">记住我</label>
                 </div>
+                <strong><a th:href="@{/forgetmm}" style="color: black;">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;忘记密码?</a></strong>
                 <button class="btn btn-success btn-block" style="outline:none;border-radius: 30px;line-height: 27px;background-image: linear-gradient(to left,#93FF93, #00BB00);border: 0" id="btnSubmit" data-loading="正在验证登录，请稍候...">登录</button>
             </form>
         </div>

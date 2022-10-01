@@ -26,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -58,16 +59,24 @@ public class ContractController extends BaseController {
         Long userId = currentUser.getUserId();
         if(userLoginName.equals("admin")){
             List<Contract> contracts = contractService.selectContractList(new Contract());
-            //当甲乙两方都点击确认后 去掉"删除按钮",并且去掉签名确认按钮。
+            //当甲乙两方都点击确认后 去掉"删除按钮",签名后直接去掉签名确认按钮。
             boolean[] canDeleteArr = new boolean[contracts.size()];
             boolean[] canSignatureArr = new boolean[contracts.size()];
             for (int i = 0; i < contracts.size(); i++) {
                 canDeleteArr[i] = true;
                 canSignatureArr[i] = true;
                 Contract contract = contracts.get(i);
+                if(contract.getContractType().equals("0")){
+                    if(contract.getSignatureA().equals("1")){
+                        canSignatureArr[i] = false;
+                    }
+                }else{
+                    if(contract.getSignatureB().equals("1")){
+                        canSignatureArr[i] = false;
+                    }
+                }
                 if((contract.getSignatureA().equals("1"))&&(contract.getSignatureB().equals("1"))){
                     canDeleteArr[i] = false;
-                    canSignatureArr[i] = false;
                 }
             }
             map.put("canDeleteArr", canDeleteArr);
@@ -80,6 +89,11 @@ public class ContractController extends BaseController {
                 canDeleteArr[i] = false;
                 canSignatureArr[i] = true;
                 Contract contract = contractList.get(i);
+                if(contract.getContractType().equals("0")){
+                    if(contract.getSignatureB().equals("1")) canSignatureArr[i] = false;
+                }else{
+                    if(contract.getSignatureA().equals("1")) canSignatureArr[i] = false;
+                }
                 if((contract.getSignatureA().equals("1"))&&(contract.getSignatureB().equals("1"))){
                     canSignatureArr[i] = false;
                 }
@@ -104,8 +118,8 @@ public class ContractController extends BaseController {
         String userLoginName = currentUser.getLoginName();
         List<Contract> list = null;
         Long userId = currentUser.getUserId();
-        System.out.println("UserId : "+userId);
-        //103供应商 102超市 1管理员
+//        System.out.println("UserId : "+userId);
+        //103供应商 102超市 1管理员 跟userId不是一个东西
         if(userLoginName.equals("admin")){
             list = contractService.selectContractList(contract);
         }else{
@@ -249,5 +263,57 @@ public class ContractController extends BaseController {
     @RequestMapping("/user/")
     public String queryUser() {
         return prefix + "/user";
+    }
+
+    //更新签名
+    @PostMapping("/editSignature/{contractId}")
+    @ResponseBody
+    public AjaxResult editSignature(@PathVariable("contractId") String contractId){
+        Contract contract = contractService.selectContractByContractId(contractId);
+        contract.setContractTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
+
+        //获取当前用户 并判断修改哪一方签名
+
+        // 获取当前的用户信息
+        SysUser currentUser = ShiroUtils.getSysUser();
+        String userLoginName = currentUser.getLoginName();
+        if(userLoginName.equals("admin")){
+            if(contract.getContractType().equals("0")){
+                contract.setSignatureA("1");
+            }else{
+                contract.setSignatureB("1");
+            }
+        }else{
+            if(contract.getContractType().equals("0")){
+                contract.setSignatureB("1");
+            }else{
+                contract.setSignatureA("1");
+            }
+        }
+        SysUser signatureUser = sysUserService.selectUserById(contract.getSignatureUserId());
+        String signatureUserLoginName = signatureUser.getLoginName();
+        //双方确认完之后，往(仓库系统-进货管理-其他入库)里传一份入库单。
+        if((contract.getSignatureA().equals("1"))&&(contract.getSignatureB().equals("1"))){
+            //新增入库订单
+            WhWarehousingOrder whWarehousingOrder = new WhWarehousingOrder();
+            //订单日期
+            whWarehousingOrder.setOrderDate(DateUtils.getNowDate());
+            //入库类型(其他入库、采购入库)
+            whWarehousingOrder.setOrderType(WhWarehousingOrderType.OTHER.getCode());
+            //入库单编号
+            whWarehousingOrder.setOrderCode(OrderNumGeneratorUtils.makeOrderNum(OrderConstants.ASN));
+            //状态(待到货、待卸货、待分拣、已分拣)
+            whWarehousingOrder.setStatus(WarehousingOrderStatus.ARRIVAL.getCode());
+            //交易单位名称
+            whWarehousingOrder.setDesWarehouseName(signatureUserLoginName);
+            //订单号
+            whWarehousingOrder.setOrderName(contract.getContractId());
+            whWarehousingOrder.setSupplierName(signatureUserLoginName);
+            whWarehousingOrder.setSupplierId(signatureUser.getUserId());
+            whWarehousingOrder.setCreateBy(signatureUserLoginName);
+            whWarehousingOrder.setDeptId(signatureUser.getDeptId());
+            whWarehousingOrderService.insertWhWarehousingOrder(whWarehousingOrder);
+        }
+        return toAjax(contractService.updateContract(contract));
     }
 }
