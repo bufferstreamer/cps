@@ -13,7 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class SysForgetmmController extends BaseController {
 
     @GetMapping("/forgetmm")
-    public String forget() {
+    public String forgetmm() {
         return "forgetmm";
+    }
+
+    @GetMapping("/forgetmmEmail")
+    public String forgetmmEmail() {
+        return "forgetmm_email";
     }
 }

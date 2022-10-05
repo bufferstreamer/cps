@@ -14,8 +14,9 @@ import com.cps.common.utils.ShiroUtils;
 import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.utils.uuid.IdUtils;
 import com.cps.cp.domain.Contract;
-import com.cps.cp.domain.Tender;
+import com.cps.cp.domain.ContractView;
 import com.cps.cp.service.IContractService;
+import com.cps.cp.service.ITenderService;
 import com.cps.system.service.ISysUserService;
 import com.cps.wh.domain.WhWarehousingOrder;
 import com.cps.wh.enums.WarehousingOrderStatus;
@@ -26,7 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,10 +45,14 @@ public class ContractController extends BaseController {
     private IContractService contractService;
 
     @Autowired
+    private ITenderService tenderService;
+
+    @Autowired
     private IWhWarehousingOrderService whWarehousingOrderService;
 
     @Autowired
     private ISysUserService sysUserService;
+
 
     @RequiresPermissions("cp:contract:view")
     @GetMapping()
@@ -125,8 +130,22 @@ public class ContractController extends BaseController {
         }else{
             list = contractService.selectContractListByUserId(userId);
         }
-
-        return getDataTable(list);
+        List<ContractView> listCV = new ArrayList<>();
+        for (int i = 0; i < list.size();i++) {
+            ContractView contractView = new ContractView();
+            contractView.setContractId(list.get(i).getContractId());
+            contractView.setTenderId(list.get(i).getTenderId());
+            contractView.setContractType(list.get(i).getContractType());
+            contractView.setContractDocument(list.get(i).getContractDocument());
+            contractView.setSignatureA(list.get(i).getSignatureA());
+            contractView.setSignatureB(list.get(i).getSignatureB());
+            contractView.setContractTime(list.get(i).getContractTime());
+            contractView.setSignatureUserId(list.get(i).getSignatureUserId());
+            contractView.setProjectName(tenderService.selectTenderByTenderId(contractView.getTenderId()).getProjectName());
+            contractView.setLoginName(sysUserService.selectUserById(contractView.getSignatureUserId()).getLoginName());
+            listCV.add(contractView);
+        }
+        return getDataTable(listCV);
     }
 
     /**

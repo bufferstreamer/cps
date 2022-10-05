@@ -47,7 +47,7 @@
 <!--                    <strong >还没有账号？ <a th:href="@{/register}">立即注册&raquo;</a></strong>-->
             </div>
         </div>
-        <div class="col-sm-5" style="background-color: white;box-shadow: 0 5px 15px rgba(0, 0, 0, .8);">
+        <div class="col-sm-5" style="background-color: white;border-radius:7%;box-shadow: 0 5px 15px rgba(0, 0, 0, .8);">
             <form id="signupForm" autocomplete="off">
                 <h2 class="no-margins" style="color: black;font: 900 28px '';letter-spacing: 1px" >Login</h2>
                 <input type="text"     name="username" class="form-control uname"   style="width: 230px;margin: 20px 0;outline: none;border: 0;padding: 10px;border-bottom: 3px solid rgb(0, 100, 0);font: 900 16px '';"   placeholder="用户名"     />
@@ -66,7 +66,7 @@
                     <input type="checkbox" id="rememberme" name="rememberme"> <label for="rememberme" style="color: black">记住我</label>
                 </div>
                 <strong><a th:href="@{/forgetmm}" style="color: black;">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;忘记密码?</a></strong>
-                <button class="btn btn-success btn-block" style="outline:none;border-radius: 30px;line-height: 27px;background-image: linear-gradient(to left,#93FF93, #00BB00);border: 0" id="btnSubmit" data-loading="正在验证登录，请稍候...">登录</button>
+                <button class="btn btn-success btn-block" style="outline:none;border-radius: 30px;line-height: 27px;background-color: #00A65A;border: 0" id="btnSubmit" data-loading="正在验证登录，请稍候...">登录</button>
             </form>
         </div>
     </div>

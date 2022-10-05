@@ -40,7 +40,7 @@
 
         <div class="btn-group-sm" id="toolbar" role="group">
             <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="cp:tender1:add">
-                <i class="fa fa-plus"></i> 发布招标公告
+                <i class="fa fa-plus"></i> 发布普通招标
             </a>
             <!--                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="cp:tender1:edit">-->
             <!--                    <i class="fa fa-edit"></i> 修改-->
@@ -120,7 +120,7 @@
                 {
                     field: 'tenderId',
                     title: '标书ID',
-                    visible: true
+                    visible: false
                 },
                 {
                     field: 'projectName',
@@ -128,7 +128,8 @@
                 },
                 {
                     field: 'gxsId',
-                    title: '供销社ID'
+                    title: '供销社ID',
+                    visible: false
                 },
                 {
                     field: 'contact',
@@ -136,7 +137,8 @@
                 },
                 {
                     field: 'bidNumber',
-                    title: '竞标次数'
+                    title: '竞标次数',
+                    visible: false
                 },
                 {
                     field: 'phoneOfContact',
@@ -158,18 +160,22 @@
                 {
                     field: 'dealineForQualificationReview',
                     title: '资质审核截止时间',
+                    visible: false
                 },
                 {
                     field: 'bidStartTime',
                     title: '竞标开始时间',
+                    visible: false
                 },
                 {
                     field: 'bidEndTime',
                     title: '竞标结束时间',
+                    visible: false
                 },
                 {
                     field: 'publishTime',
                     title: '公布时间',
+                    visible: false
                 },
                 {
                     title: '操作',
@@ -180,7 +186,7 @@
                         // actions.push('<a class="btn btn-success btn-xs ' + detailFlag + '" href="javascript:void(0)" onclick="$.operate.detail(\'' + row.tenderId + '\')"><i class="fa fa-edit"></i>详细</a>');
                         actions.push('<a class="btn btn-info btn-xs ' + downloadFlag + '" href="javascript:void(0)" onclick="downloadFile(\'' + row.tenderDocument + '\')"><i class="fa fa-download"></i>下载</a>');
                         // actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.tenderId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.tenderId + '\')"><i class="fa fa-trash"></i>删除</a>');
+                        // actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.tenderId + '\')"><i class="fa fa-trash"></i>删除</a>');
                         if ([[${canQualificationReviewArr}]][index]) {
                             actions.push('<a class="btn btn-warning btn-xs ' + qualificationReviewFlag + '" href="javascript:void(0)" onclick="qualificationReview(\'' + row.tenderId + '\')"><i class="fa fa-review"></i>资质审核</a> ');
                         }
