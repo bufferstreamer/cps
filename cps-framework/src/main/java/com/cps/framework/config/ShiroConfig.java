@@ -277,6 +277,10 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/login", "anon,captchaValidate");
         // 注册相关
         filterChainDefinitionMap.put("/register", "anon,captchaValidate");
+        // 忘记密码手机号相关
+        filterChainDefinitionMap.put("/forgetmm", "anon,captchaValidate");
+        // 忘记密码邮箱找回
+        filterChainDefinitionMap.put("/forgetmmEmail", "anon,captchaValidate");
         // 系统权限列表
         // filterChainDefinitionMap.putAll(SpringUtils.getBean(IMenuService.class).selectPermsAll());
 

@@ -35,7 +35,10 @@
         </div>
 
         <div class="btn-group-sm" id="toolbar" role="group">
-            <a class="btn btn-success" onclick="$.operate.addFull()" shiro:hasPermission="system:notice:add">
+           <!-- <a class="btn btn-success" onclick="$.operate.addFull()" shiro:hasPermission="system:notice:add">
+                <i class="fa fa-plus"></i> 新增
+            </a>-->
+            <a class="btn btn-success" onclick="MyAlert()" shiro:hasPermission="system:notice:add">
                 <i class="fa fa-plus"></i> 新增
             </a>
             <a class="btn btn-primary single disabled" onclick="$.operate.editFull()"
@@ -60,7 +63,9 @@
     var types = [[${@dict.getType('sys_notice_type')}]];
     var datas = [[${@dict.getType('sys_notice_status')}]];
     var prefix = ctx + "system/notice";
-
+    function MyAlert() {
+        $.modal.alertWarning("暂不支持在此页面发送通知，请通过招标界面的<一键通知>按钮发送通知");
+    }
     $(function () {
         var options = {
             url: prefix + "/list",
@@ -105,6 +110,10 @@
                     sortable: true
                 },
                 {
+                    field: 'remark',
+                    title: '详情'
+                }
+            /*    {
                     title: '操作',
                     align: 'center',
                     formatter: function (value, row, index) {
@@ -113,7 +122,8 @@
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.noticeId + '\')"><i class="fa fa-remove"></i>删除</a>');
                         return actions.join('');
                     }
-                }]
+                }*/
+                ]
         };
         $.table.init(options);
     });
