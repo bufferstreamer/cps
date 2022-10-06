@@ -8,7 +8,7 @@
 </head>
 <body class="white-bg">
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<div id="main" style="margin: auto; width: 800px;height:600px;"></div>
+<div id="main" style="width: 80%;height:80%;"></div>
 
 <th:block th:include="include :: footer"/>
 <th:block th:include="include :: echarts-js"/>
@@ -30,8 +30,24 @@
     var option = {
         title: {
             text: [[${productName}]]+ '买家汇总',
-            left: 'center',
-            top: 20
+            x: 'center',
+            y:"30",
+            textStyle:{
+                fontSize:30
+            }
+        },
+        textStyle:{
+            fontSize:20
+        },
+        legend: {
+            orient: 'vertical',
+            x:'right',
+            y:'center',
+            itemHeight: 20,
+            itemWidth:45,
+            textStyle: {
+                fontSize: 20
+            }
         },
         tooltip : {
             trigger: 'item',

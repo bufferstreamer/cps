@@ -208,6 +208,10 @@ public class OrdersController extends BaseController {
             }
             map.put("categoryList",categoryList);
             map.put("soldNumList",soldNumList);
+            map.put("categoryName","");
+            if (!parentId.equals("0")){
+                map.put("categoryName",categoryService.selectCategoryByCategoryId(parentId).getCategoryName());
+            }
             return prefix+"/category";
         }
         else {
@@ -234,14 +238,13 @@ public class OrdersController extends BaseController {
 
     @GetMapping("/receiver/{productId}")
     public String receiver(@PathVariable("productId") String productId, ModelMap map) {
-        List<OrderItem> itemList = orderItemService.selectOrderItemList(new OrderItem());
+        OrderItem orderItem = new OrderItem();
+        orderItem.setProductId(productId);
+        List<OrderItem> itemList = orderItemService.selectOrderItemList(orderItem);
 
         HashMap<String,Long> soldNumDict = new HashMap<>();
         for (OrderItem temp:itemList)
         {
-            if (!temp.getProductId().equals(productId))
-                continue;
-
             String receiverName = ordersService
                     .selectOrdersByOrderId(temp.getOrderId())
                     .getReceiverName();

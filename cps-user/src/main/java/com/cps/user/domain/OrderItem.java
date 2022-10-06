@@ -15,8 +15,8 @@ import com.cps.common.core.domain.BaseEntity;
  * @date 2022-09-17
  */
 public class OrderItem extends BaseEntity
-        {
-private static final long serialVersionUID=1L;
+{
+    private static final long serialVersionUID=1L;
 
     /** 订单项ID */
     private String itemId;
@@ -70,6 +70,10 @@ private static final long serialVersionUID=1L;
     /** 评论状态： 0 未评价  1 已评价 */
             @Excel(name = "评论状态： 0 未评价  1 已评价")
     private Long isComment;
+
+    /** 是否招标，N否Y是 */
+    @Excel(name = "是否招标，N否Y是")
+    private String isBid;
 
     public void setItemId(String itemId)
             {
@@ -189,6 +193,16 @@ private static final long serialVersionUID=1L;
             return isComment;
             }
 
+    public void setIsBid(String isBid)
+    {
+        this.isBid = isBid;
+    }
+
+    public String getIsBid()
+    {
+        return isBid;
+    }
+
 @Override
 public String toString(){
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -205,6 +219,7 @@ public String toString(){
             .append("basketDate",getBasketDate())
             .append("buyTime",getBuyTime())
             .append("isComment",getIsComment())
+                .append("isBid",getIsBid())
         .toString();
         }
         }

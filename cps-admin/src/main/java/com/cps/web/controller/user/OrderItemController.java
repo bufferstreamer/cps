@@ -51,6 +51,8 @@ public class OrderItemController extends BaseController {
         @PostMapping("/list")
         @ResponseBody
         public TableDataInfo list(OrderItem orderItem) {
+            orderItem.setIsBid("N");
+            System.out.println(orderItem);
             List<OrderItem> list = orderItemService.selectOrderItemList(orderItem);
 
             HashMap<String,OrderItem> itemDict = new HashMap<>();

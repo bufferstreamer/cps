@@ -8,13 +8,24 @@ import com.cps.common.enums.BusinessType;
 import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.utils.uuid.IdUtils;
 import com.cps.cp.domain.BidWinningResultsAnnouncement;
+import com.cps.cp.domain.Tender;
 import com.cps.cp.service.IBidWinningResultsAnnouncementService;
+import com.cps.cp.service.ITenderService;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -27,6 +38,12 @@ import java.util.List;
 @RequestMapping("/cp/bidWinningResultsAnnouncement")
 public class BidWinningResultsAnnouncementController extends BaseController {
     private String prefix = "cp/bidWinningResultsAnnouncement";
+
+    @Value("${cps.profile}")
+    private String profile;
+
+    @Autowired
+    private ITenderService tenderService;
 
     @Autowired
     private IBidWinningResultsAnnouncementService bidWinningResultsAnnouncementService;
@@ -77,8 +94,32 @@ public class BidWinningResultsAnnouncementController extends BaseController {
     @Log(title = "中标结果公告", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(BidWinningResultsAnnouncement bidWinningResultsAnnouncement) {
+    public AjaxResult addSave(BidWinningResultsAnnouncement bidWinningResultsAnnouncement) throws IOException {
         bidWinningResultsAnnouncement.setBidWinningResultsAnnouncementId(IdUtils.fastSimpleUUID());
+
+//        String tenderId = bidWinningResultsAnnouncement.getTenderId();
+//        Tender tender = tenderService.selectTenderByTenderId(tenderId);
+//
+//        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", profile);
+//
+//        FileInputStream fileInputStream = new FileInputStream(readFilePath);
+//
+//        XWPFDocument doc = new XWPFDocument(fileInputStream);
+//
+//
+//        List<XWPFTable> tables = doc.getTables();
+//        ArrayList<String> productNameList = new ArrayList<>();
+//
+//        for (XWPFTable table : tables) {
+//            List<XWPFTableRow> rows = table.getRows();
+//            int productNum = (rows.size() - 2) / 10;
+//            for (int i = 0; i < productNum; i++) {
+//                String productName = rows.get(i * 10 + 2).getTableCells().get(0).getText();
+//                productNameList.add(productName);
+//                System.out.println(productName);
+//            }
+//        }
+
         return toAjax(bidWinningResultsAnnouncementService.insertBidWinningResultsAnnouncement(bidWinningResultsAnnouncement));
     }
 
@@ -87,8 +128,32 @@ public class BidWinningResultsAnnouncementController extends BaseController {
      */
     @RequiresPermissions("cp:bidWinningResultsAnnouncement:edit")
     @GetMapping("/edit/{bidWinningResultsAnnouncementId}")
-    public String edit(@PathVariable("bidWinningResultsAnnouncementId") String bidWinningResultsAnnouncementId, ModelMap mmap) {
+    public String edit(@PathVariable("bidWinningResultsAnnouncementId") String bidWinningResultsAnnouncementId, ModelMap mmap) throws IOException {
         BidWinningResultsAnnouncement bidWinningResultsAnnouncement = bidWinningResultsAnnouncementService.selectBidWinningResultsAnnouncementByBidWinningResultsAnnouncementId(bidWinningResultsAnnouncementId);
+
+//        String tenderId = bidWinningResultsAnnouncement.getTenderId();
+//        Tender tender = tenderService.selectTenderByTenderId(tenderId);
+//
+//        System.out.println(tender.getTenderDocument());
+//        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", profile);
+//
+//        FileInputStream fileInputStream = new FileInputStream(readFilePath);
+//
+//        XWPFDocument doc = new XWPFDocument(fileInputStream);
+//
+//
+//        List<XWPFTable> tables = doc.getTables();
+//        ArrayList<String> productNameList = new ArrayList<>();
+//
+//        for (XWPFTable table : tables) {
+//            List<XWPFTableRow> rows = table.getRows();
+//            int productNum = (rows.size() - 2) / 10;
+//            for (int i = 0; i < productNum; i++) {
+//                String productName = rows.get(i * 10 + 2).getTableCells().get(0).getText();
+//                productNameList.add(productName);
+//                System.out.println(productName);
+//            }
+//        }
         mmap.put("bidWinningResultsAnnouncement", bidWinningResultsAnnouncement);
         return prefix + "/edit";
     }

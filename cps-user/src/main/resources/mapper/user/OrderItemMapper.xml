@@ -5,29 +5,34 @@
 <mapper namespace="com.cps.user.mapper.OrderItemMapper">
 
     <resultMap type="OrderItem" id="OrderItemResult">
-            <result property="itemId" column="item_id"/>
-            <result property="orderId" column="order_id"/>
-            <result property="productId" column="product_id"/>
-            <result property="productName" column="product_name"/>
-            <result property="productImg" column="product_img"/>
-            <result property="skuId" column="sku_id"/>
-            <result property="skuName" column="sku_name"/>
-            <result property="productPrice" column="product_price"/>
-            <result property="buyCounts" column="buy_counts"/>
-            <result property="totalAmount" column="total_amount"/>
-            <result property="basketDate" column="basket_date"/>
-            <result property="buyTime" column="buy_time"/>
-            <result property="isComment" column="is_comment"/>
+        <result property="itemId" column="item_id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="productImg" column="product_img"/>
+        <result property="skuId" column="sku_id"/>
+        <result property="skuName" column="sku_name"/>
+        <result property="productPrice" column="product_price"/>
+        <result property="buyCounts" column="buy_counts"/>
+        <result property="totalAmount" column="total_amount"/>
+        <result property="basketDate" column="basket_date"/>
+        <result property="buyTime" column="buy_time"/>
+        <result property="isComment" column="is_comment"/>
+        <result property="isBid" column="is_bid"/>
     </resultMap>
 
     <sql id="selectOrderItemVo">
-        select item_id, order_id, product_id, product_name, product_img, sku_id, sku_name, product_price, buy_counts, total_amount, basket_date, buy_time, is_comment
+        select item_id, order_id, product_id, product_name, product_img, sku_id, sku_name, product_price, buy_counts, total_amount, basket_date, buy_time, is_comment, is_bid
         from order_item
     </sql>
+
 
     <select id="selectOrderItemList" parameterType="OrderItem" resultMap="OrderItemResult">
         <include refid="selectOrderItemVo"/>
         <where>
+            <if test="productId != null  and productId != ''">
+                and product_id = #{productId}
+            </if>
             <if test="productName != null  and productName != ''">
                 and product_name like concat('%', #{productName}, '%')
             </if>
@@ -36,6 +41,9 @@
             </if>
             <if test="params.beginBuyTime != null and params.beginBuyTime != '' and params.endBuyTime != null and params.endBuyTime != ''">
                 and buy_time between #{params.beginBuyTime} and #{params.endBuyTime}
+            </if>
+            <if test="isBid != null  and isBid != ''">
+                and is_bid = #{isBid}
             </if>
         </where>
     </select>
@@ -49,102 +57,109 @@
     <insert id="insertOrderItem" parameterType="OrderItem">
         insert into order_item
         <trim prefix="(" suffix=")" suffixOverrides=",">
-                    <if test="itemId != null">item_id,
-                    </if>
-                    <if test="orderId != null and orderId != ''">order_id,
-                    </if>
-                    <if test="productId != null and productId != ''">product_id,
-                    </if>
-                    <if test="productName != null and productName != ''">product_name,
-                    </if>
-                    <if test="productImg != null">product_img,
-                    </if>
-                    <if test="skuId != null and skuId != ''">sku_id,
-                    </if>
-                    <if test="skuName != null and skuName != ''">sku_name,
-                    </if>
-                    <if test="productPrice != null">product_price,
-                    </if>
-                    <if test="buyCounts != null">buy_counts,
-                    </if>
-                    <if test="totalAmount != null">total_amount,
-                    </if>
-                    <if test="basketDate != null">basket_date,
-                    </if>
-                    <if test="buyTime != null">buy_time,
-                    </if>
-                    <if test="isComment != null">is_comment,
-                    </if>
+            <if test="itemId != null">item_id,
+            </if>
+            <if test="orderId != null and orderId != ''">order_id,
+            </if>
+            <if test="productId != null and productId != ''">product_id,
+            </if>
+            <if test="productName != null and productName != ''">product_name,
+            </if>
+            <if test="productImg != null">product_img,
+            </if>
+            <if test="skuId != null and skuId != ''">sku_id,
+            </if>
+            <if test="skuName != null and skuName != ''">sku_name,
+            </if>
+            <if test="productPrice != null">product_price,
+            </if>
+            <if test="buyCounts != null">buy_counts,
+            </if>
+            <if test="totalAmount != null">total_amount,
+            </if>
+            <if test="basketDate != null">basket_date,
+            </if>
+            <if test="buyTime != null">buy_time,
+            </if>
+            <if test="isComment != null">is_comment,
+            </if>
+            <if test="isBid != null">is_bid,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-                    <if test="itemId != null">#{itemId},
-                    </if>
-                    <if test="orderId != null and orderId != ''">#{orderId},
-                    </if>
-                    <if test="productId != null and productId != ''">#{productId},
-                    </if>
-                    <if test="productName != null and productName != ''">#{productName},
-                    </if>
-                    <if test="productImg != null">#{productImg},
-                    </if>
-                    <if test="skuId != null and skuId != ''">#{skuId},
-                    </if>
-                    <if test="skuName != null and skuName != ''">#{skuName},
-                    </if>
-                    <if test="productPrice != null">#{productPrice},
-                    </if>
-                    <if test="buyCounts != null">#{buyCounts},
-                    </if>
-                    <if test="totalAmount != null">#{totalAmount},
-                    </if>
-                    <if test="basketDate != null">#{basketDate},
-                    </if>
-                    <if test="buyTime != null">#{buyTime},
-                    </if>
-                    <if test="isComment != null">#{isComment},
-                    </if>
+            <if test="itemId != null">#{itemId},
+            </if>
+            <if test="orderId != null and orderId != ''">#{orderId},
+            </if>
+            <if test="productId != null and productId != ''">#{productId},
+            </if>
+            <if test="productName != null and productName != ''">#{productName},
+            </if>
+            <if test="productImg != null">#{productImg},
+            </if>
+            <if test="skuId != null and skuId != ''">#{skuId},
+            </if>
+            <if test="skuName != null and skuName != ''">#{skuName},
+            </if>
+            <if test="productPrice != null">#{productPrice},
+            </if>
+            <if test="buyCounts != null">#{buyCounts},
+            </if>
+            <if test="totalAmount != null">#{totalAmount},
+            </if>
+            <if test="basketDate != null">#{basketDate},
+            </if>
+            <if test="buyTime != null">#{buyTime},
+            </if>
+            <if test="isComment != null">#{isComment},
+            </if>
+            <if test="isBid != null">#{isBid},
+            </if>
         </trim>
     </insert>
 
     <update id="updateOrderItem" parameterType="OrderItem">
         update order_item
         <trim prefix="SET" suffixOverrides=",">
-                    <if test="orderId != null and orderId != ''">order_id =
-                        #{orderId},
-                    </if>
-                    <if test="productId != null and productId != ''">product_id =
-                        #{productId},
-                    </if>
-                    <if test="productName != null and productName != ''">product_name =
-                        #{productName},
-                    </if>
-                    <if test="productImg != null">product_img =
-                        #{productImg},
-                    </if>
-                    <if test="skuId != null and skuId != ''">sku_id =
-                        #{skuId},
-                    </if>
-                    <if test="skuName != null and skuName != ''">sku_name =
-                        #{skuName},
-                    </if>
-                    <if test="productPrice != null">product_price =
-                        #{productPrice},
-                    </if>
-                    <if test="buyCounts != null">buy_counts =
-                        #{buyCounts},
-                    </if>
-                    <if test="totalAmount != null">total_amount =
-                        #{totalAmount},
-                    </if>
-                    <if test="basketDate != null">basket_date =
-                        #{basketDate},
-                    </if>
-                    <if test="buyTime != null">buy_time =
-                        #{buyTime},
-                    </if>
-                    <if test="isComment != null">is_comment =
-                        #{isComment},
-                    </if>
+            <if test="orderId != null and orderId != ''">order_id =
+                #{orderId},
+            </if>
+            <if test="productId != null and productId != ''">product_id =
+                #{productId},
+            </if>
+            <if test="productName != null and productName != ''">product_name =
+                #{productName},
+            </if>
+            <if test="productImg != null">product_img =
+                #{productImg},
+            </if>
+            <if test="skuId != null and skuId != ''">sku_id =
+                #{skuId},
+            </if>
+            <if test="skuName != null and skuName != ''">sku_name =
+                #{skuName},
+            </if>
+            <if test="productPrice != null">product_price =
+                #{productPrice},
+            </if>
+            <if test="buyCounts != null">buy_counts =
+                #{buyCounts},
+            </if>
+            <if test="totalAmount != null">total_amount =
+                #{totalAmount},
+            </if>
+            <if test="basketDate != null">basket_date =
+                #{basketDate},
+            </if>
+            <if test="buyTime != null">buy_time =
+                #{buyTime},
+            </if>
+            <if test="isComment != null">is_comment =
+                #{isComment},
+            </if>
+            <if test="isBid != null">is_bid =
+                #{isBid},
+            </if>
         </trim>
         where item_id = #{itemId}
     </update>
