@@ -161,4 +161,11 @@ public interface IUserCreditService {
      * @return 结果
      */
     public int updateBusinessCreditWhenBreakAContract(UserCredit userCredit);
+
+    /**
+     * 管理员修改信用评分
+     * @param userCredit 更新对象
+     * @return 结果
+     */
+    public int updateUserCreditByAdmin(UserCredit userCredit);
 }

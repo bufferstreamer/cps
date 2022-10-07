@@ -115,6 +115,9 @@ public class Constants {
     public final static String NAME_UNIQUE = "0";
     public final static String NAME_NOT_UNIQUE = "1";
 
+    public final static long SYS_SUPPERMARKET_ROLEID = 102;
+    public final static long SYS_SUPPLIER_ROLEID = 103;
+
     /**
      * 信用评分临界分数
      */

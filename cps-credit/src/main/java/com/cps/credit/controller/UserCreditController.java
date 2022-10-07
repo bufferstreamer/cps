@@ -2,6 +2,8 @@ package com.cps.credit.controller;
 
 import java.util.List;
 
+import com.cps.common.utils.DateUtils;
+import com.cps.common.utils.uuid.IdUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -86,6 +88,8 @@ public class UserCreditController extends BaseController {
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult addSave(UserCredit userCredit) {
+        userCredit.setUserCreditId(IdUtils.simpleUUID());
+        userCredit.setUpdateDatetime(DateUtils.parseDate(DateUtils.getTime()));
         return toAjax(userCreditService.insertUserCredit(userCredit));
     }
 
@@ -109,7 +113,7 @@ public class UserCreditController extends BaseController {
     @PostMapping("/edit")
     @ResponseBody
     public AjaxResult editSave(UserCredit userCredit) {
-        return toAjax(userCreditService.updateUserCredit(userCredit));
+        return toAjax(userCreditService.updateUserCreditByAdmin(userCredit));
     }
 
         /**

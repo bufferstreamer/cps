@@ -5,6 +5,7 @@ import com.cps.common.constant.ShiroConstants;
 import com.cps.common.constant.UserConstants;
 import com.cps.common.core.domain.entity.SysUser;
 import com.cps.common.utils.*;
+import com.cps.common.utils.uuid.IdUtils;
 import com.cps.credit.domain.UserCredit;
 import com.cps.credit.service.IUserCreditService;
 import com.cps.framework.manager.AsyncManager;
@@ -59,9 +60,11 @@ public class SysRegisterService {
             } else {
                 AsyncManager.me().execute(AsyncFactory.recordLogininfor(loginName, Constants.REGISTER, MessageUtils.message("user.register.success")));
                 UserCredit userCredit = new UserCredit();
+                userCredit.setUserCreditId(IdUtils.simpleUUID());
                 userCredit.setCreditScore((long) Constants.CREDIT_SCORE_FULL);
                 userCredit.setUserId(user.getUserId());
                 userCredit.setUserName(user.getUserName());
+                userCredit.setUpdateDatetime(DateUtils.parseDate(DateUtils.getTime()));
                 userCreditService.insertUserCredit(userCredit);
             }
         }

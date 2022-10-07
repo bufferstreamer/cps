@@ -38,6 +38,7 @@
             <if test="createDatetime != null ">and create_datetime = #{createDatetime}</if>
             <if test="updateDatetime != null ">and update_datetime = #{updateDatetime}</if>
         </where>
+        order by audit_status
     </select>
 
     <select id="selectAuditDocumentsByChecklistId" parameterType="String" resultMap="AuditDocumentsResult">
