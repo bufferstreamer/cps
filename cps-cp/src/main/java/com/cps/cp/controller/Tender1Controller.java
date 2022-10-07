@@ -1,7 +1,11 @@
 package com.cps.cp.controller;
 
 import com.cps.audit.domain.AuditDocuments;
+import com.cps.audit.domain.BusinessLicenseInfo;
+import com.cps.audit.domain.SupplierLicenseInfo;
 import com.cps.audit.service.IAuditDocumentsService;
+import com.cps.audit.service.IBusinessLicenseInfoService;
+import com.cps.audit.service.ISupplierLicenseInfoService;
 import com.cps.bid.domain.CentralizedPurchaseRecord;
 import com.cps.bid.service.ICentralizedPurchaseRecordService;
 import com.cps.common.annotation.Log;
@@ -42,6 +46,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -93,12 +98,12 @@ public class Tender1Controller extends BaseController {
             review.setSupplyId(ShiroUtils.getUserId());
             List<QualificationReview> list = qualificationReviewService.selectQualificationReviewList(review);
             if(list.size()>0){
-                canQualificationReviewArr[i] = CanQualificationReview(list.get(0));
+                canQualificationReviewArr[i] = CanQualificationReview(list.get(0), tempList.get(i));
                 canPurchaseArr[i] = CanPurchase(list.get(0), tempList.get(i));
             }
             else {
-                canQualificationReviewArr[i] = CanQualificationReview(null);
-                canPurchaseArr[i] = false;
+                canQualificationReviewArr[i] = CanQualificationReview(null,tempList.get(i));
+                canPurchaseArr[i] = CanPurchase(null, tempList.get(i));
             }
         }
 
@@ -417,7 +422,7 @@ public class Tender1Controller extends BaseController {
     }
 
     //资质审核
-    private boolean CanQualificationReview(QualificationReview review) {
+    private boolean CanQualificationReview(QualificationReview review, Tender tender) {
         List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
         if (tempList == null) {
             return false;
@@ -432,6 +437,12 @@ public class Tender1Controller extends BaseController {
                 return false;
         }
 
+        //审核营业执照
+        List<String> scopeList = Arrays.asList(GetBusinessScope());
+        if (scopeList.contains(tender.getDeptName())){
+            return false;
+        }
+
         if (review != null && review.getAuditStatus().equals("1")) {
             return false;
         }
@@ -439,12 +450,58 @@ public class Tender1Controller extends BaseController {
         return true;
     }
 
-    private boolean CanPurchase(QualificationReview review, Tender tender) {
-        if (review != null && review.getAuditStatus().equals("1")) {
-            List<CentralizedPurchaseRecord> tempList = centralizedPurchaseRecordService.selectCentralizedPurchaseRecordsByTenderIdAndSupplyId(review.getTenderId(), ShiroUtils.getUserId().toString());
-            if (tempList.size() < tender.getBidNumber()) {
-                return true;
+    @Autowired
+    private IBusinessLicenseInfoService businessLicenseInfoService;
+    @Autowired
+    private ISupplierLicenseInfoService supplierLicenseInfoService;
+
+    //返回营业范围
+    private String[] GetBusinessScope(){
+        List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
+
+        for (AuditDocuments temp : tempList)
+        {
+            BusinessLicenseInfo info1=businessLicenseInfoService.selectBusinessLicenseInfoByBusinessAuditDocumentId(temp.getChecklistId());
+            if (info1!=null){
+                return info1.getBusinessScope().split(":")[1].split(",");
             }
+            SupplierLicenseInfo info2=supplierLicenseInfoService.selectSupplierLicenseInfoByChecklistId(temp.getChecklistId());
+            if (info2!=null){
+                return info2.getBusinessScope().split(":")[1].split(",");
+            }
+        }
+
+        return new String[0];
+    }
+
+    private boolean CanPurchase(QualificationReview review, Tender tender) {
+        List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
+        if (tempList == null) {
+            return false;
+        }
+        if (tempList.size() < 2) {
+            return false;
+        }
+
+        for (AuditDocuments temp : tempList
+        ) {
+            if (temp.getAuditStatus().equals("1"))
+                return false;
+        }
+
+        List<CentralizedPurchaseRecord> purchaseRecordList = centralizedPurchaseRecordService.selectCentralizedPurchaseRecordsByTenderIdAndSupplyId(tender.getTenderId(), ShiroUtils.getUserId().toString());
+        if (purchaseRecordList.size() >= tender.getBidNumber()) {
+            return false;
+        }
+
+        //审核营业执照
+        List<String> scopeList = Arrays.asList(GetBusinessScope());
+        if (scopeList.contains(tender.getDeptName())){
+            return true;
+        }
+
+        if (review != null && review.getAuditStatus().equals("1")) {
+            return true;
         }
 
         return false;
