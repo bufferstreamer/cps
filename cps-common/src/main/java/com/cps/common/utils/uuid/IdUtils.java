@@ -1,5 +1,7 @@
 package com.cps.common.utils.uuid;
 
+import java.util.Random;
+
 /**
  * ID生成器工具类
  *
@@ -41,4 +43,17 @@ public class IdUtils {
     public static String fastSimpleUUID() {
         return UUID.fastUUID().toString(true);
     }
+
+    /**
+     * 生成6位随机数字验证码
+     */
+    public static String randomCode() {
+        StringBuilder str = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 6; i++) {
+            str.append(random.nextInt(10));
+        }
+        return str.toString();
+    }
+
 }
