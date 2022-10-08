@@ -73,12 +73,15 @@
             updateUrl: prefix + "/edit/{id}",
             removeUrl: prefix + "/remove",
             modalName: "公告",
-            columns: [{
+            sortName:"noticeId",
+            sortOrder:"desc",
+            columns: [
+                {
                 checkbox: true
             },
                 {
                     field: 'noticeId',
-                    title: '序号'
+                    title: '序号',
                 },
                 {
                     field: 'noticeTitle',
@@ -102,7 +105,7 @@
                 },
                 {
                     field: 'createBy',
-                    title: '创建者'
+                    title: '创建者',
                 },
                 {
                     field: 'createTime',
