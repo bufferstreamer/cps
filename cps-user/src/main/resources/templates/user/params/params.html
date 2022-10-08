@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
-    <th:block th:include="include :: header('商品规格页面')" />
+    <th:block th:include="include :: header('商品参数')" />
 </head>
 <body class="gray-bg">
      <div class="container-div">
@@ -15,28 +15,40 @@
                                 <input type="text" name="productId"/>
                             </li>
                             <li>
-                                <label>商品名称：</label>
-                                <input type="text" name="skuName"/>
+                                <label>产地</label>
+                                <input type="text" name="productPlace"/>
                             </li>
                             <li>
-                                <label>属性组合：</label>
-                                <input type="text" name="untitled"/>
+                                <label>保质期</label>
+                                <input type="text" name="footPeriod"/>
                             </li>
                             <li>
-                                <label>原价：</label>
-                                <input type="text" name="originalPrice"/>
+                                <label>品牌名</label>
+                                <input type="text" name="brand"/>
                             </li>
                             <li>
-                                <label>销售价格：</label>
-                                <input type="text" name="sellPrice"/>
+                                <label>生产厂名</label>
+                                <input type="text" name="factoryName"/>
                             </li>
                             <li>
-                                <label>折扣力度：</label>
-                                <input type="text" name="discounts"/>
+                                <label>生产厂址</label>
+                                <input type="text" name="factoryAddress"/>
                             </li>
                             <li>
-                                <label>库存：</label>
-                                <input type="text" name="stock"/>
+                                <label>包装方式</label>
+                                <input type="text" name="packagingMethod"/>
+                            </li>
+                            <li>
+                                <label>规格重量</label>
+                                <input type="text" name="weight"/>
+                            </li>
+                            <li>
+                                <label>存储方法</label>
+                                <input type="text" name="storageMethod"/>
+                            </li>
+                            <li>
+                                <label>食用方式</label>
+                                <input type="text" name="eatMethod"/>
                             </li>
                             <li>
                                 <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -48,16 +60,16 @@
             </div>
 
             <div class="btn-group-sm" id="toolbar" role="group">
-                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="user:sku:add">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="user:params:add">
                     <i class="fa fa-plus"></i> 添加
                 </a>
-                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="user:sku:edit">
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="user:params:edit">
                     <i class="fa fa-edit"></i> 修改
                 </a>
-                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="user:sku:remove">
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="user:params:remove">
                     <i class="fa fa-remove"></i> 删除
                 </a>
-                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="user:sku:export">
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="user:params:export">
                     <i class="fa fa-download"></i> 导出
                 </a>
             </div>
@@ -68,10 +80,9 @@
     </div>
     <th:block th:include="include :: footer" />
     <script th:inline="javascript">
-        var editFlag = [[${@permission.hasPermi('user:sku:edit')}]];
-        var removeFlag = [[${@permission.hasPermi('user:sku:remove')}]];
-        var statusDatas = [[${@dict.getType('sku_status')}]];
-        var prefix = ctx + "user/sku";
+        var editFlag = [[${@permission.hasPermi('user:params:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('user:params:remove')}]];
+        var prefix = ctx + "user/params";
         var productName = {};
         $.operate.get(prefix+"/getProductName",function(res) {
             productName = res.data;
@@ -84,13 +95,13 @@
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",
                 exportUrl: prefix + "/export",
-                modalName: "商品规格",
+                modalName: "商品参数 ",
                 columns: [{
                     checkbox: true
                 },
                 {
-                    field: 'skuId',
-                    title: 'sku编号',
+                    field: 'paramId',
+                    title: '商品参数id',
                     visible: false
                 },
                 {
@@ -102,57 +113,52 @@
                     }
                 },
                 {
-                    field: 'skuName',
-                    title: 'sku名称'
+                    field: 'productPlace',
+                    title: '产地'
                 },
                 {
-                    field: 'skuImg',
-                    title: 'sku图片',
-                    formatter: function (value, row, index) {
-                        var actions = [];
-                        actions.push('<img alt="sku图片" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="' + row.skuImg + '">');
-                        return actions.join('');
-                    }
+                    field: 'footPeriod',
+                    title: '保质期'
                 },
                 {
-                    field: 'untitled',
-                    title: '口味'
+                    field: 'brand',
+                    title: '品牌名'
                 },
                 {
-                    field: 'originalPrice',
-                    title: '原价'
+                    field: 'factoryName',
+                    title: '生产厂名'
                 },
                 {
-                    field: 'sellPrice',
-                    title: '销售价格'
+                    field: 'factoryAddress',
+                    title: '生产厂址'
                 },
                 {
-                    field: 'discounts',
-                    title: '折扣力度'
+                    field: 'packagingMethod',
+                    title: '包装方式'
                 },
                 {
-                    field: 'stock',
-                    title: '库存'
+                    field: 'weight',
+                    title: '规格重量'
                 },
                 {
-                    field: 'status',
-                    title: 'sku状态',
-                    formatter: function (value, row, index) {
-                        return $.table.selectDictLabel(statusDatas, value);
-                    }
+                    field: 'storageMethod',
+                    title: '存储方法'
+                },
+                {
+                    field: 'eatMethod',
+                    title: '食用方式'
                 },
                 {
                     title: '操作',
                     align: 'center',
                     formatter: function(value, row, index) {
                         var actions = [];
-                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.skuId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.skuId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.paramId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.paramId + '\')"><i class="fa fa-remove"></i>删除</a>');
                         return actions.join('');
                     }
                 }]
             };
-
             $.table.init(options);
         });
     </script>

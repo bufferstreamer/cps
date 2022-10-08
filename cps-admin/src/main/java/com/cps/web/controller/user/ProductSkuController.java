@@ -1,6 +1,11 @@
 package com.cps.web.controller.user;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import com.cps.user.domain.Product;
+import com.cps.user.service.IProductService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +38,9 @@ public class ProductSkuController extends BaseController
 
     @Autowired
     private IProductSkuService productSkuService;
+
+    @Autowired
+    private IProductService productService;
 
     @RequiresPermissions("user:sku:view")
     @GetMapping()
@@ -123,5 +131,29 @@ public class ProductSkuController extends BaseController
     public AjaxResult remove(String ids)
     {
         return toAjax(productSkuService.deleteProductSkuBySkuIds(ids));
+    }
+
+    @ResponseBody
+    @GetMapping("/getByName/{productName}")
+    public AjaxResult getProductByName(@PathVariable("productName") String skuName) {
+        ProductSku productSku = new ProductSku();
+        productSku.setSkuName(skuName);
+        List<ProductSku> productSkus = productSkuService.selectProductSkuList(productSku);
+        AjaxResult ajaxResult = new AjaxResult().success(productSkus);
+        return ajaxResult;
+    }
+
+    @ResponseBody
+    @GetMapping("/getProductName")
+    public AjaxResult getProductNames() {
+        ProductSku productSku = new ProductSku();
+        List<ProductSku> productSkus = productSkuService.selectProductSkuList(productSku);
+        HashMap<String,String> name = new HashMap<>();
+        for(ProductSku productSku1:productSkus){
+            Product product = productService.selectProductByProductId(productSku1.getProductId());
+            name.put(productSku1.getProductId(),product.getProductName());
+        }
+        AjaxResult ajaxResult = new AjaxResult().success(name);
+        return ajaxResult;
     }
 }

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增商品参数 ')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-params-add">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">输入商品名称</label>
+                <div class="col-sm-8">
+                    <input id="productName" class="form-control" type="text" onchange="searchProduct()">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label is-required">商品id</label>
+                <div class="col-sm-8">
+                    <select id="getProductId"  name="productId">
+                        <option value="选择商品">选择商品</option>
+                    </select>
+                    <!--                    <input name="productId" class="form-control" type="text" required>-->
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">产地</label>
+                <div class="col-sm-8">
+                    <input name="productPlace" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">保质期</label>
+                <div class="col-sm-8">
+                    <input name="footPeriod" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">品牌名</label>
+                <div class="col-sm-8">
+                    <input name="brand" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">生产厂名</label>
+                <div class="col-sm-8">
+                    <input name="factoryName" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">生产厂址</label>
+                <div class="col-sm-8">
+                    <input name="factoryAddress" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">包装方式</label>
+                <div class="col-sm-8">
+                    <input name="packagingMethod" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">规格重量</label>
+                <div class="col-sm-8">
+                    <input name="weight" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">存储方法</label>
+                <div class="col-sm-8">
+                    <input name="storageMethod" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">食用方式</label>
+                <div class="col-sm-8">
+                    <input name="eatMethod" class="form-control" type="text" required>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var prefix = ctx + "user/params"
+        var productPrefix = ctx + "user/product";
+        $("#form-params-add").validate({
+            focusCleanup: true
+        });
+        function searchProduct(){
+            var name = $("#productName").val();
+            $.operate.get(productPrefix+"/getByName/"+name,function(res){
+                var productElement=document.getElementById("getProductId");
+                var productList = res.data;
+                //清空下拉列表项，设置保留的个数
+                productElement.length=1;
+                for (var i = 0; i < productList.length; i++) {
+                    var optionElement=document.createElement("option");//创建option元素
+                    optionElement.appendChild(document.createTextNode(productList[i].productName));
+                    optionElement.setAttribute("value",productList[i].productId);
+                    productElement.appendChild(optionElement);
+                }
+            });
+        }
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-params-add').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

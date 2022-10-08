@@ -1,5 +1,6 @@
 package com.cps.web.controller.user;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.cps.user.domain.Category;
@@ -49,10 +50,13 @@ public class ProductController extends BaseController
     @RequiresPermissions("user:product:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(Product product)
+    public TableDataInfo list(Product product,ModelMap mmap)
     {
         startPage();
         List<Product> list = productService.selectProductList(product);
+        for(Product product1:list){
+            mmap.put(product1.getProductId(), product1.getProductName());
+        }
         return getDataTable(list);
     }
 
@@ -128,38 +132,77 @@ public class ProductController extends BaseController
         return toAjax(productService.deleteProductByProductIds(ids));
     }
 
-//    @ResponseBody
-//    @GetMapping("/Firstcategory")
-//    public String category(ModelMap map) {
-//        Category category = new Category();
-//        category.setParentId("0");
-//        List<Category> categoryList = categoryService.selectCategoryList(category);
-//        map.put("categoryList", categoryList);
-//        System.out.println("此函数已被调用");
-//        return prefix + "/add";
-//
-//    }
-
-    @CrossOrigin
     @ResponseBody
     @GetMapping("/Firstcategory")
-    public List<Category> category(ModelMap map) {
+    public AjaxResult category() {
         Category category = new Category();
         category.setParentId("0");
         List<Category> categoryList = categoryService.selectCategoryList(category);
-//        map.put("categoryList", categoryList);
-        return categoryList;
+        AjaxResult ajaxResult = new AjaxResult().success(categoryList);
+        return ajaxResult;
 
     }
 
     @ResponseBody
     @GetMapping("/category/{parentId}")
-    public List<Category> category(@PathVariable("parentId") String parentId,ModelMap map) {
+    public AjaxResult category(@PathVariable("parentId") String parentId) {
         Category category = new Category();
         category.setParentId(parentId);
         List<Category> categoryList = categoryService.selectCategoryList(category);
-//        map.put("categoryList2", categoryList);
-        return categoryList;
+        AjaxResult ajaxResult = new AjaxResult().success(categoryList);
+        return ajaxResult;
 
+    }
+
+    @ResponseBody
+    @GetMapping("/getByName/{productName}")
+    public AjaxResult getProductByName(@PathVariable("productName") String productName) {
+        Product product = new Product();
+        product.setProductName(productName);
+        List<Product> products = productService.selectProductList(product);
+        AjaxResult ajaxResult = new AjaxResult().success(products);
+        return ajaxResult;
+    }
+
+    @ResponseBody
+    @GetMapping("/getProductName/{productId}")
+    public AjaxResult getProductName(@PathVariable("productId") String productId) {
+        Product product = productService.selectProductByProductId(productId);
+        AjaxResult ajaxResult = new AjaxResult().success(product.getProductName());
+        return ajaxResult;
+    }
+
+    @ResponseBody
+    @GetMapping("/getProductName")
+    public AjaxResult getProductNames(ModelMap mmap) {
+        Product product = new Product();
+        List<Product> products = productService.selectProductList(product);
+        for(Product product1:products){
+            mmap.put(product1.getProductId(), product1.getProductName());
+        }
+        AjaxResult ajaxResult = new AjaxResult().success();
+        return ajaxResult;
+    }
+
+    @ResponseBody
+    @GetMapping("/getCategoryName")
+    public AjaxResult getCategoryNames() {
+        Product product = new Product();
+        List<Product> products = productService.selectProductList(product);
+        HashMap<String,String> name = new HashMap<>();
+        for(Product product1:products){
+            Category category = categoryService.selectCategoryByCategoryId(String.valueOf(product1.getRootCategoryId()));
+            if(category==null){
+                name.put(String.valueOf(product1.getRootCategoryId()),"未分类");
+            }
+            name.put(String.valueOf(product1.getRootCategoryId()),category.getCategoryName());
+            Category category1 = categoryService.selectCategoryByCategoryId(product1.getCategoryId());
+            if(category1==null){
+                name.put(String.valueOf(product1.getRootCategoryId()),"未分类");
+            }
+            name.put(String.valueOf(product1.getCategoryId()),category1.getCategoryName());
+        }
+        AjaxResult ajaxResult = new AjaxResult().success(name);
+        return ajaxResult;
     }
 }

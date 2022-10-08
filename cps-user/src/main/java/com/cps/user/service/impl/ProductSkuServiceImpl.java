@@ -12,6 +12,7 @@ import com.cps.user.mapper.ProductSkuMapper;
 import com.cps.user.domain.ProductSku;
 import com.cps.user.service.IProductSkuService;
 import com.cps.common.core.text.Convert;
+import com.cps.common.utils.uuid.IdUtils;
 
 /**
  * 商品规格 每一件商品都有不同的规格，不同的规格又有不同的价格和优惠力度，规格为此设计Service业务层处理
@@ -59,7 +60,7 @@ public class ProductSkuServiceImpl implements IProductSkuService
     @Override
     public int insertProductSku(ProductSku productSku)
     {
-        productSku.setSkuId("50");
+        productSku.setSkuId(IdUtils.simpleUUID());
         Date time = new Date();
         productSku.setCreateTime(time);
         productSku.setStatus(1);

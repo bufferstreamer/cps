@@ -65,7 +65,7 @@
 
         $.operate.get(prefix+"/Firstcategory",function(res){
             var categoryElement=document.getElementById("rootCategoryId");
-            var categoryList = res;
+            var categoryList = res.data;
             //清空下拉列表项，设置保留的个数
             // cityElement.length=1;
             for (var i = 0; i < categoryList.length; i++) {
@@ -92,7 +92,7 @@
             var index=myselect.selectedIndex;
             var parentId = myselect.options[index].value;
             $.operate.get(prefix+"/category/"+parentId,function(res){
-                var categoryList = res;
+                var categoryList = res.data;
                 if(categoryList.length==0){
                     categoryElement.length=1;
                     var optionElement=document.createElement("option");//创建option元素

@@ -91,11 +91,22 @@ public class WhOutboundOrderController extends BaseController {
     /**
      * 新增保存商品出库单主表
      */
-    @RequiresPermissions("wh:outboundOrder:add")
+    @CrossOrigin
+//    @RequiresPermissions("wh:outboundOrder:add")
     @Log(title = "商品出库单主表", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(WhOutboundOrder whOutboundOrder) {
+    public AjaxResult addSave(@RequestBody WhOutboundOrder whOutboundOrder) {
+        System.out.println(whOutboundOrder.getOrderCode());
+        whOutboundOrder.setOrderDate(DateUtils.getNowDate());
+        whOutboundOrder.setOrderType(WhOutboundOrderType.OTHER.getCode());
+        whOutboundOrder.setOrderCode(OrderNumGeneratorUtils.makeOrderNum(OrderConstants.SF));
+        whOutboundOrder.setDiscountRate(BigDecimal.ONE);
+        whOutboundOrder.setDiscountAmount(BigDecimal.ZERO);
+        whOutboundOrder.setDiscountPrice(BigDecimal.ZERO);
+        whOutboundOrder.setOtherFee(BigDecimal.ZERO);
+        whOutboundOrder.setStatus(OutboundOrderStatus.THEDELIVERY.getCode());
+        whOutboundOrder.setDeptId(new Long(0));
         return toAjax(whOutboundOrderService.insertWhOutboundOrder(whOutboundOrder));
     }
 

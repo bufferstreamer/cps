@@ -14,11 +14,12 @@
                     <input name="productName" th:field="*{productName}" class="form-control" type="text" required>
                 </div>
             </div>
+
             <div class="form-group">
                 <label class="col-sm-3 control-label is-required">一级分类id</label>
                 <div class="col-sm-8">
                     <select id="rootCategoryId" onchange="getCategory(1)" name="rootCategoryId">
-                        <option value="选择分类">选择分类</option>
+                        <option th:value="*{rootCategoryId}">已选择</option>
                     </select>
                     <select id="CategoryId2" onchange="getCategory(2)">
                         <option value="选择分类">选择分类</option>
@@ -36,7 +37,7 @@
                 <label class="col-sm-3 control-label is-required">分类id</label>
                 <div class="col-sm-8">
                     <select id="categoryId" name="categoryId">
-                        <option value="选择分类">选择分类</option>
+                        <option th:value="*{categoryId}">已选择</option>
                     </select>
                     <!--                    <input name="categoryId" class="form-control" type="text" required>-->
                 </div>
@@ -44,7 +45,7 @@
             <div class="form-group">    
                 <label class="col-sm-3 control-label is-required">状态</label>
                 <div class="col-sm-8">
-                    <input name="productStatus" th:field="*{productStatus}" class="form-control" type="text" required>
+                    <input name="productStatus" th:value="*{productStatus}" class="form-control" type="text" required>
                 </div>
             </div>
             <div class="form-group">
@@ -71,13 +72,25 @@
         });
 
         function submitHandler() {
+            var myselect=document.getElementById("rootCategoryId");
+            var index=myselect.selectedIndex;
+            var categoryId = myselect.options[index].value;
+            if(categoryId !="选择分类"){
+                document.getElementsByName("rootCategoryId").value =  categoryId;
+            }
+            myselect=document.getElementById("categoryId");
+            index=myselect.selectedIndex;
+            categoryId = myselect.options[index].value;
+            if(categoryId !="选择分类"){
+                document.getElementsByName("categoryId").value =  categoryId;
+            }
             if ($.validate.form()) {
                 $.operate.save(prefix + "/edit", $('#form-product-edit').serialize());
             }
         }
         $.operate.get(prefix+"/Firstcategory",function(res){
             var categoryElement=document.getElementById("rootCategoryId");
-            var categoryList = res;
+            var categoryList = res.data;
             //清空下拉列表项，设置保留的个数
             // cityElement.length=1;
             for (var i = 0; i < categoryList.length; i++) {
@@ -104,7 +117,7 @@
             var index=myselect.selectedIndex;
             var parentId = myselect.options[index].value;
             $.operate.get(prefix+"/category/"+parentId,function(res){
-                var categoryList = res;
+                var categoryList = res.data;
                 if(categoryList.length==0){
                     categoryElement.length=1;
                     var optionElement=document.createElement("option");//创建option元素
