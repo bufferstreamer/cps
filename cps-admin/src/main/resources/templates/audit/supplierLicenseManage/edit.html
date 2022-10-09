@@ -39,7 +39,7 @@
             <div class="col-sm-8">
                 <input name="frontPhoto" th:field="*{frontPhoto}" type="hidden">
                 <div class="file-loading">
-                    <input class="form-control file-upload" id="frontPhoto" name="file" type="file" accept=".bmp,.jpg,.jpeg,.png,.gif">
+                    <input class="form-control file-upload" id="frontPhoto" name="file" type="file" accept=".bmp,.jpg,.jpeg,.png,.gif,.webp">
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@
             <div class="col-sm-8">
                 <input name="backPhoto" th:field="*{backPhoto}" type="hidden">
                 <div class="file-loading">
-                    <input class="form-control file-upload" id="backPhoto" name="file" type="file" accept=".bmp,.jpg,.jpeg,.png,.gif">
+                    <input class="form-control file-upload" id="backPhoto" name="file" type="file" accept=".bmp,.jpg,.jpeg,.png,.gif,.webp">
                 </div>
             </div>
         </div>
@@ -100,7 +100,7 @@
             <div class="col-sm-8">
                 <input name="businessLicense" th:field="*{businessLicense}" type="hidden">
                 <div class="file-loading">
-                    <input class="form-control file-upload" id="businessLicense" name="file" type="file" accept=".bmp,.jpg,.jpeg,.png,.gif">
+                    <input class="form-control file-upload" id="businessLicense" name="file" type="file" accept=".bmp,.jpg,.jpeg,.png,.gif,.webp">
                 </div>
             </div>
         </div>
@@ -140,10 +140,7 @@
     $("#form-supplierLicenseManage-edit").validate({
         focusCleanup: true,
         rules: {
-            registrationNumber: {
-                digits: true,
-                rangelength: [18, 18]
-            },
+            registrationNumber: "isBusinessLicenseNumber",
             corporateName: "isName",
             frName: "isName",
             idNumber: "isIdentity",
@@ -156,9 +153,6 @@
             officePhone: "isTel",
             emergencyContact: "isName",
             emergencyContactPhone: "isPhone"
-        },
-        messages: {
-            registrationNumber: "请输入18位全国信息代码号"
         }
     });
 

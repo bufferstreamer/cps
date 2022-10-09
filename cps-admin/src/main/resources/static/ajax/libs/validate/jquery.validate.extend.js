@@ -5,6 +5,10 @@ $(document).ready(function () {
             form.submit();
         }
     });
+    jQuery.validator.addMethod("isBusinessLicenseNumber", function (value, element) {
+        var reg = /^[A-Z0-9]{18}$/;
+        return this.optional(element) || (reg.test(value));
+    }, "请输入18位统一社会信用代码");
     jQuery.validator.addMethod("isMoney", function (value, element) {
         var reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
         return this.optional(element) || (reg.test(value));
@@ -43,9 +47,9 @@ $(document).ready(function () {
     }, "请填写正确的座机号码");
     //姓名校验
     jQuery.validator.addMethod("isName", function (value, element) {
-        var name = /^[\u4e00-\u9fa5]{2,9}$/;
+        var name = /^[\u4e00-\u9fa5]{2,15}$/;
         return this.optional(element) || (name.test(value));
-    }, "姓名只能用汉字,长度2-9位");
+    }, "姓名只能用汉字,长度2-15位");
     //校验用户名
     jQuery.validator.addMethod("isUserName", function (value, element) {
         var userName = /^[a-zA-Z0-9]{2,13}$/;

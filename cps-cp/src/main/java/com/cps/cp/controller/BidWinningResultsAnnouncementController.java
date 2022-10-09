@@ -11,6 +11,8 @@ import com.cps.cp.domain.BidWinningResultsAnnouncement;
 import com.cps.cp.domain.Tender;
 import com.cps.cp.service.IBidWinningResultsAnnouncementService;
 import com.cps.cp.service.ITenderService;
+import com.cps.user.domain.OrderItem;
+import com.cps.user.service.IOrderItemService;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -47,6 +49,8 @@ public class BidWinningResultsAnnouncementController extends BaseController {
 
     @Autowired
     private IBidWinningResultsAnnouncementService bidWinningResultsAnnouncementService;
+    @Autowired
+    private IOrderItemService orderItemService;
 
     @RequiresPermissions("cp:bidWinningResultsAnnouncement:view")
     @GetMapping()
@@ -97,28 +101,35 @@ public class BidWinningResultsAnnouncementController extends BaseController {
     public AjaxResult addSave(BidWinningResultsAnnouncement bidWinningResultsAnnouncement) throws IOException {
         bidWinningResultsAnnouncement.setBidWinningResultsAnnouncementId(IdUtils.fastSimpleUUID());
 
-//        String tenderId = bidWinningResultsAnnouncement.getTenderId();
-//        Tender tender = tenderService.selectTenderByTenderId(tenderId);
-//
-//        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", profile);
-//
-//        FileInputStream fileInputStream = new FileInputStream(readFilePath);
-//
-//        XWPFDocument doc = new XWPFDocument(fileInputStream);
-//
-//
-//        List<XWPFTable> tables = doc.getTables();
-//        ArrayList<String> productNameList = new ArrayList<>();
-//
-//        for (XWPFTable table : tables) {
-//            List<XWPFTableRow> rows = table.getRows();
-//            int productNum = (rows.size() - 2) / 10;
-//            for (int i = 0; i < productNum; i++) {
-//                String productName = rows.get(i * 10 + 2).getTableCells().get(0).getText();
-//                productNameList.add(productName);
-//                System.out.println(productName);
-//            }
-//        }
+        String tenderId = bidWinningResultsAnnouncement.getTenderId();
+        Tender tender = tenderService.selectTenderByTenderId(tenderId);
+
+        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", profile);
+
+        FileInputStream fileInputStream = new FileInputStream(readFilePath);
+
+        XWPFDocument doc = new XWPFDocument(fileInputStream);
+
+
+        List<XWPFTable> tables = doc.getTables();
+
+        for (XWPFTable table : tables) {
+            List<XWPFTableRow> rows = table.getRows();
+            int productNum = (rows.size() - 2) / 10;
+            for (int i = 0; i < productNum; i++) {
+                String productName = rows.get(i * 10 + 2).getTableCells().get(0).getText();
+
+                OrderItem orderItem = new OrderItem();
+                orderItem.setProductName(productName);
+                orderItem.setIsBid("N");
+
+                orderItemService.selectOrderItemList(orderItem).forEach(item->{
+                    item.setIsBid("Y");
+                    orderItemService.updateOrderItem(item);
+                });
+
+            }
+        }
 
         return toAjax(bidWinningResultsAnnouncementService.insertBidWinningResultsAnnouncement(bidWinningResultsAnnouncement));
     }
@@ -128,32 +139,9 @@ public class BidWinningResultsAnnouncementController extends BaseController {
      */
     @RequiresPermissions("cp:bidWinningResultsAnnouncement:edit")
     @GetMapping("/edit/{bidWinningResultsAnnouncementId}")
-    public String edit(@PathVariable("bidWinningResultsAnnouncementId") String bidWinningResultsAnnouncementId, ModelMap mmap) throws IOException {
+    public String edit(@PathVariable("bidWinningResultsAnnouncementId") String bidWinningResultsAnnouncementId, ModelMap mmap) {
         BidWinningResultsAnnouncement bidWinningResultsAnnouncement = bidWinningResultsAnnouncementService.selectBidWinningResultsAnnouncementByBidWinningResultsAnnouncementId(bidWinningResultsAnnouncementId);
 
-//        String tenderId = bidWinningResultsAnnouncement.getTenderId();
-//        Tender tender = tenderService.selectTenderByTenderId(tenderId);
-//
-//        System.out.println(tender.getTenderDocument());
-//        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", profile);
-//
-//        FileInputStream fileInputStream = new FileInputStream(readFilePath);
-//
-//        XWPFDocument doc = new XWPFDocument(fileInputStream);
-//
-//
-//        List<XWPFTable> tables = doc.getTables();
-//        ArrayList<String> productNameList = new ArrayList<>();
-//
-//        for (XWPFTable table : tables) {
-//            List<XWPFTableRow> rows = table.getRows();
-//            int productNum = (rows.size() - 2) / 10;
-//            for (int i = 0; i < productNum; i++) {
-//                String productName = rows.get(i * 10 + 2).getTableCells().get(0).getText();
-//                productNameList.add(productName);
-//                System.out.println(productName);
-//            }
-//        }
         mmap.put("bidWinningResultsAnnouncement", bidWinningResultsAnnouncement);
         return prefix + "/edit";
     }

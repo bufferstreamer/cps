@@ -145,10 +145,7 @@
     $("#form-businessLicenseManage-add").validate({
         focusCleanup: true,
         rules: {
-            businessLicenseNumber: {
-                digits: true,
-                rangelength: [18, 18]
-            },
+            businessLicenseNumber: "isBusinessLicenseNumber",
             managerName: "isName",
             businessName: "isName",
             businessPlace: "isAddress",
@@ -157,9 +154,6 @@
             },
             contactPerson: "isName",
             contactPhone: "isPhone"
-        },
-        messages: {
-            businessLicenseNumber: "请输入18位营业执照号码"
         }
     });
 
