@@ -71,6 +71,44 @@ public interface ISysUserService {
     public SysUser selectUserById(Long userId);
 
     /**
+     * 查找所有的小商超
+     * @return 结果
+     */
+    public List<SysUser> selectSupperMarket();
+
+    /**
+     * 查找所有的供应商
+     * @return 结果
+     */
+    public List<SysUser> selectSupplier();
+
+    /**
+     * 查找所有的小商超和供应商
+     * @return 结果
+     */
+    public List<SysUser> selectSupperMarketAndSupplier();
+
+    /**
+     * 通过用户id查询该用户是否是小商超
+     * @param userId 用户id
+     * @return 结果
+     */
+    public boolean isSupperMarket(Long userId);
+
+    /**
+     * 通过用户id查询该用户是否是供应商
+     * @param userId 用户id
+     * @return 结果
+     */
+    public boolean isSupplier(Long userId);
+
+    /**
+     * 通过用户id查询该用户是否是小商超或供应商
+     * @param userId 用户id
+     * @return 结果
+     */
+    public boolean isSupperMarketOrSupplier(Long userId);
+    /**
      * 通过用户ID查询用户和角色关联
      *
      * @param userId 用户ID

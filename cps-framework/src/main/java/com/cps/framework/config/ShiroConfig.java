@@ -259,7 +259,8 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setUnauthorizedUrl(unauthorizedUrl);
         // Shiro连接约束配置，即过滤链的定义
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        // 对静态资源设置匿名访问
+        // 对静态资源设置匿名访问cps/user/product/Firstcategory
+        filterChainDefinitionMap.put("/cps/user/**", "anon,captchaValidate");
         filterChainDefinitionMap.put("/favicon.ico**", "anon");
         filterChainDefinitionMap.put("/cps.png**", "anon");
         filterChainDefinitionMap.put("/html/**", "anon");
@@ -275,6 +276,9 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/logout", "logout");
         // 不需要拦截的访问
         filterChainDefinitionMap.put("/login", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/user/product/Firstcategory", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/wh/outboundOrder/add", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/profile/upload/**", "anon,captchaValidate");
         // 注册相关
         filterChainDefinitionMap.put("/register", "anon,captchaValidate");
         // 忘记密码手机号相关
@@ -295,6 +299,9 @@ public class ShiroConfig {
 
         // 所有请求需要认证
         filterChainDefinitionMap.put("/**", "user,kickout,onlineSession,syncOnlineSession");
+        //tianjia
+        filterChainDefinitionMap.put("/cps/user/product/add", "anon");
+        filterChainDefinitionMap.put("/cps/wh/outboundOrder/add", "anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
         return shiroFilterFactoryBean;

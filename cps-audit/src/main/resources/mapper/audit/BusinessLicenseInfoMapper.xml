@@ -84,6 +84,7 @@
             <if test="contactEmail != null  and contactEmail != ''">and contact_email = #{contactEmail}</if>
             <if test="createDatetime != null ">and create_datetime = #{createDatetime}</if>
         </where>
+        order by create_datetime desc
     </select>
 
     <select id="selectBusinessLicenseInfoByBusinessAuditDocumentId" parameterType="String"

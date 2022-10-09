@@ -5,6 +5,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.collection.ListUtil;
 import cn.hutool.extra.mail.MailUtil;
 import com.cps.common.annotation.DataScope;
+import com.cps.common.constant.Constants;
 import com.cps.common.constant.UserConstants;
 import com.cps.common.core.domain.entity.SysDept;
 import com.cps.common.core.domain.entity.SysRole;
@@ -155,6 +156,71 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public SysUser selectUserById(Long userId) {
         return userMapper.selectUserById(userId);
+    }
+
+    @Override
+    public List<SysUser> selectSupperMarket() {
+        return userMapper.selectUserByRoleId(Constants.SYS_SUPPERMARKET_ROLEID);
+    }
+
+    @Override
+    public List<SysUser> selectSupplier() {
+        return userMapper.selectUserByRoleId(Constants.SYS_SUPPLIER_ROLEID);
+    }
+
+    @Override
+    public List<SysUser> selectSupperMarketAndSupplier() {
+        List<SysUser> supperMarketList = userMapper.selectUserByRoleId(Constants.SYS_SUPPERMARKET_ROLEID);
+        List<SysUser> supplierList = userMapper.selectUserByRoleId(Constants.SYS_SUPPLIER_ROLEID);
+        List<SysUser> bothList = new ArrayList<>();
+        bothList.addAll(supperMarketList);
+        bothList.addAll(supplierList);
+        return bothList;
+    }
+
+    /**
+     * 通过用户id查询该用户是否是小商超
+     * @param userId 用户id
+     * @return 结果
+     */
+    @Override
+    public boolean isSupperMarket(Long userId){
+        List<SysUserRole> userRoleList = userRoleMapper.selectUserRoleByUserId(userId);
+        if(userRoleList == null) return false;
+        if(userRoleList.get(0).getRoleId() == Constants.SYS_SUPPERMARKET_ROLEID){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 通过用户id查询该用户是否是供应商
+     * @param userId 用户id
+     * @return 结果
+     */
+    @Override
+    public boolean isSupplier(Long userId){
+        List<SysUserRole> userRoleList = userRoleMapper.selectUserRoleByUserId(userId);
+        if(userRoleList == null) return false;
+        if(userRoleList.get(0).getRoleId() == Constants.SYS_SUPPLIER_ROLEID){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 通过用户id查询该用户是否是小商超或供应商
+     * @param userId 用户id
+     * @return 结果
+     */
+    @Override
+    public boolean isSupperMarketOrSupplier(Long userId){
+        List<SysUserRole> userRoleList = userRoleMapper.selectUserRoleByUserId(userId);
+        if(userRoleList == null) return false;
+        if(userRoleList.get(0).getRoleId() == Constants.SYS_SUPPERMARKET_ROLEID || userRoleList.get(0).getRoleId() == Constants.SYS_SUPPLIER_ROLEID){
+            return true;
+        }
+        return false;
     }
 
     /**

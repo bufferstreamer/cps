@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('商品参数')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>商品id：</label>
+                                <input type="text" name="productId"/>
+                            </li>
+                            <li>
+                                <label>产地</label>
+                                <input type="text" name="productPlace"/>
+                            </li>
+                            <li>
+                                <label>保质期</label>
+                                <input type="text" name="footPeriod"/>
+                            </li>
+                            <li>
+                                <label>品牌名</label>
+                                <input type="text" name="brand"/>
+                            </li>
+                            <li>
+                                <label>生产厂名</label>
+                                <input type="text" name="factoryName"/>
+                            </li>
+                            <li>
+                                <label>生产厂址</label>
+                                <input type="text" name="factoryAddress"/>
+                            </li>
+                            <li>
+                                <label>包装方式</label>
+                                <input type="text" name="packagingMethod"/>
+                            </li>
+                            <li>
+                                <label>规格重量</label>
+                                <input type="text" name="weight"/>
+                            </li>
+                            <li>
+                                <label>存储方法</label>
+                                <input type="text" name="storageMethod"/>
+                            </li>
+                            <li>
+                                <label>食用方式</label>
+                                <input type="text" name="eatMethod"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="user:params:add">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="user:params:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="user:params:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="user:params:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('user:params:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('user:params:remove')}]];
+        var prefix = ctx + "user/params";
+        var productName = {};
+        $.operate.get(prefix+"/getProductName",function(res) {
+            productName = res.data;
+            console.log("name",productName);
+        })
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "商品参数 ",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'paramId',
+                    title: '商品参数id',
+                    visible: false
+                },
+                {
+                    field: 'productId',
+                    title: '商品名称',
+                    formatter:function (value, row, index) {
+                        var name = productName[value];
+                        return "<span>"+name+"</span>";
+                    }
+                },
+                {
+                    field: 'productPlace',
+                    title: '产地'
+                },
+                {
+                    field: 'footPeriod',
+                    title: '保质期'
+                },
+                {
+                    field: 'brand',
+                    title: '品牌名'
+                },
+                {
+                    field: 'factoryName',
+                    title: '生产厂名'
+                },
+                {
+                    field: 'factoryAddress',
+                    title: '生产厂址'
+                },
+                {
+                    field: 'packagingMethod',
+                    title: '包装方式'
+                },
+                {
+                    field: 'weight',
+                    title: '规格重量'
+                },
+                {
+                    field: 'storageMethod',
+                    title: '存储方法'
+                },
+                {
+                    field: 'eatMethod',
+                    title: '食用方式'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.paramId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.paramId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

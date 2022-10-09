@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cps.credit.mapper.UserCreditUpdateInfoMapper">
+
+    <resultMap type="UserCreditUpdateInfo" id="UserCreditUpdateInfoResult">
+            <result property="userCreditUpdateInfoId" column="user_credit_update_info_id"/>
+            <result property="userCreditId" column="user_credit_id"/>
+            <result property="userId" column="user_id"/>
+            <result property="updateStatus" column="update_status"/>
+            <result property="updatedCreditScore" column="updated_credit_score"/>
+            <result property="updateInfo" column="update_info"/>
+            <result property="updateDatetime" column="update_datetime"/>
+    </resultMap>
+
+    <sql id="selectUserCreditUpdateInfoVo">
+        select user_credit_update_info_id, user_credit_id, user_id, update_status, updated_credit_score, update_info, update_datetime
+        from user_credit_update_info
+    </sql>
+
+    <select id="selectUserCreditUpdateInfoList" parameterType="UserCreditUpdateInfo" resultMap="UserCreditUpdateInfoResult">
+        <include refid="selectUserCreditUpdateInfoVo"/>
+        <where>
+                        <if test="userCreditId != null  and userCreditId != ''">
+                            and user_credit_id = #{userCreditId}
+                        </if>
+                        <if test="userId != null ">
+                            and user_id = #{userId}
+                        </if>
+                        <if test="updateStatus != null  and updateStatus != ''">
+                            and update_status = #{updateStatus}
+                        </if>
+                        <if test="updatedCreditScore != null ">
+                            and updated_credit_score = #{updatedCreditScore}
+                        </if>
+                        <if test="updateInfo != null  and updateInfo != ''">
+                            and update_info = #{updateInfo}
+                        </if>
+                        <if test="updateDatetime != null ">
+                            and update_datetime = #{updateDatetime}
+                        </if>
+        </where>
+        order by update_datetime desc
+    </select>
+
+    <select id="selectUserCreditUpdateInfoListByUserId" parameterType="Long" resultMap="UserCreditUpdateInfoResult">
+        <include refid="selectUserCreditUpdateInfoVo"/>
+        where user_id = #{userId}
+        order by update_datetime desc
+    </select>
+
+    <select id="selectUserCreditUpdateInfoByUserCreditUpdateInfoId" parameterType="String"
+            resultMap="UserCreditUpdateInfoResult">
+            <include refid="selectUserCreditUpdateInfoVo"/>
+            where user_credit_update_info_id = #{userCreditUpdateInfoId}
+    </select>
+
+    <insert id="insertUserCreditUpdateInfo" parameterType="UserCreditUpdateInfo">
+        insert into user_credit_update_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="userCreditUpdateInfoId != null">user_credit_update_info_id,
+                    </if>
+                    <if test="userCreditId != null and userCreditId != ''">user_credit_id,
+                    </if>
+                    <if test="userId != null">user_id,
+                    </if>
+                    <if test="updateStatus != null">update_status,
+                    </if>
+                    <if test="updatedCreditScore != null">updated_credit_score,
+                    </if>
+                    <if test="updateInfo != null">update_info,
+                    </if>
+                    <if test="updateDatetime != null">update_datetime,
+                    </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="userCreditUpdateInfoId != null">#{userCreditUpdateInfoId},
+                    </if>
+                    <if test="userCreditId != null and userCreditId != ''">#{userCreditId},
+                    </if>
+                    <if test="userId != null">#{userId},
+                    </if>
+                    <if test="updateStatus != null">#{updateStatus},
+                    </if>
+                    <if test="updatedCreditScore != null">#{updatedCreditScore},
+                    </if>
+                    <if test="updateInfo != null">#{updateInfo},
+                    </if>
+                    <if test="updateDatetime != null">#{updateDatetime},
+                    </if>
+        </trim>
+    </insert>
+
+    <update id="updateUserCreditUpdateInfo" parameterType="UserCreditUpdateInfo">
+        update user_credit_update_info
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="userCreditId != null and userCreditId != ''">user_credit_id =
+                        #{userCreditId},
+                    </if>
+                    <if test="userId != null">user_id =
+                        #{userId},
+                    </if>
+                    <if test="updateStatus != null">update_status =
+                        #{updateStatus},
+                    </if>
+                    <if test="updatedCreditScore != null">updated_credit_score =
+                        #{updatedCreditScore},
+                    </if>
+                    <if test="updateInfo != null">update_info =
+                        #{updateInfo},
+                    </if>
+                    <if test="updateDatetime != null">update_datetime =
+                        #{updateDatetime},
+                    </if>
+        </trim>
+        where user_credit_update_info_id = #{userCreditUpdateInfoId}
+    </update>
+
+    <delete id="deleteUserCreditUpdateInfoByUserCreditUpdateInfoId" parameterType="String">
+        delete
+        from user_credit_update_info where user_credit_update_info_id = #{userCreditUpdateInfoId}
+    </delete>
+
+    <delete id="deleteUserCreditUpdateInfoByUserCreditUpdateInfoIds" parameterType="String">
+        delete from user_credit_update_info where user_credit_update_info_id in
+        <foreach item="userCreditUpdateInfoId" collection="array" open="(" separator="," close=")">
+            #{userCreditUpdateInfoId}
+        </foreach>
+    </delete>
+
+</mapper>

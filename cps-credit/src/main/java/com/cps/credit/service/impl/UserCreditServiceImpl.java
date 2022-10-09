@@ -7,10 +7,11 @@ import com.cps.common.constant.Constants;
 import com.cps.common.core.domain.entity.SysUser;
 import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.uuid.IdUtils;
+import com.cps.credit.domain.UserCreditUpdateInfo;
+import com.cps.credit.mapper.UserCreditUpdateInfoMapper;
 import com.cps.system.domain.SysUserRole;
 import com.cps.system.mapper.SysUserMapper;
 import com.cps.system.mapper.SysUserRoleMapper;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cps.credit.mapper.UserCreditMapper;
@@ -34,6 +35,9 @@ public class UserCreditServiceImpl implements IUserCreditService {
 
     @Autowired
     private SysUserMapper userMapper;
+
+    @Autowired
+    private UserCreditUpdateInfoMapper userCreditUpdateInfoMapper;
 
     /**
      * 查询用户信用评价管理
@@ -70,8 +74,6 @@ public class UserCreditServiceImpl implements IUserCreditService {
      */
     @Override
     public int insertUserCredit(UserCredit userCredit) {
-            userCredit.setUserCreditId(IdUtils.simpleUUID());
-            userCredit.setUpdateDatetime(DateUtils.parseDate(DateUtils.getTime()));
             return userCreditMapper.insertUserCredit(userCredit);
     }
 
@@ -130,6 +132,7 @@ public class UserCreditServiceImpl implements IUserCreditService {
             newScore = 100;
         }
         userCredit.setCreditScore((long) newScore);
+        userCredit.setUpdateDatetime(DateUtils.parseDate(DateUtils.getTime()));
         return updateUserCredit(userCredit);
     }
 
@@ -146,6 +149,7 @@ public class UserCreditServiceImpl implements IUserCreditService {
             newScore = 0;
         }
         userCredit.setCreditScore((long) newScore);
+        userCredit.setUpdateDatetime(DateUtils.parseDate(DateUtils.getTime()));
         return updateUserCredit(userCredit);
     }
 
@@ -158,13 +162,24 @@ public class UserCreditServiceImpl implements IUserCreditService {
         deleteAllUserCredit();
         List<SysUserRole> userRoleList = userRoleMapper.selectAllUserRoleInfos();
         for(SysUserRole userRole:userRoleList){
-            if(userRole.getRoleId()!=1){
+            if(userRole.getRoleId()==Constants.SYS_SUPPERMARKET_ROLEID||userRole.getRoleId()==Constants.SYS_SUPPLIER_ROLEID){
                 UserCredit userCredit = new UserCredit();
+                userCredit.setUserCreditId(IdUtils.simpleUUID());
                 userCredit.setCreditScore((long) Constants.CREDIT_SCORE_FULL);
                 userCredit.setUserId(userRole.getUserId());
                 SysUser user = userMapper.selectUserById(userRole.getUserId());
                 userCredit.setUserName(user.getUserName());
+                userCredit.setUpdateDatetime(DateUtils.parseDate(DateUtils.getTime()));
                 insertUserCredit(userCredit);
+                UserCreditUpdateInfo userCreditUpdateInfo = new UserCreditUpdateInfo();
+                userCreditUpdateInfo.setUserCreditUpdateInfoId(IdUtils.fastSimpleUUID());
+                userCreditUpdateInfo.setUserCreditId(userCredit.getUserCreditId());
+                userCreditUpdateInfo.setUserId(userCredit.getUserId());
+                userCreditUpdateInfo.setUpdateStatus("0");
+                userCreditUpdateInfo.setUpdatedCreditScore(userCredit.getCreditScore());
+                userCreditUpdateInfo.setUpdateInfo("初始化");
+                userCreditUpdateInfo.setUpdateDatetime(userCredit.getUpdateDatetime());
+                userCreditUpdateInfoMapper.insertUserCreditUpdateInfo(userCreditUpdateInfo);
             }
         }
     }
@@ -177,7 +192,17 @@ public class UserCreditServiceImpl implements IUserCreditService {
      */
     @Override
     public int initUserCreditByCapital(UserCredit userCredit, double capital) {
-        return addUserCreditScore(userCredit,checkCapitalLevel(capital));
+        int ans = addUserCreditScore(userCredit,checkCapitalLevel(capital));
+        UserCreditUpdateInfo userCreditUpdateInfo = new UserCreditUpdateInfo();
+        userCreditUpdateInfo.setUserCreditUpdateInfoId(IdUtils.fastSimpleUUID());
+        userCreditUpdateInfo.setUserCreditId(userCredit.getUserCreditId());
+        userCreditUpdateInfo.setUserId(userCredit.getUserId());
+        userCreditUpdateInfo.setUpdateStatus("1");
+        userCreditUpdateInfo.setUpdatedCreditScore(userCredit.getCreditScore());
+        userCreditUpdateInfo.setUpdateInfo("根据初始注册资本修改");
+        userCreditUpdateInfo.setUpdateDatetime(userCredit.getUpdateDatetime());
+        userCreditUpdateInfoMapper.insertUserCreditUpdateInfo(userCreditUpdateInfo);
+        return ans;
     }
 
     /**
@@ -191,8 +216,24 @@ public class UserCreditServiceImpl implements IUserCreditService {
     public int updateUserCreditByCapital(UserCredit userCredit, double oldCapital, double newCapital) {
         int oldLevel = checkCapitalLevel(oldCapital);
         int newLevel = checkCapitalLevel(newCapital);
-        if(oldLevel<=newLevel) return addUserCreditScore(userCredit,newLevel-oldLevel);
-        else return reduceUserCreditScore(userCredit,oldLevel-newLevel);
+        int ans = 0;
+        UserCreditUpdateInfo userCreditUpdateInfo = new UserCreditUpdateInfo();
+        userCreditUpdateInfo.setUserCreditUpdateInfoId(IdUtils.fastSimpleUUID());
+        userCreditUpdateInfo.setUserCreditId(userCredit.getUserCreditId());
+        userCreditUpdateInfo.setUserId(userCredit.getUserId());
+        userCreditUpdateInfo.setUpdateInfo("注册资本更新修改");
+        if(oldLevel<=newLevel) {
+            ans = addUserCreditScore(userCredit,newLevel-oldLevel);
+            userCreditUpdateInfo.setUpdateStatus("1");
+        }
+        else {
+            ans = reduceUserCreditScore(userCredit,oldLevel-newLevel);
+            userCreditUpdateInfo.setUpdateStatus("2");
+        }
+        userCreditUpdateInfo.setUpdatedCreditScore(userCredit.getCreditScore());
+        userCreditUpdateInfo.setUpdateDatetime(userCredit.getUpdateDatetime());
+        userCreditUpdateInfoMapper.insertUserCreditUpdateInfo(userCreditUpdateInfo);
+        return ans;
     }
 
     /**
@@ -218,9 +259,24 @@ public class UserCreditServiceImpl implements IUserCreditService {
      */
     @Override
     public int updateUserCreditByProfitability(UserCredit userCredit, double profit) {
-        if(profit>=Constants.TURNOVER_MONTH_CEILING) return addUserCreditScore(userCredit,Constants.CREDIT_SCORE_ADD_BASE);
-        if(profit<Constants.TURNOVER_MONTH_FLOOR) return reduceUserCreditScore(userCredit,Constants.CREDIT_SCORE_REDUCE_BASE);
-        return 0;
+        int ans = 0;
+        UserCreditUpdateInfo userCreditUpdateInfo = new UserCreditUpdateInfo();
+        userCreditUpdateInfo.setUserCreditUpdateInfoId(IdUtils.fastSimpleUUID());
+        userCreditUpdateInfo.setUserCreditId(userCredit.getUserCreditId());
+        userCreditUpdateInfo.setUserId(userCredit.getUserId());
+        userCreditUpdateInfo.setUpdateInfo("根据上月盈利情况修改");
+        if(profit>=Constants.TURNOVER_MONTH_CEILING) {
+            ans = addUserCreditScore(userCredit,Constants.CREDIT_SCORE_ADD_BASE);
+            userCreditUpdateInfo.setUpdateStatus("1");
+        }
+        if(profit<Constants.TURNOVER_MONTH_FLOOR) {
+            ans = reduceUserCreditScore(userCredit,Constants.CREDIT_SCORE_REDUCE_BASE);
+            userCreditUpdateInfo.setUpdateStatus("2");
+        }
+        userCreditUpdateInfo.setUpdatedCreditScore(userCredit.getCreditScore());
+        userCreditUpdateInfo.setUpdateDatetime(userCredit.getUpdateDatetime());
+        userCreditUpdateInfoMapper.insertUserCreditUpdateInfo(userCreditUpdateInfo);
+        return ans;
     }
 
     /**
@@ -231,8 +287,23 @@ public class UserCreditServiceImpl implements IUserCreditService {
      */
     @Override
     public int updateUserCreditByReturnRate(UserCredit userCredit, double returnRate) {
-        if(returnRate>Constants.RETURN_RATE) return reduceUserCreditScore(userCredit, Constants.CREDIT_SCORE_REDUCE_BASE);
-        return addUserCreditScore(userCredit, Constants.CREDIT_SCORE_ADD_BASE);
+        int ans = 0;
+        UserCreditUpdateInfo userCreditUpdateInfo = new UserCreditUpdateInfo();
+        userCreditUpdateInfo.setUserCreditUpdateInfoId(IdUtils.fastSimpleUUID());
+        userCreditUpdateInfo.setUserCreditId(userCredit.getUserCreditId());
+        userCreditUpdateInfo.setUserId(userCredit.getUserId());
+        userCreditUpdateInfo.setUpdateInfo("根据上月退换货率修改");
+        if(returnRate>Constants.RETURN_RATE) {
+            ans = reduceUserCreditScore(userCredit, Constants.CREDIT_SCORE_REDUCE_BASE);
+            userCreditUpdateInfo.setUpdateStatus("2");
+        }else{
+            ans = addUserCreditScore(userCredit, Constants.CREDIT_SCORE_ADD_BASE);
+            userCreditUpdateInfo.setUpdateStatus("1");
+        }
+        userCreditUpdateInfo.setUpdatedCreditScore(userCredit.getCreditScore());
+        userCreditUpdateInfo.setUpdateDatetime(userCredit.getUpdateDatetime());
+        userCreditUpdateInfoMapper.insertUserCreditUpdateInfo(userCreditUpdateInfo);
+        return ans;
     }
 
     /**
@@ -242,7 +313,17 @@ public class UserCreditServiceImpl implements IUserCreditService {
      */
     @Override
     public int updateSupplierCreditWhenKeepAContract(UserCredit userCredit) {
-        return addUserCreditScore(userCredit,Constants.SUPPLIER_KEEP_A_CONTRACT_ADD);
+        int ans = addUserCreditScore(userCredit,Constants.SUPPLIER_KEEP_A_CONTRACT_ADD);
+        UserCreditUpdateInfo userCreditUpdateInfo = new UserCreditUpdateInfo();
+        userCreditUpdateInfo.setUserCreditUpdateInfoId(IdUtils.fastSimpleUUID());
+        userCreditUpdateInfo.setUserCreditId(userCredit.getUserCreditId());
+        userCreditUpdateInfo.setUserId(userCredit.getUserId());
+        userCreditUpdateInfo.setUpdateStatus("1");
+        userCreditUpdateInfo.setUpdatedCreditScore(userCredit.getCreditScore());
+        userCreditUpdateInfo.setUpdateInfo("成功交易");
+        userCreditUpdateInfo.setUpdateDatetime(userCredit.getUpdateDatetime());
+        userCreditUpdateInfoMapper.insertUserCreditUpdateInfo(userCreditUpdateInfo);
+        return ans;
     }
 
     /**
@@ -252,7 +333,17 @@ public class UserCreditServiceImpl implements IUserCreditService {
      */
     @Override
     public int updateSupplierCreditWhenBreakAContract(UserCredit userCredit) {
-        return reduceUserCreditScore(userCredit,Constants.SUPPLIER_BREAK_A_CONTRACT_REDUCE);
+        int ans = reduceUserCreditScore(userCredit,Constants.SUPPLIER_BREAK_A_CONTRACT_REDUCE);
+        UserCreditUpdateInfo userCreditUpdateInfo = new UserCreditUpdateInfo();
+        userCreditUpdateInfo.setUserCreditUpdateInfoId(IdUtils.fastSimpleUUID());
+        userCreditUpdateInfo.setUserCreditId(userCredit.getUserCreditId());
+        userCreditUpdateInfo.setUserId(userCredit.getUserId());
+        userCreditUpdateInfo.setUpdateStatus("2");
+        userCreditUpdateInfo.setUpdatedCreditScore(userCredit.getCreditScore());
+        userCreditUpdateInfo.setUpdateInfo("违约");
+        userCreditUpdateInfo.setUpdateDatetime(userCredit.getUpdateDatetime());
+        userCreditUpdateInfoMapper.insertUserCreditUpdateInfo(userCreditUpdateInfo);
+        return ans;
     }
 
     /**
@@ -262,7 +353,17 @@ public class UserCreditServiceImpl implements IUserCreditService {
      */
     @Override
     public int updateBusinessCreditWhenKeepAContract(UserCredit userCredit) {
-        return addUserCreditScore(userCredit,Constants.BUSINESS_KEEP_A_CONTRACT_ADD);
+        int ans = addUserCreditScore(userCredit,Constants.BUSINESS_KEEP_A_CONTRACT_ADD);
+        UserCreditUpdateInfo userCreditUpdateInfo = new UserCreditUpdateInfo();
+        userCreditUpdateInfo.setUserCreditUpdateInfoId(IdUtils.fastSimpleUUID());
+        userCreditUpdateInfo.setUserCreditId(userCredit.getUserCreditId());
+        userCreditUpdateInfo.setUserId(userCredit.getUserId());
+        userCreditUpdateInfo.setUpdateStatus("1");
+        userCreditUpdateInfo.setUpdatedCreditScore(userCredit.getCreditScore());
+        userCreditUpdateInfo.setUpdateInfo("成功交易");
+        userCreditUpdateInfo.setUpdateDatetime(userCredit.getUpdateDatetime());
+        userCreditUpdateInfoMapper.insertUserCreditUpdateInfo(userCreditUpdateInfo);
+        return ans;
     }
 
     /**
@@ -272,6 +373,38 @@ public class UserCreditServiceImpl implements IUserCreditService {
      */
     @Override
     public int updateBusinessCreditWhenBreakAContract(UserCredit userCredit) {
-        return reduceUserCreditScore(userCredit,Constants.BUSINESS_BREAK_A_CONTRACT_REDUCE);
+        int ans = reduceUserCreditScore(userCredit,Constants.BUSINESS_BREAK_A_CONTRACT_REDUCE);
+        UserCreditUpdateInfo userCreditUpdateInfo = new UserCreditUpdateInfo();
+        userCreditUpdateInfo.setUserCreditUpdateInfoId(IdUtils.fastSimpleUUID());
+        userCreditUpdateInfo.setUserCreditId(userCredit.getUserCreditId());
+        userCreditUpdateInfo.setUserId(userCredit.getUserId());
+        userCreditUpdateInfo.setUpdateStatus("2");
+        userCreditUpdateInfo.setUpdatedCreditScore(userCredit.getCreditScore());
+        userCreditUpdateInfo.setUpdateInfo("违约");
+        userCreditUpdateInfo.setUpdateDatetime(userCredit.getUpdateDatetime());
+        userCreditUpdateInfoMapper.insertUserCreditUpdateInfo(userCreditUpdateInfo);
+        return ans;
+    }
+
+    @Override
+    public int updateUserCreditByAdmin(UserCredit userCredit) {
+        UserCredit OldUserCredit = userCreditMapper.selectUserCreditByUserCreditId(userCredit.getUserCreditId());
+        Long oldScore = OldUserCredit.getCreditScore();
+        Long newScore = userCredit.getCreditScore();
+        UserCreditUpdateInfo userCreditUpdateInfo = new UserCreditUpdateInfo();
+        userCreditUpdateInfo.setUserCreditUpdateInfoId(IdUtils.fastSimpleUUID());
+        userCreditUpdateInfo.setUserCreditId(userCredit.getUserCreditId());
+        userCreditUpdateInfo.setUserId(userCredit.getUserId());
+        userCreditUpdateInfo.setUpdatedCreditScore(userCredit.getCreditScore());
+        userCreditUpdateInfo.setUpdateInfo("管理员修改: "+userCredit.getUserName());
+        userCreditUpdateInfo.setUpdateDatetime(DateUtils.parseDate(DateUtils.getTime()));
+        if(oldScore > newScore){
+            userCreditUpdateInfo.setUpdateStatus("2");
+        }else if(newScore > oldScore){
+            userCreditUpdateInfo.setUpdateStatus("1");
+        }
+        userCredit.setUserName(null);
+        userCreditUpdateInfoMapper.insertUserCreditUpdateInfo(userCreditUpdateInfo);
+        return updateUserCredit(userCredit);
     }
 }

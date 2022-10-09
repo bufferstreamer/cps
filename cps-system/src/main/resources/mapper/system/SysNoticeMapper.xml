@@ -49,6 +49,7 @@
                 AND create_by like concat('%', #{createBy}, '%')
             </if>
         </where>
+--         order by notice_id desc
     </select>
 
     <insert id="insertNotice" parameterType="SysNotice">

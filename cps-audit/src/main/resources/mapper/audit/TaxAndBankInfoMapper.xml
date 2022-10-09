@@ -74,6 +74,7 @@
             </if>
             <if test="createDatetime != null ">and create_datetime = #{createDatetime}</if>
         </where>
+        order by create_datetime desc
     </select>
 
     <select id="selectTaxAndBankInfoByTaxAndBankAuditId" parameterType="String" resultMap="TaxAndBankInfoResult">

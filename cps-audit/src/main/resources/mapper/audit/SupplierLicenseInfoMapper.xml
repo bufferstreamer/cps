@@ -63,6 +63,7 @@
             </if>
             <if test="createDatetime != null ">and create_datetime = #{createDatetime}</if>
         </where>
+        order by create_datetime desc
     </select>
 
     <select id="selectSupplierLicenseInfoByChecklistId" parameterType="String" resultMap="SupplierLicenseInfoResult">

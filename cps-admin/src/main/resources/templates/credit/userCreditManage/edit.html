@@ -16,20 +16,21 @@
                                        type="text" required>
                             </div>
                         </div>
-                        <div class="form-group" style="display: none;">
-                            <label class="col-sm-3 control-label">用户昵称
-                                ：</label>
-                            <div class="col-sm-8">
-                                <input name="userName" th:field="*{userName}" class="form-control"
-                                       type="text">
-                            </div>
-                        </div>
+
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">信用评分
+                            <label class="col-sm-3 control-label">修改评分
                                 ：</label>
                             <div class="col-sm-8">
                                 <input name="creditScore" th:field="*{creditScore}" class="form-control"
                                        type="text" required>
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label class="col-sm-3 control-label">修改原因
+                                ：</label>
+                            <div class="col-sm-8">
+                                <input name="userName" th:field="" class="form-control"
+                                       type="text">
                             </div>
                         </div>
                         <div class="form-group" style="display: none;">
@@ -55,8 +56,12 @@
         focusCleanup: true,
         rules: {
             creditScore: {
+                required:true,
                 digits: true,
                 range: [0, 100]
+            },
+            userName:{
+                required:true
             }
         },
         messages: {

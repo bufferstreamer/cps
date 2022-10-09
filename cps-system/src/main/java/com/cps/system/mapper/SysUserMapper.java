@@ -46,6 +46,14 @@ public interface SysUserMapper {
     public List<SysUser> selectUserByUserName(String userName);
 
     /**
+     * 通过角色id查找用户集
+     *
+     * @param roleId
+     * @return
+     */
+    public List<SysUser> selectUserByRoleId(Long roleId);
+
+    /**
      * 通过手机号码查询用户
      *
      * @param phoneNumber 手机号码

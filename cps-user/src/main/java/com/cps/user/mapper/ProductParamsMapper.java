@@ -1,11 +1,13 @@
 package com.cps.user.mapper;
 
 
+import com.cps.common.annotation.DataSource;
+import com.cps.common.enums.DataSourceType;
 import com.cps.user.domain.ProductParams;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@DataSource(value = DataSourceType.SLAVE)
 @Repository
 /**
  * 商品参数 Mapper接口

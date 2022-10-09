@@ -4,7 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>比质比价</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
     <script src="https://lib.sinaapp.com/js/jquery/3.1.0/jquery-3.1.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <link href="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.js"></script>
     <style>
         html, body, div, input {
             padding:0;
@@ -13,6 +17,21 @@
         input {
             border-style: none;
             outline: none;
+        }
+        #qualityFirst{
+            display: none;
+        }
+        #priceFirst{
+            display: none;
+        }
+        #userDefined{
+            display: none;
+        }
+        .sub-module{
+            margin-top:50px;
+            margin-left:15%;
+            width:70%;
+
         }
         .head-container {
             width:100%;
@@ -204,98 +223,161 @@
     </style>
 </head>
 <body>
-<!-- 标题begin -->
-<div class="head-container">
-    <h1>商品名:
-        <select name="productname" id="productname">
-        </select>
-    </h1>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">比质比价</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active" id="liSysDefault"><a href="javascript:void(0);" >默认评分</a></li>
+                <li id="liQualityFirst"><a href="javascript:void(0);" >质量优先</a></li>
+                <li id="liPriceFirst"><a href="javascript:void(0);" >价格优先</a></li>
+                <li id="liUserDefined"><a href="javascript:void(0);" >自定义</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+<!-- 默认部分begin -->
+<div id="sysDefault" class="sub-module">
+    <h1>默认</h1>
+    <table id="sysDefaultTable" >
+        <thead>
+        <tr>
+            <th data-field="productName" data-align="center" data-width="100">产品名</th>
+            <th data-field="result" data-align="center" data-width="200">供应商排名</th>
+        </tr>
+        </thead>
+    </table>
 </div>
-<!-- 标题end -->
+<!-- 默认部分end -->
+<!-- 质量优先begin -->
+<div id="qualityFirst" class="sub-module">
+    <h1>质量优先</h1>
+    <table id="qualityFirstTable">
+        <thead>
+        <tr>
+            <th data-field="productName" data-align="center">产品名</th>
+            <th data-field="result" data-align="center">供应商排名</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<div id="priceFirst" class="sub-module">
+    <h1>价格优先</h1>
+    <table id="priceFirstTable">
+        <thead>
+        <tr>
+            <th data-field="productName" data-align="center">产品名</th>
+            <th data-field="result" data-align="center">供应商排名</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+<!-- 默认部分end -->
+<!-- 自定义部分begin -->
+<div id="userDefined" class="sub-module">
+    <!-- 标题begin -->
+    <div class="head-container">
+        <h1>商品名:
+            <select name="productname" id="productname">
+            </select>
+        </h1>
+    </div>
+    <!-- 标题end -->
 
-<!-- 指标填写部分begin -->
-<div class="target-input">
-    <div class="header target-header">
-        <div class="header-detail">
-            指标展示
+    <!-- 指标填写部分begin -->
+    <div class="target-input">
+        <div class="header target-header">
+            <div class="header-detail">
+                指标展示
+            </div>
+        </div>
+        <div class="input-container index-container">
+        </div>
+        <div class="input-container">
+            <input id="submitBtn" class="button" type="button" value="确认指标" >
         </div>
     </div>
-    <div class="input-container index-container">
-    </div>
-    <div class="input-container">
-        <input id="submitBtn" class="button" type="button" value="确认指标" >
-    </div>
-</div>
-<!-- 指标填写部分end -->
+    <!-- 指标填写部分end -->
 
-<!-- 专家评价-指标权重部分begin -->
-<div class="target-evaluate">
-    <div class="header target-evaluate-header">
-        <div class="header-detail">
-            专家评价-指标权重
+    <!-- 专家评价-指标权重部分begin -->
+    <div class="target-evaluate">
+        <div class="header target-evaluate-header">
+            <div class="header-detail">
+                专家评价-指标权重
+            </div>
+        </div>
+        <div class="evaluate-container">
+        </div>
+        <div class="input-container btn-container">
+            <input id="weightAnalyseBtn" class="button" type="button" value="确认分析" >
+        </div>
+        <div class="input-container result-container">
         </div>
     </div>
-    <div class="evaluate-container">
-    </div>
-    <div class="input-container btn-container">
-        <input id="weightAnalyseBtn" class="button" type="button" value="确认分析" >
-    </div>
-    <div class="input-container result-container">
-    </div>
-</div>
-<!-- 专家评价-指标权重部分end -->
+    <!-- 专家评价-指标权重部分end -->
 
 
-<!-- 总体评分结果展示begin -->
-<div class="evaluate-result">
-    <div class="header evaluate-result-header">
-        <div class="header-detail">
-            分析结果排名
+    <!-- 总体评分结果展示begin -->
+    <div class="evaluate-result">
+        <div class="header evaluate-result-header">
+            <div class="header-detail">
+                分析结果排名
+            </div>
+        </div>
+        <div class="input-container">
+            <input id="finalAnalyseBtn" class="button" type="button" value="最终结果评估" >
+        </div>
+        <div class="evaluateResult-container">
+            <div class="evaluate-box">
+                <div class="target-unit providerName-unit">供应商名</div>
+                <div class="expert-unit providerScore-unit">得分</div>
+            </div>
         </div>
     </div>
-    <div class="input-container">
-        <input id="finalAnalyseBtn" class="button" type="button" value="最终结果评估" >
+    <!-- 总体评分结果展示end -->
+
+    <!-- 错误提示信息与加载等待框begin -->
+    <div id="errorMsg">
+        <span></span>
     </div>
-    <div class="evaluateResult-container">
-        <div class="evaluate-box">
-            <div class="target-unit providerName-unit">供应商名</div>
-            <div class="expert-unit providerScore-unit">得分</div>
+    <div id="toast">
+        <span id="load"></span>
+        <span id="loadMsg"></span>
+    </div>
+    <!-- 错误提示信息与加载等待框end -->
+    <!--打分说明begin-->
+    <div class="tips-btn">
+        <button id="tipsBtn" class="toggle-tips-btn button">展开评分说明</button>
+    </div>
+    <div class="tips-container">
+        <div class="tips-text">
+            <p>1. Avs.B的得分表示A相对于B的重要性</p>
+            <p>2. 打分范围为在(0,1)内的小数，以及在[1,10]内的整数，其中小数代表A不如B重要，1代表A和B一样重要，大于1的整数代表A比B重要</p>
+            <p>3. 最多支持5位专家打分，少于5位专家只需填写前n列得分(n为专家数量)，剩余部分默认即可</p>
         </div>
     </div>
+    <!--打分说明end-->
 </div>
-<!-- 总体评分结果展示end -->
-
-<!-- 错误提示信息与加载等待框begin -->
-<div id="errorMsg">
-    <span></span>
-</div>
-<div id="toast">
-    <span id="load"></span>
-    <span id="loadMsg"></span>
-</div>
-<!-- 错误提示信息与加载等待框end -->
-<!--打分说明begin-->
-<div class="tips-btn">
-    <button id="tipsBtn" class="toggle-tips-btn button">展开评分说明</button>
-</div>
-<div class="tips-container">
-    <div class="tips-text">
-        <p>1. Avs.B的得分表示A相对于B的重要性</p>
-        <p>2. 打分范围为在(0,1)内的小数，以及在[1,10]内的整数，其中小数代表A不如B重要，1代表A和B一样重要，大于1的整数代表A比B重要</p>
-        <p>3. 最多支持5位专家打分，少于5位专家只需填写前n列得分(n为专家数量)，剩余部分默认即可</p>
-    </div>
-</div>
-<!--打分说明end-->
+<!-- 自定义部分begin -->
 </body>
 <script th:inline="javascript">
-
-    // var cat = [[${cat}]];
-    // console.log(cat);
+    let static_targetList = ["产品质量","产品价格","供应商信用"]
     /* 载入初始数据begin */
       let productNameList = [[${productNameList}]];
       let targetListList = [[${targetListList}]];
       let providerInfoDictList = [[${providerInfoDictList}]];
       let indexSortList = [[${indexSortList}]];
+    /* 载入初始数据end */
+
+    /* 测试数据01begin */
     // let productNameList = [
     //     "方便面",
     //     "食用调和油"
@@ -328,16 +410,39 @@
     //     ['2','1','2','2'],
     //     ['2','2','2','2']
     // ];
+    // let testData = [
+    //     {
+    //         "productName":"方便面",
+    //         "result":["供应商1","供应商2"]
+    //     },
+    //     {
+    //         "productName":"食用调和油",
+    //         "result":"供应商2"
+    //     },
+    //     {
+    //         "productName":"酱油",
+    //         "result":"供应商3"
+    //     },
+    //     {
+    //         "productName":"大米",
+    //         "result":"供应商4"
+    //     }
+    // ];
+    /* 测试数据01end */
+
+    /* 测试数据02begin */
     // let productNameList = [
     //     "方便面",
-    //     "食用调和油"
+    //     "食用调和油",
+    //     "大米"
     // ];//产品名列表
     // let targetListList = [
     //     [
     //         "脂肪含量",
     //         "碘呈色度",
     //         "氯化钠含量",
-    //         "价格"
+    //         "价格",
+    //         "供应商信用"
     //     ],
     //     [
     //         "不溶性杂质含量",
@@ -346,40 +451,45 @@
     //         "酸价（以KOH计）",
     //         "反式脂肪酸含量",
     //         "过氧化值",
-    //         "价格"
+    //         "价格",
+    //         "供应商信用"
+    //     ],
+    //     [
+    //         "质量",
+    //         "价格",
+    //         "供应商信用"
     //     ]
     // ];//产品指标列表
     // let providerInfoDictList = [
     //     {
-    //         "供应商1":[1.0,2.0,9.0,1000],
-    //         "供应商2":[0.5,2.0,8.5,1100],
-    //         "供应商3":[1.5,1.5,9.3,900],
-    //         "供应商4":[0.5,2.5,8.0,1200],
-    //         "供应商5":[1.0,3.0,8.2,1100]
+    //         "供应商1":[1.0,2.0,9.0,1000,97],
+    //         "供应商2":[0.5,2.0,8.5,1100,95],
+    //         "供应商3":[1.5,1.5,9.3,1000,92],
+    //         "供应商4":[0.5,2.5,8.0,1200,95],
+    //         "供应商5":[1.0,3.0,8.2,1100,96]
     //     },
     //     {
-    //         "供应商1":[0.01,9.0,0.03,2.0,1.0,0.05,1000],
-    //         "供应商2":[0.02,8.5,0.13,2.0,0.5,0.03,1100],
-    //         "供应商3":[0.03,9.3,0.15,1.5,1.5,0.15,900],
-    //         "供应商4":[0.04,8.0,0.07,2.5,0.5,0.07,1200],
-    //         "供应商5":[0.05,8.2,0.01,2.0,1.0,0.12,1100]
+    //         "供应商1":[0.01,9.0,0.03,2.0,1.0,0.05,1000,97],
+    //         "供应商2":[0.02,8.5,0.13,2.0,0.5,0.03,1100,95],
+    //         "供应商3":[0.03,9.3,0.15,1.5,1.5,0.15,1000,92],
+    //         "供应商4":[0.04,8.0,0.07,2.5,0.5,0.07,1200,95],
+    //         "供应商5":[0.05,8.2,0.01,2.0,1.0,0.12,1100,96]
+    //     },
+    //     {
+    //         "供应商1":[1,1000,97],
+    //         "供应商2":[1,1100,95],
+    //         "供应商3":[1,1000,92],
+    //         "供应商4":[1,1200,95],
+    //         "供应商5":[1,1100,96]
     //     }
+    //
     // ];//供应商产品信息列表
-    // let providerInfoDictList = [
-    //   {
-    //     "供应商1":[1.0,2.0,1000],
-    //     "供应商2":[0.5,2.0,1100],
-    //   },
-    //   {
-    //     "供应商1":[0.01,9.0,1000],
-    //     "供应商2":[0.02,8.5,1100],
-    //   }
-    // ];//供应商产品信息列表
-
     // let indexSortList = [
-    //     ['2','1','2','2'],
-    //     ['2','2','2','2','2','2','2',]
+    //     ['2','1','2','2','1'],
+    //     ['2','2','2','2','2','2','2','1'],
+    //     ['1','2','1'],
     // ];//产品指标排序优先情况列表
+    /* 测试数据02end */
     let productName = productNameList[0]; // 默认产品名
     let targetList = targetListList[0]; // 默认产品指标列表
     let providerInfoDict = $.extend(true,{},providerInfoDictList[0]); // 默认供应商产品信息列表
@@ -387,9 +497,11 @@
     /* 载入初始数据end */
 
     /* 声明其他全局变量begin */
+    const RI = [0, 0, 0.52, 0.89, 1.12, 1.26, 1.36, 1.41, 1.46, 1.49, 1.52, 1.54, 1.56, 1.58, 1.59];
     let maxTargetNum = 15;
     let minTargetNum = 3;
     let targetNum = 3; //指标数量,最少为3，最大为15
+    let static_targetNum = static_targetList.length;
     var providerNum = 0; //供应商数量
     let evaluateIndex = 0; //相互比较的指标数量，即专家要打分的项目数量
     let baseList = [];
@@ -398,7 +510,177 @@
     let finalList = []; //最终的结果列表
     /* 声明其他全局变量end */
 
+    // $("#sysDefaultTable").bootstrapTable({data: testData});
+    bootstrapTableDefault();
+    $("#liSysDefault").on("click",function(){
+        $("#sysDefault").show();
+        $("#qualityFirst").hide();
+        $("#priceFirst").hide();
+        $("#userDefined").hide();
+        $("#liSysDefault").removeClass("active");
+        $("#liQualityFirst").removeClass("active");
+        $("#liPriceFirst").removeClass("active");
+        $("#liUserDefined").removeClass("active");
+        $(this).addClass("active");
+        bootstrapTableDefault();
+    })
+    $("#liQualityFirst").on("click",function(){
+        $("#sysDefault").hide();
+        $("#qualityFirst").show();
+        $("#priceFirst").hide();
+        $("#userDefined").hide();
+        $("#liSysDefault").removeClass("active");
+        $("#liQualityFirst").removeClass("active");
+        $("#liPriceFirst").removeClass("active");
+        $("#liUserDefined").removeClass("active");
+        $(this).addClass("active");
+        bootstrapTableQualityFirst();
+    })
+    $("#liPriceFirst").on("click",function(){
+        $("#sysDefault").hide();
+        $("#qualityFirst").hide();
+        $("#priceFirst").show();
+        $("#userDefined").hide();
+        $("#liSysDefault").removeClass("active");
+        $("#liQualityFirst").removeClass("active");
+        $("#liPriceFirst").removeClass("active");
+        $("#liUserDefined").removeClass("active");
+        $(this).addClass("active");
+        bootstrapTablePriceFirst();
+    })
+    $("#liUserDefined").on("click",function(){
+        $("#sysDefault").hide();
+        $("#qualityFirst").hide();
+        $("#priceFirst").hide();
+        $("#userDefined").show();
+        $("#liSysDefault").removeClass("active");
+        $("#liQualityFirst").removeClass("active");
+        $("#liPriceFirst").removeClass("active");
+        $("#liUserDefined").removeClass("active");
+        $(this).addClass("active");
+    })
 
+
+
+
+    /* 默认填充表格数据 */
+    function bootstrapTableDefault(){
+        let defaultData = [];
+        let supplierTable = [];
+        let resData = qpcs(1,1,1,"default");
+        supplierTable = resData[0]
+        defaultData = resData[1]
+        $("#sysDefaultTable").bootstrapTable({data: defaultData});
+        for(let i=0;i<productNameList.length;++i){
+            $("#defaultSupplierTable"+i).bootstrapTable({data: supplierTable[i]});
+        }
+    }
+    /* 价格优先填充表格数据 */
+    function bootstrapTablePriceFirst(){
+        let defaultData = [];
+        let supplierTable = [];
+        let resData = qpcs(0.1,1,10,"priceFirst");
+        supplierTable = resData[0]
+        defaultData = resData[1]
+        $("#priceFirstTable").bootstrapTable({data: defaultData});
+        for(let i=0;i<productNameList.length;++i){
+            $("#priceFirstSupplierTable"+i).bootstrapTable({data: supplierTable[i]});
+        }
+    }
+    function bootstrapTableQualityFirst(){
+        let defaultData = [];
+        let supplierTable = [];
+        let resData = qpcs(10,10,1,"qualityFirst");
+        supplierTable = resData[0]
+        defaultData = resData[1]
+        $("#qualityFirstTable").bootstrapTable({data: defaultData});
+        for(let i=0;i<productNameList.length;++i){
+            $("#qualityFirstSupplierTable"+i).bootstrapTable({data: supplierTable[i]});
+        }
+    }
+
+
+    /**
+     *  比质比价
+     *  @param qVsP  产品质量相对于价格的分数
+     *  @param qVsC 产品质量相对于供应商信用的分数
+     *  @param pVsC 价格相对于供应商信用的分数
+     *  @return 结果集
+     */
+    function qpcs(qVsP,qVsC,pVsC,dataField){
+        let tableData = [];
+        let supplierTable = [];
+        for(let i=0;i<productNameList.length;++i){
+            supplierTable[i] = [];//
+            targetList = targetListList[i];
+            indexSort = indexSortList[i];
+            targetNum = targetList.length;
+            providerNum =  Object.keys(providerInfoDict).length;
+            evaluateIndex = getEvaluateCount(targetNum);
+            let weightScore = [];
+            let index = 0;
+            for(let j=0;j<targetNum;++j){
+                for(let k=j+1;k<targetNum;++k){
+                    if(j<targetNum-2){
+                        if(k<targetNum-2){
+                            weightScore[index] = 1;
+                        }else{
+                            if(k==targetNum-2){
+                                weightScore[index] = qVsP;
+                            }else{
+                                weightScore[index] = qVsC;
+                            }
+                        }
+                    }else{
+                        weightScore[index] = pVsC;
+                    }
+                    ++index;
+                }
+            }
+            let matrix = toMatrix(weightScore,targetNum);
+            let resAhp = doAhp(matrix);
+            let weight = [];
+            weight = resAhp[0];
+            let resWeight = [];
+            for(let j=0;j<targetNum;++j){
+                resWeight[j] = weight[j];
+            }
+
+            targetWeight = resWeight;
+            providerInfoDict = $.extend(true,{},providerInfoDictList[i]);
+            finalList = evaluateProvider(providerInfoDict,indexSort,targetWeight);
+            let supplierSortList = []
+            for(let j=0;j<providerNum;++j){
+                supplierSortList[j] = finalList[j][0];
+                supplierTable[i].push({//
+                    "supplierSort":supplierSortList[j]
+                });
+            }
+            let varTable = `<table id="`+dataField+`SupplierTable`+i+`">
+                                <thead>
+                                    <tr>
+                                    <th data-field="supplierSort" data-align="center"></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            `
+            tableData.push({
+                "productName":productNameList[i],
+                "result":varTable
+            })
+        }
+        let resData = [];
+        resData[0] = supplierTable;
+        resData[1] = tableData;
+        return resData;
+    }
+
+
+
+    productName = productNameList[0]; // 默认产品名
+    targetList = targetListList[0]; // 默认产品指标列表
+    providerInfoDict = $.extend(true,{},providerInfoDictList[0]); // 默认供应商产品信息列表
+    indexSort = indexSortList[0];// 指标值大优先还是值小优先
     /* 初始化select选项begin */
     let productNum = productNameList.length;//产品数量
     for(let i=0;i<productNum;++i){
@@ -412,8 +694,8 @@
         baseList.push(1);
     }
     providerNum =  Object.keys(providerInfoDict).length;
-    for(let i=1;i<=targetNum;++i){
-        $(".index-container").append('<input id="target-'+ i +'" class="input-box" type="text" value="指标' +i+': '+ targetList[i-1] + '" readonly="readonly">')
+    for(let i=1;i<=static_targetNum;++i){
+        $(".index-container").append('<input id="target-'+ i +'" class="input-box" type="text" value="指标' +i+': '+ static_targetList[i-1] + '" readonly="readonly">')
     }
 
     /* select框改变时，更换数据 */
@@ -435,8 +717,8 @@
 
         targetNum = targetList.length;
         providerNum =  Object.keys(providerInfoDict).length;
-        for(let i=1;i<=targetNum;++i){
-            $(".index-container").append('<input id="target-'+ i +'" class="input-box" type="text" value="指标' +i+': '+ targetList[i-1] + '" readonly="readonly">')
+        for(let i=1;i<=static_targetNum;++i){
+            $(".index-container").append('<input id="target-'+ i +'" class="input-box" type="text" value="指标' +i+': '+ static_targetList[i-1] + '" readonly="readonly">')
         }
     })
 
@@ -461,9 +743,9 @@
                 <div class="expert-unit">专家五</div>
             </div>
         `)
-        for(let i=1;i<targetNum;++i){
-            for(let j=i+1;j<=targetNum;++j){
-                let evaluateUnitText = targetList[i-1] + "vs." + targetList[j-1];
+        for(let i=1;i<static_targetNum;++i){
+            for(let j=i+1;j<=static_targetNum;++j){
+                let evaluateUnitText = static_targetList[i-1] + "vs." + static_targetList[j-1];
                 let tailSelector = "#evaluate-" + String(evaluateIndex);
                 ++evaluateIndex;
                 $(tailSelector).after('<div id="evaluate-' + String(evaluateIndex) + '" class="evaluate-box"></div>');
@@ -485,12 +767,32 @@
         $("#finalAnalyseBtn").show();
         $(".evaluateResult-container").hide();
         $(".evaluate-result").hide();
-        //1. 获取各个专家评分列表
-        let weightScore = [];
+        //1.1 获取各个专家评分列表
+        let static_weightScore = [];
         for(let i=1;i<=5;++i){
-            weightScore[i-1] = [];
+            static_weightScore[i-1] = [];
             for(let j=1;j<=evaluateIndex;++j){
-                weightScore[i-1][j-1] = $("#score-"+j+"-"+i).val();
+                static_weightScore[i-1][j-1] = $("#score-"+j+"-"+i).val();
+            }
+        }
+        //1.2 生成真实评分列表
+        let weightScore = [];
+        for(let i=0;i<5;++i){
+            weightScore[i] = [];
+            let index = 0;
+            for(let j=0;j<targetNum;++j){
+                for(let k=j+1;k<targetNum;++k){
+                    if(j<targetNum-2){
+                        if(k<targetNum-2){
+                            weightScore[i][index] = 1;
+                        }else{
+                            weightScore[i][index] = static_weightScore[i][k+2-targetNum]
+                        }
+                    }else{
+                        weightScore[i][index] = static_weightScore[i][2]
+                    }
+                    ++index;
+                }
             }
         }
         //2. 获取分析结果数组
@@ -514,17 +816,22 @@
             resWeight[i] /= 5;
         }
         targetWeight = resWeight;
-        for(let i=0;i<targetNum;++i){
-            $(".result-container").append("<div class='weight-target'>" + targetList[i] + "权重为 : " + formatFloat(resWeight[i]) + "</div>");
+        let static_resWeight =[];
+        static_resWeight[0] = 0;
+        for(let i=0;i<targetNum-2;++i){
+            static_resWeight[0] += resWeight[i];
+        }
+        static_resWeight[1] = resWeight[targetNum-2];
+        static_resWeight[2] = resWeight[targetNum-1];
+        for(let i=0;i<static_targetNum;++i){
+            $(".result-container").append("<div class='weight-target'>" + static_targetList[i] + "权重为 : " + formatFloat(static_resWeight[i]) + "</div>");
         }
         $(".evaluate-result").show();
     })
     /* 最终结果评估 */
     $("#finalAnalyseBtn").on("click",function(){
         $(this).hide();
-        console.log(providerInfoDictList[$("#productname").val()]);
         providerInfoDict = $.extend(true,{},providerInfoDictList[$("#productname").val()]);
-        console.log(providerInfoDict);
         finalList = evaluateProvider(providerInfoDict,indexSort,targetWeight);
         for(let i=0;i<providerNum;++i){
             $(".evaluateResult-container").append(
@@ -569,7 +876,7 @@
         }
     })
     /* ahp核心代码begin */
-    const RI = [0, 0, 0.52, 0.89, 1.12, 1.26, 1.36, 1.41, 1.46, 1.49, 1.52, 1.54, 1.56, 1.58, 1.59];
+
     //一致性检验
     function doAhp(matrix){
         let num = matrix.length;
@@ -639,7 +946,6 @@
             sumR=sumR+bw[i]/(num*w[i]);
         }
         let ci=(sumR-num)/(num-1);                //矩阵一致性指标
-        // console.log("计算出的矩阵一致性指标"+ci+"\n");
         let cr=ci/RI[num-1];                        //随机一致性比率 RI[num]为num阶矩阵的平均一致性指标
         return [w,cr < 0.1];
     }
@@ -749,17 +1055,12 @@
      *
      */
     function evaluateProvider(pDict,iSort,tWeight){
-        console.log("供应商评估参数：")
-        console.log(pDict);
-        console.log(iSort);
-        console.log(tWeight);
         let iSum = [];
         let pNormDict = $.extend(true,{},pDict);
         let pFinalList = [];
         for(let provider in pDict){
             pNormDict[provider] = pDict[provider];
         }
-
         //1. 将各个供应商各指标数据正向化、归一化，并乘上指标权重
         for(let i=0;i<tWeight.length;++i){
             let sum = 0;
@@ -805,23 +1106,18 @@
      *  获取前n-1行打分结果，计算得到各个指标的相对权重
      */
     function ahpAssist(e){
-        console.log(baseList);
         // 1.获取当前输入框的序号，是前n-1行的才处理
         let thisId = $(e).attr("id");
         let evaluateNum = Number(/-\d+-/.exec(thisId)[0].substring(1,2));
-        console.log(evaluateNum);
         let expertNum = /-\d+$/.exec(thisId)[0].substring(1,2);
         evaluateNum = Number(evaluateNum);
         if(evaluateNum >= targetNum) return;
         baseList[evaluateNum+1] = Number($(e).val());
-        console.log(baseList);
         let tempIndex = targetNum;
         for(let i=2;i<targetNum;++i){
             for(let j=i+1;j<=targetNum;++j){
                 let curId = "score-"+(tempIndex)+"-"+expertNum;
                 let curScore = baseList[j] * 1.0 / baseList[i];
-                console.log(baseList[j]+"  "+baseList[i])
-                console.log(curId+":"+curScore);
                 // if(curScore < 1){
                 //   curScore = formatFloat(curScore,1);
                 // }else{
@@ -837,5 +1133,21 @@
         }
 
     }
+
+    /**
+     *  辅助计算
+     *  计算n个指标互相比较，需要比较多少次
+     */
+    function getEvaluateCount(num){
+        if(num<3)return 0;
+        let sum = 0;
+        for(let i=num-1;i>0;--i){
+            sum+=i;
+        }
+        return sum;
+    }
+
+
+
 </script>
 </html>

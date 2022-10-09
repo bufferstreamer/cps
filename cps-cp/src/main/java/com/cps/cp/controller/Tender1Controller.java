@@ -25,6 +25,7 @@ import com.cps.cp.service.IQualificationReviewService;
 import com.cps.cp.service.ITenderService;
 import com.cps.credit.domain.UserCredit;
 import com.cps.credit.service.IUserCreditService;
+import com.cps.product.domain.ProductIndexInfo;
 import com.cps.product.service.IProductIndexInfoService;
 import com.cps.system.service.ISysUserService;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -342,7 +343,11 @@ public class Tender1Controller extends BaseController {
 //                arr.add(rows.get(productIndex).getTableCells().get(5).getText());
                 String productName = rows.get(i * 10 + 2).getTableCells().get(0).getText();
                 productNameList.add(productName);
+                if(arr.size()==0){
+                    arr.add("产品质量");
+                }
                 arr.add("价格");//手动添加价格项
+                arr.add("供应商信用");
                 map.put(productName, arr);
             }
         }
@@ -390,10 +395,15 @@ public class Tender1Controller extends BaseController {
                             indexDataList.add(tempValue);
                         }
                     }
-
+                    if(indexDataList.size()==0){
+                        indexDataList.add(1);
+                    }
+                    //添加价格和供应商信用评分
                     XWPFTableRow rowPrice = rows.get(productIndex1);
                     double tempValue = Double.parseDouble(rowPrice.getTableCells().get(3).getText());
                     indexDataList.add(tempValue);
+                    UserCredit userCredit = userCreditService.selectUserCreditByUserId(sysUserService.selectUserByLoginName(gysName).getUserId());
+                    indexDataList.add(userCredit.getCreditScore());
 //                arr.add(rows.get(productIndex).getTableCells().get(5).getText());
 //                        String productName = rows.get(i * 10 + 2).getTableCells().get(0).getText();
 
@@ -410,11 +420,18 @@ public class Tender1Controller extends BaseController {
             List<String> targetList = targetListList.get(i);
             ArrayList<String> indexSort = new ArrayList<>();
             String productName = productNameList.get(i);
-            for (int j = 0; j < targetList.size() - 1; ++j) {// 数据库没有价格字段，避免查询该项
-                String curSort = productIndexInfoService.selectIndexSortByProductNameAndIndexName(productName, targetList.get(j)).getIndexStatus();
-                indexSort.add(curSort);
+            for (int j = 0; j < targetList.size() - 2; ++j) {// 数据库没有价格和供应商信用评分等字段，避免查询该项
+                ProductIndexInfo productIndexInfo = productIndexInfoService.selectIndexSortByProductNameAndIndexName(productName, targetList.get(j));
+                if(productIndexInfo!=null){
+                    String curSort = productIndexInfo.getIndexStatus();
+                    indexSort.add(curSort);
+                }
+            }
+            if(indexSort.size()==0){
+                indexSort.add("1");
             }
             indexSort.add("2");//手动添加价格指标排序信息
+            indexSort.add("1");//手动添加供应商信用评分排序信息
             indexSortList.add(indexSort);
         }
         mmap.put("indexSortList", indexSortList);
