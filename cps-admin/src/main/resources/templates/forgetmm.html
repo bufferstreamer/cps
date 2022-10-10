@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
-    <title>注册cps系统</title>
+    <title>cps—手机号重置密码</title>
     <meta content="cps后台管理框架" name="description">
     <link href="../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
     <link href="../static/css/font-awesome.min.css" rel="stylesheet" th:href="@{/css/font-awesome.min.css}"/>
@@ -48,23 +48,14 @@
         </div>
         <div class="col-sm-5" style="background-color: white;border-radius:7%;box-shadow: 0 5px 15px rgba(0, 0, 0, .8);">
             <form id="registerForm" autocomplete="off">
-                <h4 class="no-margins" style="text-align:center;color: black;font: 900 20px '';letter-spacing: 1.5px" >Retrieve Password</h4>
+                <h4 class="no-margins" style="text-align:center;color: black;font: 900 20px '';letter-spacing: 1.5px" >Reset Password</h4>
                 <select name="retrieve" class="form-control retrieve" style="text-align: center; text-align-last: center;width: 230px;margin: 20px 0;outline: none;border: 0;padding: 13px;border-bottom: 3px solid rgb(0, 100, 0);font: 900 16px '';" onchange="javascript:location.href=this.value;">
-                    <option value="/cps/forgetmm" selected >手机号找回</option>
                     <option value="/cps/forgetmmEmail">邮箱找回</option>
+                    <option value="/cps/forgetmm" selected >手机号找回</option>
                 </select>
                 <input type="text"     name="phone" class="form-control phone" style="width: 230px;margin: 20px 0;outline: none;border: 0;padding: 10px;border-bottom: 3px solid rgb(0, 100, 0);font: 900 16px '';"         placeholder="输入手机号"   maxlength="20" />
-                <input type="text"     name="username" class="form-control code col-sm-3"  style="width: 130px;margin: 20px 0;outline: none;border: 0;padding: 10px;border-bottom: 3px solid rgb(0, 100, 0);font: 900 16px '';"   placeholder="输入验证码"     /> <button class="btn btn-success btn-block col-sm-4" type="button"  onclick="$.modal.msgWarning('该功能暂未开放');" style="width:100px;outline:none;border-radius: 30px;line-height: 27px;background-color: #00A65A;border: 0">获取验证码</button>
-<!--                <div class="row m-t" th:if="${captchaEnabled==true}">-->
-<!--                    <div class="col-xs-6">-->
-<!--                        <input type="text" name="validateCode" class="form-control code"  placeholder="验证码"   maxlength="5" >-->
-<!--                    </div>-->
-<!--                    <div class="col-xs-6">-->
-<!--                        <a href="javascript:void(0);" title="点击更换验证码">-->
-<!--                            <img th:src="@{/captcha/captchaImage(type=${captchaType})}" class="imgcode" width="85%"/>-->
-<!--                        </a>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <input type="text"     name="username" class="form-control code col-sm-2"  style="width: 110px;margin: 20px 0;outline: none;border: 0;padding: 10px;border-bottom: 3px solid rgb(0, 100, 0);font: 900 16px '';"   placeholder="输入验证码"     />
+                <button class="btn btn-success btn-block col-sm-6" type="button"  onclick="$.modal.msgWarning('该功能暂未开放');" style="width:120px;outline:none;border-radius: 30px;line-height: 27px;background-color: #00A65A;border: 0">获取验证码</button>
                 <button type="button" class="btn btn-success btn-block" onclick="$.modal.msgWarning('该功能暂未开放');" style="outline:none;border-radius: 30px;line-height: 27px;background-color: #00A65A;border: 0">重置密码</button>
             </form>
         </div>
