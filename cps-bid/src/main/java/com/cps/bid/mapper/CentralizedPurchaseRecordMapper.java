@@ -20,8 +20,6 @@ public interface CentralizedPurchaseRecordMapper {
      */
     public CentralizedPurchaseRecord selectCentralizedPurchaseRecordByCentralizedPurchaseRecordId(String centralizedPurchaseRecordId);
 
-    public List<CentralizedPurchaseRecord> selectCentralizedPurchaseRecordsByTenderIdAndSupplyId(@Param("tenderId") String tenderId, @Param("supplierId") String supplyId);
-
     /**
      * 查询集中采购记录列表
      *

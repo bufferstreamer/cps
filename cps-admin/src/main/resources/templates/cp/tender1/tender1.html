@@ -69,10 +69,10 @@
 
 <th:block th:include="include :: footer"/>
 <script th:inline="javascript">
+    var prefix = ctx + "cp/tender1";
     var editFlag = [[${@permission.hasPermi('cp:tender1:edit')}]];
     var removeFlag = [[${@permission.hasPermi('cp:tender1:remove')}]];
     var downloadFlag = [[${@permission.hasPermi('cp:tender1:download')}]];
-    var prefix = ctx + "cp/tender1";
     var detailFlag = [[${@permission.hasPermi('cp:tender1:detail')}]];
     var qualificationReviewFlag = [[${@permission.hasPermi('cp:tender1:qualificationReview')}]];
     var centralizedPurchaseFlag = [[${@permission.hasPermi('bid:tender1:add')}]];

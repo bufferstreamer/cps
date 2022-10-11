@@ -22,7 +22,6 @@ import java.util.List;
 public class CentralizedPurchaseRecordServiceImpl implements ICentralizedPurchaseRecordService {
     @Autowired
     private CentralizedPurchaseRecordMapper centralizedPurchaseRecordMapper;
-
     /**
      * 查询集中采购记录
      *
@@ -32,11 +31,6 @@ public class CentralizedPurchaseRecordServiceImpl implements ICentralizedPurchas
     @Override
     public CentralizedPurchaseRecord selectCentralizedPurchaseRecordByCentralizedPurchaseRecordId(String centralizedPurchaseRecordId) {
         return centralizedPurchaseRecordMapper.selectCentralizedPurchaseRecordByCentralizedPurchaseRecordId(centralizedPurchaseRecordId);
-    }
-
-    @Override
-    public List<CentralizedPurchaseRecord> selectCentralizedPurchaseRecordsByTenderIdAndSupplyId(String tenderId, String supplyId) {
-        return centralizedPurchaseRecordMapper.selectCentralizedPurchaseRecordsByTenderIdAndSupplyId(tenderId, supplyId);
     }
 
     /**

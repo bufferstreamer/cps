@@ -34,6 +34,11 @@
             <groupId>com.cps</groupId>
             <artifactId>cps-credit</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-user</artifactId>
+            <version>${cps.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

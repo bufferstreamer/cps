@@ -1,5 +1,6 @@
 package com.cps.audit.service;
 
+import com.cps.audit.domain.AuditDocuments;
 import com.cps.audit.domain.SupplierLicenseInfo;
 
 import java.util.List;
@@ -66,4 +67,10 @@ public interface ISupplierLicenseInfoService {
      * @return 结果
      */
     public int updateCapitalByChecklistId(String checklistId, double newCapital);
+
+    //通过用户ID获取供应商名称
+    public SupplierLicenseInfo selectSupplierLicenseInfoByUserId(Long userId);
+
+    //通过供应商名称获取Audit
+    public List<AuditDocuments> selectAuditDocumentsListByCorporateName(String corporateName);
 }

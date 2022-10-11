@@ -1,5 +1,9 @@
 package com.cps.web.controller.bid;
 
+import com.cps.audit.domain.AuditDocuments;
+import com.cps.audit.domain.SupplierLicenseInfo;
+import com.cps.audit.service.IAuditDocumentsService;
+import com.cps.audit.service.ISupplierLicenseInfoService;
 import com.cps.bid.domain.CentralizedPurchaseRecord;
 import com.cps.bid.service.ICentralizedPurchaseRecordService;
 import com.cps.common.annotation.Log;
@@ -7,8 +11,11 @@ import com.cps.common.core.controller.BaseController;
 import com.cps.common.core.domain.AjaxResult;
 import com.cps.common.core.page.TableDataInfo;
 import com.cps.common.enums.BusinessType;
+import com.cps.common.utils.StringUtils;
 import com.cps.common.utils.poi.ExcelUtil;
+import com.cps.cp.domain.Tender;
 import com.cps.cp.service.ITenderService;
+import com.cps.framework.web.domain.server.Sys;
 import com.cps.product.domain.ProductIndexInfo;
 import com.cps.product.service.IProductIndexInfoService;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -22,10 +29,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -63,9 +72,60 @@ public class CentralizedPurchaseRecordController extends BaseController {
     @RequiresPermissions("bid:tender1:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(CentralizedPurchaseRecord centralizedPurchaseRecord) {
+    public TableDataInfo list(CentralizedPurchaseRecord centralizedPurchaseRecord, HttpServletRequest request) {
         startPage();
-        List<CentralizedPurchaseRecord> list = centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord);
+        List<CentralizedPurchaseRecord> list=new ArrayList<>();
+
+        String projectName = request.getParameter("projectName");
+        String corporateName = request.getParameter("corporateName");
+        if (StringUtils.isEmpty(projectName)&&StringUtils.isEmpty(corporateName)){
+            list= centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord);
+        }
+        else if (!StringUtils.isEmpty(projectName)&&StringUtils.isEmpty(corporateName)){
+            Tender tender=new Tender();
+            tender.setProjectName(projectName);
+            List<Tender> tenderList = tenderService.selectTender1List(tender);
+            for (Tender temp:tenderList)
+            {
+                centralizedPurchaseRecord.setTenderId(temp.getTenderId());
+                list.addAll(centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord));
+            }
+        }
+        else if (StringUtils.isEmpty(projectName)&&!StringUtils.isEmpty(corporateName)){
+            HashSet<Long> idSet = new HashSet<>();
+            supplierLicenseInfoService.selectAuditDocumentsListByCorporateName(corporateName).forEach(doc->{
+                idSet.add(doc.getUserId());
+            });
+
+            for (long id:idSet)
+            {
+                centralizedPurchaseRecord.setSupplierId(id);
+                list.addAll(centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord));
+            }
+        }
+        else {
+            HashSet<Long> supplierIdSet = new HashSet<>();
+            supplierLicenseInfoService.selectAuditDocumentsListByCorporateName(corporateName).forEach(doc->{
+                supplierIdSet.add(doc.getUserId());
+            });
+            HashSet<String> tenderIdSet=new HashSet<>();
+            Tender tender=new Tender();
+            tender.setProjectName(projectName);
+            tenderService.selectTender1List(tender).forEach(temp->{
+                tenderIdSet.add(temp.getTenderId());
+            });
+
+            for (String tenderId:tenderIdSet) 
+            {
+                for (long supplierId:supplierIdSet)
+                {
+                    centralizedPurchaseRecord.setTenderId(tenderId);
+                    centralizedPurchaseRecord.setSupplierId(supplierId);
+                    list.addAll(centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord));
+                }
+            }
+        }
+
         return getDataTable(list);
     }
 
@@ -194,5 +254,32 @@ public class CentralizedPurchaseRecordController extends BaseController {
     @ResponseBody
     public AjaxResult remove(String ids) {
         return toAjax(centralizedPurchaseRecordService.deleteCentralizedPurchaseRecordByCentralizedPurchaseRecordIds(ids));
+    }
+
+    @PostMapping("projectName")
+    @ResponseBody
+    public String GetProjectName(String tenderId){
+        Tender tender = tenderService.selectTenderByTenderId(tenderId);
+        if (tender!=null){
+            return tender.getProjectName();
+        }
+        else {
+            return "null";
+        }
+    }
+
+    @Autowired
+    private ISupplierLicenseInfoService supplierLicenseInfoService;
+
+    @PostMapping("corporateName")
+    @ResponseBody
+    public String GetCorporateName(Long supplierId){
+        SupplierLicenseInfo info = supplierLicenseInfoService.selectSupplierLicenseInfoByUserId(supplierId);
+        if (info!=null){
+            return info.getCorporateName();
+        }
+        else {
+            return "null";
+        }
     }
 }

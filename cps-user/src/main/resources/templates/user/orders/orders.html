@@ -11,8 +11,8 @@
                 <div class="select-list">
                     <ul>
                         <li>
-                            <label>供应商名称：</label>
-                            <input name="userName" type="text"/>
+                            <label>供应商：</label>
+                            <input name="corporateName" type="text"/>
                         </li>
                         <li>
                             <label>产品名称：</label>
@@ -97,8 +97,23 @@
                 },
                 {
                     field: 'userId',
-                    title: '用户ID',
-                    visible:false
+                    title: '供应商',
+                    formatter: function (value, row, index) {
+                        var data = {"userId": value};
+                        var corporateName="-";
+                        $.ajax({
+                            url: ctx + "user/orders/corporateName",
+                            type: "post",
+                            dataType: "text",
+                            data: data,
+                            async: false,
+                            success: function (result) {
+                                corporateName=result;
+                            }
+                        });
+
+                        return corporateName;
+                    }
                 },
                 {
                     field: 'untitled',

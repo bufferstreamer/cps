@@ -1,5 +1,7 @@
 package com.cps.web.controller.user;
 
+import com.cps.audit.domain.SupplierLicenseInfo;
+import com.cps.audit.service.ISupplierLicenseInfoService;
 import com.cps.common.annotation.Log;
 import com.cps.common.core.controller.BaseController;
 import com.cps.common.core.domain.AjaxResult;
@@ -17,9 +19,7 @@ import com.cps.user.service.ICategoryService;
 import com.cps.user.service.IOrderItemService;
 import com.cps.user.service.IOrdersService;
 import com.cps.user.service.IProductService;
-import org.apache.poi.util.Internal;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -44,6 +44,8 @@ public class OrdersController extends BaseController {
     private IOrdersService ordersService;
     @Autowired
     private ISysUserService sysUserService;
+    @Autowired
+    private ISupplierLicenseInfoService supplierLicenseInfoService;
 
     @RequiresPermissions("user:orders:view")
     @GetMapping()
@@ -59,23 +61,25 @@ public class OrdersController extends BaseController {
     @ResponseBody
     public TableDataInfo list(Orders orders, HttpServletRequest request) {
         startPage();
-        String userName = request.getParameter("userName");
+        List<Orders> list;
+        String corporateName = request.getParameter("corporateName");
+        if (StringUtils.isEmpty(corporateName)){
+            list =ordersService.selectOrdersList(orders);
+        }
+        else {
+            list = new ArrayList<>();
+            HashSet<Long> idSet = new HashSet<>();
+            supplierLicenseInfoService.selectAuditDocumentsListByCorporateName(corporateName).forEach(doc->{
+                idSet.add(doc.getUserId());
+            });
 
-        List<Orders> resultList;
-        if (!StringUtils.isEmpty(userName)) {
-            resultList = new ArrayList<>();
-            List<SysUser> userList = sysUserService.selectUserByUserName(userName);
-            for (SysUser user : userList) {
-                String userId = user.getUserId().toString();
-                orders.setUserId(userId);
-                List<Orders> tempList = ordersService.selectOrdersList(orders);
-                resultList.addAll(tempList);
-            }
-        } else {
-            resultList = ordersService.selectOrdersList(orders);
+            idSet.forEach(id->{
+                orders.setUserId(id.toString());
+                list.addAll(ordersService.selectOrdersList(orders));
+            });
         }
 
-        return getDataTable(resultList);
+        return getDataTable(list);
     }
 
     /**
@@ -277,5 +281,17 @@ public class OrdersController extends BaseController {
         map.put("total",String.format("%.2f", total));
 
         return prefix+"/detail";
+    }
+
+    @PostMapping("corporateName")
+    @ResponseBody
+    public String GetCorporateName(Long userId){
+        SupplierLicenseInfo info = supplierLicenseInfoService.selectSupplierLicenseInfoByUserId(userId);
+        if (info!=null){
+            return info.getCorporateName();
+        }
+        else {
+            return "null";
+        }
     }
 }

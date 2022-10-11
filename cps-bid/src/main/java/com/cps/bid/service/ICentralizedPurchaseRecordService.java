@@ -19,8 +19,6 @@ public interface ICentralizedPurchaseRecordService {
      */
     public CentralizedPurchaseRecord selectCentralizedPurchaseRecordByCentralizedPurchaseRecordId(String centralizedPurchaseRecordId);
 
-    public List<CentralizedPurchaseRecord> selectCentralizedPurchaseRecordsByTenderIdAndSupplyId(String tenderId, String supplyId);
-
     /**
      * 查询集中采购记录列表
      *

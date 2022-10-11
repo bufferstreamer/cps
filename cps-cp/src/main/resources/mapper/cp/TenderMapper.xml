@@ -58,25 +58,86 @@
 
     <select id="selectTender1List" parameterType="Tender" resultMap="TenderResult">
         <include refid="selectTenderVo"/>
-        <!--        <where>-->
-        <!--            bidNumber = 1-->
-        <!--            <if test="bidNumber = 1 and tenderId != null  and tenderId != ''"> and tender_id like concat('%', #{tenderId}, '%')</if>-->
-        <!--            <if test="bidNumber = 1 and projectName != null  and projectName != ''"> and project_Name like concat('%', #{projectName}, '%')</if>-->
-        <!--            <if test="bidNumber = 1 and contact != null  and contact != ''"> and contact like concat('%', #{contact}, '%')</if>-->
-        <!--            <if test="bidNumber = 1 and phoneOfContact != null  and phoneOfContact != ''"> and phone_Of_Contact like concat('%', #{phoneOfContact}, '%')</if>-->
-        <!--        </where>-->
-        where bid_number = 1
+        <where>
+            <if test="projectName != null  and projectName != ''">
+                and project_name like concat('%', #{projectName}, '%')
+            </if>
+            <if test="gxsId != null ">
+                and gxs_id = #{gxsId}
+            </if>
+            <if test="contact != null  and contact != ''">
+                and contact = #{contact}
+            </if>
+            <if test="phoneOfContact != null  and phoneOfContact != ''">
+                and phone_of_contact = #{phoneOfContact}
+            </if>
+            <if test="tenderDocument != null  and tenderDocument != ''">
+                and tender_document = #{tenderDocument}
+            </if>
+            <if test="bidNumber != null ">
+                and bid_number = 1
+            </if>
+            <if test="createDatetime != null ">
+                and create_datetime = #{createDatetime}
+            </if>
+            <if test="dealineForQualificationReview != null ">
+                and dealine_for_qualification_review = #{dealineForQualificationReview}
+            </if>
+            <if test="bidStartTime != null ">
+                and bid_start_time = #{bidStartTime}
+            </if>
+            <if test="bidEndTime != null ">
+                and bid_end_time = #{bidEndTime}
+            </if>
+            <if test="publishTime != null ">
+                and publish_time = #{publishTime}
+            </if>
+            <if test="deptName != null  and deptName != ''">
+                and dept_name like concat('%', #{deptName}, '%')
+            </if>
+        </where>
     </select>
 
     <select id="selectTender2List" parameterType="Tender" resultMap="TenderResult">
         <include refid="selectTenderVo"/>
-        <!--        <where>-->
-        <!--            <if test="bidNumber > 1 and tenderId != null  and tenderId != ''"> and tender_id like concat('%', #{tenderId}, '%')</if>-->
-        <!--            <if test="bidNumber > 1 and projectName != null  and projectName != ''"> and project_Name like concat('%', #{projectName}, '%')</if>-->
-        <!--            <if test="bidNumber > 1 and contact != null  and contact != ''"> and contact like concat('%', #{contact}, '%')</if>-->
-        <!--            <if test="bidNumber > 1 and phoneOfContact != null  and phoneOfContact != ''"> and phone_Of_Contact like concat('%', #{phoneOfContact}, '%')</if>-->
-        <!--        </where>-->
-        where bid_number > 1
+        <where>
+            <if test="projectName != null  and projectName != ''">
+                and project_name like concat('%', #{projectName}, '%')
+            </if>
+            <if test="gxsId != null ">
+                and gxs_id = #{gxsId}
+            </if>
+            <if test="contact != null  and contact != ''">
+                and contact = #{contact}
+            </if>
+            <if test="phoneOfContact != null  and phoneOfContact != ''">
+                and phone_of_contact = #{phoneOfContact}
+            </if>
+            <if test="tenderDocument != null  and tenderDocument != ''">
+                and tender_document = #{tenderDocument}
+            </if>
+            <if test="bidNumber != null ">
+                and bid_number > 1
+            </if>
+            <if test="createDatetime != null ">
+                and create_datetime = #{createDatetime}
+            </if>
+            <if test="dealineForQualificationReview != null ">
+                and dealine_for_qualification_review = #{dealineForQualificationReview}
+            </if>
+            <if test="bidStartTime != null ">
+                and bid_start_time = #{bidStartTime}
+            </if>
+            <if test="bidEndTime != null ">
+                and bid_end_time = #{bidEndTime}
+            </if>
+            <if test="publishTime != null ">
+                and publish_time = #{publishTime}
+            </if>
+            <if test="deptName != null  and deptName != ''">
+                and dept_name like concat('%', #{deptName}, '%')
+            </if>
+        </where>
     </select>
 
     <select id="selectCentralizedPurchaseRecordList" parameterType="String" resultMap="CentralizedPurchaseRecordResult">

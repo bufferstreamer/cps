@@ -506,7 +506,10 @@ public class Tender1Controller extends BaseController {
                 return false;
         }
 
-        List<CentralizedPurchaseRecord> purchaseRecordList = centralizedPurchaseRecordService.selectCentralizedPurchaseRecordsByTenderIdAndSupplyId(tender.getTenderId(), ShiroUtils.getUserId().toString());
+        CentralizedPurchaseRecord centralizedPurchaseRecord =new CentralizedPurchaseRecord();
+        centralizedPurchaseRecord.setSupplierId(ShiroUtils.getUserId());
+        centralizedPurchaseRecord.setTenderId(tender.getTenderId());
+        List<CentralizedPurchaseRecord> purchaseRecordList = centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord);
         if (purchaseRecordList.size() >= tender.getBidNumber()) {
             return false;
         }

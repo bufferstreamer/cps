@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -127,5 +128,35 @@ public class SupplierLicenseInfoServiceImpl implements ISupplierLicenseInfoServi
         userCreditService.updateUserCreditByCapital(userCredit,oldCapital,newCapital);
         supplierLicenseInfo.setRegisteredCapital(BigDecimal.valueOf(newCapital));
         return updateSupplierLicenseInfo(supplierLicenseInfo);
+    }
+
+    @Override
+    public SupplierLicenseInfo selectSupplierLicenseInfoByUserId(Long userId) {
+        List<AuditDocuments> auditDocumentsList = auditDocumentsMapper.selectAuditDocumentsByUserId(userId);
+        for (AuditDocuments doc:auditDocumentsList)
+        {
+            SupplierLicenseInfo info = selectSupplierLicenseInfoByChecklistId(doc.getChecklistId());
+            if (info!=null){
+                return info;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<AuditDocuments> selectAuditDocumentsListByCorporateName(String corporateName){
+        List<AuditDocuments> auditDocumentsList = new ArrayList<>();
+
+        SupplierLicenseInfo info=new SupplierLicenseInfo();
+        info.setCorporateName(corporateName);
+        supplierLicenseInfoMapper.selectSupplierLicenseInfoList(info).forEach(temp->{
+            String checklistId=temp.getChecklistId();
+            auditDocumentsList.add(auditDocumentsMapper.selectAuditDocumentsByChecklistId(checklistId));
+        });
+
+        return auditDocumentsList;
+
+
     }
 }
