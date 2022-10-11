@@ -285,6 +285,9 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/forgetmm", "anon,captchaValidate");
         // 忘记密码邮箱找回
         filterChainDefinitionMap.put("/forgetmmEmail", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/sendEmailCode", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/checkEmailVerifyCode", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/changemm", "anon,captchaValidate");
         // 系统权限列表
         // filterChainDefinitionMap.putAll(SpringUtils.getBean(IMenuService.class).selectPermsAll());
 

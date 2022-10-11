@@ -47,7 +47,7 @@ public class IdUtils {
     /**
      * 生成6位随机数字验证码
      */
-    public static String randomCode() {
+    public static String randomVerifyCode() {
         StringBuilder str = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < 6; i++) {
