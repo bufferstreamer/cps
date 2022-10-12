@@ -2,6 +2,7 @@ package com.cps.system.service.impl;
 
 import cn.hutool.extra.mail.MailUtil;
 import com.cps.system.service.ISysEmailService;
+import org.springframework.scheduling.annotation.Async;
 import org.thymeleaf.TemplateEngine;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +47,7 @@ public class SysEmailServiceImpl implements ISysEmailService {
      * @param subject 标题
      * @param context 内容
      */
+    @Async
     public void send(String to, String subject, Context context) {
         String template = templateEngine.process("verifyEmailCode", context);
         MailUtil.send(to, subject, template, true);

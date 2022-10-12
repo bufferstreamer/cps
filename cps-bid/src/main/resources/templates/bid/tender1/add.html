@@ -34,8 +34,9 @@
                 return;
             }
 
-                $.operate.save(prefix + "/add", $('#form-tender1-add').serialize());
-                // $.modal.closeTab();
+            $.operate.save(prefix + "/add", $('#form-tender1-add').serialize());
+            // $.modal.closeTab();
+            parent.location.reload();
             }
         }
 

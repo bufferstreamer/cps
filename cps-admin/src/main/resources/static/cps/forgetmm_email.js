@@ -51,8 +51,12 @@ function sendEmail(obj){
 }
 
 function sendVerifyCode(obj){
-    var email = $.common.trim($("input[name='userMail']").val());
+    // var email = $.common.trim($("input[name='userMail']").val());
     var emailVerifyCode = $.common.trim($("input[name='verifyCode']").val());
+    if(emailVerifyCode==""){
+        $.modal.msgWarning("请输入验证码");
+        return
+    }
     var result = isEmail();
     if(result) {
         $.ajax({
@@ -75,7 +79,7 @@ function sendVerifyCode(obj){
                     $.modal.msgSuccess(r.msg);
                     setTimeout(function () {
                         // 这里就是处理的事件
-                        location.href = ctx + 'changemm?email='+email;
+                        location.href = ctx + 'changemm';
                     }, 1000);
 
                 } else {
@@ -83,6 +87,8 @@ function sendVerifyCode(obj){
                 }
             }
         })
+    }else{
+        $.modal.msgWarning("请输入有效的邮箱地址");
     }
 }
 
