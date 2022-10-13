@@ -47,9 +47,9 @@ public class SupplierCreditEvaluationInfo extends BaseEntity {
     private String frName;
 
     /**
-     * 法人犯罪记录信息jpg照片
+     * 法人无犯罪记录信息jpg照片
      */
-    @Excel(name = "法人犯罪记录信息jpg照片")
+    @Excel(name = "法人无犯罪记录信息jpg照片")
     private String frCriminalRecord;
 
     /**

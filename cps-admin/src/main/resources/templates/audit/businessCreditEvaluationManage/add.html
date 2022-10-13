@@ -41,7 +41,7 @@
     function submitHandler() {
         if ($.validate.form()) {
             if ($.common.isEmpty($("#frCriminalRecordList").val())) {
-                $.modal.msgWarning("请上传法人犯罪记录信息");
+                $.modal.msgWarning("请上传法人无犯罪记录信息");
                 return;
             }
 

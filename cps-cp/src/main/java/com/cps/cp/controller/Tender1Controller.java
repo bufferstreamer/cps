@@ -45,6 +45,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -307,18 +308,33 @@ public class Tender1Controller extends BaseController {
      * 比质比价
      */
     @GetMapping("/qpcs/{tenderId}")
-    public String qpcs(@PathVariable("tenderId") String tenderId, ModelMap mmap) throws IOException {
+    public String qpcs(@PathVariable("tenderId") String tenderId, ModelMap mmap) {
         Tender tender = tenderService.selectTenderByTenderId(tenderId);
 //        mmap.put("tender", tender);
         String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", profile);
 //        String readFilePath = "G:/Code/Test/zhaobiao3.docx";
 
-        File file = new File(readFilePath);
+//        FileInputStream fileInputStream = new FileInputStream(readFilePath);
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = new FileInputStream(readFilePath);
+        } catch (FileNotFoundException e) {
+        //找不到招标文件返回错误信息
+//            e.printStackTrace();
+            mmap.put("errorMsg","未找到招标文件");
+            return prefix + "/qpcs";
+        }
 
-        FileInputStream fileInputStream = new FileInputStream(readFilePath);
 
-        XWPFDocument doc = new XWPFDocument(fileInputStream);
-
+//        XWPFDocument doc = new XWPFDocument(fileInputStream);
+        XWPFDocument doc = null;
+        try {
+            doc = new XWPFDocument(fileInputStream);
+        } catch (IOException e) {
+//            e.printStackTrace();
+            mmap.put("errorMsg","未找到招标文件,请联系管理员！");
+            return prefix + "/qpcs";
+        }
 
         List<XWPFTable> tables = doc.getTables();
         HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
@@ -361,6 +377,13 @@ public class Tender1Controller extends BaseController {
         mmap.put("targetListList", targetListList);
 
         List<CentralizedPurchaseRecord> centralizedPurchaseRecordList = tenderService.selectCentralizedPurchaseRecordList(tenderId);
+
+        //没有投标文件，返回提示信息
+        if(centralizedPurchaseRecordList.size()==0){
+            mmap.put("errorMsg","暂无供应商竞标，请等待……");
+            return prefix + "/qpcs";
+        }
+
         ArrayList<HashMap<String, ArrayList>> providerInfoDictList = new ArrayList<>();
 
         for (int i = 0; i < productNumber; i++) {
@@ -368,9 +391,29 @@ public class Tender1Controller extends BaseController {
             for (CentralizedPurchaseRecord centralizedPurchaseRecord : centralizedPurchaseRecordList) {
                 String readCPRFilePath = centralizedPurchaseRecord.getTenderDocument().replace("http://localhost/cps/profile", profile);
 
-                FileInputStream fileInputStream1 = new FileInputStream(readCPRFilePath);
+//                FileInputStream fileInputStream1 = new FileInputStream(readCPRFilePath);
+                FileInputStream fileInputStream1;
+                try {
+                    fileInputStream1 = new FileInputStream(readCPRFilePath);
+                } catch (FileNotFoundException e) {
+                    //没有投标文件，返回提示信息
+//                    e.printStackTrace();
+                    mmap.put("errorMsg","供应商竞标文件缺失，请联系管理员！");
+                    return prefix + "/qpcs";
+                }
 
-                XWPFDocument doc1 = new XWPFDocument(fileInputStream1);
+
+//                XWPFDocument doc1 = new XWPFDocument(fileInputStream1);
+                XWPFDocument doc1 = null;
+                try {
+                    doc1 = new XWPFDocument(fileInputStream1);
+                } catch (IOException e) {
+                    //没有投标文件，返回提示信息
+//                    e.printStackTrace();
+                    mmap.put("errorMsg","供应商竞标文件缺失，请联系管理员！");
+                    return prefix + "/qpcs";
+                }
+
                 List<XWPFParagraph> paras1 = doc1.getParagraphs();
                 String gysName = "";
                 for (XWPFParagraph graph : paras1) {
@@ -402,8 +445,14 @@ public class Tender1Controller extends BaseController {
                     XWPFTableRow rowPrice = rows.get(productIndex1);
                     double tempValue = Double.parseDouble(rowPrice.getTableCells().get(3).getText());
                     indexDataList.add(tempValue);
-                    UserCredit userCredit = userCreditService.selectUserCreditByUserId(sysUserService.selectUserByLoginName(gysName).getUserId());
-                    indexDataList.add(userCredit.getCreditScore());
+                    UserCredit userCredit;
+                    try{
+                        userCredit = userCreditService.selectUserCreditByUserId(centralizedPurchaseRecord.getSupplierId());
+                        indexDataList.add(userCredit.getCreditScore());
+                    }catch (NullPointerException e){
+                        mmap.put("errorMsg","竞标文件有误，请联系管理员！");
+                        return prefix + "/qpcs";
+                    }
 //                arr.add(rows.get(productIndex).getTableCells().get(5).getText());
 //                        String productName = rows.get(i * 10 + 2).getTableCells().get(0).getText();
 

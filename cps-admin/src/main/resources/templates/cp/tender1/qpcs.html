@@ -2,6 +2,7 @@
 <!--<html lang="en">-->
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
+    <th:block th:include="include :: header('比质比价')"/>
     <meta charset="UTF-8">
     <title>比质比价</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
@@ -10,13 +11,16 @@
     <link href="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.css" rel="stylesheet">
     <script src="https://unpkg.com/bootstrap-table@1.21.0/dist/bootstrap-table.min.js"></script>
     <style>
-        html, body, div, input {
+        html, body, div, input,h1 {
             padding:0;
             margin:0;
         }
         input {
             border-style: none;
             outline: none;
+        }
+        h1{
+            font-size: 20px;
         }
         #qualityFirst{
             display: none;
@@ -29,14 +33,14 @@
         }
         .sub-module{
             margin-top:50px;
-            margin-left:15%;
-            width:70%;
+            margin-left:5%;
+            width:90%;
 
         }
         .head-container {
             width:100%;
             text-align: center;
-            border-bottom: 1px solid #cccccc;
+            padding:10px 0 10px 0;
         }
         .header {
             width:100%;
@@ -45,13 +49,16 @@
             border-top:1px solid #000;
             border-bottom:1px solid #000;
             color:#cccccc;
-            font-size:36px;
+            font-size:20px;
             font-weight: 700;
         }
         .header-detail {
             margin-left:5%;
             width:95%;
 
+        }
+        .nav > li.active {
+            border-left: none;
         }
         /* #productname{
             font-size: inherit;
@@ -62,9 +69,9 @@
             display:inline-block;
             margin-top:5px;
             height:36px;
-            width:30%;
+            width:50%;
             line-height:36px;
-            font-size: 18px;
+            font-size: 16px;
             text-align: center;
             font-weight: 700;
             cursor: pointer;
@@ -183,7 +190,7 @@
             background-color: rgba(30, 31, 31, 0.8);
             border-radius: 1rem;
             color: #f0f0f0;
-            font-size: 20px;
+            font-size: 18px;
         }
         #load {
             display: inline-block;
@@ -200,7 +207,7 @@
             position: fixed;
             left:1%;
             top:20%;
-            width:32px;
+            width:24px;
             height:192px;
         }
         .toggle-tips-btn {
@@ -280,7 +287,7 @@
         </thead>
     </table>
 </div>
-<!-- 默认部分end -->
+<!-- 质量优先end -->
 <!-- 自定义部分begin -->
 <div id="userDefined" class="sub-module">
     <!-- 标题begin -->
@@ -367,8 +374,15 @@
     <!--打分说明end-->
 </div>
 <!-- 自定义部分begin -->
-</body>
+<th:block th:include="include :: footer"/>
 <script th:inline="javascript">
+    /* 检查后台是否有报错 */
+    let errorMsg = [[${errorMsg}]];
+    if(errorMsg!=null){
+        $("body").hide();
+        $.modal.alertError(errorMsg);
+    }
+
     let static_targetList = ["产品质量","产品价格","供应商信用"]
     /* 载入初始数据begin */
       let productNameList = [[${productNameList}]];
@@ -510,7 +524,7 @@
     let finalList = []; //最终的结果列表
     /* 声明其他全局变量end */
 
-    // $("#sysDefaultTable").bootstrapTable({data: testData});
+    /* 点击默认显示 */
     bootstrapTableDefault();
     $("#liSysDefault").on("click",function(){
         $("#sysDefault").show();
@@ -524,6 +538,7 @@
         $(this).addClass("active");
         bootstrapTableDefault();
     })
+    /* 点击质量优先 */
     $("#liQualityFirst").on("click",function(){
         $("#sysDefault").hide();
         $("#qualityFirst").show();
@@ -536,6 +551,7 @@
         $(this).addClass("active");
         bootstrapTableQualityFirst();
     })
+    /* 点击价格优先 */
     $("#liPriceFirst").on("click",function(){
         $("#sysDefault").hide();
         $("#qualityFirst").hide();
@@ -548,6 +564,7 @@
         $(this).addClass("active");
         bootstrapTablePriceFirst();
     })
+    /* 点击自定义 */
     $("#liUserDefined").on("click",function(){
         $("#sysDefault").hide();
         $("#qualityFirst").hide();
@@ -558,6 +575,7 @@
         $("#liPriceFirst").removeClass("active");
         $("#liUserDefined").removeClass("active");
         $(this).addClass("active");
+        UserDefineInit();
     })
 
 
@@ -567,7 +585,7 @@
     function bootstrapTableDefault(){
         let defaultData = [];
         let supplierTable = [];
-        let resData = qpcs(1,1,1,"default");
+        let resData = qpcs(0.5,0.5,1,"default");
         supplierTable = resData[0]
         defaultData = resData[1]
         $("#sysDefaultTable").bootstrapTable({data: defaultData});
@@ -587,6 +605,7 @@
             $("#priceFirstSupplierTable"+i).bootstrapTable({data: supplierTable[i]});
         }
     }
+    /* 质量优先填充表格数据 */
     function bootstrapTableQualityFirst(){
         let defaultData = [];
         let supplierTable = [];
@@ -599,6 +618,38 @@
         }
     }
 
+    /* 自定义数据初始化 */
+    function UserDefineInit(){
+        $(".index-container").children().remove();
+        $(".target-evaluate").hide();
+        $(".evaluate-container").children().remove();
+        $(".result-container").children().remove();
+        $(".finalResult").remove();
+        $("#finalAnalyseBtn").show();
+        $(".evaluateResult-container").hide();
+        $(".evaluate-result").hide();
+        $("#productname").children().remove();
+        productName = productNameList[0]; // 默认产品名
+        targetList = targetListList[0]; // 默认产品指标列表
+        providerInfoDict = $.extend(true,{},providerInfoDictList[0]); // 默认供应商产品信息列表
+        indexSort = indexSortList[0];// 指标值大优先还是值小优先
+        /* 初始化select选项begin */
+        let productNum = productNameList.length;//产品数量
+        for(let i=0;i<productNum;++i){
+            $("#productname").append("<option value='"+i+"'>"+productNameList[i]+"</option>");
+        }
+        /* 初始化select选项end */
+
+        /* 初始化，加载产品名与指标数据 */
+        targetNum = targetList.length;
+        for(let i=0;i<=15;++i){
+            baseList.push(1);
+        }
+        providerNum =  Object.keys(providerInfoDict).length;
+        for(let i=1;i<=static_targetNum;++i){
+            $(".index-container").append('<input id="target-'+ i +'" class="input-box" type="text" value="指标' +i+': '+ static_targetList[i-1] + '" readonly="readonly">')
+        }
+    }
 
     /**
      *  比质比价
@@ -677,26 +728,6 @@
 
 
 
-    productName = productNameList[0]; // 默认产品名
-    targetList = targetListList[0]; // 默认产品指标列表
-    providerInfoDict = $.extend(true,{},providerInfoDictList[0]); // 默认供应商产品信息列表
-    indexSort = indexSortList[0];// 指标值大优先还是值小优先
-    /* 初始化select选项begin */
-    let productNum = productNameList.length;//产品数量
-    for(let i=0;i<productNum;++i){
-        $("#productname").append("<option value='"+i+"'>"+productNameList[i]+"</option>");
-    }
-    /* 初始化select选项end */
-
-    /* 初始化，加载产品名与指标数据 */
-    targetNum = targetList.length;
-    for(let i=0;i<=15;++i){
-        baseList.push(1);
-    }
-    providerNum =  Object.keys(providerInfoDict).length;
-    for(let i=1;i<=static_targetNum;++i){
-        $(".index-container").append('<input id="target-'+ i +'" class="input-box" type="text" value="指标' +i+': '+ static_targetList[i-1] + '" readonly="readonly">')
-    }
 
     /* select框改变时，更换数据 */
     $("#productname").on("change",function(){
@@ -1150,4 +1181,5 @@
 
 
 </script>
+</body>
 </html>
