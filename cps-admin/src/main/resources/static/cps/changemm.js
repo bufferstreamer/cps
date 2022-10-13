@@ -2,23 +2,20 @@ $(function () {
     validateRule();
 });
 
-// function getUrlParms (name) {
-//     let url = window.location.href;//获取请求进来的完整url
-//     let tstr = url.substring(url.indexOf('?') + 1).split('&');//先截取url的?后面的参数部分，在根据&分割成参数数组
-//     let result = {};
-//     tstr.forEach((item) => {
-//         let res = item.split('=');//res为type,my-component1.vue。  res[0]为type，res[1为]my-component1.vue
-//         result[res[0]] = res[1];//构造成键值对形式 res[0]为键，res[1]为值 例：type: "my-component1.vue"
-//     })
-//     return result[name];//通过键取值
-// }
-//
-// var email = getUrlParms("email");//调用函数即可
-// document.getElementById('email').value=email;
+$.validator.setDefaults({
+    submitHandler: function () {
+        changemm();
+    }
+});
 
 function changemm() {
     var email = $.common.trim($("input[name='email']").val());
     var password = $.common.trim($("input[name='password']").val());
+    // if(password==""){
+    //     $.modal.msgError("请输入您的密码");
+    //     return
+    // }
+
     $.ajax({
         type: "post",
         url: ctx + "changemm",

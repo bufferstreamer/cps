@@ -62,17 +62,22 @@
                         </a>
                     </div>
                 </div>
-                <div class="checkbox-custom" th:if="${isRemembered}" th:classappend="${captchaEnabled==false} ? 'm-t'">
-                    <input type="checkbox" id="rememberme" name="rememberme"> <label for="rememberme" style="color: black">记住我</label>
+                <div>
+                    <div class="col-sm-7 checkbox-custom" th:if="${isRemembered}" th:classappend="${captchaEnabled==false} ? 'm-t'">
+                        <input type="checkbox" id="rememberme" name="rememberme"> <label for="rememberme" style="color: black">记住我</label>
+                    </div>
+                    <!--&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;-->
+                    <strong class="col-sm-5" style="margin-top: 15px"><a th:href="@{/forgetmmEmail}" style="color: black;">忘记密码?</a></strong>
                 </div>
-                <strong><a th:href="@{/forgetmmEmail}" style="color: black;">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;忘记密码?</a></strong>
-                <button class="btn btn-success btn-block" style="outline:none;border-radius: 30px;line-height: 27px;background-color: #00A65A;border: 0" id="btnSubmit" data-loading="正在验证登录，请稍候...">登录</button>
+                <div>
+                    <button class="button-lo-re btn btn-block" style="outline-color: #00A65A" id="btnSubmit" data-loading="正在验证登录，请稍候..."><span>登录</span></button>
+                </div>
             </form>
         </div>
     </div>
     <div class="signup-footer">
-        <div class="pull-left">
-            Copyright © 2020-2022 cps All Rights Reserved. <br>
+        <div class="pull-left fo" >
+            &emsp;Copyright © 2020-2022 cps All Rights Reserved&emsp;<br>
         </div>
     </div>
 </div>

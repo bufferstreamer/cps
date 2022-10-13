@@ -11,6 +11,8 @@ $("#getVerifyCode").click(function (){
 //         }
 //     }
 // }
+
+
 //用ajax提交到后台的发送邮件接口
 function sendEmail(obj){
     console.log(ctx)
@@ -122,3 +124,4 @@ function isEmail(){
         return true;
     }
 }
+
