@@ -15,7 +15,7 @@ import datetime
 print("sales forecast analysis")
 #连接数据库
 try:
-    db_cps = pymysql.connect(host='localhost',
+    db_cps = pymysql.connect(host='210.30.97.22',
                       user='root',
                       password='root',
                       database='cps')
@@ -126,18 +126,18 @@ for a in range(productList.__len__()):
                 temp.append(None)
             bic_matrix.append(temp)
     bic_matrix = pd.DataFrame(bic_matrix)   #将其转换成Dataframe 数据结构
-    p,q = bic_matrix.stack().astype('float64').idxmin()   #先使用stack 展平， 然后使用 idxmin 找出最小值的位置
-    # print(u'BIC 最小的p值 和 q 值：%s,%s' %(p,q))  #  BIC 最小的p值 和 q 值：0,1
-    #所以可以建立ARIMA 模型
-    model = sm.tsa.arima.ARIMA(data, order=(p,1,q)).fit()
-    model.summary()
-    #保存模型
-    # model.save('model.pkl')
-    # f = open('model.pkl','rb')
-    # content =  pickle.load(f)
-    # print(content.summary())
-    #预测未来3个单位
     try:
+        p,q = bic_matrix.stack().astype('float64').idxmin()   #先使用stack 展平， 然后使用 idxmin 找出最小值的位置
+        # print(u'BIC 最小的p值 和 q 值：%s,%s' %(p,q))  #  BIC 最小的p值 和 q 值：0,1
+        #所以可以建立ARIMA 模型
+        model = sm.tsa.arima.ARIMA(data, order=(p,1,q)).fit()
+        model.summary()
+        #保存模型
+        # model.save('model.pkl')
+        # f = open('model.pkl','rb')
+        # content =  pickle.load(f)
+        # print(content.summary())
+        #预测未来3个单位
         predictions=model.forecast(2)
         # print(predictions)
         # print(type(predictions))
@@ -163,6 +163,7 @@ for a in range(productList.__len__()):
         pre_result = predictions.values[0]
         print(u'Forecast results:',pre_result)
     except:
+        print("\033[1;31m WARNING:The construction of sales data failed, which may be caused by insufficient sales data \033[0m")
         sales_forecast_1 = "销量信息不足，暂无法预测"
         sales_forecast_2 = "销量信息不足，暂无法预测"
     # #标准误差为：

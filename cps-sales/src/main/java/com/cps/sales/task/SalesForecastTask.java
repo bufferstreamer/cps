@@ -15,7 +15,9 @@ public class SalesForecastTask {
             /*这里要换成绝对路径*/
             //String[] arg = new String[]{"python", "E:\\IdeaProjects\\cps-3\\cps-sales\\src\\main\\resources\\salesForecast.py"};
 
-            proc = Runtime.getRuntime().exec("E:/anaconda3/python.exe e:/IdeaProjects/cps-3/cps-sales/src/main/resources/salesForecast.py");// 执行py文件
+            //proc = Runtime.getRuntime().exec("python e:/IdeaProjects/cps-3/cps-sales/src/main/resources/salesForecast.py");// 执行py文件
+
+            proc = Runtime.getRuntime().exec("cmd.exe /c start python e:/IdeaProjects/cps-3/cps-sales/src/main/resources/salesForecast.py");
             //用输入输出流来截取结果
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             String line = null;
@@ -23,7 +25,7 @@ public class SalesForecastTask {
                 System.out.println(line);
             }
             if(proc.exitValue() != 0){
-                System.out.println("ERROR:销量预测读取失败，请检查算法文件存在且路径准确");
+                System.out.println("ERROR:销量预测读取失败，请检查算法文件正确，且路径准确");
             }
             in.close();
             proc.waitFor();
