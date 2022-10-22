@@ -214,4 +214,15 @@
         </foreach>
     </insert>
 
+    <!--查询商品近一个月销量-->
+    <select id="selectSingleMonthSalesDataByGoodsId" parameterType="long" resultType="int">
+        SELECT
+            COALESCE(SUM(actual_number),0)
+        FROM
+            wms_wh_outbound_order_seed
+        WHERE
+            shop_goods_id = #{id}
+          AND
+            update_time > date_sub(NOW(),interval 1 MONTH)
+    </select>
 </mapper>

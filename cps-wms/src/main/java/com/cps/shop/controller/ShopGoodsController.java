@@ -61,7 +61,8 @@ public class ShopGoodsController extends BaseController {
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo list(ShopGoods shopGoods) {
-        shopGoods.setDeptId(ShiroUtils.getDeptId());
+        //取消查询商品时对用户部门的限制
+        //shopGoods.setDeptId(ShiroUtils.getDeptId());
         startPage();
         List<ShopGoodsVo> list = shopGoodsService.selectShopGoodsVoList(shopGoods);
         return getDataTable(list);

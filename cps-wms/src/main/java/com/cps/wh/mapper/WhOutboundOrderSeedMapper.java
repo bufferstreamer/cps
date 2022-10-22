@@ -1,6 +1,7 @@
 package com.cps.wh.mapper;
 
 import com.cps.wh.domain.WhOutboundOrderSeed;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * @author miki
  * @date 2021-06-07
  */
+@Repository
 public interface WhOutboundOrderSeedMapper {
     /**
      * 查询商品出库单子表
@@ -19,6 +21,14 @@ public interface WhOutboundOrderSeedMapper {
      * @return 商品出库单子表
      */
     public WhOutboundOrderSeed selectWhOutboundOrderSeedById(Long id);
+
+    /**
+     * 查询商品近一个月销量
+     *
+     * @param id 商品出库单子表ID
+     * @return 商品出库单子表
+     */
+    public int selectSingleMonthSalesDataByGoodsId(Long id);
 
     /**
      * 查询商品出库单子表列表

@@ -109,7 +109,12 @@
             <artifactId>cps-credit</artifactId>
             <version>${cps.version}</version>
         </dependency>
-
+        <!--销量预测模块-->
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-sales</artifactId>
+            <version>${cps.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

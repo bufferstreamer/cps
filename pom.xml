@@ -249,6 +249,12 @@
                 <artifactId>cps-credit</artifactId>
                 <version>${cps.version}</version>
             </dependency>
+            <!--销售预测模块-->
+            <dependency>
+                <groupId>com.cps</groupId>
+                <artifactId>cps-sales</artifactId>
+                <version>${cps.version}</version>
+            </dependency>
             <!--poi-->
             <dependency>
                 <groupId>org.apache.poi</groupId>
@@ -276,6 +282,7 @@
         <module>cps-product</module>
         <module>cps-wms</module>
         <module>cps-credit</module>
+        <module>cps-sales</module>
     </modules>
 
 
