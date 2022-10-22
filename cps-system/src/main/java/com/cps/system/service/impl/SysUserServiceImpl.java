@@ -186,7 +186,9 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public boolean isSupperMarket(Long userId){
         List<SysUserRole> userRoleList = userRoleMapper.selectUserRoleByUserId(userId);
-        if(userRoleList == null) return false;
+        if(userRoleList == null) {
+            return false;
+        }
         if(userRoleList.get(0).getRoleId() == Constants.SYS_SUPPERMARKET_ROLEID){
             return true;
         }
@@ -201,7 +203,9 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public boolean isSupplier(Long userId){
         List<SysUserRole> userRoleList = userRoleMapper.selectUserRoleByUserId(userId);
-        if(userRoleList == null) return false;
+        if(userRoleList == null) {
+            return false;
+        }
         if(userRoleList.get(0).getRoleId() == Constants.SYS_SUPPLIER_ROLEID){
             return true;
         }
@@ -216,7 +220,9 @@ public class SysUserServiceImpl implements ISysUserService {
     @Override
     public boolean isSupperMarketOrSupplier(Long userId){
         List<SysUserRole> userRoleList = userRoleMapper.selectUserRoleByUserId(userId);
-        if(userRoleList == null) return false;
+        if(userRoleList == null) {
+            return false;
+        }
         if(userRoleList.get(0).getRoleId() == Constants.SYS_SUPPERMARKET_ROLEID || userRoleList.get(0).getRoleId() == Constants.SYS_SUPPLIER_ROLEID){
             return true;
         }

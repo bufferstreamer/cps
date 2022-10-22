@@ -243,12 +243,19 @@ public class UserCreditServiceImpl implements IUserCreditService {
      */
     @Override
     public int checkCapitalLevel(double capital) {
-        if(capital<Constants.REGISTERED_CAPITAL_LEVEL_1) return 0;
-        else if(capital<Constants.REGISTERED_CAPITAL_LEVEL_2)return 1;
-        else if(capital<Constants.REGISTERED_CAPITAL_LEVEL_3)return 2;
-        else if(capital<Constants.REGISTERED_CAPITAL_LEVEL_4)return 3;
-        else if(capital<Constants.REGISTERED_CAPITAL_LEVEL_5)return 4;
-        else return 5;
+        if(capital<Constants.REGISTERED_CAPITAL_LEVEL_1) {
+            return 0;
+        } else if(capital<Constants.REGISTERED_CAPITAL_LEVEL_2) {
+            return 1;
+        } else if(capital<Constants.REGISTERED_CAPITAL_LEVEL_3) {
+            return 2;
+        } else if(capital<Constants.REGISTERED_CAPITAL_LEVEL_4) {
+            return 3;
+        } else if(capital<Constants.REGISTERED_CAPITAL_LEVEL_5) {
+            return 4;
+        } else {
+            return 5;
+        }
     }
 
     /**

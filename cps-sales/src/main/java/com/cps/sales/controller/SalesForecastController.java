@@ -90,24 +90,23 @@ public class SalesForecastController extends BaseController {
      * 修改销量预测
      */
     @RequiresPermissions("sales:forecast:edit")
-    @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Long id, ModelMap mmap) {
-        SalesForecast salesForecast =
-            salesForecastService.selectSalesForecastById(id);
-        mmap.put("salesForecast", salesForecast);
-        return prefix + "/edit";
+    @PostMapping("/edit")
+    @ResponseBody
+    public AjaxResult edit(String ids) {
+        return toAjax(salesForecastService.updateStatusByIds(ids));
     }
 
-    /**
+/*    *//**
      * 修改保存销量预测
-     */
+     *//*
     @RequiresPermissions("sales:forecast:edit")
     @Log(title = "销量预测", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
     public AjaxResult editSave(SalesForecast salesForecast) {
+
         return toAjax(salesForecastService.updateSalesForecast(salesForecast));
-    }
+    }*/
 
         /**
          * 删除销量预测

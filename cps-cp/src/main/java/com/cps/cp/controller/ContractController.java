@@ -95,9 +95,13 @@ public class ContractController extends BaseController {
                 canSignatureArr[i] = true;
                 Contract contract = contractList.get(i);
                 if(contract.getContractType().equals("0")){
-                    if(contract.getSignatureB().equals("1")) canSignatureArr[i] = false;
+                    if(contract.getSignatureB().equals("1")) {
+                        canSignatureArr[i] = false;
+                    }
                 }else{
-                    if(contract.getSignatureA().equals("1")) canSignatureArr[i] = false;
+                    if(contract.getSignatureA().equals("1")) {
+                        canSignatureArr[i] = false;
+                    }
                 }
                 if((contract.getSignatureA().equals("1"))&&(contract.getSignatureB().equals("1"))){
                     canSignatureArr[i] = false;

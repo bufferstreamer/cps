@@ -93,12 +93,16 @@ public class ArithUtils {
      * @return
      */
     public static BigDecimal isNullBigDecimal(BigDecimal b) {
-        if (b == null) b = BigDecimal.ZERO;
+        if (b == null) {
+            b = BigDecimal.ZERO;
+        }
         return b;
     }
 
     public static BigDecimal setScale(BigDecimal b, int length) {
-        if (b == null) b = BigDecimal.ZERO;
+        if (b == null) {
+            b = BigDecimal.ZERO;
+        }
         return b.setScale(length, BigDecimal.ROUND_HALF_UP);
     }
 
@@ -109,7 +113,9 @@ public class ArithUtils {
      * @return
      */
     public static BigDecimal setScale(BigDecimal b) {
-        if (b == null) return b = BigDecimal.ZERO;
+        if (b == null) {
+            return b = BigDecimal.ZERO;
+        }
         Integer res = compare(b, new BigDecimal("1"));
         if (res == -1) {
             return b.setScale(0, BigDecimal.ROUND_UP);
@@ -126,14 +132,20 @@ public class ArithUtils {
      * @return -1 表示a小于b 0 表示 a等于b 1 表示a大于b
      */
     public static Integer compare(BigDecimal a, BigDecimal b) {
-        if (null == a) a = BigDecimal.ZERO;
-        if (null == b) b = BigDecimal.ZERO;
+        if (null == a) {
+            a = BigDecimal.ZERO;
+        }
+        if (null == b) {
+            b = BigDecimal.ZERO;
+        }
         Integer flag = a.compareTo(b);
         return flag;
     }
 
     public static BigDecimal stringToBigDecimal(String b) {
-        if (StringUtils.isBlank(b)) new BigDecimal(0);
+        if (StringUtils.isBlank(b)) {
+            new BigDecimal(0);
+        }
         return new BigDecimal(b);
     }
 
@@ -144,7 +156,9 @@ public class ArithUtils {
      * @return true or false
      */
     public static boolean valueIsZero(BigDecimal b) {
-        if (null == b) b = BigDecimal.ZERO;
+        if (null == b) {
+            b = BigDecimal.ZERO;
+        }
         boolean flag = false;
         Integer res = compare(b, BigDecimal.ZERO);
         if (0 == res) {

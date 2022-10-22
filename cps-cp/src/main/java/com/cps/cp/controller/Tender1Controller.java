@@ -499,8 +499,9 @@ public class Tender1Controller extends BaseController {
 
         for (AuditDocuments temp : tempList
         ) {
-            if (temp.getAuditStatus().equals("1"))
+            if (temp.getAuditStatus().equals("1")) {
                 return false;
+            }
         }
 
         //审核营业执照
@@ -551,8 +552,9 @@ public class Tender1Controller extends BaseController {
 
         for (AuditDocuments temp : tempList
         ) {
-            if (temp.getAuditStatus().equals("1"))
+            if (temp.getAuditStatus().equals("1")) {
                 return false;
+            }
         }
 
         CentralizedPurchaseRecord centralizedPurchaseRecord =new CentralizedPurchaseRecord();

@@ -41,10 +41,7 @@
             <!--<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="sales:forecast:add">
                 <i class="fa fa-plus"></i> 添加
             </a>
-            <a class="btn btn-primary single disabled" onclick="$.operate.edit()"
-               shiro:hasPermission="sales:forecast:edit">
-                <i class="fa fa-edit"></i> 修改
-            </a>
+
             <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()"
                shiro:hasPermission="sales:forecast:remove">
                 <i class="fa fa-remove"></i> 删除
@@ -52,6 +49,10 @@
             <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="sales:forecast:export">
                 <i class="fa fa-download"></i> 导出
             </a>
+            <a class="btn btn-primary multiple disabled" onclick="editAll()"
+                    shiro:hasPermission="sales:forecast:edit">
+            <i class="fa fa-edit"></i> 已招标
+        </a>
         </div>
         <div class="col-sm-12 select-table table-striped">
             <table id="bootstrap-table"></table>
@@ -100,20 +101,58 @@
                             field: 'salesForecast2',
                             title: '次第二月销量预测'
                         },
+                {
+                    field: 'status',
+                    title: '是否招标',
+                    visible: false
+                },
 
                 {
                     title: '操作',
                     align: 'center',
                     formatter: function (value, row, index) {
                         var actions = [];
-                        /*actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');*/
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '"   onclick="editStatus(\'' + row.id + '\')"><i class="fa fa-edit"></i>已招标</a> ');
+                        /*actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');*/
                         return actions.join('');
                     }
                 }]
         };
         $.table.init(options);
     });
+
+    function editStatus(id){
+        table.set();
+        $.modal.confirm("确定已招标该条" + table.options.modalName + "信息吗？确认后将无法修改！", function () {
+            var url = prefix + "/edit/";
+            if (table.options.type === table_type.bootstrapTreeTable) {
+                $.operate.get(url);
+            } else {
+                var data = {"ids": id};
+                $.operate.submit(url, "post", "json", data);
+            }
+        });
+    /*    $.modal.confirm("确认招标后将无法修改!",function () {
+            $.operate.post(prefix + "/edit/" + id);
+
+
+        });*/
+
+    }
+
+    function editAll() {
+        table.set();
+        var rows = $.common.isEmpty(table.options.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns(table.options.uniqueId);
+        if (rows.length === 0) {
+            $.modal.alertWarning("请至少选择一条记录");
+            return;
+        }
+        $.modal.confirm("确认已招标选中的" + rows.length + "条数据吗?", function () {
+            var url = prefix + "/edit/";
+            var data = {"ids": rows.join()};
+            $.operate.submit(url, "post", "json", data);
+        });
+    }
 </script>
 </body>
 </html>

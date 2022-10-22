@@ -49,6 +49,22 @@ public interface SalesForecastMapper {
     public int updateSalesForecast(SalesForecast salesForecast);
 
     /**
+     * @param id:
+     * @return int: 结果
+     * @author LN
+     * @description 修改商品招标状态
+     */
+    public int updateStatusById(Long id);
+
+    /**
+     * @param ids: 需要招标的主键集合
+     * @return int: 结果
+     * @author LN
+     * @description 批量招标
+     */
+    public int updateStatusByIds(String[] ids);
+
+    /**
      * 删除销量预测
      *
      * @param id 销量预测主键

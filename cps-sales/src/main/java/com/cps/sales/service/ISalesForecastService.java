@@ -53,6 +53,24 @@ public interface ISalesForecastService {
     public int updateSalesForecast(SalesForecast salesForecast);
 
     /**
+     *修改商品招标状态
+     * @param id:
+     * @return int: 结果
+     * @author LN
+     *
+     */
+    public int updateStatusById(Long id);
+
+    /**
+     * 批量招标
+     * @param ids: 需要招标的主键集合
+     * @return int: 结果
+     * @author LN
+     *
+     */
+    public int updateStatusByIds(String ids);
+
+    /**
      * 批量删除销量预测
      *
      * @param ids 需要删除的销量预测主键集合

@@ -160,9 +160,13 @@ public class AuditDocumentsServiceImpl implements IAuditDocumentsService {
     @Override
     public boolean getUserAuditStatus(long userId) {
         List<AuditDocuments> auditDocumentsList = selectAuditDocumentsByUserId(userId);
-        if(auditDocumentsList.size()<2)return false;
+        if(auditDocumentsList.size()<2) {
+            return false;
+        }
         for(AuditDocuments auditDocuments:auditDocumentsList){
-            if(auditDocuments.getAuditStatus().equals("1"))return false;
+            if(auditDocuments.getAuditStatus().equals("1")) {
+                return false;
+            }
         }
         return true;
     }

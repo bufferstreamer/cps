@@ -146,7 +146,7 @@ public class DeptWarehouseVo implements Serializable {
     }
 
     public String getWarehouseTypeDesc() {
-        for (WarehouseType warehouseType : WarehouseType.CUSTOMER.values()) {
+        for (WarehouseType warehouseType : WarehouseType.values()) {
             if (warehouseType.getCode().equals(this.getWarehouseType())) {
                 warehouseTypeDesc = warehouseType.getInfo();
             }

@@ -68,6 +68,7 @@ public class SalesForecastServiceImpl implements ISalesForecastService {
             SFV.setGoodName(sf.getGoodName());
             SFV.setId(sf.getId());
             SFV.setProductId(sf.getProductId());
+            SFV.setStatus(sf.getStatus());
             vos.add(SFV);
         }
         return vos;
@@ -93,6 +94,28 @@ public class SalesForecastServiceImpl implements ISalesForecastService {
     @Override
     public int updateSalesForecast(SalesForecast salesForecast) {
         return salesForecastMapper.updateSalesForecast(salesForecast);
+    }
+
+    /**
+     * @param id:
+     * @return int: 结果
+     * @author LN
+     * @description 修改商品招标状态
+     */
+    @Override
+    public int updateStatusById(Long id) {
+        return salesForecastMapper.updateStatusById(id);
+    }
+    /**
+     * @param ids: 需要招标的主键集合
+     * @return int: 结果
+     * @author LN
+     * @description 批量招标
+     */
+
+    @Override
+    public int updateStatusByIds(String ids) {
+        return salesForecastMapper.updateStatusByIds(Convert.toStrArray(ids));
     }
 
     /**

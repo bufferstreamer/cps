@@ -5,11 +5,12 @@
 <mapper namespace="com.cps.sales.mapper.SalesForecastMapper">
 
     <resultMap type="SalesForecast" id="SalesForecastResult">
-            <result property="id" column="id"/>
-            <result property="productId" column="product_id"/>
-            <result property="goodName" column="good_name"/>
-            <result property="salesForecast1" column="sales_forecast_1"/>
-            <result property="salesForecast2" column="sales_forecast_2"/>
+        <result property="id" column="id"/>
+        <result property="productId" column="product_id"/>
+        <result property="goodName" column="good_name"/>
+        <result property="salesForecast1" column="sales_forecast_1"/>
+        <result property="salesForecast2" column="sales_forecast_2"/>
+        <result property="status" column="status"/>
     </resultMap>
 
     <!--<resultMap type="SalesForecastVO" id="SalesForecastResultVO">
@@ -21,25 +22,26 @@
     </resultMap>-->
 
     <sql id="selectSalesForecastVo">
-        select id, product_id, good_name,sales_forecast_1, sales_forecast_2
+        select id, product_id, good_name, sales_forecast_1, sales_forecast_2, status
         from sales_forecast
     </sql>
 
     <select id="selectSalesForecastList" parameterType="SalesForecast" resultMap="SalesForecastResult">
         <include refid="selectSalesForecastVo"/>
         <where>
-                        <if test="productId != null ">
-                            and product_id = #{productId}
-                        </if>
-                        <if test="goodName != null and goodName != ''">
-                            and good_name like #{goodName}
-                        </if>
-                        <if test="salesForecast1 != null  and salesForecast1 != ''">
-                            and sales_forecast_1 = #{salesForecast1}
-                        </if>
-                        <if test="salesForecast2 != null  and salesForecast2 != ''">
-                            and sales_forecast_2 = #{salesForecast2}
-                        </if>
+            <if test="productId != null ">
+                and product_id = #{productId}
+            </if>
+            <if test="goodName != null and goodName != ''">
+                and good_name like #{goodName}
+            </if>
+            <if test="salesForecast1 != null  and salesForecast1 != ''">
+                and sales_forecast_1 = #{salesForecast1}
+            </if>
+            <if test="salesForecast2 != null  and salesForecast2 != ''">
+                and sales_forecast_2 = #{salesForecast2}
+            </if>
+               and status = 0
         </where>
     </select>
 
@@ -67,50 +69,66 @@
 
     <select id="selectSalesForecastById" parameterType="Long"
             resultMap="SalesForecastResult">
-            <include refid="selectSalesForecastVo"/>
-            where id = #{id}
+        <include refid="selectSalesForecastVo"/>
+        where id = #{id}
     </select>
 
     <insert id="insertSalesForecast" parameterType="SalesForecast" useGeneratedKeys="true"
             keyProperty="id">
         insert into sales_forecast
         <trim prefix="(" suffix=")" suffixOverrides=",">
-                    <if test="productId != null">product_id,
-                    </if>
-                    <if test="salesForecast1 != null">sales_forecast_1,
-                    </if>
-                    <if test="salesForecast2 != null">sales_forecast_2,
-                    </if>
+            <if test="productId != null">product_id,
+            </if>
+            <if test="salesForecast1 != null">sales_forecast_1,
+            </if>
+            <if test="salesForecast2 != null">sales_forecast_2,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-                    <if test="productId != null">#{productId},
-                    </if>
-                    <if test="salesForecast1 != null">#{salesForecast1},
-                    </if>
-                    <if test="salesForecast2 != null">#{salesForecast2},
-                    </if>
+            <if test="productId != null">#{productId},
+            </if>
+            <if test="salesForecast1 != null">#{salesForecast1},
+            </if>
+            <if test="salesForecast2 != null">#{salesForecast2},
+            </if>
         </trim>
     </insert>
 
     <update id="updateSalesForecast" parameterType="SalesForecast">
         update sales_forecast
         <trim prefix="SET" suffixOverrides=",">
-                    <if test="productId != null">product_id =
-                        #{productId},
-                    </if>
-                    <if test="salesForecast1 != null">sales_forecast_1 =
-                        #{salesForecast1},
-                    </if>
-                    <if test="salesForecast2 != null">sales_forecast_2 =
-                        #{salesForecast2},
-                    </if>
+            <if test="productId != null">product_id =
+                #{productId},
+            </if>
+            <if test="salesForecast1 != null">sales_forecast_1 =
+                #{salesForecast1},
+            </if>
+            <if test="salesForecast2 != null">sales_forecast_2 =
+                #{salesForecast2},
+            </if>
+            <if test="status != null">status =
+                #{status},
+            </if>
         </trim>
         where id = #{id}
+    </update>
+    <update id="updateStatusById">
+        update sales_forecast
+        set status = 1
+        where id = #{id}
+    </update>
+    <update id="updateStatusByIds" parameterType="String">
+        update sales_forecast
+        set status = 1 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
     </update>
 
     <delete id="deleteSalesForecastById" parameterType="Long">
         delete
-        from sales_forecast where id = #{id}
+        from sales_forecast
+        where id = #{id}
     </delete>
 
     <delete id="deleteSalesForecastByIds" parameterType="String">
