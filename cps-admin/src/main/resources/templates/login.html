@@ -10,6 +10,11 @@
     <link href="../static/css/style.min.css" rel="stylesheet" th:href="@{/css/style.min.css}"/>
     <link href="../static/css/login.min.css" rel="stylesheet" th:href="@{/css/login.min.css}"/>
     <link href="../static/cps/css/ry-ui.css" rel="stylesheet" th:href="@{/cps/css/ry-ui.css?v=4.7.5}"/>
+    <!-- Font Awesome -->
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    />
     <!-- 360浏览器急速模式 -->
     <meta content="webkit" name="renderer">
     <!-- 避免IE使用兼容模式 -->
@@ -79,8 +84,26 @@
         <div class="pull-left fo" >
             &emsp;Copyright © 2020-2022 cps All Rights Reserved&emsp;<br>
         </div>
+        <div class="pull-right contact-icon">
+            <a href="#" class="btn">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="btn">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="btn">
+                <i class="fab fa-google"></i>
+            </a>
+            <a href="#" class="btn">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="btn">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
     </div>
 </div>
+
 <script th:inline="javascript"> var ctx = [[@{/}]]; var captchaType = [[${captchaType}]]; </script>
 <!--[if lte IE 8]>
 <script>window.location.href = ctx + 'html/ie.html';</script><![endif]-->
