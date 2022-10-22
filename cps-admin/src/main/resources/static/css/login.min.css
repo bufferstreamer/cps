@@ -257,14 +257,13 @@ body.signin {
 
 
 .contact-icon {
-
     text-align: center;
 }
 
-.contact-icon .btn {
+.contact-icon .btn-i {
     display: inline-block;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     background: #fff;
     box-shadow: 0 4px 15px -2px rgba(0, 0, 0, .8);
     margin: 10px;
@@ -272,14 +271,14 @@ body.signin {
     overflow: hidden;
     position: relative;
     color: #00A65A;
-
+    outline: none;
 }
 
-.contact-icon .btn i {
+.contact-icon .btn-i i {
     position: absolute;
     left: 50%;
     z-index: 4;
-    line-height: 19px;
+    line-height: 34px;
     font-size: 16px;
     transition: 0.3s ease-in-out;
     margin: auto;
@@ -287,23 +286,25 @@ body.signin {
     right: 0;
 }
 
-.contact-icon .btn::before {
+.contact-icon .btn-i::before {
     content: "";
     position: absolute;
     width: 120%;
     height: 120%;
     background-color: #00A65A;
+    outline: none;
     transform: rotate(45deg);
     left: -110%;
     top: 90%;
 }
 
-.contact-icon .btn:hover i {
+.contact-icon .btn-i:hover i {
     color: #fff;
     transform: scale(1.3);
 }
 
-.contact-icon .btn:hover::before {
+.contact-icon .btn-i:hover::before {
+    outline: none;
     animation: onHover 0.7s 1;
     left: -10%;
     top: -10%;
