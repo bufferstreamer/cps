@@ -15,6 +15,7 @@ import datetime
 print("sales forecast analysis")
 #连接数据库
 try:
+    #210.30.97.22
     db_cps = pymysql.connect(host='210.30.97.22',
                       user='root',
                       password='root',

@@ -138,4 +138,9 @@
         </foreach>
     </delete>
 
+    <delete id="deleteSalesForecastByProductId" parameterType="long">
+        delete
+        from sales_forecast where cps.sales_forecast.product_id = #{productId}
+    </delete>
+
 </mapper>

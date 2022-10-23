@@ -6,8 +6,10 @@ import com.cps.common.enums.Status;
 import com.cps.common.exception.BusinessException;
 import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.ShiroUtils;
+import com.cps.shop.domain.SalesForecastShop;
 import com.cps.shop.domain.ShopGoods;
 import com.cps.shop.domain.ShopGoodsSeed;
+import com.cps.shop.mapper.SalesForecastShopMapper;
 import com.cps.shop.mapper.ShopGoodsMapper;
 import com.cps.shop.service.IShopGoodsSeedService;
 import com.cps.shop.service.IShopGoodsService;
@@ -34,6 +36,8 @@ public class ShopGoodsServiceImpl implements IShopGoodsService {
     @Autowired
     private IShopGoodsSeedService shopGoodsSeedService;
 
+    @Autowired
+    private SalesForecastShopMapper salesForecastMapper;
     /**
      * 查询商品信息
      *
@@ -68,6 +72,10 @@ public class ShopGoodsServiceImpl implements IShopGoodsService {
         int result = 0;
         shopGoods.setCreateTime(DateUtils.getNowDate());
         result = shopGoodsMapper.insertShopGoods(shopGoods);
+        SalesForecastShop salesForecast = new SalesForecastShop();
+        salesForecast.setProductId(shopGoods.getId());
+        salesForecast.setGoodName(shopGoods.getGoodsName());
+        salesForecastMapper.insertSalesForecast(salesForecast);
         ShopGoodsSeed shopGoodsSeed = new ShopGoodsSeed();
         shopGoodsSeed.setGoodsId(shopGoods.getId());
         shopGoodsSeed.setSafetyStock(shopGoods.getSafetyStock());
@@ -89,6 +97,11 @@ public class ShopGoodsServiceImpl implements IShopGoodsService {
         int result = 0;
         shopGoods.setUpdateTime(DateUtils.getNowDate());
         result = shopGoodsMapper.updateShopGoods(shopGoods);
+
+        SalesForecastShop salesForecastShop = new SalesForecastShop();
+        salesForecastShop.setProductId(shopGoods.getId());
+        salesForecastShop.setGoodName(shopGoods.getGoodsName());
+        salesForecastMapper.updateSalesForecastName(salesForecastShop);
 
         ShopGoodsSeed shopGoodsSeed = shopGoodsSeedService.selectShopGoodsSeedBygoodsId(shopGoods.getId());
         shopGoodsSeed.setSafetyStock(shopGoods.getSafetyStock());
@@ -120,7 +133,7 @@ public class ShopGoodsServiceImpl implements IShopGoodsService {
             shopGoods.setDelFlag(Status.DELETED.getCode());
             shopGoods.setUpdateBy(ShiroUtils.getLoginName());
             result = updateShopGoods(shopGoods);
-
+            salesForecastMapper.deleteSalesForecastByProductId(shopGoodsid);
             shopGoodsSeed.setDelFlag(Status.DELETED.getCode());
             shopGoodsSeed.setUpdateBy(shopGoods.getUpdateBy());
             result = shopGoodsSeedService.updateShopGoodsSeed(shopGoodsSeed);

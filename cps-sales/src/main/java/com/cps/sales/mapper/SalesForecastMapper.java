@@ -73,6 +73,14 @@ public interface SalesForecastMapper {
     public int deleteSalesForecastById(Long id);
 
     /**
+     * 删除销量预测
+     *
+     * @param productId 销量预测主键
+     * @return 结果
+     */
+    public int deleteSalesForecastByProductId(Long productId);
+
+    /**
      * 批量删除销量预测
      *
      * @param ids 需要删除的数据主键集合
