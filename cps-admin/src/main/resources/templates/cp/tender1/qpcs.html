@@ -15,12 +15,14 @@
             padding:0;
             margin:0;
         }
+
         input {
             border-style: none;
             outline: none;
         }
         h1{
             font-size: 20px;
+            font-weight:500;
         }
         #qualityFirst{
             display: none;
@@ -32,7 +34,7 @@
             display: none;
         }
         .sub-module{
-            margin-top:50px;
+            margin-top:70px;
             margin-left:5%;
             width:90%;
 
@@ -44,6 +46,8 @@
         }
         .header {
             width:100%;
+            margin-top:20px;
+            margin-bottom:30px;
             background-color: #2c313c;
             /* background-color:#618f5e; */
             border-top:1px solid #000;
@@ -51,6 +55,9 @@
             color:#cccccc;
             font-size:20px;
             font-weight: 700;
+            border-radius: 5px;
+            /* box-shadow: 2px 2px 2px 2PX #2c313c; */
+            box-shadow: 2px 2px 2px 2PX rgba(44, 49, 60,0.9);
         }
         .header-detail {
             margin-left:5%;
@@ -60,14 +67,10 @@
         .nav > li.active {
             border-left: none;
         }
-        /* #productname{
-            font-size: inherit;
-            border:none;
-        } */
         .button {
             border:none;
             display:inline-block;
-            margin-top:5px;
+            margin-top:20px;
             height:36px;
             width:50%;
             line-height:36px;
@@ -76,6 +79,11 @@
             font-weight: 700;
             cursor: pointer;
             border-radius: 8px;
+            /* box-shadow: 2px 2px 2px 2PX #7c7b7b;124, 123, 123 */
+            box-shadow: 2px 2px 2px 2PX rgba(124, 123, 123,0.6);
+        }
+        .a-info {
+            cursor: pointer;
         }
         .evaluate-box {
             overflow: hidden;
@@ -97,6 +105,9 @@
             font-size:18px;
             border:1px #2c313c solid;
             border-top:none;
+        }
+        #target-1{
+            border-top:1px #2c313c solid;
         }
         /* 指标填写部分end */
 
@@ -157,6 +168,7 @@
         }
         .providerName-unit, .providerScore-unit {
             width:50%;
+            font-weight: 600;
         }
         /* 总体评分结果展示begin */
         #errorMsg{
@@ -205,10 +217,10 @@
         }
         .tips-btn {
             position: fixed;
-            left:1%;
-            top:20%;
+            left:0%;
+            top:50px;
             width:24px;
-            height:192px;
+            height:120px;
         }
         .toggle-tips-btn {
             padding:0;
@@ -217,14 +229,15 @@
             height:100%;
             line-height:28px;
             writing-mode: vertical-lr;
+            border-radius: 6px;
         }
         .tips-container {
             display: none;
             position:fixed;
             width:288px;
             height:256px;
-            left:calc(1% + 32px);
-            top:20%;
+            left:24px;
+            top:50px;
             background-color: #f0f0f0;
         }
     </style>
@@ -253,12 +266,11 @@
 </nav>
 <!-- 默认部分begin -->
 <div id="sysDefault" class="sub-module">
-    <h1>默认</h1>
-    <table id="sysDefaultTable" >
+    <table id="sysDefaultTable" data-search="true" data-pagination="true" data-page-size="10" data-show-search-clear-button="true" data-search-highlight="true" data-locale="zh-CN">
         <thead>
         <tr>
-            <th data-field="productName" data-align="center" data-width="100">产品名</th>
-            <th data-field="result" data-align="center" data-width="200">供应商排名</th>
+            <th data-field="productName" data-align="center" data-width="100" data-search-highlight-formatter="customSearchFormatter">产品名</th>
+            <th data-field="result" data-align="center" data-width="200" data-searchable="false">供应商排名</th>
         </tr>
         </thead>
     </table>
@@ -266,28 +278,26 @@
 <!-- 默认部分end -->
 <!-- 质量优先begin -->
 <div id="qualityFirst" class="sub-module">
-    <h1>质量优先</h1>
-    <table id="qualityFirstTable">
+    <table id="qualityFirstTable" data-search="true" data-pagination="true" data-page-size="10" data-show-search-clear-button="true" data-search-highlight="true" data-locale="zh-CN">
         <thead>
         <tr>
-            <th data-field="productName" data-align="center">产品名</th>
-            <th data-field="result" data-align="center">供应商排名</th>
+            <th data-field="productName" data-align="center" data-width="100" data-search-highlight-formatter="customSearchFormatter">产品名</th>
+            <th data-field="result" data-align="center" data-width="200" data-searchable="false">供应商排名</th>
         </tr>
         </thead>
     </table>
 </div>
 <div id="priceFirst" class="sub-module">
-    <h1>价格优先</h1>
-    <table id="priceFirstTable">
+    <table id="priceFirstTable" data-search="true" data-pagination="true" data-page-size="10" data-show-search-clear-button="true" data-search-highlight="true" data-locale="zh-CN">
         <thead>
         <tr>
-            <th data-field="productName" data-align="center">产品名</th>
-            <th data-field="result" data-align="center">供应商排名</th>
+            <th data-field="productName" data-align="center" data-width="100" data-search-highlight-formatter="customSearchFormatter">产品名</th>
+            <th data-field="result" data-align="center" data-width="200" data-searchable="false">供应商排名</th>
         </tr>
         </thead>
     </table>
 </div>
-<!-- 质量优先end -->
+<!-- 默认部分end -->
 <!-- 自定义部分begin -->
 <div id="userDefined" class="sub-module">
     <!-- 标题begin -->
@@ -308,9 +318,9 @@
         </div>
         <div class="input-container index-container">
         </div>
-        <div class="input-container">
+        <!-- <div class="input-container">
             <input id="submitBtn" class="button" type="button" value="确认指标" >
-        </div>
+        </div> -->
     </div>
     <!-- 指标填写部分end -->
 
@@ -318,7 +328,7 @@
     <div class="target-evaluate">
         <div class="header target-evaluate-header">
             <div class="header-detail">
-                专家评价-指标权重
+                专家打分
             </div>
         </div>
         <div class="evaluate-container">
@@ -336,12 +346,12 @@
     <div class="evaluate-result">
         <div class="header evaluate-result-header">
             <div class="header-detail">
-                分析结果排名
+                结果排名
             </div>
         </div>
-        <div class="input-container">
+        <!-- <div class="input-container">
             <input id="finalAnalyseBtn" class="button" type="button" value="最终结果评估" >
-        </div>
+        </div> -->
         <div class="evaluateResult-container">
             <div class="evaluate-box">
                 <div class="target-unit providerName-unit">供应商名</div>
@@ -362,7 +372,7 @@
     <!-- 错误提示信息与加载等待框end -->
     <!--打分说明begin-->
     <div class="tips-btn">
-        <button id="tipsBtn" class="toggle-tips-btn button">展开评分说明</button>
+        <button id="tipsBtn" class="toggle-tips-btn button">打分说明</button>
     </div>
     <div class="tips-container">
         <div class="tips-text">
@@ -373,7 +383,7 @@
     </div>
     <!--打分说明end-->
 </div>
-<!-- 自定义部分begin -->
+<!-- 自定义部分end -->
 <th:block th:include="include :: footer"/>
 <script th:inline="javascript">
     /* 检查后台是否有报错 */
@@ -524,8 +534,22 @@
     let finalList = []; //最终的结果列表
     /* 声明其他全局变量end */
 
-    /* 点击默认显示 */
+    /* 预计算所有比质比价数据 begin */
+    let resData_default = qpcs(1,1,1,"default");
+    let resData_qualityFirst = qpcs(10,10,1,"qualityFirst");
+    let resData_priceFirst = qpcs(0.1,1,10,"priceFirst");
+    let mainData = {
+        "default":resData_default,
+        "qualityFirst":resData_qualityFirst,
+        "priceFirst":resData_priceFirst
+    }
+    /* 预计算所有比质比价数据 end */
+
+
     bootstrapTableDefault();
+    bootstrapTableQualityFirst();
+    bootstrapTablePriceFirst();
+
     $("#liSysDefault").on("click",function(){
         $("#sysDefault").show();
         $("#qualityFirst").hide();
@@ -536,9 +560,7 @@
         $("#liPriceFirst").removeClass("active");
         $("#liUserDefined").removeClass("active");
         $(this).addClass("active");
-        bootstrapTableDefault();
     })
-    /* 点击质量优先 */
     $("#liQualityFirst").on("click",function(){
         $("#sysDefault").hide();
         $("#qualityFirst").show();
@@ -549,9 +571,7 @@
         $("#liPriceFirst").removeClass("active");
         $("#liUserDefined").removeClass("active");
         $(this).addClass("active");
-        bootstrapTableQualityFirst();
     })
-    /* 点击价格优先 */
     $("#liPriceFirst").on("click",function(){
         $("#sysDefault").hide();
         $("#qualityFirst").hide();
@@ -562,9 +582,7 @@
         $("#liPriceFirst").removeClass("active");
         $("#liUserDefined").removeClass("active");
         $(this).addClass("active");
-        bootstrapTablePriceFirst();
     })
-    /* 点击自定义 */
     $("#liUserDefined").on("click",function(){
         $("#sysDefault").hide();
         $("#qualityFirst").hide();
@@ -579,44 +597,41 @@
     })
 
 
+    /* 自定义搜索高亮样式 */
+    window.customSearchFormatter = function(value, searchText) {
+        return value.toString().replace(new RegExp('(' + searchText + ')', 'gim'), '<span style="background-color: yellow;border-radius:5px;padding:4px">$1</span>')
+    }
 
 
     /* 默认填充表格数据 */
     function bootstrapTableDefault(){
-        let defaultData = [];
-        let supplierTable = [];
-        let resData = qpcs(0.5,0.5,1,"default");
-        supplierTable = resData[0]
-        defaultData = resData[1]
-        $("#sysDefaultTable").bootstrapTable({data: defaultData});
-        for(let i=0;i<productNameList.length;++i){
-            $("#defaultSupplierTable"+i).bootstrapTable({data: supplierTable[i]});
-        }
+        $("#sysDefaultTable").bootstrapTable({data: mainData["default"][1]});
     }
     /* 价格优先填充表格数据 */
     function bootstrapTablePriceFirst(){
-        let defaultData = [];
-        let supplierTable = [];
-        let resData = qpcs(0.1,1,10,"priceFirst");
-        supplierTable = resData[0]
-        defaultData = resData[1]
-        $("#priceFirstTable").bootstrapTable({data: defaultData});
-        for(let i=0;i<productNameList.length;++i){
-            $("#priceFirstSupplierTable"+i).bootstrapTable({data: supplierTable[i]});
-        }
+        $("#priceFirstTable").bootstrapTable({data: mainData["priceFirst"][1]});
     }
     /* 质量优先填充表格数据 */
     function bootstrapTableQualityFirst(){
-        let defaultData = [];
-        let supplierTable = [];
-        let resData = qpcs(10,10,1,"qualityFirst");
-        supplierTable = resData[0]
-        defaultData = resData[1]
-        $("#qualityFirstTable").bootstrapTable({data: defaultData});
-        for(let i=0;i<productNameList.length;++i){
-            $("#qualityFirstSupplierTable"+i).bootstrapTable({data: supplierTable[i]});
+        $("#qualityFirstTable").bootstrapTable({data: mainData["qualityFirst"][1]});
+    }
+
+    function toggleSubTable(moduleName,index){
+        let tableId = moduleName+"SupplierTable"+index;
+        let aTagId = moduleName+"SupplierATag"+index;
+        let subTable = $("#"+tableId);
+        let aTag = $("#"+aTagId);
+        let subTableData = mainData[moduleName][0][index];
+        if(subTable.is(":hidden")){
+            subTable.bootstrapTable({data:subTableData});
+            subTable.show();
+            aTag.text("收起详情");
+        }else{
+            subTable.hide();
+            aTag.text("查看详情");
         }
     }
+
 
     /* 自定义数据初始化 */
     function UserDefineInit(){
@@ -649,6 +664,38 @@
         for(let i=1;i<=static_targetNum;++i){
             $(".index-container").append('<input id="target-'+ i +'" class="input-box" type="text" value="指标' +i+': '+ static_targetList[i-1] + '" readonly="readonly">')
         }
+        showEvContainer();
+    }
+
+
+    function showEvContainer(){
+        evaluateIndex=0;
+        $(".evaluate-container").append(`
+            <div id="evaluate-0" class="evaluate-box">
+                <div class="target-unit">&nbsp;</div>
+                <div class="expert-unit">专家一</div>
+                <div class="expert-unit">专家二</div>
+                <div class="expert-unit">专家三</div>
+                <div class="expert-unit">专家四</div>
+                <div class="expert-unit">专家五</div>
+            </div>
+        `)
+        for(let i=1;i<static_targetNum;++i){
+            for(let j=i+1;j<=static_targetNum;++j){
+                let evaluateUnitText = static_targetList[i-1] + "vs." + static_targetList[j-1];
+                let tailSelector = "#evaluate-" + String(evaluateIndex);
+                ++evaluateIndex;
+                $(tailSelector).after('<div id="evaluate-' + String(evaluateIndex) + '" class="evaluate-box"></div>');
+                let curSelector = "#evaluate-" + String(evaluateIndex);
+                $(curSelector).append('<div class="target-unit ">' + evaluateUnitText + '</div>');
+                $(curSelector).append('<input id="score-'+ evaluateIndex +'-1" class="expert-input expert-unit" type="text" value="1" oncopy="inputCopy(this)" onpaste="inputPaste(this)" onblur="checkNum(this)" onchange="ahpAssist(this)">');
+                $(curSelector).append('<input id="score-'+ evaluateIndex +'-2" class="expert-input expert-unit" type="text" value="1" oncopy="inputCopy(this)" onpaste="inputPaste(this)" onblur="checkNum(this)" onchange="ahpAssist(this)">');
+                $(curSelector).append('<input id="score-'+ evaluateIndex +'-3" class="expert-input expert-unit" type="text" value="1" oncopy="inputCopy(this)" onpaste="inputPaste(this)" onblur="checkNum(this)" onchange="ahpAssist(this)">');
+                $(curSelector).append('<input id="score-'+ evaluateIndex +'-4" class="expert-input expert-unit" type="text" value="1" oncopy="inputCopy(this)" onpaste="inputPaste(this)" onblur="checkNum(this)" onchange="ahpAssist(this)">');
+                $(curSelector).append('<input id="score-'+ evaluateIndex +'-5" class="expert-input expert-unit" type="text" value="1" oncopy="inputCopy(this)" onpaste="inputPaste(this)" onblur="checkNum(this)" onchange="ahpAssist(this)">');
+            }
+        }
+        $(".target-evaluate").show();
     }
 
     /**
@@ -661,6 +708,7 @@
     function qpcs(qVsP,qVsC,pVsC,dataField){
         let tableData = [];
         let supplierTable = [];
+        let subTableData = [];
         for(let i=0;i<productNameList.length;++i){
             supplierTable[i] = [];//
             targetList = targetListList[i];
@@ -707,7 +755,7 @@
                     "supplierSort":supplierSortList[j]
                 });
             }
-            let varTable = `<table id="`+dataField+`SupplierTable`+i+`">
+            let varTable = `<table id="`+dataField+`SupplierTable`+i+`" style="display:none;">
                                 <thead>
                                     <tr>
                                     <th data-field="supplierSort" data-align="center"></th>
@@ -715,18 +763,19 @@
                                 </thead>
                             </table>
                             `
+            let varATag = `<a id="`+dataField+`SupplierATag`+i+`" class="a-info" onclick="toggleSubTable('`+ dataField +`',`+ i +`)">查看详情</a>`;
             tableData.push({
                 "productName":productNameList[i],
-                "result":varTable
+                "result":varATag+varTable
             })
+            subTableData.push(varTable);
         }
         let resData = [];
         resData[0] = supplierTable;
         resData[1] = tableData;
+        resData[2] = subTableData;
         return resData;
     }
-
-
 
 
     /* select框改变时，更换数据 */
@@ -751,46 +800,10 @@
         for(let i=1;i<=static_targetNum;++i){
             $(".index-container").append('<input id="target-'+ i +'" class="input-box" type="text" value="指标' +i+': '+ static_targetList[i-1] + '" readonly="readonly">')
         }
+        showEvContainer();
     })
 
-    /*确认指标*/
-    $("#submitBtn").on("click",function(){
-        $(".evaluate-container").children().remove();
-        $(".result-container").children().remove();
-        $(".finalResult").remove();
-        $("#finalAnalyseBtn").show();
-        $(".evaluateResult-container").hide();
-        $(".evaluate-result").hide();
 
-        //2. 生成专家评价界面供五位专家打分
-        evaluateIndex=0;
-        $(".evaluate-container").append(`
-            <div id="evaluate-0" class="evaluate-box">
-                <div class="target-unit">&nbsp;</div>
-                <div class="expert-unit">专家一</div>
-                <div class="expert-unit">专家二</div>
-                <div class="expert-unit">专家三</div>
-                <div class="expert-unit">专家四</div>
-                <div class="expert-unit">专家五</div>
-            </div>
-        `)
-        for(let i=1;i<static_targetNum;++i){
-            for(let j=i+1;j<=static_targetNum;++j){
-                let evaluateUnitText = static_targetList[i-1] + "vs." + static_targetList[j-1];
-                let tailSelector = "#evaluate-" + String(evaluateIndex);
-                ++evaluateIndex;
-                $(tailSelector).after('<div id="evaluate-' + String(evaluateIndex) + '" class="evaluate-box"></div>');
-                let curSelector = "#evaluate-" + String(evaluateIndex);
-                $(curSelector).append('<div class="target-unit ">' + evaluateUnitText + '</div>');
-                $(curSelector).append('<input id="score-'+ evaluateIndex +'-1" class="expert-input expert-unit" type="text" value="1" oncopy="inputCopy(this)" onpaste="inputPaste(this)" onblur="checkNum(this)" onchange="ahpAssist(this)">');
-                $(curSelector).append('<input id="score-'+ evaluateIndex +'-2" class="expert-input expert-unit" type="text" value="1" oncopy="inputCopy(this)" onpaste="inputPaste(this)" onblur="checkNum(this)" onchange="ahpAssist(this)">');
-                $(curSelector).append('<input id="score-'+ evaluateIndex +'-3" class="expert-input expert-unit" type="text" value="1" oncopy="inputCopy(this)" onpaste="inputPaste(this)" onblur="checkNum(this)" onchange="ahpAssist(this)">');
-                $(curSelector).append('<input id="score-'+ evaluateIndex +'-4" class="expert-input expert-unit" type="text" value="1" oncopy="inputCopy(this)" onpaste="inputPaste(this)" onblur="checkNum(this)" onchange="ahpAssist(this)">');
-                $(curSelector).append('<input id="score-'+ evaluateIndex +'-5" class="expert-input expert-unit" type="text" value="1" oncopy="inputCopy(this)" onpaste="inputPaste(this)" onblur="checkNum(this)" onchange="ahpAssist(this)">');
-            }
-        }
-        $(".target-evaluate").show();
-    })
     /*确认分析权重*/
     $("#weightAnalyseBtn").on("click",function(){
         $(".result-container").children().remove();
@@ -847,21 +860,17 @@
             resWeight[i] /= 5;
         }
         targetWeight = resWeight;
-        let static_resWeight =[];
-        static_resWeight[0] = 0;
-        for(let i=0;i<targetNum-2;++i){
-            static_resWeight[0] += resWeight[i];
-        }
-        static_resWeight[1] = resWeight[targetNum-2];
-        static_resWeight[2] = resWeight[targetNum-1];
-        for(let i=0;i<static_targetNum;++i){
-            $(".result-container").append("<div class='weight-target'>" + static_targetList[i] + "权重为 : " + formatFloat(static_resWeight[i]) + "</div>");
-        }
+        // let static_resWeight =[];
+        // static_resWeight[0] = 0;
+        // for(let i=0;i<targetNum-2;++i){
+        //     static_resWeight[0] += resWeight[i];
+        // }
+        // static_resWeight[1] = resWeight[targetNum-2];
+        // static_resWeight[2] = resWeight[targetNum-1];
+        // for(let i=0;i<static_targetNum;++i){
+        //     $(".result-container").append("<div class='weight-target'>" + static_targetList[i] + "权重为 : " + formatFloat(static_resWeight[i]) + "</div>");
+        // }
         $(".evaluate-result").show();
-    })
-    /* 最终结果评估 */
-    $("#finalAnalyseBtn").on("click",function(){
-        $(this).hide();
         providerInfoDict = $.extend(true,{},providerInfoDictList[$("#productname").val()]);
         finalList = evaluateProvider(providerInfoDict,indexSort,targetWeight);
         for(let i=0;i<providerNum;++i){
@@ -876,6 +885,23 @@
         }
         $(".evaluateResult-container").show();
     })
+    /* 最终结果评估 */
+    // $("#finalAnalyseBtn").on("click",function(){
+    //     $(this).hide();
+    //     providerInfoDict = $.extend(true,{},providerInfoDictList[$("#productname").val()]);
+    //     finalList = evaluateProvider(providerInfoDict,indexSort,targetWeight);
+    //     for(let i=0;i<providerNum;++i){
+    //         $(".evaluateResult-container").append(
+    //             `
+    //             <div class="evaluate-box">
+    //                 <div class="target-unit providerName-unit finalResult">`+ finalList[i][0] +`</div>
+    //                 <div class="expert-unit providerScore-unit finalResult">`+ formatFloat(finalList[i][1]) +`</div>
+    //             </div>
+    //             `
+    //         )
+    //     }
+    //     $(".evaluateResult-container").show();
+    // })
     //提示信息弹窗
     function showMsg(errorMsg){
         $("#errorMsg").show("fast",function(){
@@ -900,10 +926,10 @@
     $("#tipsBtn").on("click",function(){
         if($(".tips-container").css("display") == "none"){
             $(".tips-container").show();
-            $(this).text("隐藏评分说明");
+            $(this).text("点击隐藏");
         }else{
             $(".tips-container").hide();
-            $(this).text("展开评分说明");
+            $(this).text("打分说明");
         }
     })
     /* ahp核心代码begin */
@@ -1149,11 +1175,6 @@
             for(let j=i+1;j<=targetNum;++j){
                 let curId = "score-"+(tempIndex)+"-"+expertNum;
                 let curScore = baseList[j] * 1.0 / baseList[i];
-                // if(curScore < 1){
-                //   curScore = formatFloat(curScore,1);
-                // }else{
-                //   curScore = formatFloat(curScore,0);
-                // }
                 curScore = formatFloat(curScore,1);
                 if(curScore>=1){
                     curScore = Math.round(curScore);
@@ -1177,6 +1198,7 @@
         }
         return sum;
     }
+
 
 
 
