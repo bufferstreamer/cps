@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cps.user.mapper.ChatMsgMapper">
+
+    <resultMap type="com.cps.user.domain.ChatMsg" id="ChatMsgResult">
+            <result property="msgId" column="msg_id"/>
+            <result property="content" column="content"/>
+            <result property="sendId" column="send_id"/>
+            <result property="receiveId" column="receive_id"/>
+            <result property="creatTime" column="creat_time"/>
+            <result property="readState" column="readState"/>
+    </resultMap>
+
+    <sql id="selectChatMsgVo">
+        select msg_id, content, send_id, receive_id, creat_time, readState
+        from chat_msg
+    </sql>
+
+    <select id="selectChatMsgList" parameterType="com.cps.user.domain.ChatMsg" resultMap="ChatMsgResult">
+        <include refid="selectChatMsgVo"/>
+        <where>
+                        <if test="content != null  and content != ''">
+                            and content = #{content}
+                        </if>
+                        <if test="sendId != null  and sendId != ''">
+                            and send_id = #{sendId}
+                        </if>
+                        <if test="receiveId != null  and receiveId != ''">
+                            and receive_id = #{receiveId}
+                        </if>
+                        <if test="creatTime != null ">
+                            and creat_time = #{creatTime}
+                        </if>
+                        <if test="readState != null  and readState != ''">
+                            and readState = #{readState}
+                        </if>
+        </where>
+    </select>
+
+    <select id="selectChatMsgByMsgId" parameterType="Long"
+            resultMap="ChatMsgResult">
+            <include refid="selectChatMsgVo"/>
+            where msg_id = #{msgId}
+    </select>
+
+    <insert id="insertChatMsg" parameterType="com.cps.user.domain.ChatMsg" useGeneratedKeys="true"
+            keyProperty="msgId">
+        insert into chat_msg
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="content != null and content != ''">content,
+                    </if>
+                    <if test="sendId != null">send_id,
+                    </if>
+                    <if test="receiveId != null">receive_id,
+                    </if>
+                    <if test="creatTime != null">creat_time,
+                    </if>
+                    <if test="readState != null">readState,
+                    </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="content != null and content != ''">#{content},
+                    </if>
+                    <if test="sendId != null">#{sendId},
+                    </if>
+                    <if test="receiveId != null">#{receiveId},
+                    </if>
+                    <if test="creatTime != null">#{creatTime},
+                    </if>
+                    <if test="readState != null">#{readState},
+                    </if>
+        </trim>
+    </insert>
+
+    <update id="updateChatMsg" parameterType="com.cps.user.domain.ChatMsg">
+        update chat_msg
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="content != null and content != ''">content =
+                        #{content},
+                    </if>
+                    <if test="sendId != null">send_id =
+                        #{sendId},
+                    </if>
+                    <if test="receiveId != null">receive_id =
+                        #{receiveId},
+                    </if>
+                    <if test="creatTime != null">creat_time =
+                        #{creatTime},
+                    </if>
+                    <if test="readState != null">readState =
+                        #{readState},
+                    </if>
+        </trim>
+        where msg_id = #{msgId}
+    </update>
+
+    <delete id="deleteChatMsgByMsgId" parameterType="Long">
+        delete
+        from chat_msg where msg_id = #{msgId}
+    </delete>
+
+    <delete id="deleteChatMsgByMsgIds" parameterType="String">
+        delete from chat_msg where msg_id in
+        <foreach item="msgId" collection="array" open="(" separator="," close=")">
+            #{msgId}
+        </foreach>
+    </delete>
+
+</mapper>

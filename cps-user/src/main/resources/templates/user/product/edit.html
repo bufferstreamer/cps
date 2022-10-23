@@ -18,17 +18,8 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label is-required">一级分类id</label>
                 <div class="col-sm-8">
-                    <select id="rootCategoryId" onchange="getCategory(1)" name="rootCategoryId">
+                    <select id="rootCategoryId" onchange="getCategory()" name="rootCategoryId">
                         <option th:value="*{rootCategoryId}">已选择</option>
-                    </select>
-                    <select id="CategoryId2" onchange="getCategory(2)">
-                        <option value="选择分类">选择分类</option>
-                    </select>
-                    <select id="CategoryId3" onchange="getCategory(3)">
-                        <option value="选择分类">选择分类</option>
-                    </select>
-                    <select id="CategoryId4" onchange="getCategory(4)">
-                        <option value="选择分类">选择分类</option>
                     </select>
                     <!--                    <input name="rootCategoryId" class="form-control" type="text" required>-->
                 </div>
@@ -100,20 +91,9 @@
                 categoryElement.appendChild(optionElement);
             }
         });
-        function getCategory(num){
-            if(num==1){
-                var myselect=document.getElementById("rootCategoryId");
-                var categoryElement=document.getElementById("CategoryId2");
-            } else if(num==2){
-                var myselect=document.getElementById("CategoryId2");
-                var categoryElement=document.getElementById("CategoryId3");
-            }else if(num==3){
-                var myselect=document.getElementById("CategoryId3");
-                var categoryElement=document.getElementById("CategoryId4");
-            }else{
-                var myselect=document.getElementById("CategoryId4");
-                var categoryElement=document.getElementById("categoryId");
-            }
+        function getCategory(){
+            var myselect=document.getElementById("rootCategoryId");
+            var categoryElement=document.getElementById("categoryId");
             var index=myselect.selectedIndex;
             var parentId = myselect.options[index].value;
             $.operate.get(prefix+"/category/"+parentId,function(res){

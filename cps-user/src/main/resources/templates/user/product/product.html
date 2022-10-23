@@ -64,6 +64,9 @@
         $.operate.get(prefix+"/getCategoryName",function(res) {
             categoryName = res.data;
         })
+        // $.operate.get(prefix+"/deleteCategory",function(res) {
+        //     console.log("ss",res.data)
+        // })
         $(function() {
             var options = {
                 url: prefix + "/list",
