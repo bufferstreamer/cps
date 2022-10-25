@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cps.cp.mapper.TrenderInformationSeedMapper">
+
+    <resultMap type="TrenderInformationSeed" id="TrenderInformationSeedResult">
+            <result property="seedId" column="seed_id"/>
+            <result property="goodId" column="good_id"/>
+            <result property="goodName" column="good_name"/>
+            <result property="targetName" column="target_name"/>
+            <result property="targetRequire" column="target_require"/>
+            <result property="amount" column="amount"/>
+            <result property="budgent" column="budgent"/>
+            <result property="trenderId" column="trender_id"/>
+    </resultMap>
+
+    <sql id="selectTrenderInformationSeedVo">
+        select seed_id, good_id, good_name, target_name, target_require, amount, budgent, trender_id
+        from trender_information_seed
+    </sql>
+
+    <select id="selectTrenderInformationSeedList" parameterType="TrenderInformationSeed" resultMap="TrenderInformationSeedResult">
+        <include refid="selectTrenderInformationSeedVo"/>
+        <where>
+                        <if test="goodId != null ">
+                            and good_id = #{goodId}
+                        </if>
+                        <if test="goodName != null  and goodName != ''">
+                            and good_name like concat('%', #{goodName}, '%')
+                        </if>
+                        <if test="targetName != null  and targetName != ''">
+                            and target_name like concat('%', #{targetName}, '%')
+                        </if>
+                        <if test="targetRequire != null  and targetRequire != ''">
+                            and target_require = #{targetRequire}
+                        </if>
+                        <if test="amount != null  and amount != ''">
+                            and amount = #{amount}
+                        </if>
+                        <if test="budgent != null  and budgent != ''">
+                            and budgent = #{budgent}
+                        </if>
+                        <if test="trenderId != null ">
+                            and trender_id = #{trenderId}
+                        </if>
+        </where>
+    </select>
+
+    <select id="selectTrenderInformationSeedBySeedId" parameterType="Long"
+            resultMap="TrenderInformationSeedResult">
+            <include refid="selectTrenderInformationSeedVo"/>
+            where seed_id = #{seedId}
+    </select>
+
+    <insert id="insertTrenderInformationSeed" parameterType="TrenderInformationSeed">
+        insert into trender_information_seed
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="seedId != null">seed_id,
+                    </if>
+                    <if test="goodId != null">good_id,
+                    </if>
+                    <if test="goodName != null">good_name,
+                    </if>
+                    <if test="targetName != null">target_name,
+                    </if>
+                    <if test="targetRequire != null">target_require,
+                    </if>
+                    <if test="amount != null">amount,
+                    </if>
+                    <if test="budgent != null">budgent,
+                    </if>
+                    <if test="trenderId != null">trender_id,
+                    </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="seedId != null">#{seedId},
+                    </if>
+                    <if test="goodId != null">#{goodId},
+                    </if>
+                    <if test="goodName != null">#{goodName},
+                    </if>
+                    <if test="targetName != null">#{targetName},
+                    </if>
+                    <if test="targetRequire != null">#{targetRequire},
+                    </if>
+                    <if test="amount != null">#{amount},
+                    </if>
+                    <if test="budgent != null">#{budgent},
+                    </if>
+                    <if test="trenderId != null">#{trenderId},
+                    </if>
+        </trim>
+    </insert>
+
+    <update id="updateTrenderInformationSeed" parameterType="TrenderInformationSeed">
+        update trender_information_seed
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="goodId != null">good_id =
+                        #{goodId},
+                    </if>
+                    <if test="goodName != null">good_name =
+                        #{goodName},
+                    </if>
+                    <if test="targetName != null">target_name =
+                        #{targetName},
+                    </if>
+                    <if test="targetRequire != null">target_require =
+                        #{targetRequire},
+                    </if>
+                    <if test="amount != null">amount =
+                        #{amount},
+                    </if>
+                    <if test="budgent != null">budgent =
+                        #{budgent},
+                    </if>
+                    <if test="trenderId != null">trender_id =
+                        #{trenderId},
+                    </if>
+        </trim>
+        where seed_id = #{seedId}
+    </update>
+
+    <delete id="deleteTrenderInformationSeedBySeedId" parameterType="Long">
+        delete
+        from trender_information_seed where seed_id = #{seedId}
+    </delete>
+
+    <delete id="deleteTrenderInformationSeedBySeedIds" parameterType="String">
+        delete from trender_information_seed where seed_id in
+        <foreach item="seedId" collection="array" open="(" separator="," close=")">
+            #{seedId}
+        </foreach>
+    </delete>
+
+</mapper>

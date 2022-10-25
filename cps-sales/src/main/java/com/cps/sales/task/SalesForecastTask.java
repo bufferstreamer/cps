@@ -36,6 +36,5 @@ public class SalesForecastTask {
             System.out.println("失败2");
             e.printStackTrace();
         }
-        System.out.println(222222);
     }
 }

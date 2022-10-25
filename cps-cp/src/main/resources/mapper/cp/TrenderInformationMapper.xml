@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cps.cp.mapper.TrenderInformationMapper">
+
+    <resultMap type="TrenderInformation" id="TrenderInformationResult">
+            <result property="id" column="id"/>
+            <result property="tenderName" column="tender_name"/>
+            <result property="text" column="text"/>
+            <result property="receiveTime" column="receive_time"/>
+            <result property="deliverPoint" column="deliver_point"/>
+            <result property="projectText" column="project_text"/>
+            <result property="license" column="license"/>
+            <result property="finance" column="finance"/>
+            <result property="illegal" column="illegal"/>
+            <result property="reputationRequirements" column="reputation_requirements"/>
+            <result property="bidderText" column="bidder_text"/>
+            <result property="documentsObtain" column="documents_obtain"/>
+            <result property="bidDdl" column="bid_ddl"/>
+            <result property="bidSubmission" column="bid_submission"/>
+            <result property="otherPlatform" column="other_platform"/>
+            <result property="electronicBiddingRules" column="electronic_bidding_rules"/>
+            <result property="initiator" column="initiator"/>
+            <result property="contacts" column="contacts"/>
+            <result property="contactNumber" column="contact_number"/>
+            <result property="email" column="email"/>
+            <result property="address" column="address"/>
+            <result property="qualificationReviewTime" column="qualification_review_time"/>
+            <result property="biddingStartTime" column="bidding_start_time"/>
+            <result property="biddingEndTime" column="bidding_end_time"/>
+            <result property="publicationTime" column="publication_time"/>
+            <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectTrenderInformationVo">
+        select id, tender_name, text, receive_time, deliver_point, project_text, license, finance, illegal, reputation_requirements, bidder_text, documents_obtain, bid_ddl, bid_submission, other_platform, electronic_bidding_rules, initiator, contacts, contact_number, email, address, qualification_review_time, bidding_start_time, bidding_end_time, publication_time, create_time
+        from trender_information
+    </sql>
+
+    <select id="selectTrenderInformationList" parameterType="TrenderInformation" resultMap="TrenderInformationResult">
+        <include refid="selectTrenderInformationVo"/>
+        <where>
+                        <if test="tenderName != null  and tenderName != ''">
+                            and tender_name like concat('%', #{tenderName}, '%')
+                        </if>
+                        <if test="text != null  and text != ''">
+                            and text = #{text}
+                        </if>
+                        <if test="receiveTime != null ">
+                            and receive_time = #{receiveTime}
+                        </if>
+                        <if test="deliverPoint != null  and deliverPoint != ''">
+                            and deliver_point = #{deliverPoint}
+                        </if>
+                        <if test="projectText != null  and projectText != ''">
+                            and project_text = #{projectText}
+                        </if>
+                        <if test="license != null  and license != ''">
+                            and license = #{license}
+                        </if>
+                        <if test="finance != null  and finance != ''">
+                            and finance = #{finance}
+                        </if>
+                        <if test="illegal != null  and illegal != ''">
+                            and illegal = #{illegal}
+                        </if>
+                        <if test="reputationRequirements != null  and reputationRequirements != ''">
+                            and reputation_requirements = #{reputationRequirements}
+                        </if>
+                        <if test="bidderText != null  and bidderText != ''">
+                            and bidder_text = #{bidderText}
+                        </if>
+                        <if test="documentsObtain != null  and documentsObtain != ''">
+                            and documents_obtain = #{documentsObtain}
+                        </if>
+                        <if test="bidDdl != null ">
+                            and bid_ddl = #{bidDdl}
+                        </if>
+                        <if test="bidSubmission != null  and bidSubmission != ''">
+                            and bid_submission = #{bidSubmission}
+                        </if>
+                        <if test="otherPlatform != null  and otherPlatform != ''">
+                            and other_platform = #{otherPlatform}
+                        </if>
+                        <if test="electronicBiddingRules != null  and electronicBiddingRules != ''">
+                            and electronic_bidding_rules = #{electronicBiddingRules}
+                        </if>
+                        <if test="initiator != null  and initiator != ''">
+                            and initiator = #{initiator}
+                        </if>
+                        <if test="contacts != null  and contacts != ''">
+                            and contacts = #{contacts}
+                        </if>
+                        <if test="contactNumber != null  and contactNumber != ''">
+                            and contact_number = #{contactNumber}
+                        </if>
+                        <if test="email != null  and email != ''">
+                            and email = #{email}
+                        </if>
+                        <if test="address != null  and address != ''">
+                            and address = #{address}
+                        </if>
+                        <if test="qualificationReviewTime != null ">
+                            and qualification_review_time = #{qualificationReviewTime}
+                        </if>
+                        <if test="biddingStartTime != null ">
+                            and bidding_start_time = #{biddingStartTime}
+                        </if>
+                        <if test="biddingEndTime != null ">
+                            and bidding_end_time = #{biddingEndTime}
+                        </if>
+                        <if test="publicationTime != null ">
+                            and publication_time = #{publicationTime}
+                        </if>
+                        <if test="createTime != null ">
+                            and create_time = #{createTime}
+                        </if>
+        </where>
+    </select>
+
+    <select id="selectTrenderInformationById" parameterType="Long"
+            resultMap="TrenderInformationResult">
+            <include refid="selectTrenderInformationVo"/>
+            where id = #{id}
+    </select>
+
+    <insert id="insertTrenderInformation" parameterType="TrenderInformation" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into trender_information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="tenderName != null">tender_name,
+                    </if>
+                    <if test="text != null">text,
+                    </if>
+                    <if test="receiveTime != null">receive_time,
+                    </if>
+                    <if test="deliverPoint != null">deliver_point,
+                    </if>
+                    <if test="projectText != null">project_text,
+                    </if>
+                    <if test="license != null">license,
+                    </if>
+                    <if test="finance != null">finance,
+                    </if>
+                    <if test="illegal != null">illegal,
+                    </if>
+                    <if test="reputationRequirements != null">reputation_requirements,
+                    </if>
+                    <if test="bidderText != null">bidder_text,
+                    </if>
+                    <if test="documentsObtain != null">documents_obtain,
+                    </if>
+                    <if test="bidDdl != null">bid_ddl,
+                    </if>
+                    <if test="bidSubmission != null">bid_submission,
+                    </if>
+                    <if test="otherPlatform != null">other_platform,
+                    </if>
+                    <if test="electronicBiddingRules != null">electronic_bidding_rules,
+                    </if>
+                    <if test="initiator != null">initiator,
+                    </if>
+                    <if test="contacts != null">contacts,
+                    </if>
+                    <if test="contactNumber != null">contact_number,
+                    </if>
+                    <if test="email != null">email,
+                    </if>
+                    <if test="address != null">address,
+                    </if>
+                    <if test="qualificationReviewTime != null">qualification_review_time,
+                    </if>
+                    <if test="biddingStartTime != null">bidding_start_time,
+                    </if>
+                    <if test="biddingEndTime != null">bidding_end_time,
+                    </if>
+                    <if test="publicationTime != null">publication_time,
+                    </if>
+                    <if test="createTime != null">create_time,
+                    </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="tenderName != null">#{tenderName},
+                    </if>
+                    <if test="text != null">#{text},
+                    </if>
+                    <if test="receiveTime != null">#{receiveTime},
+                    </if>
+                    <if test="deliverPoint != null">#{deliverPoint},
+                    </if>
+                    <if test="projectText != null">#{projectText},
+                    </if>
+                    <if test="license != null">#{license},
+                    </if>
+                    <if test="finance != null">#{finance},
+                    </if>
+                    <if test="illegal != null">#{illegal},
+                    </if>
+                    <if test="reputationRequirements != null">#{reputationRequirements},
+                    </if>
+                    <if test="bidderText != null">#{bidderText},
+                    </if>
+                    <if test="documentsObtain != null">#{documentsObtain},
+                    </if>
+                    <if test="bidDdl != null">#{bidDdl},
+                    </if>
+                    <if test="bidSubmission != null">#{bidSubmission},
+                    </if>
+                    <if test="otherPlatform != null">#{otherPlatform},
+                    </if>
+                    <if test="electronicBiddingRules != null">#{electronicBiddingRules},
+                    </if>
+                    <if test="initiator != null">#{initiator},
+                    </if>
+                    <if test="contacts != null">#{contacts},
+                    </if>
+                    <if test="contactNumber != null">#{contactNumber},
+                    </if>
+                    <if test="email != null">#{email},
+                    </if>
+                    <if test="address != null">#{address},
+                    </if>
+                    <if test="qualificationReviewTime != null">#{qualificationReviewTime},
+                    </if>
+                    <if test="biddingStartTime != null">#{biddingStartTime},
+                    </if>
+                    <if test="biddingEndTime != null">#{biddingEndTime},
+                    </if>
+                    <if test="publicationTime != null">#{publicationTime},
+                    </if>
+                    <if test="createTime != null">#{createTime},
+                    </if>
+        </trim>
+    </insert>
+
+    <update id="updateTrenderInformation" parameterType="TrenderInformation">
+        update trender_information
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="tenderName != null">tender_name =
+                        #{tenderName},
+                    </if>
+                    <if test="text != null">text =
+                        #{text},
+                    </if>
+                    <if test="receiveTime != null">receive_time =
+                        #{receiveTime},
+                    </if>
+                    <if test="deliverPoint != null">deliver_point =
+                        #{deliverPoint},
+                    </if>
+                    <if test="projectText != null">project_text =
+                        #{projectText},
+                    </if>
+                    <if test="license != null">license =
+                        #{license},
+                    </if>
+                    <if test="finance != null">finance =
+                        #{finance},
+                    </if>
+                    <if test="illegal != null">illegal =
+                        #{illegal},
+                    </if>
+                    <if test="reputationRequirements != null">reputation_requirements =
+                        #{reputationRequirements},
+                    </if>
+                    <if test="bidderText != null">bidder_text =
+                        #{bidderText},
+                    </if>
+                    <if test="documentsObtain != null">documents_obtain =
+                        #{documentsObtain},
+                    </if>
+                    <if test="bidDdl != null">bid_ddl =
+                        #{bidDdl},
+                    </if>
+                    <if test="bidSubmission != null">bid_submission =
+                        #{bidSubmission},
+                    </if>
+                    <if test="otherPlatform != null">other_platform =
+                        #{otherPlatform},
+                    </if>
+                    <if test="electronicBiddingRules != null">electronic_bidding_rules =
+                        #{electronicBiddingRules},
+                    </if>
+                    <if test="initiator != null">initiator =
+                        #{initiator},
+                    </if>
+                    <if test="contacts != null">contacts =
+                        #{contacts},
+                    </if>
+                    <if test="contactNumber != null">contact_number =
+                        #{contactNumber},
+                    </if>
+                    <if test="email != null">email =
+                        #{email},
+                    </if>
+                    <if test="address != null">address =
+                        #{address},
+                    </if>
+                    <if test="qualificationReviewTime != null">qualification_review_time =
+                        #{qualificationReviewTime},
+                    </if>
+                    <if test="biddingStartTime != null">bidding_start_time =
+                        #{biddingStartTime},
+                    </if>
+                    <if test="biddingEndTime != null">bidding_end_time =
+                        #{biddingEndTime},
+                    </if>
+                    <if test="publicationTime != null">publication_time =
+                        #{publicationTime},
+                    </if>
+                    <if test="createTime != null">create_time =
+                        #{createTime},
+                    </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTrenderInformationById" parameterType="Long">
+        delete
+        from trender_information where id = #{id}
+    </delete>
+
+    <delete id="deleteTrenderInformationByIds" parameterType="String">
+        delete from trender_information where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

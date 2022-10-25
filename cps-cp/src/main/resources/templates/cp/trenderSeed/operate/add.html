@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('新增生成标书小项')"/>
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-operate-add">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label is-required">商品id
+                                ：</label>
+                            <div class="col-sm-8">
+                                <input name="goodId" class="form-control" type="text"                                       required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">商品名称
+                                ：</label>
+                            <div class="col-sm-8">
+                                <input name="goodName" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">指标名称
+                                ：</label>
+                            <div class="col-sm-8">
+                                <input name="targetName" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">指标要求
+                                ：</label>
+                            <div class="col-sm-8">
+                                <input name="targetRequire" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">需求数量
+                                ：</label>
+                            <div class="col-sm-8">
+                                <input name="amount" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">预算金额
+                                ：</label>
+                            <div class="col-sm-8">
+                                <input name="budgent" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">标书id
+                                ：</label>
+                            <div class="col-sm-8">
+                                <input name="trenderId" class="form-control" type="text">
+                            </div>
+                        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+    var prefix = ctx + "trenderSeed/operate"
+    $("#form-operate-add").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/add", $('#form-operate-add').serialize());
+        }
+    }
+</script>
+</body>
+</html>
