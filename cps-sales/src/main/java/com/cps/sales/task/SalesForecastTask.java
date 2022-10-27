@@ -3,6 +3,7 @@ package com.cps.sales.task;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -14,10 +15,12 @@ public class SalesForecastTask {
         try {
             /*这里要换成绝对路径*/
             //String[] arg = new String[]{"python", "E:\\IdeaProjects\\cps-3\\cps-sales\\src\\main\\resources\\salesForecast.py"};
-
+            File directory = new File("");//参数为空
+            String courseFile = directory.getCanonicalPath() ;
             //proc = Runtime.getRuntime().exec("python e:/IdeaProjects/cps-3/cps-sales/src/main/resources/salesForecast.py");// 执行py文件
+            //proc = Runtime.getRuntime().exec("python e:/IdeaProjects/cps-3/cps-sales/src/main/resources/salesForecast.py");
 
-            proc = Runtime.getRuntime().exec("cmd.exe /c start python e:/IdeaProjects/cps-3/cps-sales/src/main/resources/salesForecast.py");
+            proc = Runtime.getRuntime().exec("cmd.exe /c start python "+courseFile+"\\document\\otherPython\\salesForecast.py");
             //用输入输出流来截取结果
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             String line = null;

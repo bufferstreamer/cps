@@ -1,6 +1,7 @@
 package com.cps.cp.service.impl;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -60,7 +61,10 @@ public class TrenderInformationServiceImpl implements ITrenderInformationService
             /*这里要换成绝对路径*/
             //String[] arg = new String[]{"python", "E:\\IdeaProjects\\cps-3\\cps-sales\\src\\main\\resources\\salesForecast.py"};
             //proc = Runtime.getRuntime().exec("python e:/IdeaProjects/cps-3/cps-sales/src/main/resources/salesForecast.py");// 执行py文件
-            proc = Runtime.getRuntime().exec("python E:\\IdeaProjects\\cps-3\\document\\otherPython\\招标文件生成.py 2");
+            File directory = new File("");//参数为空
+            String courseFile = directory.getCanonicalPath() ;
+            proc = Runtime.getRuntime().exec("python "+courseFile+"\\document\\otherPython\\招标文件生成.py 2");
+            //proc = Runtime.getRuntime().exec("python E:\\IdeaProjects\\cps-3\\document\\otherPython\\招标文件生成.py 2");
             //用输入输出流来截取结果
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             String line = null;
