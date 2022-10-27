@@ -255,6 +255,12 @@
                 <artifactId>cps-sales</artifactId>
                 <version>${cps.version}</version>
             </dependency>
+            <!--商城图片资源管理模块-->
+            <dependency>
+                <groupId>com.cps</groupId>
+                <artifactId>cps-img</artifactId>
+                <version>4.7.5</version>
+            </dependency>
             <!--poi-->
             <dependency>
                 <groupId>org.apache.poi</groupId>
@@ -283,6 +289,7 @@
         <module>cps-wms</module>
         <module>cps-credit</module>
         <module>cps-sales</module>
+        <module>cps-img</module>
     </modules>
 
 

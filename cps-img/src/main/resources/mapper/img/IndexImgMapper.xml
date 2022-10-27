@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cps.img.mapper.IndexImgMapper">
+
+    <resultMap type="IndexImg" id="IndexImgResult">
+            <result property="imgId" column="img_id"/>
+            <result property="imgUrl" column="img_url"/>
+            <result property="imgBgColor" column="img_bg_color"/>
+            <result property="prodId" column="prod_id"/>
+            <result property="categoryId" column="category_id"/>
+            <result property="indexType" column="index_type"/>
+            <result property="seq" column="seq"/>
+            <result property="status" column="status"/>
+            <result property="createTime" column="create_time"/>
+            <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectIndexImgVo">
+        select img_id, img_url, img_bg_color, prod_id, category_id, index_type, seq, status, create_time, update_time
+        from index_img
+    </sql>
+
+    <select id="selectIndexImgList" parameterType="IndexImg" resultMap="IndexImgResult">
+        <include refid="selectIndexImgVo"/>
+        <where>
+                        <if test="imgUrl != null  and imgUrl != ''">
+                            and img_url = #{imgUrl}
+                        </if>
+                        <if test="imgBgColor != null  and imgBgColor != ''">
+                            and img_bg_color = #{imgBgColor}
+                        </if>
+                        <if test="prodId != null  and prodId != ''">
+                            and prod_id = #{prodId}
+                        </if>
+                        <if test="categoryId != null  and categoryId != ''">
+                            and category_id = #{categoryId}
+                        </if>
+                        <if test="indexType != null ">
+                            and index_type = #{indexType}
+                        </if>
+                        <if test="seq != null ">
+                            and seq = #{seq}
+                        </if>
+                        <if test="status != null ">
+                            and status = #{status}
+                        </if>
+        </where>
+    </select>
+
+    <select id="selectIndexImgByImgId" parameterType="String"
+            resultMap="IndexImgResult">
+            <include refid="selectIndexImgVo"/>
+            where img_id = #{imgId}
+    </select>
+
+    <insert id="insertIndexImg" parameterType="IndexImg">
+        insert into index_img
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="imgId != null">img_id,
+                    </if>
+                    <if test="imgUrl != null and imgUrl != ''">img_url,
+                    </if>
+                    <if test="imgBgColor != null">img_bg_color,
+                    </if>
+                    <if test="prodId != null">prod_id,
+                    </if>
+                    <if test="categoryId != null">category_id,
+                    </if>
+                    <if test="indexType != null">index_type,
+                    </if>
+                    <if test="seq != null">seq,
+                    </if>
+                    <if test="status != null">status,
+                    </if>
+                    <if test="createTime != null">create_time,
+                    </if>
+                    <if test="updateTime != null">update_time,
+                    </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="imgId != null">#{imgId},
+                    </if>
+                    <if test="imgUrl != null and imgUrl != ''">#{imgUrl},
+                    </if>
+                    <if test="imgBgColor != null">#{imgBgColor},
+                    </if>
+                    <if test="prodId != null">#{prodId},
+                    </if>
+                    <if test="categoryId != null">#{categoryId},
+                    </if>
+                    <if test="indexType != null">#{indexType},
+                    </if>
+                    <if test="seq != null">#{seq},
+                    </if>
+                    <if test="status != null">#{status},
+                    </if>
+                    <if test="createTime != null">#{createTime},
+                    </if>
+                    <if test="updateTime != null">#{updateTime},
+                    </if>
+        </trim>
+    </insert>
+
+    <update id="updateIndexImg" parameterType="IndexImg">
+        update index_img
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="imgUrl != null and imgUrl != ''">img_url =
+                        #{imgUrl},
+                    </if>
+                    <if test="imgBgColor != null">img_bg_color =
+                        #{imgBgColor},
+                    </if>
+                    <if test="prodId != null">prod_id =
+                        #{prodId},
+                    </if>
+                    <if test="categoryId != null">category_id =
+                        #{categoryId},
+                    </if>
+                    <if test="indexType != null">index_type =
+                        #{indexType},
+                    </if>
+                    <if test="seq != null">seq =
+                        #{seq},
+                    </if>
+                    <if test="status != null">status =
+                        #{status},
+                    </if>
+                    <if test="createTime != null">create_time =
+                        #{createTime},
+                    </if>
+                    <if test="updateTime != null">update_time =
+                        #{updateTime},
+                    </if>
+        </trim>
+        where img_id = #{imgId}
+    </update>
+
+    <delete id="deleteIndexImgByImgId" parameterType="String">
+        delete
+        from index_img where img_id = #{imgId}
+    </delete>
+
+    <delete id="deleteIndexImgByImgIds" parameterType="String">
+        delete from index_img where img_id in
+        <foreach item="imgId" collection="array" open="(" separator="," close=")">
+            #{imgId}
+        </foreach>
+    </delete>
+
+</mapper>

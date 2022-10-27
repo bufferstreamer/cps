@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('新增轮播图管理')"/>
+            <th:block th:include="include :: bootstrap-fileinput-css"/>
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-indexImgManage-add">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label is-required">图片
+                                ：</label>
+                            <div class="col-sm-8">
+                                <input type="hidden" name="imgUrl">
+                                <div class="file-loading">
+                                    <input class="form-control file-upload" id="imgUrl" name="file" type="file">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">背景色
+                                ：</label>
+                            <div class="col-sm-8">
+                                <input name="imgBgColor" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">商品id
+                                ：</label>
+                            <div class="col-sm-8">
+                                <input name="prodId" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">商品分类id
+                                ：</label>
+                            <div class="col-sm-8">
+                                <input name="categoryId" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label is-required">轮播图类型
+                                ：</label>
+                            <div class="col-sm-8">
+                                <select name="indexType" class="form-control m-b"
+                                        th:with="type=${@dict.getType('busi_indeximg_type')}"                                        required>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                            th:value="${dict.dictValue}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label is-required">轮播图展示顺序
+                                ：</label>
+                            <div class="col-sm-8">
+                                <input name="seq" class="form-control" type="text"                                       required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label is-required">是否展示
+                                ：</label>
+                            <div class="col-sm-8">
+                                <div class="radio-box" th:each="dict : ${@dict.getType('busi_indeximg_status')}">
+                                    <input type="radio" th:id="${'status_' + dict.dictCode}" name="status"
+                                           th:value="${dict.dictValue}"
+                                           th:checked="${dict.default}" required>
+                                    <label th:for="${'status_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
+                                </div>
+                            </div>
+                        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer"/>
+        <th:block th:include="include :: bootstrap-fileinput-js"/>
+<script th:inline="javascript">
+    var prefix = ctx + "img/indexImgManage"
+    $("#form-indexImgManage-add").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/add", $('#form-indexImgManage-add').serialize());
+        }
+    }
+
+            $(".file-upload").fileinput({
+                uploadUrl: ctx + 'common/upload',
+                maxFileCount: 1,
+                autoReplace: true
+            }).on('fileuploaded', function (event, data, previewId, index) {
+                $("input[name='" + event.currentTarget.id + "']").val(data.response.url)
+            }).on('fileremoved', function (event, id, index) {
+                $("input[name='" + event.currentTarget.id + "']").val('')
+            })
+</script>
+</body>
+</html>
