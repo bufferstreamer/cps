@@ -102,7 +102,12 @@
                         },
                         {
                             field: 'imgUrl',
-                            title: '图片'
+                            title: '图片',
+                            formatter: function (value, row, index) {
+                                var actions = [];
+                                actions.push('<img alt="图片" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="' + row.imgUrl + '">');
+                                return actions.join('');
+                            }
                         },
                         {
                             field: 'imgBgColor',

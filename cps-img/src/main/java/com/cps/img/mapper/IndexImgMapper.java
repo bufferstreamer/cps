@@ -2,7 +2,10 @@ package com.cps.img.mapper;
 
 import java.util.List;
 
+import com.cps.common.annotation.DataSource;
+import com.cps.common.enums.DataSourceType;
 import com.cps.img.domain.IndexImg;
+import org.springframework.stereotype.Repository;
 
 /**
  * 轮播图管理Mapper接口
@@ -10,6 +13,8 @@ import com.cps.img.domain.IndexImg;
  * @author cps
  * @date 2022-10-27
  */
+@DataSource(value = DataSourceType.SLAVE)
+@Repository
 public interface IndexImgMapper {
     /**
      * 查询轮播图管理
