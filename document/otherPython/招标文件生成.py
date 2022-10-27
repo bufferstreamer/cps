@@ -3,6 +3,7 @@ from docx import Document
 import pymysql
 import datetime as dt
 import os
+import cpsSetting as c
 def move_table_after(table, paragraph):
 
     tbl, p = table._tbl, paragraph._p
@@ -21,6 +22,9 @@ def replace_placeholder(doc, params):
                         run.italic = False
 # 接收数据
 path = sys.argv[1]
+host = c.cps_host
+user = c.cps_user
+password = c.cps_password
 print(path)
 #获取当前绝对路径
 docPath = os.getcwd()#获取当前路径
@@ -29,9 +33,9 @@ print(docPath)
 doc = Document(docPath+"/document/tender/招标文件模板.docx")
 
 
-db_cps = pymysql.connect(host='210.30.97.22',
-                  user='root',
-                  password='root',
+db_cps = pymysql.connect(host=host,
+                  user=user,
+                  password=password,
                   database='cps')
 cursor_cps = db_cps.cursor()
 

@@ -11,15 +11,18 @@ warnings.filterwarnings("ignore")
 import statsmodels.api as sm
 import pymysql
 import datetime
-
+import cpsSetting as c
 print("sales forecast analysis")
+host = c.cps_host
+user = c.cps_user
+password = c.cps_password
 #连接数据库
 try:
     #210.30.97.22
-    db_cps = pymysql.connect(host='210.30.97.22',
-                      user='root',
-                      password='root',
-                      database='cps')
+    db_cps = pymysql.connect(host=host,
+                    user=user,
+                    password=password,
+                    database='cps')
     cursor_cps = db_cps.cursor()
 except:
         print("\033[1;31m ERROR:When updating the sales forecast, the database control failed. Please check whether the database information is correct \033[0m")
