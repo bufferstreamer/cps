@@ -11,12 +11,12 @@
                 <div class="select-list">
                     <ul>
                         <li>
-                            <label>项目名称：</label>
-                            <input name="projectName" type="text"/>
+                            <label>标书ID：</label>
+                            <input name="tenderId" type="text"/>
                         </li>
                         <li>
-                            <label>供应商：</label>
-                            <input name="corporateName" type="text"/>
+                            <label>供应商ID：</label>
+                            <input name="supplierId" type="text"/>
                         </li>
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
@@ -77,6 +77,11 @@
                 },
                 {
                     field: 'tenderId',
+                    title: '标书ID',
+                    visible:false
+                },
+                {
+                    field: 'tenderId',
                     title: '项目名称',
                     formatter: function (value, row, index) {
                         var data = {"tenderId": value};
@@ -94,6 +99,11 @@
 
                         return projectName;
                     }
+                },
+                {
+                    field: 'supplierId',
+                    title: '供应商ID',
+                    visible:false
                 },
                 {
                     field: 'supplierId',

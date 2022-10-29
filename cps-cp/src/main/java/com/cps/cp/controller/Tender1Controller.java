@@ -557,13 +557,13 @@ public class Tender1Controller extends BaseController {
             }
         }
 
-        CentralizedPurchaseRecord centralizedPurchaseRecord =new CentralizedPurchaseRecord();
-        centralizedPurchaseRecord.setSupplierId(ShiroUtils.getUserId());
-        centralizedPurchaseRecord.setTenderId(tender.getTenderId());
-        List<CentralizedPurchaseRecord> purchaseRecordList = centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord);
-        if (purchaseRecordList.size() >= tender.getBidNumber()) {
-            return false;
-        }
+//        CentralizedPurchaseRecord centralizedPurchaseRecord =new CentralizedPurchaseRecord();
+//        centralizedPurchaseRecord.setSupplierId(ShiroUtils.getUserId());
+//        centralizedPurchaseRecord.setTenderId(tender.getTenderId());
+//        List<CentralizedPurchaseRecord> purchaseRecordList = centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord);
+//        if (purchaseRecordList.size() >= tender.getBidNumber()) {
+//            return false;
+//        }
 
         //审核营业执照
         List<String> scopeList = Arrays.asList(GetBusinessScope());

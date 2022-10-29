@@ -74,57 +74,60 @@ public class CentralizedPurchaseRecordController extends BaseController {
     @ResponseBody
     public TableDataInfo list(CentralizedPurchaseRecord centralizedPurchaseRecord, HttpServletRequest request) {
         startPage();
-        List<CentralizedPurchaseRecord> list=new ArrayList<>();
+        List<CentralizedPurchaseRecord> list= centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord);
 
-        String projectName = request.getParameter("projectName");
-        String corporateName = request.getParameter("corporateName");
-        if (StringUtils.isEmpty(projectName)&&StringUtils.isEmpty(corporateName)){
-            list= centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord);
-        }
-        else if (!StringUtils.isEmpty(projectName)&&StringUtils.isEmpty(corporateName)){
-            Tender tender=new Tender();
-            tender.setProjectName(projectName);
-            List<Tender> tenderList = tenderService.selectTender1List(tender);
-            for (Tender temp:tenderList)
-            {
-                centralizedPurchaseRecord.setTenderId(temp.getTenderId());
-                list.addAll(centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord));
-            }
-        }
-        else if (StringUtils.isEmpty(projectName)&&!StringUtils.isEmpty(corporateName)){
-            HashSet<Long> idSet = new HashSet<>();
-            supplierLicenseInfoService.selectAuditDocumentsListByCorporateName(corporateName).forEach(doc->{
-                idSet.add(doc.getUserId());
-            });
-
-            for (long id:idSet)
-            {
-                centralizedPurchaseRecord.setSupplierId(id);
-                list.addAll(centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord));
-            }
-        }
-        else {
-            HashSet<Long> supplierIdSet = new HashSet<>();
-            supplierLicenseInfoService.selectAuditDocumentsListByCorporateName(corporateName).forEach(doc->{
-                supplierIdSet.add(doc.getUserId());
-            });
-            HashSet<String> tenderIdSet=new HashSet<>();
-            Tender tender=new Tender();
-            tender.setProjectName(projectName);
-            tenderService.selectTender1List(tender).forEach(temp->{
-                tenderIdSet.add(temp.getTenderId());
-            });
-
-            for (String tenderId:tenderIdSet) 
-            {
-                for (long supplierId:supplierIdSet)
-                {
-                    centralizedPurchaseRecord.setTenderId(tenderId);
-                    centralizedPurchaseRecord.setSupplierId(supplierId);
-                    list.addAll(centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord));
-                }
-            }
-        }
+//        List<CentralizedPurchaseRecord> list=new ArrayList<>();
+//
+//        String projectName = request.getParameter("projectName");
+//        String corporateName = request.getParameter("corporateName");
+//
+//        if (StringUtils.isEmpty(projectName)&&StringUtils.isEmpty(corporateName)){
+//            list= centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord);
+//        }
+//        else if (!StringUtils.isEmpty(projectName)&&StringUtils.isEmpty(corporateName)){
+//            Tender tender=new Tender();
+//            tender.setProjectName(projectName);
+//            List<Tender> tenderList = tenderService.selectTender1List(tender);
+//            for (Tender temp:tenderList)
+//            {
+//                centralizedPurchaseRecord.setTenderId(temp.getTenderId());
+//                list.addAll(centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord));
+//            }
+//        }
+//        else if (StringUtils.isEmpty(projectName)&&!StringUtils.isEmpty(corporateName)){
+//            HashSet<Long> idSet = new HashSet<>();
+//            supplierLicenseInfoService.selectAuditDocumentsListByCorporateName(corporateName).forEach(doc->{
+//                idSet.add(doc.getUserId());
+//            });
+//
+//            for (long id:idSet)
+//            {
+//                centralizedPurchaseRecord.setSupplierId(id);
+//                list.addAll(centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord));
+//            }
+//        }
+//        else {
+//            HashSet<Long> supplierIdSet = new HashSet<>();
+//            supplierLicenseInfoService.selectAuditDocumentsListByCorporateName(corporateName).forEach(doc->{
+//                supplierIdSet.add(doc.getUserId());
+//            });
+//            HashSet<String> tenderIdSet=new HashSet<>();
+//            Tender tender=new Tender();
+//            tender.setProjectName(projectName);
+//            tenderService.selectTender1List(tender).forEach(temp->{
+//                tenderIdSet.add(temp.getTenderId());
+//            });
+//
+//            for (String tenderId:tenderIdSet)
+//            {
+//                for (long supplierId:supplierIdSet)
+//                {
+//                    centralizedPurchaseRecord.setTenderId(tenderId);
+//                    centralizedPurchaseRecord.setSupplierId(supplierId);
+//                    list.addAll(centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord));
+//                }
+//            }
+//        }
 
         return getDataTable(list);
     }
@@ -220,6 +223,7 @@ public class CentralizedPurchaseRecordController extends BaseController {
         if(!errorMsg.equals("")){
             return error("产品指标数据未达到招标方规定！\r\n"+errorMsg);
         }
+
         return toAjax(centralizedPurchaseRecordService.insertCentralizedPurchaseRecord(centralizedPurchaseRecord));
     }
 

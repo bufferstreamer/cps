@@ -140,3 +140,12 @@ xss:
 swagger:
   # 是否开启swagger
   enabled: true
+
+#fabric相关
+keyFolderPath: D:\cps\cps-fabric\src\main\resources\crypto-config\peerOrganizations\org1.example.com\users\Admin@org1.example.com\msp\keystore
+keyFileName: f2ee135e155e9889c025c30cb97e195f7409997036c323ac8456114a71dc51de_sk
+certFolderPath: D:\cps\cps-fabric\src\main\resources\crypto-config\peerOrganizations\org1.example.com\users\Admin@org1.example.com\msp\admincerts
+certFileName: Admin@org1.example.com-cert.pem
+tlsOrderFilePath: D:\cps\cps-fabric\src\main\resources\crypto-config\ordererOrganizations\example.com\tlsca\tlsca.example.com-cert.pem
+tlsPeerFilePath: D:\cps\cps-fabric\src\main\resources\crypto-config\peerOrganizations\org1.example.com\peers\peer0.org1.example.com\msp\tlscacerts\tlsca.org1.example.com-cert.pem
+tlsPeerFilePath1: D:\cps\cps-fabric\src\main\resources\crypto-config\peerOrganizations\org1.example.com\peers\peer1.org1.example.com\msp\tlscacerts\tlsca.org1.example.com-cert.pem
