@@ -2,6 +2,8 @@ package com.cps.img.controller;
 
 import java.util.List;
 
+import com.cps.common.utils.DateUtils;
+import com.cps.common.utils.uuid.IdUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -81,6 +83,9 @@ public class IndexImgController extends BaseController {
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult addSave(IndexImg indexImg) {
+        indexImg.setImgId(IdUtils.simpleUUID());
+        indexImg.setCreateTime(DateUtils.parseDate(DateUtils.getTime()));
+        indexImg.setUpdateTime(DateUtils.parseDate(DateUtils.getTime()));
         return toAjax(indexImgService.insertIndexImg(indexImg));
     }
 
@@ -104,6 +109,7 @@ public class IndexImgController extends BaseController {
     @PostMapping("/edit")
     @ResponseBody
     public AjaxResult editSave(IndexImg indexImg) {
+        indexImg.setUpdateTime(DateUtils.parseDate(DateUtils.getTime()));
         return toAjax(indexImgService.updateIndexImg(indexImg));
     }
 

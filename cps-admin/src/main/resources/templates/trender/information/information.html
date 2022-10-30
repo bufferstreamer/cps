@@ -113,7 +113,7 @@
         </div>
 
         <div class="btn-group-sm" id="toolbar" role="group">
-            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="trender:information:add">
+            <a class="btn btn-success" onclick="$.operate.addTab()" shiro:hasPermission="trender:information:add">
                 <i class="fa fa-plus"></i> 添加
             </a>
             <a class="btn btn-primary single disabled" onclick="$.operate.edit()"
@@ -147,13 +147,15 @@
             removeUrl: prefix + "/remove",
             exportUrl: prefix + "/export",
             modalName: "自动生成标书信息",
+            sortOrder: 'desc',
+            sortName: 'id',
             columns: [{
                 checkbox: true
             },
                         {
                             field: 'id',
                             title: '生成标书id',
-                            visible: false
+                            visible: false,
                         },
                         {
                             field: 'tenderName',
@@ -165,7 +167,8 @@
                         },
                         {
                             field: 'receiveTime',
-                            title: '交货期'
+                            title: '交货期',
+                            sortable: true
                         },
                         {
                             field: 'deliverPoint',
@@ -201,7 +204,8 @@
                         },
                         {
                             field: 'bidDdl',
-                            title: '投标文件递交的截止时间'
+                            title: '投标文件递交的截止时间',
+                            sortable: true
                         },
                         {
                             field: 'bidSubmission',
@@ -237,19 +241,23 @@
                         },
                         {
                             field: 'qualificationReviewTime',
-                            title: '资质审核截止时间'
+                            title: '资质审核截止时间',
+                            sortable: true
                         },
                         {
                             field: 'biddingStartTime',
-                            title: '竞标开始时间'
+                            title: '竞标开始时间',
+                            sortable: true
                         },
                         {
                             field: 'biddingEndTime',
-                            title: '竞标截止时间'
+                            title: '竞标截止时间',
+                            sortable: true
                         },
                         {
                             field: 'publicationTime',
-                            title: '公布时间'
+                            title: '公布时间',
+                            sortable: true
                         },
                 {
                     title: '操作',

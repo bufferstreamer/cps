@@ -1,7 +1,17 @@
 package com.cps.cp.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import com.cps.common.constant.OrderConstants;
+import com.cps.common.enums.WhOutboundOrderType;
+import com.cps.common.utils.DateUtils;
+import com.cps.common.utils.OrderNumGeneratorUtils;
+import com.cps.common.utils.ShiroUtils;
+import com.cps.cp.domain.TenderSeed;
+import com.cps.cp.service.ITenderSeedService;
+import com.cps.wh.domain.WhOutboundOrder;
+import com.cps.wh.enums.OutboundOrderStatus;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +43,9 @@ public class TrenderInformationController extends BaseController {
 
     @Autowired
     private ITrenderInformationService trenderInformationService;
+
+    @Autowired
+    private ITenderSeedService tenderSeedService;
 
     @RequiresPermissions("trender:information:view")
     @GetMapping()
@@ -69,7 +82,15 @@ public class TrenderInformationController extends BaseController {
          * 新增自动生成标书信息
          */
         @GetMapping("/add")
-        public String add() {
+        public String add(ModelMap modelMap) {
+
+            //新增出库订单
+            TrenderInformation trenderInformation = new TrenderInformation();
+            TenderSeed tenderSeed = new TenderSeed();
+            tenderSeed.setSkuId("css");
+//            trenderInformationService.insertTrenderInformation(trenderInformation);
+            tenderSeedService.insertTenderSeed(tenderSeed);
+            modelMap.put("tenderSeed", tenderSeed);
             return prefix + "/add";
         }
 

@@ -245,7 +245,6 @@
             showColumns: false,
             sidePagination: "client",
             queryParams: queryParams,
-            onLoadSuccess: onLoadSuccess,//所有数据被加载成功触发
             columns: [{
                 checkbox: true
             },
@@ -280,7 +279,7 @@
                     align: 'center',
                     title: '单位',
                     formatter: function (value, row, index) {
-                        var html = $.common.sprintf("<input class='form-control' type='text' name='goods[%s].goodsUnitDesc' value='%s' readonly>", index, row.goodsUnitDesc);
+                        var html = $.common.sprintf("<input class='form-control' type='text' name='goods[%s].goodsUnitDesc' value='%s' onclick=$.modal.alert(\"禁止自定义单位\") readonly>", index, row.goodsUnitDesc);
                         var goodsUnit = $.common.sprintf("<input type='hidden' name='goods[%s].goodsUnit' value='%s'>", index, value);//商品id 隐藏域
                         return html + goodsUnit;
                     }
@@ -338,6 +337,7 @@
                 }
             ]
         };
+        console.log($('#id').val());
         $.table.init(options);
     }
 
@@ -349,10 +349,7 @@
         return search;
     }
 
-    function onLoadSuccess(data) {
-        //console.log(JSON.stringify(data))
-        calculate(data);//合计商品各项值
-    }
+
 
     //新增table行
     function addColumn() {
@@ -412,6 +409,8 @@
     function doSubmitCustomer(index, layero) {
         var iframeWin = layero.find("iframe")[0].contentWindow.$.table;
         var rows = iframeWin.selectFirstColumns();//调用子页面的方法 获取ID
+        console.log(iframeWin);
+        console.log(rows);
         if (rows.length == 0) {
             $.modal.alertWarning("请至少选择一条记录");
             return;
@@ -490,24 +489,24 @@
         var sellingPrice = iframeWin.selectColumns("sellingPrice").join();//调用子页面的方法 获取ID
         var goodsUnitDesc = "";//单位描述
         $.each(goodsUnitDatas, function (index, obj) {  //index:索引obj:循环的每个元素
-            if (obj.dictValue == goodsUnit) {
+            if (obj.dictValue === goodsUnit) {
                 goodsUnitDesc = obj.dictLabel;
             }
         });
         var data = $("#" + table.options.id).bootstrapTable('getData');
         var flag = 0;
         $.each(data, function (index, obj) {  //index:索引obj:循环的每个元素
-            if (obj.shopGoodsId == shopGoodsId) {
+            if (obj.shopGoodsId === shopGoodsId) {
                 flag = 1;
                 return false; //跳出循环
             }
         });
-        if (flag == 1) {
+        if (flag === 1) {
             $.modal.alertWarning("商品已在清单中!");
             return;
         }
 
-        layer.close(index);
+        $.modal.close(index);
 
         //更新表格数据 ajax 调用后台存储
         var _data = {
@@ -524,6 +523,7 @@
         }
         if ($.common.isEmpty(orderSeedId)) {
             $.operate.post(outboundOrderSeedPrefix + "/add", _data);
+            console.log("here");
         } else {
             _data.id = orderSeedId;
             $.operate.post(outboundOrderSeedPrefix + "/edit", _data);
@@ -536,6 +536,9 @@
     window.onclickEvent = {
         'click .form-control': function (e, value, row, index) {
             orderSeedId = row.id
+            console.log(row);
+            console.log(row.index);
+            console.log(row.shopGoodsName);
             selectShopGoods();
         }
     };
