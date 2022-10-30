@@ -255,6 +255,12 @@
                 <artifactId>cps-sales</artifactId>
                 <version>${cps.version}</version>
             </dependency>
+            <!--商城仓库融合模块-->
+            <dependency>
+                <groupId>com.cps</groupId>
+                <artifactId>cps-shopWms</artifactId>
+                <version>${cps.version}</version>
+            </dependency>
             <!--商城图片资源管理模块-->
             <dependency>
                 <groupId>com.cps</groupId>
@@ -290,6 +296,7 @@
         <module>cps-credit</module>
         <module>cps-sales</module>
         <module>cps-img</module>
+        <module>cps-shopWms</module>
     </modules>
 
 

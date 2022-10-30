@@ -65,4 +65,6 @@ public interface ProductSkuMapper
      * @return 结果
      */
     public int deleteProductSkuBySkuIds(String[] skuIds);
+
+    public int updateProductStockNumber(List<ProductSku> data);
 }

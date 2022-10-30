@@ -102,4 +102,21 @@
     </foreach>
   </delete>
 
+
+  <update id="updateProductStockNumber" parameterType="java.util.Map">
+    update product_sku
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="stock =case" suffix="end,"> <!-- 库存数量 新增-->
+        <foreach collection="list" item="item" index="key">
+          <if test="item.stock != null">when sku_id=#{item.skuId} then stock +
+            #{item.stock}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where sku_id in
+    <foreach collection="list" item="item" index="key" separator="," open="(" close=")">
+      #{item.skuId}
+    </foreach>
+  </update>
 </mapper>

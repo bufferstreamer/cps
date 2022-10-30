@@ -28,7 +28,11 @@
             <groupId>com.cps</groupId>
             <artifactId>cps-system</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-shopWms</artifactId>
+            <version>4.7.5</version>
+        </dependency>
     </dependencies>
 
 </project>
