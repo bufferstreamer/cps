@@ -117,6 +117,11 @@
         where id = #{id}
     </select>
 
+    <select id="selectWhOutboundOrderByOrderName" parameterType="String" resultMap="WhOutboundOrderResult">
+        <include refid="selectWhOutboundOrderVo"/>
+        where order_name = #{orderName}
+    </select>
+
     <insert id="insertWhOutboundOrder" parameterType="WhOutboundOrder" useGeneratedKeys="true" keyProperty="id">
         insert into wms_wh_outbound_order
         <trim prefix="(" suffix=")" suffixOverrides=",">

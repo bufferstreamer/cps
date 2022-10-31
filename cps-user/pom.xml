@@ -12,6 +12,10 @@
             <groupId>com.cps</groupId>
             <artifactId>cps-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-shopWms</artifactId>
+        </dependency>
 
     </dependencies>
 </project>

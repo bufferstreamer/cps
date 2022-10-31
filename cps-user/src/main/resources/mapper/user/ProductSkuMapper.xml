@@ -2,104 +2,141 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cps.user.mapper.ProductSkuMapper">
 
-  <resultMap type="com.cps.user.domain.ProductSku" id="ProductSkuResult">
-    <result property="skuId"    column="sku_id"    />
-    <result property="productId"    column="product_id"    />
-    <result property="skuName"    column="sku_name"    />
-    <result property="skuImg"    column="sku_img"    />
-    <result property="untitled"    column="untitled"    />
-    <result property="originalPrice"    column="original_price"    />
-    <result property="sellPrice"    column="sell_price"    />
-    <result property="discounts"    column="discounts"    />
-    <result property="stock"    column="stock"    />
-    <result property="createTime"    column="create_time"    />
-    <result property="updateTime"    column="update_time"    />
-    <result property="status"    column="status"    />
-  </resultMap>
+    <resultMap type="com.cps.user.domain.ProductSku" id="ProductSkuResult">
+        <result property="skuId" column="sku_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="skuName" column="sku_name"/>
+        <result property="skuImg" column="sku_img"/>
+        <result property="untitled" column="untitled"/>
+        <result property="originalPrice" column="original_price"/>
+        <result property="sellPrice" column="sell_price"/>
+        <result property="discounts" column="discounts"/>
+        <result property="stock" column="stock"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="status" column="status"/>
+    </resultMap>
 
-  <sql id="selectProductSkuVo">
-    select sku_id, product_id, sku_name, sku_img, untitled, original_price, sell_price, discounts, stock, create_time, update_time, status from product_sku
-  </sql>
+    <sql id="selectProductSkuVo">
+        select sku_id,
+               product_id,
+               sku_name,
+               sku_img,
+               untitled,
+               original_price,
+               sell_price,
+               discounts,
+               stock,
+               create_time,
+               update_time,
+               status
+        from product_sku
+    </sql>
 
-  <select id="selectProductSkuList" parameterType="com.cps.user.domain.ProductSku" resultMap="ProductSkuResult">
-    <include refid="selectProductSkuVo"/>
-    <where>
-      <if test="productId != null  and productId != ''"> and product_id = #{productId}</if>
-      <if test="skuName != null  and skuName != ''"> and sku_name like concat('%', #{skuName}, '%')</if>
-      <if test="skuImg != null  and skuImg != ''"> and sku_img = #{skuImg}</if>
-      <if test="untitled != null  and untitled != ''"> and untitled = #{untitled}</if>
-      <if test="originalPrice != null "> and original_price = #{originalPrice}</if>
-      <if test="sellPrice != null "> and sell_price = #{sellPrice}</if>
-      <if test="discounts != null "> and discounts = #{discounts}</if>
-      <if test="stock != null "> and stock = #{stock}</if>
-      <if test="status != null "> and status = #{status}</if>
-    </where>
-  </select>
+    <select id="selectProductSkuList" parameterType="com.cps.user.domain.ProductSku" resultMap="ProductSkuResult">
+        <include refid="selectProductSkuVo"/>
+        <where>
+            <if test="productId != null  and productId != ''">and product_id = #{productId}</if>
+            <if test="skuName != null  and skuName != ''">and sku_name like concat('%', #{skuName}, '%')</if>
+            <if test="skuImg != null  and skuImg != ''">and sku_img = #{skuImg}</if>
+            <if test="untitled != null  and untitled != ''">and untitled = #{untitled}</if>
+            <if test="originalPrice != null ">and original_price = #{originalPrice}</if>
+            <if test="sellPrice != null ">and sell_price = #{sellPrice}</if>
+            <if test="discounts != null ">and discounts = #{discounts}</if>
+            <if test="stock != null ">and stock = #{stock}</if>
+            <if test="status != null ">and status = #{status}</if>
+        </where>
+    </select>
 
-  <select id="selectProductSkuBySkuId" parameterType="String" resultMap="ProductSkuResult">
-    <include refid="selectProductSkuVo"/>
-    where sku_id = #{skuId}
-  </select>
+    <select id="selectProductSkuBySkuId" parameterType="String" resultMap="ProductSkuResult">
+        <include refid="selectProductSkuVo"/>
+        where sku_id = #{skuId}
+    </select>
 
-  <insert id="insertProductSku" parameterType="com.cps.user.domain.ProductSku">
-    insert into product_sku
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="skuId != null">sku_id,</if>
-      <if test="productId != null and productId != ''">product_id,</if>
-      <if test="skuName != null and skuName != ''">sku_name,</if>
-      <if test="skuImg != null">sku_img,</if>
-      <if test="untitled != null">untitled,</if>
-      <if test="originalPrice != null">original_price,</if>
-      <if test="sellPrice != null">sell_price,</if>
-      <if test="discounts != null">discounts,</if>
-      <if test="stock != null">stock,</if>
-      <if test="createTime != null">create_time,</if>
-      <if test="updateTime != null">update_time,</if>
-      <if test="status != null">status,</if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="skuId != null">#{skuId},</if>
-      <if test="productId != null and productId != ''">#{productId},</if>
-      <if test="skuName != null and skuName != ''">#{skuName},</if>
-      <if test="skuImg != null">#{skuImg},</if>
-      <if test="untitled != null">#{untitled},</if>
-      <if test="originalPrice != null">#{originalPrice},</if>
-      <if test="sellPrice != null">#{sellPrice},</if>
-      <if test="discounts != null">#{discounts},</if>
-      <if test="stock != null">#{stock},</if>
-      <if test="createTime != null">#{createTime},</if>
-      <if test="updateTime != null">#{updateTime},</if>
-      <if test="status != null">#{status},</if>
-    </trim>
-  </insert>
 
-  <update id="updateProductSku" parameterType="com.cps.user.domain.ProductSku">
+    <select id="selectProductSkuByProductId" parameterType="String" resultMap="ProductSkuResult">
+        <include refid="selectProductSkuVo"/>
+        where product_id = #{productId} and status = 1
+    </select>
+
+    <insert id="insertProductSku" parameterType="com.cps.user.domain.ProductSku">
+        insert into product_sku
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="skuId != null">sku_id,</if>
+            <if test="productId != null and productId != ''">product_id,</if>
+            <if test="skuName != null and skuName != ''">sku_name,</if>
+            <if test="skuImg != null">sku_img,</if>
+            <if test="untitled != null">untitled,</if>
+            <if test="originalPrice != null">original_price,</if>
+            <if test="sellPrice != null">sell_price,</if>
+            <if test="discounts != null">discounts,</if>
+            <if test="stock != null">stock,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="status != null">status,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="skuId != null">#{skuId},</if>
+            <if test="productId != null and productId != ''">#{productId},</if>
+            <if test="skuName != null and skuName != ''">#{skuName},</if>
+            <if test="skuImg != null">#{skuImg},</if>
+            <if test="untitled != null">#{untitled},</if>
+            <if test="originalPrice != null">#{originalPrice},</if>
+            <if test="sellPrice != null">#{sellPrice},</if>
+            <if test="discounts != null">#{discounts},</if>
+            <if test="stock != null">#{stock},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="status != null">#{status},</if>
+        </trim>
+    </insert>
+
+    <update id="updateProductSku" parameterType="com.cps.user.domain.ProductSku">
+        update product_sku
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="productId != null and productId != ''">product_id = #{productId},</if>
+            <if test="skuName != null and skuName != ''">sku_name = #{skuName},</if>
+            <if test="skuImg != null">sku_img = #{skuImg},</if>
+            <if test="untitled != null">untitled = #{untitled},</if>
+            <if test="originalPrice != null">original_price = #{originalPrice},</if>
+            <if test="sellPrice != null">sell_price = #{sellPrice},</if>
+            <if test="discounts != null">discounts = #{discounts},</if>
+            <if test="stock != null">stock = #{stock},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="status != null">status = #{status},</if>
+        </trim>
+        where sku_id = #{skuId}
+    </update>
+
+    <delete id="deleteProductSkuBySkuId" parameterType="String">
+        delete
+        from product_sku
+        where sku_id = #{skuId}
+    </delete>
+
+    <delete id="deleteProductSkuBySkuIds" parameterType="String">
+        delete from product_sku where sku_id in
+        <foreach item="skuId" collection="array" open="(" separator="," close=")">
+            #{skuId}
+        </foreach>
+    </delete>
+
+
+  <update id="updateProductStockNumber" parameterType="java.util.Map">
     update product_sku
-    <trim prefix="SET" suffixOverrides=",">
-      <if test="productId != null and productId != ''">product_id = #{productId},</if>
-      <if test="skuName != null and skuName != ''">sku_name = #{skuName},</if>
-      <if test="skuImg != null">sku_img = #{skuImg},</if>
-      <if test="untitled != null">untitled = #{untitled},</if>
-      <if test="originalPrice != null">original_price = #{originalPrice},</if>
-      <if test="sellPrice != null">sell_price = #{sellPrice},</if>
-      <if test="discounts != null">discounts = #{discounts},</if>
-      <if test="stock != null">stock = #{stock},</if>
-      <if test="createTime != null">create_time = #{createTime},</if>
-      <if test="updateTime != null">update_time = #{updateTime},</if>
-      <if test="status != null">status = #{status},</if>
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="stock =case" suffix="end,"> <!-- 库存数量 新增-->
+        <foreach collection="list" item="item" index="key">
+          <if test="item.stock != null">when sku_id=#{item.skuId} then stock +
+            #{item.stock}
+          </if>
+        </foreach>
+      </trim>
     </trim>
-    where sku_id = #{skuId}
-  </update>
-
-  <delete id="deleteProductSkuBySkuId" parameterType="String">
-    delete from product_sku where sku_id = #{skuId}
-  </delete>
-
-  <delete id="deleteProductSkuBySkuIds" parameterType="String">
-    delete from product_sku where sku_id in
-    <foreach item="skuId" collection="array" open="(" separator="," close=")">
-      #{skuId}
+    where sku_id in
+    <foreach collection="list" item="item" index="key" separator="," open="(" close=")">
+      #{item.skuId}
     </foreach>
-  </delete>
-
+  </update>
 </mapper>

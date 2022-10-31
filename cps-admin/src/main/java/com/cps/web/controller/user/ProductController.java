@@ -3,6 +3,8 @@ package com.cps.web.controller.user;
 import java.util.HashMap;
 import java.util.List;
 
+import com.cps.basis.domain.BasisCustomer;
+import com.cps.common.utils.ShiroUtils;
 import com.cps.user.domain.Category;
 import com.cps.user.service.ICategoryService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -138,8 +140,7 @@ public class ProductController extends BaseController
         Category category = new Category();
         category.setParentId("0");
         List<Category> categoryList = categoryService.selectCategoryList(category);
-        AjaxResult ajaxResult = new AjaxResult().success(categoryList);
-        return ajaxResult;
+        return AjaxResult.success(categoryList);
 
     }
 
@@ -149,8 +150,7 @@ public class ProductController extends BaseController
         Category category = new Category();
         category.setParentId(parentId);
         List<Category> categoryList = categoryService.selectCategoryList(category);
-        AjaxResult ajaxResult = new AjaxResult().success(categoryList);
-        return ajaxResult;
+        return AjaxResult.success(categoryList);
 
     }
 
@@ -160,16 +160,14 @@ public class ProductController extends BaseController
         Product product = new Product();
         product.setProductName(productName);
         List<Product> products = productService.selectProductList(product);
-        AjaxResult ajaxResult = new AjaxResult().success(products);
-        return ajaxResult;
+        return AjaxResult.success(products);
     }
 
     @ResponseBody
     @GetMapping("/getProductName/{productId}")
     public AjaxResult getProductName(@PathVariable("productId") String productId) {
         Product product = productService.selectProductByProductId(productId);
-        AjaxResult ajaxResult = new AjaxResult().success(product.getProductName());
-        return ajaxResult;
+        return AjaxResult.success(product.getProductName());
     }
 
     @ResponseBody
@@ -180,8 +178,7 @@ public class ProductController extends BaseController
         for(Product product1:products){
             mmap.put(product1.getProductId(), product1.getProductName());
         }
-        AjaxResult ajaxResult = new AjaxResult().success();
-        return ajaxResult;
+        return AjaxResult.success();
     }
 
     @ResponseBody
@@ -194,15 +191,37 @@ public class ProductController extends BaseController
             Category category = categoryService.selectCategoryByCategoryId(String.valueOf(product1.getRootCategoryId()));
             if(category==null){
                 name.put(String.valueOf(product1.getRootCategoryId()),"未分类");
+            }else {
+                name.put(String.valueOf(product1.getRootCategoryId()),category.getCategoryName());
             }
-            name.put(String.valueOf(product1.getRootCategoryId()),category.getCategoryName());
             Category category1 = categoryService.selectCategoryByCategoryId(product1.getCategoryId());
             if(category1==null){
                 name.put(String.valueOf(product1.getRootCategoryId()),"未分类");
+            }else {
+                name.put(String.valueOf(product1.getCategoryId()),category1.getCategoryName());
             }
-            name.put(String.valueOf(product1.getCategoryId()),category1.getCategoryName());
         }
-        AjaxResult ajaxResult = new AjaxResult().success(name);
-        return ajaxResult;
+        return AjaxResult.success(name);
     }
+
+
+    /**
+     * 选择商品
+     */
+    @GetMapping("/selectProducts")
+    public String selectProducts(ModelMap mmap) {
+        return prefix + "/selectProducts";
+    }
+
+    /**
+     * 查询商品列表(选择页面)
+     */
+    @PostMapping("/selectList")
+    @ResponseBody
+    public TableDataInfo selectList(Product product) {
+        startPage();
+        List<Product> list = productService.selectProductList(product);
+        return getDataTable(list);
+    }
+
 }

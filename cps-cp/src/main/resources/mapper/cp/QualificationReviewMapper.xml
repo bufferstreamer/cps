@@ -4,6 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cps.cp.mapper.QualificationReviewMapper">
 
+    <resultMap type="QualificationReviewView" id="QualificationReviewResultVo">
+        <result property="qualificationReviewId" column="qualification_review_id"/>
+        <result property="supplyId" column="supply_id"/>
+        <result property="qualificationReviewDocument" column="qualification_review_document"/>
+        <result property="goodsId" column="goods_id"/>
+        <result property="tenderId" column="tender_id"/>
+        <result property="auditStatus" column="audit_status"/>
+        <result property="auditExplanation" column="audit_explanation"/>
+        <result property="submitTime" column="submit_time"/>
+    </resultMap>
+
     <resultMap type="QualificationReview" id="QualificationReviewResult">
         <result property="qualificationReviewId" column="qualification_review_id"/>
         <result property="supplyId" column="supply_id"/>
@@ -27,8 +38,8 @@
         from qualification_review
     </sql>
 
-    <select id="selectQualificationReviewList" parameterType="QualificationReview"
-            resultMap="QualificationReviewResult">
+    <select id="selectQualificationReviewList" parameterType="QualificationReviewView"
+            resultMap="QualificationReviewResultVo">
         <include refid="selectQualificationReviewVo"/>
         <where>  
 <!--            <if test="qualificationReviewId != null  and qualificationReviewId != ''"> and qualification_review_id like concat('%', #{qualificationReviewId}, '%')</if>-->

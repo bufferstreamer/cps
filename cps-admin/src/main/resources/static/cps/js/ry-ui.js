@@ -1560,6 +1560,11 @@ var table = {
                 }
                 return false;
             },
+            attr: function (id, attr, value){
+                // 获取元素属性值
+                return $('#id').attr(attr, value);
+
+            },
             // 判断一个字符串是否为非空串
             isNotEmpty: function (value) {
                 return !$.common.isEmpty(value);
