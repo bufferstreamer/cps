@@ -90,29 +90,6 @@ public class Tender1Controller extends BaseController {
     @RequiresPermissions("cp:tender1:view")
     @GetMapping()
     public String tender1(ModelMap map) {
-        List<Tender> tempList = tenderService.selectTender1List(new Tender());
-        boolean[] canQualificationReviewArr = new boolean[tempList.size()];
-        boolean[] canPurchaseArr = new boolean[tempList.size()];
-
-        for (int i = 0; i < tempList.size(); i++) {
-            String tenderId = tempList.get(i).getTenderId();
-            QualificationReview review = new QualificationReview();
-            review.setTenderId(tenderId);
-            review.setSupplyId(ShiroUtils.getUserId());
-            List<QualificationReviewView> list = qualificationReviewService.selectQualificationReviewList(review);
-            if(list.size()>0){
-                canQualificationReviewArr[i] = CanQualificationReview(list.get(0), tempList.get(i));
-                canPurchaseArr[i] = CanPurchase(list.get(0), tempList.get(i));
-            }
-            else {
-                canQualificationReviewArr[i] = CanQualificationReview(null,tempList.get(i));
-                canPurchaseArr[i] = CanPurchase(null, tempList.get(i));
-            }
-        }
-
-        map.put("canQualificationReviewArr", canQualificationReviewArr);
-        map.put("canPurchaseArr", canPurchaseArr);
-
         if(userCreditService.selectUserCreditByUserId(ShiroUtils.getUserId())!=null){
             UserCredit userCredit = userCreditService.selectUserCreditByUserId(ShiroUtils.getUserId());
             map.put("userCreditScore",userCredit.getCreditScore());
@@ -489,7 +466,9 @@ public class Tender1Controller extends BaseController {
     }
 
     //资质审核
-    private boolean CanQualificationReview(QualificationReviewView review, Tender tender) {
+    @PostMapping("canQualificationReview")
+    @ResponseBody
+    public boolean CanQualificationReview(String tenderId) {
         List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
         if (tempList == null) {
             return false;
@@ -507,11 +486,16 @@ public class Tender1Controller extends BaseController {
 
         //审核营业执照
         List<String> scopeList = Arrays.asList(GetBusinessScope());
+        Tender tender=tenderService.selectTenderByTenderId(tenderId);
         if (scopeList.contains(tender.getDeptName())){
             return false;
         }
 
-        if (review != null && review.getAuditStatus().equals("1")) {
+        QualificationReview review = new QualificationReview();
+        review.setTenderId(tenderId);
+        review.setSupplyId(ShiroUtils.getUserId());
+        List<QualificationReviewView> reviewList = qualificationReviewService.selectQualificationReviewList(review);
+        if (reviewList.size()>0 && reviewList.get(0).getAuditStatus().equals("1")) {
             return false;
         }
 
@@ -542,7 +526,9 @@ public class Tender1Controller extends BaseController {
         return new String[0];
     }
 
-    private boolean CanPurchase(QualificationReviewView review, Tender tender) {
+    @PostMapping("canPurchase")
+    @ResponseBody
+    public boolean CanPurchase(String tenderId) {
         List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
         if (tempList == null) {
             return false;
@@ -558,10 +544,13 @@ public class Tender1Controller extends BaseController {
             }
         }
 
+        //审核投标次数
         CentralizedPurchaseRecord centralizedPurchaseRecord =new CentralizedPurchaseRecord();
         centralizedPurchaseRecord.setSupplierId(ShiroUtils.getUserId());
-        centralizedPurchaseRecord.setTenderId(tender.getTenderId());
+        centralizedPurchaseRecord.setTenderId(tenderId);
         List<CentralizedPurchaseRecord> purchaseRecordList = centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord);
+
+        Tender tender = tenderService.selectTenderByTenderId(tenderId);
         if (purchaseRecordList.size() >= tender.getBidNumber()) {
             return false;
         }
@@ -572,7 +561,11 @@ public class Tender1Controller extends BaseController {
             return true;
         }
 
-        if (review != null && review.getAuditStatus().equals("1")) {
+        QualificationReview review = new QualificationReview();
+        review.setTenderId(tenderId);
+        review.setSupplyId(ShiroUtils.getUserId());
+        List<QualificationReviewView> reviewList = qualificationReviewService.selectQualificationReviewList(review);
+        if (reviewList.size()>0&&reviewList.get(0).getAuditStatus().equals("1")){
             return true;
         }
 

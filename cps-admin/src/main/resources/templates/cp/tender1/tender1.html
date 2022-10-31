@@ -187,12 +187,31 @@
                         actions.push('<a class="btn btn-info btn-xs ' + downloadFlag + '" href="javascript:void(0)" onclick="downloadFile(\'' + row.tenderDocument + '\')"><i class="fa fa-download"></i>下载</a>');
                         // actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.tenderId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         // actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.tenderId + '\')"><i class="fa fa-trash"></i>删除</a>');
-                        if ([[${canQualificationReviewArr}]][index]) {
-                            actions.push('<a class="btn btn-warning btn-xs ' + qualificationReviewFlag + '" href="javascript:void(0)" onclick="qualificationReview(\'' + row.tenderId + '\')"><i class="fa fa-review"></i>资质审核</a> ');
-                        }
-                        if ([[${canPurchaseArr}]][index]) {
-                            actions.push('<a class="btn btn-warning btn-xs ' + centralizedPurchaseFlag + '" href="javascript:void(0)" onclick="centralizedPurchase(\'' + row.tenderId + '\')"><i class="fa fa-review"></i>投标</a> ');
-                        }
+
+                        $.ajax({
+                            url: ctx + "cp/tender1/canPurchase",
+                            type: "post",
+                            dataType: "json",
+                            data: {"tenderId": row.tenderId},
+                            async: false,
+                            success: function (result) {
+                                if (result){
+                                    actions.push('<a class="btn btn-warning btn-xs ' + centralizedPurchaseFlag + '" href="javascript:void(0)" onclick="centralizedPurchase(\'' + row.tenderId + '\')"><i class="fa fa-review"></i>投标</a> ');
+                                }
+                            }
+                        });
+                        $.ajax({
+                            url: ctx + "cp/tender1/canQualificationReview",
+                            type: "post",
+                            dataType: "json",
+                            data: {"tenderId": row.tenderId},
+                            async: false,
+                            success: function (result) {
+                                if (result){
+                                    actions.push('<a class="btn btn-warning btn-xs ' + qualificationReviewFlag + '" href="javascript:void(0)" onclick="qualificationReview(\'' + row.tenderId + '\')"><i class="fa fa-review"></i>资质审核</a> ');
+                                }
+                            }
+                        });
                         actions.push('<a class="btn btn-success btn-xs ' + true + '" href="javascript:void(0)" onclick="openQpcs(\'' + row.tenderId + '\')"><i class="fa fa-cny"></i>比质比价</a> ');
                         actions.push('<a class="btn btn-primary btn-xs ' + informFlag + '" href="javascript:void(0)" onclick="inform(\'' + row.tenderId + '\')"><i class="fa fa-bell-o"></i>一键通知</a> ');
                         return actions.join('');
