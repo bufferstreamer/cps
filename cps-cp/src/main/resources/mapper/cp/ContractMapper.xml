@@ -3,6 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cps.cp.mapper.ContractMapper">
+    <resultMap type="ContractView" id="ContractResultVo">
+        <result property="contractId" column="contract_id"/>
+        <result property="tenderId" column="tender_id"/>
+        <result property="contractType" column="contract_type"/>
+        <result property="contractDocument" column="contract_document"/>
+        <result property="signatureA" column="signature_a"/>
+        <result property="signatureB" column="signature_b"/>
+        <result property="contractTime" column="contract_time"/>
+        <result property="signatureUserId" column="signature_user_id"/>
+        <result property="contractStatus" column="contract_status"/>
+    </resultMap>
 
     <resultMap type="Contract" id="ContractResult">
         <result property="contractId" column="contract_id"/>
@@ -13,14 +24,15 @@
         <result property="signatureB" column="signature_b"/>
         <result property="contractTime" column="contract_time"/>
         <result property="signatureUserId" column="signature_user_id"/>
+        <result property="contractStatus" column="contract_status"/>
     </resultMap>
 
     <sql id="selectContractVo">
-        select contract_id, tender_id, contract_type, contract_document, signature_a, signature_b, contract_time, signature_user_id
+        select contract_id, tender_id, contract_type, contract_document, signature_a, signature_b, contract_time, signature_user_id ,contract_status
         from contract
     </sql>
 
-    <select id="selectContractList" parameterType="Contract" resultMap="ContractResult">
+    <select id="selectContractList" parameterType="ContractView" resultMap="ContractResultVo">
         <include refid="selectContractVo"/>
         <where>
 <!--            <if test="contractId != null  and contractId != ''">and contract_id = #{contractId}</if>-->
@@ -30,7 +42,7 @@
         </where>
     </select>
 
-    <select id="selectContractListByUserId" parameterType="Long" resultMap="ContractResult">
+    <select id="selectContractListByUserId" parameterType="Long" resultMap="ContractResultVo">
         <include refid="selectContractVo"/>
         <where>
             signature_user_id = #{userId}
@@ -53,6 +65,7 @@
             <if test="signatureB != null and signatureB != ''">signature_b,</if>
             <if test="contractTime != null">contract_time,</if>
             <if test="signatureUserId != null and signatureUserId != ''">signature_user_id,</if>
+            <if test="contractStatus != null and contractStatus != ''">contract_status,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="contractId != null">#{contractId},</if>
@@ -63,6 +76,7 @@
             <if test="signatureB != null and signatureB != ''">#{signatureB},</if>
             <if test="contractTime != null">#{contractTime},</if>
             <if test="signatureUserId != null and signatureUserId != ''">#{signatureUserId},</if>
+            <if test="contractStatus != null and contractStatus != ''">#{contractStatus},</if>
         </trim>
     </insert>
 
@@ -76,6 +90,7 @@
             <if test="signatureB != null and signatureB != ''">signature_b = #{signatureB},</if>
             <if test="contractTime != null">contract_time = #{contractTime},</if>
             <if test="signatureUserId != null and signatureUserId != ''">signature_user_id = #{signatureUserId},</if>
+            <if test="contractStatus != null and contractStatus != ''">contract_status = #{contractStatus},</if>
         </trim>
         where contract_id = #{contractId}
     </update>

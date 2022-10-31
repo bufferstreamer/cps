@@ -63,6 +63,7 @@
     var contractTypeDatas = [[${@dict.getType('contract_type')}]];
     var signatureADatas = [[${@dict.getType('contract_signature')}]];
     var signatureBDatas = [[${@dict.getType('contract_signature')}]];
+    var contractStatusDatas = [[${@dict.getType('contract_status')}]];
     var prefix = ctx + "cp/contract";
     var downloadFlag = [[${@permission.hasPermi('cp:contract:download')}]];
     var detailFlag = [[${@permission.hasPermi('cp:contract:detail')}]];
@@ -158,6 +159,13 @@
                 {
                     field: 'loginName',
                     title: '签名方名称',
+                },
+                {
+                    field: 'contractStatus',
+                    title: '状态',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(contractStatusDatas, value);
+                    }
                 },
                 {
                     title: '操作',

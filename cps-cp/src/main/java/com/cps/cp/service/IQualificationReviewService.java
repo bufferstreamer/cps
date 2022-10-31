@@ -1,6 +1,7 @@
 package com.cps.cp.service;
 
 import com.cps.cp.domain.QualificationReview;
+import com.cps.cp.domain.QualificationReviewView;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface IQualificationReviewService {
      * @param qualificationReview 资质审核
      * @return 资质审核集合
      */
-    public List<QualificationReview> selectQualificationReviewList(QualificationReview qualificationReview);
+    public List<QualificationReviewView> selectQualificationReviewList(QualificationReview qualificationReview);
 
     /**
      * 新增资质审核

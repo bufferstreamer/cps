@@ -83,8 +83,22 @@ public class ContractView extends BaseEntity {
     /**
      * 非管理员签名方的名称
      */
-    @Excel(name = "非管理员签名方的ID")
+    @Excel(name = "非管理员签名方的名称")
     private String loginName;
+
+    /**
+     * 合同状态 0未签署 1未交货 2交货完成 3合同完成 4合同逾期 5合同取消
+     */
+    @Excel(name = "合同类别")
+    private String contractStatus;
+
+    public String getContractStatus() {
+        return contractStatus;
+    }
+
+    public void setContractStatus(String contractStatus) {
+        this.contractStatus = contractStatus;
+    }
 
     public String getLoginName() {
         return loginName;

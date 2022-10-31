@@ -59,24 +59,12 @@ public class QualificationReviewController extends BaseController {
     @ResponseBody
     public TableDataInfo list(QualificationReview qualificationReview) {
         startPage();
-        List<QualificationReview> list = qualificationReviewService.selectQualificationReviewList(qualificationReview);
-        List<QualificationReviewView> listV = new ArrayList<>();
+        List<QualificationReviewView> list = qualificationReviewService.selectQualificationReviewList(qualificationReview);
         for (int i = 0; i < list.size();i++) {
-            QualificationReviewView qualificationReviewView = new QualificationReviewView();
-            qualificationReviewView.setQualificationReviewId(list.get(i).getQualificationReviewId());
-            qualificationReviewView.setSupplyId(list.get(i).getSupplyId());
-            qualificationReviewView.setQualificationReviewDocument(list.get(i).getQualificationReviewDocument());
-            qualificationReviewView.setGoodsId(list.get(i).getGoodsId());
-            qualificationReviewView.setTenderId(list.get(i).getTenderId());
-//            qualificationReviewView.setProjectName("");
-            qualificationReviewView.setProjectName(tenderService.selectTenderByTenderId(list.get(i).getTenderId()).getProjectName());
-            qualificationReviewView.setAuditStatus(list.get(i).getAuditStatus());
-            qualificationReviewView.setAuditExplanation(list.get(i).getAuditExplanation());
-            qualificationReviewView.setSubmitTime(list.get(i).getSubmitTime());
-            qualificationReviewView.setLoginName(sysUserService.selectUserById(qualificationReviewView.getSupplyId()).getLoginName());
-            listV.add(qualificationReviewView);
+            list.get(i).setProjectName(tenderService.selectTenderByTenderId(list.get(i).getTenderId()).getProjectName());
+            list.get(i).setLoginName(sysUserService.selectUserById(list.get(i).getSupplyId()).getLoginName());
         }
-        return getDataTable(listV);
+        return getDataTable(list);
     }
 
     /**
@@ -87,8 +75,8 @@ public class QualificationReviewController extends BaseController {
     @PostMapping("/export")
     @ResponseBody
     public AjaxResult export(QualificationReview qualificationReview) {
-        List<QualificationReview> list = qualificationReviewService.selectQualificationReviewList(qualificationReview);
-        ExcelUtil<QualificationReview> util = new ExcelUtil<QualificationReview>(QualificationReview.class);
+        List<QualificationReviewView> list = qualificationReviewService.selectQualificationReviewList(qualificationReview);
+        ExcelUtil<QualificationReviewView> util = new ExcelUtil<QualificationReviewView>(QualificationReviewView.class);
         return util.exportExcel(list, "资质审核数据");
     }
 

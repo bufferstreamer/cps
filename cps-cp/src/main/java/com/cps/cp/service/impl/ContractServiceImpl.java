@@ -2,6 +2,7 @@ package com.cps.cp.service.impl;
 
 import com.cps.common.core.text.Convert;
 import com.cps.cp.domain.Contract;
+import com.cps.cp.domain.ContractView;
 import com.cps.cp.mapper.ContractMapper;
 import com.cps.cp.service.IContractService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class ContractServiceImpl implements IContractService {
      * @return 合同
      */
     @Override
-    public List<Contract> selectContractList(Contract contract) {
+    public List<ContractView> selectContractList(Contract contract) {
         return contractMapper.selectContractList(contract);
     }
 
@@ -49,7 +50,7 @@ public class ContractServiceImpl implements IContractService {
      * @return 合同集合
      */
     @Override
-    public List<Contract> selectContractListByUserId(Long userId) {
+    public List<ContractView> selectContractListByUserId(Long userId) {
         return contractMapper.selectContractListByUserId(userId);
     }
 

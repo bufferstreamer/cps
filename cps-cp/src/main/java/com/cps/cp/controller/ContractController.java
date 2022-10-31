@@ -21,6 +21,7 @@ import com.cps.system.service.ISysUserService;
 import com.cps.wh.domain.WhWarehousingOrder;
 import com.cps.wh.enums.WarehousingOrderStatus;
 import com.cps.wh.service.IWhWarehousingOrderService;
+import com.github.pagehelper.Page;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,14 +64,14 @@ public class ContractController extends BaseController {
         String userLoginName = currentUser.getLoginName();
         Long userId = currentUser.getUserId();
         if(userLoginName.equals("admin")){
-            List<Contract> contracts = contractService.selectContractList(new Contract());
+            List<ContractView> contracts = contractService.selectContractList(new Contract());
             //当甲乙两方都点击确认后 去掉"删除按钮",签名后直接去掉签名确认按钮。
             boolean[] canDeleteArr = new boolean[contracts.size()];
             boolean[] canSignatureArr = new boolean[contracts.size()];
             for (int i = 0; i < contracts.size(); i++) {
                 canDeleteArr[i] = true;
                 canSignatureArr[i] = true;
-                Contract contract = contracts.get(i);
+                ContractView contract = contracts.get(i);
                 if(contract.getContractType().equals("0")){
                     if(contract.getSignatureA().equals("1")){
                         canSignatureArr[i] = false;
@@ -87,13 +88,13 @@ public class ContractController extends BaseController {
             map.put("canDeleteArr", canDeleteArr);
             map.put("canSignatureArr",canSignatureArr);
         }else{
-            List<Contract> contractList = contractService.selectContractListByUserId(userId);
+            List<ContractView> contractList = contractService.selectContractListByUserId(userId);
             boolean[] canSignatureArr = new boolean[contractList.size()];
             boolean[] canDeleteArr = new boolean[contractList.size()];
             for (int i = 0; i < contractList.size(); i++) {
                 canDeleteArr[i] = false;
                 canSignatureArr[i] = true;
-                Contract contract = contractList.get(i);
+                ContractView contract = contractList.get(i);
                 if(contract.getContractType().equals("0")){
                     if(contract.getSignatureB().equals("1")) {
                         canSignatureArr[i] = false;
@@ -125,7 +126,7 @@ public class ContractController extends BaseController {
         SysUser currentUser = ShiroUtils.getSysUser();
 //        Long roleId = currentUser.getRoleId();
         String userLoginName = currentUser.getLoginName();
-        List<Contract> list = null;
+        List<ContractView> list = null;
         Long userId = currentUser.getUserId();
 //        System.out.println("UserId : "+userId);
         //103供应商 102超市 1管理员 跟userId不是一个东西
@@ -134,22 +135,11 @@ public class ContractController extends BaseController {
         }else{
             list = contractService.selectContractListByUserId(userId);
         }
-        List<ContractView> listCV = new ArrayList<>();
         for (int i = 0; i < list.size();i++) {
-            ContractView contractView = new ContractView();
-            contractView.setContractId(list.get(i).getContractId());
-            contractView.setTenderId(list.get(i).getTenderId());
-            contractView.setContractType(list.get(i).getContractType());
-            contractView.setContractDocument(list.get(i).getContractDocument());
-            contractView.setSignatureA(list.get(i).getSignatureA());
-            contractView.setSignatureB(list.get(i).getSignatureB());
-            contractView.setContractTime(list.get(i).getContractTime());
-            contractView.setSignatureUserId(list.get(i).getSignatureUserId());
-            contractView.setProjectName(tenderService.selectTenderByTenderId(contractView.getTenderId()).getProjectName());
-            contractView.setLoginName(sysUserService.selectUserById(contractView.getSignatureUserId()).getLoginName());
-            listCV.add(contractView);
+            list.get(i).setProjectName(tenderService.selectTenderByTenderId(list.get(i).getTenderId()).getProjectName());
+            list.get(i).setLoginName(sysUserService.selectUserById(list.get(i).getSignatureUserId()).getLoginName());
         }
-        return getDataTable(listCV);
+        return getDataTable(list);
     }
 
     /**
@@ -160,8 +150,8 @@ public class ContractController extends BaseController {
     @PostMapping("/export")
     @ResponseBody
     public AjaxResult export(Contract contract) {
-        List<Contract> list = contractService.selectContractList(contract);
-        ExcelUtil<Contract> util = new ExcelUtil<Contract>(Contract.class);
+        List<ContractView> list = contractService.selectContractList(contract);
+        ExcelUtil<ContractView> util = new ExcelUtil<ContractView>(ContractView.class);
         return util.exportExcel(list, "合同数据");
     }
 
@@ -186,6 +176,8 @@ public class ContractController extends BaseController {
         //签名设置成 未签名
         contract.setSignatureA("0");
         contract.setSignatureB("0");
+        //设置合同状态为未签署
+        contract.setContractStatus("0");
         return toAjax(contractService.insertContract(contract));
     }
 
@@ -198,7 +190,7 @@ public class ContractController extends BaseController {
         Contract contract = contractService.selectContractByContractId(contractId);
         contract.setContractTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
         mmap.put("contract", contract);
-        String resultUrl = "";
+        String resultUrl = ""; 
         // 获取当前的用户信息
         SysUser currentUser = ShiroUtils.getSysUser();
         String userLoginName = currentUser.getLoginName();
