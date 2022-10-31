@@ -1,5 +1,7 @@
 package com.cps.shop.mapper;
 
+import com.cps.common.annotation.DataSource;
+import com.cps.common.enums.DataSourceType;
 import com.cps.shop.domain.ShopGoods;
 import com.cps.shop.vo.ShopGoodsStockVo;
 import com.cps.shop.vo.ShopGoodsVo;
@@ -12,6 +14,7 @@ import java.util.List;
  * @author miki
  * @date 2021-05-25
  */
+@DataSource(value = DataSourceType.MASTER)
 public interface ShopGoodsMapper {
     /**
      * 查询商品信息

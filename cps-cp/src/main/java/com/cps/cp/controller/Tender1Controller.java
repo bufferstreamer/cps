@@ -20,6 +20,7 @@ import com.cps.common.utils.ShiroUtils;
 import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.utils.uuid.Seq;
 import com.cps.cp.domain.QualificationReview;
+import com.cps.cp.domain.QualificationReviewView;
 import com.cps.cp.domain.Tender;
 import com.cps.cp.service.IQualificationReviewService;
 import com.cps.cp.service.ITenderService;
@@ -98,7 +99,7 @@ public class Tender1Controller extends BaseController {
             QualificationReview review = new QualificationReview();
             review.setTenderId(tenderId);
             review.setSupplyId(ShiroUtils.getUserId());
-            List<QualificationReview> list = qualificationReviewService.selectQualificationReviewList(review);
+            List<QualificationReviewView> list = qualificationReviewService.selectQualificationReviewList(review);
             if(list.size()>0){
                 canQualificationReviewArr[i] = CanQualificationReview(list.get(0), tempList.get(i));
                 canPurchaseArr[i] = CanPurchase(list.get(0), tempList.get(i));
@@ -294,7 +295,7 @@ public class Tender1Controller extends BaseController {
         QualificationReview review = new QualificationReview();
         review.setTenderId(tenderId);
         review.setSupplyId(ShiroUtils.getUserId());
-        List<QualificationReview> list = qualificationReviewService.selectQualificationReviewList(review);
+        List<QualificationReviewView> list = qualificationReviewService.selectQualificationReviewList(review);
         if (list.size()==0) {
             mmap.put("tenderId", tenderId);
             return "cp/qualificationReview/add";
@@ -488,7 +489,7 @@ public class Tender1Controller extends BaseController {
     }
 
     //资质审核
-    private boolean CanQualificationReview(QualificationReview review, Tender tender) {
+    private boolean CanQualificationReview(QualificationReviewView review, Tender tender) {
         List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
         if (tempList == null) {
             return false;
@@ -541,7 +542,7 @@ public class Tender1Controller extends BaseController {
         return new String[0];
     }
 
-    private boolean CanPurchase(QualificationReview review, Tender tender) {
+    private boolean CanPurchase(QualificationReviewView review, Tender tender) {
         List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
         if (tempList == null) {
             return false;

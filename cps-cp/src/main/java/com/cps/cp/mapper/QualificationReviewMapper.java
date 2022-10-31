@@ -1,6 +1,7 @@
 package com.cps.cp.mapper;
 
 import com.cps.cp.domain.QualificationReview;
+import com.cps.cp.domain.QualificationReviewView;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public interface QualificationReviewMapper {
      * @param qualificationReview 资质审核
      * @return 资质审核集合
      */
-    public List<QualificationReview> selectQualificationReviewList(QualificationReview qualificationReview);
+    public List<QualificationReviewView> selectQualificationReviewList(QualificationReview qualificationReview);
 
     /**
      * 新增资质审核

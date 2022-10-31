@@ -1,6 +1,5 @@
 package com.cps.web.controller.user;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,14 +25,13 @@ import com.cps.common.core.page.TableDataInfo;
 
 /**
  * 商品规格 每一件商品都有不同的规格，不同的规格又有不同的价格和优惠力度，规格为此设计Controller
- * 
+ *
  * @author cps
  * @date 2022-09-11
  */
 @Controller
 @RequestMapping("/user/sku")
-public class ProductSkuController extends BaseController
-{
+public class ProductSkuController extends BaseController {
     private String prefix = "user/sku";
 
     @Autowired
@@ -42,10 +40,10 @@ public class ProductSkuController extends BaseController
     @Autowired
     private IProductService productService;
 
+
     @RequiresPermissions("user:sku:view")
     @GetMapping()
-    public String sku()
-    {
+    public String sku() {
         return prefix + "/sku";
     }
 
@@ -55,8 +53,7 @@ public class ProductSkuController extends BaseController
     @RequiresPermissions("user:sku:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(ProductSku productSku)
-    {
+    public TableDataInfo list(ProductSku productSku) {
         startPage();
         List<ProductSku> list = productSkuService.selectProductSkuList(productSku);
         return getDataTable(list);
@@ -69,8 +66,7 @@ public class ProductSkuController extends BaseController
     @Log(title = "商品规格 每一件商品都有不同的规格，不同的规格又有不同的价格和优惠力度，规格为此设计", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(ProductSku productSku)
-    {
+    public AjaxResult export(ProductSku productSku) {
         List<ProductSku> list = productSkuService.selectProductSkuList(productSku);
         ExcelUtil<ProductSku> util = new ExcelUtil<ProductSku>(ProductSku.class);
         return util.exportExcel(list, "商品规格 每一件商品都有不同的规格，不同的规格又有不同的价格和优惠力度，规格为此设计数据");
@@ -80,8 +76,7 @@ public class ProductSkuController extends BaseController
      * 新增商品规格 每一件商品都有不同的规格，不同的规格又有不同的价格和优惠力度，规格为此设计
      */
     @GetMapping("/add")
-    public String add()
-    {
+    public String add() {
         return prefix + "/add";
     }
 
@@ -92,8 +87,7 @@ public class ProductSkuController extends BaseController
     @Log(title = "商品规格 每一件商品都有不同的规格，不同的规格又有不同的价格和优惠力度，规格为此设计", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(ProductSku productSku)
-    {
+    public AjaxResult addSave(ProductSku productSku) {
         return toAjax(productSkuService.insertProductSku(productSku));
     }
 
@@ -102,8 +96,7 @@ public class ProductSkuController extends BaseController
      */
     @RequiresPermissions("user:sku:edit")
     @GetMapping("/edit/{skuId}")
-    public String edit(@PathVariable("skuId") String skuId, ModelMap mmap)
-    {
+    public String edit(@PathVariable("skuId") String skuId, ModelMap mmap) {
         ProductSku productSku = productSkuService.selectProductSkuBySkuId(skuId);
         mmap.put("productSku", productSku);
         return prefix + "/edit";
@@ -116,8 +109,7 @@ public class ProductSkuController extends BaseController
     @Log(title = "商品规格 每一件商品都有不同的规格，不同的规格又有不同的价格和优惠力度，规格为此设计", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(ProductSku productSku)
-    {
+    public AjaxResult editSave(ProductSku productSku) {
         return toAjax(productSkuService.updateProductSku(productSku));
     }
 
@@ -126,10 +118,9 @@ public class ProductSkuController extends BaseController
      */
     @RequiresPermissions("user:sku:remove")
     @Log(title = "商品规格 每一件商品都有不同的规格，不同的规格又有不同的价格和优惠力度，规格为此设计", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove")
+    @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids)
-    {
+    public AjaxResult remove(String ids) {
         return toAjax(productSkuService.deleteProductSkuBySkuIds(ids));
     }
 
@@ -139,8 +130,7 @@ public class ProductSkuController extends BaseController
         ProductSku productSku = new ProductSku();
         productSku.setSkuName(skuName);
         List<ProductSku> productSkus = productSkuService.selectProductSkuList(productSku);
-        AjaxResult ajaxResult = new AjaxResult().success(productSkus);
-        return ajaxResult;
+        return AjaxResult.success(productSkus);
     }
 
     @ResponseBody
@@ -148,12 +138,33 @@ public class ProductSkuController extends BaseController
     public AjaxResult getProductNames() {
         ProductSku productSku = new ProductSku();
         List<ProductSku> productSkus = productSkuService.selectProductSkuList(productSku);
-        HashMap<String,String> name = new HashMap<>();
-        for(ProductSku productSku1:productSkus){
+        HashMap<String, String> name = new HashMap<>();
+        for (ProductSku productSku1 : productSkus) {
             Product product = productService.selectProductByProductId(productSku1.getProductId());
-            name.put(productSku1.getProductId(),product.getProductName());
+            name.put(productSku1.getProductId(), product.getProductName());
         }
-        AjaxResult ajaxResult = new AjaxResult().success(name);
-        return ajaxResult;
+        return AjaxResult.success(name);
+    }
+
+    /**
+     * 选择sku
+     */
+    @GetMapping("/selectSkus/{productId}")
+    public String selectProductSkus(ModelMap mmap, @PathVariable("productId") String productId) {
+        productId = productId.substring(1, productId.length() - 1);
+        mmap.put("productId", productId);
+        return prefix + "/selectSkus";
+    }
+
+    /**
+     * 查询sku列表(选择页面)
+     */
+    @PostMapping("/selectList/{productId}")
+    @ResponseBody
+    public TableDataInfo selectList(@PathVariable("productId") String productId) {
+        startPage();
+        productId = productId.substring(1, productId.length() - 1);
+        List<ProductSku> list = productSkuService.selectProductSkuByProductId(productId);
+        return getDataTable(list);
     }
 }

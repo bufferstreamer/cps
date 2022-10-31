@@ -1,6 +1,7 @@
 package com.cps.cp.service;
 
 import com.cps.cp.domain.Contract;
+import com.cps.cp.domain.ContractView;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface IContractService {
      * @param contract 合同
      * @return 合同集合
      */
-    public List<Contract> selectContractList(Contract contract);
+    public List<ContractView> selectContractList(Contract contract);
 
     /**
      * 查询合同列表
@@ -33,7 +34,7 @@ public interface IContractService {
      * @param userId 签名方用户ID
      * @return 合同集合
      */
-    public List<Contract> selectContractListByUserId(Long userId);
+    public List<ContractView> selectContractListByUserId(Long userId);
 
     /**
      * 新增合同

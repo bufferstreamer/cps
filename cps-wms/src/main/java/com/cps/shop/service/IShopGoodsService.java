@@ -1,5 +1,7 @@
 package com.cps.shop.service;
 
+import com.cps.common.annotation.DataSource;
+import com.cps.common.enums.DataSourceType;
 import com.cps.shop.domain.ShopGoods;
 import com.cps.shop.vo.ShopGoodsStockVo;
 import com.cps.shop.vo.ShopGoodsVo;

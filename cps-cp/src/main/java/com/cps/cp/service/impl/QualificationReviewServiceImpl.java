@@ -4,6 +4,7 @@ import com.cps.common.core.text.Convert;
 import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.ShiroUtils;
 import com.cps.cp.domain.QualificationReview;
+import com.cps.cp.domain.QualificationReviewView;
 import com.cps.cp.mapper.QualificationReviewMapper;
 import com.cps.cp.service.IQualificationReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class QualificationReviewServiceImpl implements IQualificationReviewServi
      * @return 资质审核
      */
     @Override
-    public List<QualificationReview> selectQualificationReviewList(QualificationReview qualificationReview) {
+    public List<QualificationReviewView> selectQualificationReviewList(QualificationReview qualificationReview) {
         return qualificationReviewMapper.selectQualificationReviewList(qualificationReview);
     }
 

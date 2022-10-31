@@ -27,6 +27,14 @@ public interface ProductSkuMapper
     public ProductSku selectProductSkuBySkuId(String skuId);
 
     /**
+     * 根据商品ID获得sku列表
+     * @param productId: 商品ID
+     * @return ProductSku: sku列表
+     * @author LN
+     */
+    public List<ProductSku> selectProductSkuByProductId(String productId);
+
+    /**
      * 查询商品规格 每一件商品都有不同的规格，不同的规格又有不同的价格和优惠力度，规格为此设计列表
      *
      * @param productSku 商品规格 每一件商品都有不同的规格，不同的规格又有不同的价格和优惠力度，规格为此设计
@@ -65,4 +73,6 @@ public interface ProductSkuMapper
      * @return 结果
      */
     public int deleteProductSkuBySkuIds(String[] skuIds);
+
+    public int updateProductStockNumber(List<ProductSku> data);
 }

@@ -2,207 +2,233 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:include="include :: header('新增自动生成标书信息')"/>
-            <th:block th:include="include :: datetimepicker-css"/>
+    <th:block th:include="include :: datetimepicker-css"/>
 </head>
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
     <form class="form-horizontal m" id="form-information-add">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">标书名称
-                                ：</label>
-                            <div class="col-sm-8">
-                                <input name="tenderName" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">标书总体介绍
-                                ：</label>
-                            <div class="col-sm-8">
-                                <textarea name="text" class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">交货期
-                                ：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group date">
-                                    <input name="receiveTime" class="form-control" placeholder="yyyy-MM-dd"
-                                           type="text">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">交货地点
-                                ：</label>
-                            <div class="col-sm-8">
-                                <input name="deliverPoint" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">项目概况与招标范围的补充内容
-                                ：</label>
-                            <div class="col-sm-8">
-                                <textarea name="projectText" class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">营业执照要求
-                                ：</label>
-                            <div class="col-sm-8">
-                                <input name="license" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">对招标对象的财务要求
-                                ：</label>
-                            <div class="col-sm-8">
-                                <input name="finance" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">对招标对象的犯罪记录要求
-                                ：</label>
-                            <div class="col-sm-8">
-                                <input name="illegal" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">对招标对象的信誉分要求
-                                ：</label>
-                            <div class="col-sm-8">
-                                <input name="reputationRequirements" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">对招标对象的补充要求
-                                ：</label>
-                            <div class="col-sm-8">
-                                <textarea name="bidderText" class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">招标文件的获取方式
-                                ：</label>
-                            <div class="col-sm-8">
-                                <input name="documentsObtain" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">投标文件递交的截止时间
-                                ：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group date">
-                                    <input name="bidDdl" class="form-control" placeholder="yyyy-MM-dd"
-                                           type="text">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">递交单独密封的纸质版投标文件的递交地点
-                                ：</label>
-                            <div class="col-sm-8">
-                                <input name="bidSubmission" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">本次招标公告同时在哪些平台发布
-                                ：</label>
-                            <div class="col-sm-8">
-                                <input name="otherPlatform" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">电子招标投标规则
-                                ：</label>
-                            <div class="col-sm-8">
-                                <textarea name="electronicBiddingRules" class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">招标人
-                                ：</label>
-                            <div class="col-sm-8">
-                                <input name="initiator" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">联系人
-                                ：</label>
-                            <div class="col-sm-8">
-                                <input name="contacts" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">联系电话
-                                ：</label>
-                            <div class="col-sm-8">
-                                <input name="contactNumber" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">电子邮件
-                                ：</label>
-                            <div class="col-sm-8">
-                                <input name="email" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">地址
-                                ：</label>
-                            <div class="col-sm-8">
-                                <input name="address" class="form-control" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">资质审核截止时间
-                                ：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group date">
-                                    <input name="qualificationReviewTime" class="form-control" placeholder="yyyy-MM-dd"
-                                           type="text">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">竞标开始时间
-                                ：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group date">
-                                    <input name="biddingStartTime" class="form-control" placeholder="yyyy-MM-dd"
-                                           type="text">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">竞标截止时间
-                                ：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group date">
-                                    <input name="biddingEndTime" class="form-control" placeholder="yyyy-MM-dd"
-                                           type="text">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">公布时间
-                                ：</label>
-                            <div class="col-sm-8">
-                                <div class="input-group date">
-                                    <input name="publicationTime" class="form-control" placeholder="yyyy-MM-dd"
-                                           type="text">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                </div>
-                            </div>
-                        </div>
+        <input id="id" name="id" th:value="${tenderSeed.id}" type="hidden">
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">标书名称
+                ：</label>
+            <div class="col-sm-8">
+                <input name="tenderName" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">标书总体介绍
+                ：</label>
+            <div class="col-sm-8">
+                <textarea name="text" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">交货期
+                ：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input name="receiveTime" class="form-control" placeholder="yyyy-MM-dd"
+                           type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">交货地点
+                ：</label>
+            <div class="col-sm-8">
+                <input name="deliverPoint" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">项目概况与招标范围的补充内容
+                ：</label>
+            <div class="col-sm-8">
+                <textarea name="projectText" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">营业执照要求
+                ：</label>
+            <div class="col-sm-8">
+                <input name="license" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">对招标对象的财务要求
+                ：</label>
+            <div class="col-sm-8">
+                <input name="finance" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">对招标对象的犯罪记录要求
+                ：</label>
+            <div class="col-sm-8">
+                <input name="illegal" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">对招标对象的信誉分要求
+                ：</label>
+            <div class="col-sm-8">
+                <input name="reputationRequirements" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">对招标对象的补充要求
+                ：</label>
+            <div class="col-sm-8">
+                <textarea name="bidderText" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">招标文件的获取方式
+                ：</label>
+            <div class="col-sm-8">
+                <input name="documentsObtain" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">投标文件递交的截止时间
+                ：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input name="bidDdl" class="form-control" placeholder="yyyy-MM-dd"
+                           type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">递交单独密封的纸质版投标文件的递交地点
+                ：</label>
+            <div class="col-sm-8">
+                <input name="bidSubmission" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">本次招标公告同时在哪些平台发布
+                ：</label>
+            <div class="col-sm-8">
+                <input name="otherPlatform" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">电子招标投标规则
+                ：</label>
+            <div class="col-sm-8">
+                <textarea name="electronicBiddingRules" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">招标人
+                ：</label>
+            <div class="col-sm-8">
+                <input name="initiator" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">联系人
+                ：</label>
+            <div class="col-sm-8">
+                <input name="contacts" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">联系电话
+                ：</label>
+            <div class="col-sm-8">
+                <input name="contactNumber" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">电子邮件
+                ：</label>
+            <div class="col-sm-8">
+                <input name="email" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">地址
+                ：</label>
+            <div class="col-sm-8">
+                <input name="address" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">资质审核截止时间
+                ：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input name="qualificationReviewTime" class="form-control" placeholder="yyyy-MM-dd"
+                           type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">竞标开始时间
+                ：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input name="biddingStartTime" class="form-control" placeholder="yyyy-MM-dd"
+                           type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">竞标截止时间
+                ：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input name="biddingEndTime" class="form-control" placeholder="yyyy-MM-dd"
+                           type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">公布时间
+                ：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input name="publicationTime" class="form-control" placeholder="yyyy-MM-dd"
+                           type="text">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <h4 class="form-header h4">商品数据</h4>
+        <div class="row">
+            <div class="col-sm-12">
+                <button class="btn btn-white btn-sm" onclick="addColumn()" type="button"><i class="fa fa-plus"> 增加</i>
+                </button>
+                <button class="btn btn-white btn-sm" onclick="delColumn()" type="button"><i class="fa fa-minus">
+                    删除</i>
+                </button>
+                <div class="col-sm-12 select-table table-striped">
+                    <table id="bootstrap-table"></table>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
+
+<div class="row">
+    <div class="col-sm-offset-5 col-sm-10">
+        <button class="btn btn-sm btn-primary" onclick="submitHandler()" type="button"><i class="fa fa-check"></i>保 存
+        </button>&nbsp;
+        <button class="btn btn-sm btn-danger" onclick="closeItem()" type="button"><i class="fa fa-reply-all"></i>关 闭
+        </button>
+    </div>
+</div>
+
+
 <th:block th:include="include :: footer"/>
-        <th:block th:include="include :: datetimepicker-js"/>
+<th:block th:include="include :: datetimepicker-js"/>
 <script th:inline="javascript">
     var prefix = ctx + "trender/information"
     $("#form-information-add").validate({
@@ -211,45 +237,377 @@
 
     function submitHandler() {
         if ($.validate.form()) {
-            $.operate.save(prefix + "/add", $('#form-information-add').serialize());
+            $.operate.saveTab(prefix + "/add", $('#form-information-add').serialize());
         }
     }
 
-            $("input[name='receiveTime']").datetimepicker({
-                format: "yyyy-mm-dd",
-                minView: "month",
-                autoclose: true
-            });
+    $("input[name='receiveTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
 
-            $("input[name='bidDdl']").datetimepicker({
-                format: "yyyy-mm-dd",
-                minView: "month",
-                autoclose: true
-            });
+    $("input[name='bidDdl']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
 
-            $("input[name='qualificationReviewTime']").datetimepicker({
-                format: "yyyy-mm-dd",
-                minView: "month",
-                autoclose: true
-            });
+    $("input[name='qualificationReviewTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
 
-            $("input[name='biddingStartTime']").datetimepicker({
-                format: "yyyy-mm-dd",
-                minView: "month",
-                autoclose: true
-            });
+    $("input[name='biddingStartTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
 
-            $("input[name='biddingEndTime']").datetimepicker({
-                format: "yyyy-mm-dd",
-                minView: "month",
-                autoclose: true
-            });
+    $("input[name='biddingEndTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
 
-            $("input[name='publicationTime']").datetimepicker({
-                format: "yyyy-mm-dd",
-                minView: "month",
-                autoclose: true
+    $("input[name='publicationTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
+
+    $(function () {
+        init();
+
+    });
+    //初始化商品数据
+    var ProductSkuSeedPrefix = ctx + "cp/seed";
+
+    function init() {
+        // 初始化数据, 可以由后台传过来
+        var data = [];
+
+        var options = {
+            //data: data,
+            url: ProductSkuSeedPrefix + "/list",
+            pagination: false,
+            showSearch: false,
+            showRefresh: false,
+            showToggle: false,
+            showColumns: false,
+            sidePagination: "client",
+            queryParams: queryParams,
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'index',
+                    align: 'center',
+                    title: "序号",
+                    formatter: function (value, row, index) {
+                        var columnIndex = $.common.sprintf("<input type='hidden' name='index' value='%s'>", $.table.serialNumber(index));
+                        var skuId = $.common.sprintf("<input type='hidden' name='goods[%s].skuId' value='%s'>", index, row.skuId);//商品id 隐藏域
+                        return columnIndex + $.table.serialNumber(index) + skuId;
+                    }
+                },
+                {
+                    field: 'id',
+                    align: 'center',
+                    title: 'id',
+                    visible: false
+                },
+                // {
+                //     field: 'tenderInformationId',
+                //     align: 'center',
+                //     title: 'tenderInformationId',
+                //     // visible: false
+                // },
+                {
+                    field: 'productId',
+                    align: 'center',
+                    title: '商品id',
+                    visible: false
+                },
+                {
+                    field: 'productName',
+                    align: 'center',
+                    title: '商品名称',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf("<input class='form-control'  type='text' name='goods[%s].productName' id='productName' value='%s' style='text-align: center' readonly>", index, value);
+                    },
+                    events: onclickEvent
+                },
+                {
+                    field: 'skuId',
+                    align: 'center',
+                    title: '商品规格id',
+                    visible: false,
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf("<input class='form-control' onclick=selectProduct() type='text' name='goods[%s].skuId' value='%s' readonly>", index, value);
+                    },
+                },
+                {
+                    field: 'skuName',
+                    align: 'center',
+                    title: '商品规格名称',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf("<input class='form-control' id='skuName' type='text' name='goods[%s].skuName' style='text-align: center'  placeholder=\"请先选择商品\" value='%s' readonly>", index, value);
+                    },
+                    events: onclickEvent2
+                },
+                {
+                    field: 'untitled',
+                    align: 'center',
+                    title: '属性格式',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf("<input class='form-control' type='text' name='goods[%s].untitled' value='%s' style='text-align: center'>", index, value);
+                    },
+                },
+                {
+                    field: 'goodsUnit',
+                    align: 'center',
+                    title: '单位',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf("<input class='form-control' type='text' name='goods[%s].goodsUnit' value='%s' style='text-align: center'>", index, value);
+                    }
+                },
+                {
+                    field: 'shopIndexName',
+                    align: 'center',
+                    title: '商品指标名称',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf("<input class='form-control' type='text' name='goods[%s].shopIndexName' value='%s' style='text-align: center'>", index, value);
+                    },
+                },
+                {
+                    field: 'shopIndexRequire',
+                    align: 'center',
+                    title: '商品指标要求',
+                    formatter: function (value, row, index) {
+                        var html = $.common.sprintf("<input class='form-control' type='text' name='goods[%s].shopIndexRequire' value='%s' style='text-align: center'>", index, value);
+                        return html;
+                    },
+                },
+                {
+                    field: 'planNumber',
+                    align: 'center',
+                    title: '拟招标数量',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf("<input class='form-control' type='text'  name='goods[%s].planNumber'  value='%s' style='text-align: center'>", index, value);
+                    },
+                },
+                {
+                    field: 'planPrice',
+                    align: 'center',
+                    title: '预算金额',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf("<input class='form-control' type='text' name='goods[%s].planPrice' value='%s' style='text-align: center'>", index, value);
+                    },
+                },
+            ]
+        };
+
+        $.table.init(options);
+    }
+
+    function addColumn() {
+        var row = {
+            id: "",
+            productId: "",
+            productName: "",
+            skuId: "",
+            skuName: "",
+            untitled: "",
+            goodsUnit: "",
+            shopIndexName: "",
+            shopIndexRequire: "",
+            planNumber: 0,
+            planPrice: 0,
+        }
+        var count = $("#" + table.options.id).bootstrapTable('getData').length;
+        $("#" + table.options.id).bootstrapTable('insertRow', {
+            index: count + 1,
+            row: row
+        });
+    }
+
+    //删除行
+    function delColumn() {
+        sub.editColumn();
+
+        var column = "sku_id";
+        var subColumn = $.common.isEmpty(column) ? "index" : column;
+        var ids = $.table.selectColumns(subColumn);
+        if (ids.length == 0) {
+            $.modal.alertWarning("请至少选择一条记录");
+            return;
+        }
+        if ($.common.isEmpty(ids.join())) {
+            $("#" + table.options.id).bootstrapTable('remove', {
+                field: "index",
+                values: $.table.selectColumns("index")
             });
+        } else {
+            var data = {"ids": ids.join()};
+            $.operate.post(outboundOrderSeedPrefix + "/remove", data);
+        }
+    }
+
+    function queryParams(params) {
+        var search = {
+            tenderInformationId: $('#id').val(),
+        }
+        return search;
+    }
+
+    var productPrefix = ctx + "user/product";
+    var productSkuSeed;//子表ID
+    var skuSeed;//商品规格ID
+    var productId;//商品ID
+
+    function selectProduct() {
+        var url = productPrefix + '/selectProducts';
+        var options = {
+            title: '选择商品',
+            url: url,
+            callBack: doSubmitProducts
+        };
+        $.modal.openOptions(options);
+    }
+
+    function doSubmitProducts(index, layero) {
+        var iframeWin = layero.find("iframe")[0].contentWindow.$.table;
+        var rows = iframeWin.selectFirstColumns();//调用子页面的方法 获取ID
+        // console.log(rows);
+        if (rows.length === 0) {
+            $.modal.alertWarning("请至少选择一条记录");
+            return;
+        }
+        var productsId = iframeWin.selectColumns("productId").join();//调用子页面的方法 获取ID
+
+        var productsName = iframeWin.selectColumns("productName").join();//调用子页面的方法 获取ID
+        // var productsContent = iframeWin.selectColumns("content").join();//调用子页面的方法 获取ID
+        var data = $("#" + table.options.id).bootstrapTable('getData');
+        var flag = 0;
+        $.each(data, function (index, obj) {  //index:索引obj:循环的每个元素
+            if (obj.productsId === productsId) {
+                flag = 1;
+                return false; //跳出循环
+            }
+        });
+        if (flag === 1) {
+            $.modal.alertWarning("商品已在清单中!");
+            return;
+        }
+
+        $.modal.close(index);
+
+        //更新表格数据 ajax 调用后台存储
+        var _data = {
+            "tenderInformationId": $('#id').val(),
+            "productId": productsId,
+            "productName": productsName,
+            // "skuId": "  ",
+            // "skuName": " ",
+            // "untitled": " ",
+            // "goodsUnit": " ",
+            // "shopIndexName": " ",
+            // "shopIndexRequire": " ",
+            // "planNumber": " ",
+            // "planPrice": " ",
+            // "productsName": productsName,
+            // "productsContent": productsContent,
+        }
+        console.log("_data: " + _data.productName);
+        console.log("productSkuSeed1: " + productSkuSeed);
+        if ($.common.isEmpty(productSkuSeed)) {
+            $.operate.post(ProductSkuSeedPrefix + "/add", _data);
+            console.log("come here");
+        } else {
+            _data.id = productSkuSeed;
+            $.operate.post(ProductSkuSeedPrefix + "/edit", _data);
+        }
+    }
+
+    window.onclickEvent = {
+
+        'click .form-control': function (e, value, row, index) {
+            productSkuSeed = row.id;
+            selectProduct();
+        }
+    };
+    window.onclickEvent2 = {
+        'click .form-control': function (e, value, row, index) {
+            skuSeed = row.id;
+            productId = row.productId;
+            selectSku();
+        }
+    };
+    let skuPrefix = ctx + "user/sku";
+    function selectSku() {
+        var url = skuPrefix + '/selectSkus' + "/{" + productId + "}";
+        var options = {
+            title: '选择商品sku',
+            url: url,
+            callBack: doSubmitSkus
+        };
+        // console.log(options.url);
+        $.modal.openOptions(options);
+    }
+
+    function doSubmitSkus(index, layero) {
+        var iframeWin = layero.find("iframe")[0].contentWindow.$.table;
+        var rows = iframeWin.selectFirstColumns();//调用子页面的方法 获取ID
+        // console.log(rows);
+        if (rows.length === 0) {
+            $.modal.alertWarning("请至少选择一条记录");
+            return;
+        }
+        var skuIds = iframeWin.selectColumns("skuId").join();//调用子页面的方法 获取ID
+        var skuNames = iframeWin.selectColumns("skuName").join();//调用子页面的方法 获取ID
+        var untitleds = iframeWin.selectColumns("untitled").join();//调用子页面的方法 获取ID
+        console.log(skuIds);
+        console.log(skuNames);
+        console.log(untitleds);
+        var data = $("#" + table.options.id).bootstrapTable('getData');
+        var flag = 0;
+        $.each(data, function (index, obj) {  //index:索引obj:循环的每个元素
+            if (obj.skuId === skuIds) {
+                flag = 1;
+                return false; //跳出循环
+            }
+        });
+        if (flag === 1) {
+            $.modal.alertWarning("商品sku已在清单中!");
+            return;
+        }
+
+        $.modal.close(index);
+
+        //更新表格数据 ajax 调用后台存储
+        var _data = {
+            "tenderInformationId": $('#id').val(),
+            "skuId": skuIds,
+            "skuName": skuNames,
+            "untitled":untitleds,
+            // "skuId": "  ",
+            // "skuName": " ",
+            // "untitled": " ",
+            // "goodsUnit": " ",
+            // "shopIndexName": " ",
+            // "shopIndexRequire": " ",
+            // "planNumber": " ",
+            // "planPrice": " ",
+            // "productsName": productsName,
+            // "productsContent": productsContent,
+        }
+        console.log("_data2: " + _data);
+            _data.id = skuSeed;
+        console.log("_data.id: " + _data.id);
+            $.operate.post(ProductSkuSeedPrefix + "/edit", _data);
+    }
+
 </script>
 </body>
 </html>

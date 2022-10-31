@@ -15,6 +15,8 @@ import com.cps.shop.domain.ShopGoods;
 import com.cps.shop.mode.ShopGoodsSeedMode;
 import com.cps.shop.service.IShopGoodsSeedService;
 import com.cps.shop.service.IShopGoodsService;
+import com.cps.user.domain.ProductSku;
+import com.cps.user.service.IProductSkuService;
 import com.cps.wh.domain.WhWarehousingOrder;
 import com.cps.wh.domain.WhWarehousingOrderSeed;
 import com.cps.wh.enums.WarehousingOrderStatus;
@@ -27,6 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +59,9 @@ public class WhWarehousingOrderSeedServiceImpl implements IWhWarehousingOrderSee
 
     @Autowired
     private IDeptWarehouseService deptWarehouseService;
+
+    @Resource
+    private IProductSkuService productSkuService;
 
     /**
      * 查询商品入库单子
@@ -190,8 +196,9 @@ public class WhWarehousingOrderSeedServiceImpl implements IWhWarehousingOrderSee
     public int updateCompleteSave(WarehousingOrderSeedModel warehousingOrderSeedModel) {
         int result = 0;
         List<ShopGoodsSeedMode> shopGoodsSeedList = new ArrayList<>();
-        ;//商品库存信息<商品ID,商品库存数量>
+        //商品库存信息<商品ID,商品库存数量>
         List<Long> shopGoodsIds = new ArrayList<>();//List商品信息
+        List<ProductSku> productSkuList = new ArrayList<>();
 
         //步骤1:计算是否有或多或少的数量,存储数据库中，并改变订单状态
         List<WhWarehousingOrderSeed> whWarehousingOrderSeedList = warehousingOrderSeedModel.getWarehousingOrderSeed();
@@ -212,6 +219,12 @@ public class WhWarehousingOrderSeedServiceImpl implements IWhWarehousingOrderSee
             shopGoodsSeedMode.setGoodsId(warehousingOrderSeed.getShopGoodsId());
             shopGoodsSeedMode.setStockNumber(warehousingOrderSeed.getWarehousingNumber());
             shopGoodsSeedList.add(shopGoodsSeedMode);
+
+            ProductSku productSku = new ProductSku();
+            productSku.setSkuId(shopGoodsService.selectShopGoodsById(warehousingOrderSeed.getShopGoodsId()).getGoodsCode());
+            productSku.setStock(warehousingOrderSeed.getWarehousingNumber().intValue());
+            productSkuList.add(productSku);
+
             shopGoodsIds.add(warehousingOrderSeed.getShopGoodsId());//存储List对象中
         }
         WhWarehousingOrder whWarehousingOrder = new WhWarehousingOrder();
@@ -222,8 +235,9 @@ public class WhWarehousingOrderSeedServiceImpl implements IWhWarehousingOrderSee
 
         //步骤2 商品数量入库商品库存信息表
         result = shopGoodsSeedService.updateShopGoodsSeedStockNumber(shopGoodsSeedList);
+         productSkuService.updateProductStockNumber(productSkuList);
 
-        //步骤3 根据商品ID查询库位，在把空库位标识 改为N
+        //步骤3 根据商品ID查询库位，在把空库位标识改为N
         List<Long> storageIds = shopGoodsService.selectShopGoodsStorageIds(shopGoodsIds);
         result = whStorageService.updateWhStorageBatch(UserConstants.NO, storageIds);
         return result;
