@@ -61,6 +61,17 @@ public class WhOutboundOrderServiceImpl implements IWhOutboundOrderService {
     }
 
     /**
+     * 通过订单号查询商品出库单主表
+     *
+     * @param orderName 商品出库单订单号
+     * @return 商品出库单主表
+     */
+    @Override
+    public List<WhOutboundOrder> selectWhOutboundOrderByOrderName(String orderName) {
+        return whOutboundOrderMapper.selectWhOutboundOrderByOrderName(orderName);
+    }
+
+    /**
      * 查询商品出库单主表列表
      *
      * @param whOutboundOrder 商品出库单主表

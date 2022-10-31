@@ -13,11 +13,13 @@ import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.OrderNumGeneratorUtils;
 import com.cps.common.utils.ShiroUtils;
 import com.cps.common.utils.StringUtils;
+import com.cps.wh.domain.Cart;
 import com.cps.wh.domain.WhOutboundOrder;
 import com.cps.wh.domain.WhOutboundOrderSeed;
 import com.cps.wh.enums.OutboundOrderStatus;
 import com.cps.wh.service.IWhOutboundOrderSeedService;
 import com.cps.wh.service.IWhOutboundOrderService;
+import com.cps.wh.vo.WhOutboundOrderVo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -96,18 +98,26 @@ public class WhOutboundOrderController extends BaseController {
     @Log(title = "商品出库单主表", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(@RequestBody WhOutboundOrder whOutboundOrder) {
-        System.out.println(whOutboundOrder.getOrderCode());
-        whOutboundOrder.setOrderDate(DateUtils.getNowDate());
-        whOutboundOrder.setOrderType(WhOutboundOrderType.OTHER.getCode());
-        whOutboundOrder.setOrderCode(OrderNumGeneratorUtils.makeOrderNum(OrderConstants.SF));
-        whOutboundOrder.setDiscountRate(BigDecimal.ONE);
-        whOutboundOrder.setDiscountAmount(BigDecimal.ZERO);
-        whOutboundOrder.setDiscountPrice(BigDecimal.ZERO);
-        whOutboundOrder.setOtherFee(BigDecimal.ZERO);
-        whOutboundOrder.setStatus(OutboundOrderStatus.THEDELIVERY.getCode());
-        whOutboundOrder.setDeptId(new Long(0));
-        return toAjax(whOutboundOrderService.insertWhOutboundOrder(whOutboundOrder));
+    public AjaxResult addSave(@RequestBody WhOutboundOrderVo whOutboundOrderVo) {
+        //TODO: 1.保存whOutboundOrder 2.获取数据库中相应whOutboundOrder对象的id 3.将id和goods中的数据存入whOutboundOrderSeed表中
+        //1.
+        WhOutboundOrder whOutboundOrder = whOutboundOrderVo.getWhOutboundOrder();
+        whOutboundOrderService.insertWhOutboundOrder(whOutboundOrder);
+
+        //2.
+        Long whOutboundOrderId = whOutboundOrderService.selectWhOutboundOrderByOrderName(whOutboundOrder.getOrderName()).get(0).getWarehousingOrderId();
+        List<Cart> cartList = whOutboundOrderVo.getGoods();
+
+        //3.
+        WhOutboundOrderSeed whOutboundOrderSeed = new WhOutboundOrderSeed();
+        for(Cart cart:cartList){
+            whOutboundOrderSeed.setOutboundOrderId(whOutboundOrderId);
+            whOutboundOrderSeed.setActualNumber(cart.getCartNum());
+            whOutboundOrderSeed.setOweNumber(cart.getCartNum());
+            whOutboundOrderSeed.setPlanNumber(cart.getCartNum());
+            whOutboundOrderSeedService.insertWhOutboundOrderSeed(whOutboundOrderSeed);
+        }
+        return toAjax(1);
     }
 
     /**
