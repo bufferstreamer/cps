@@ -235,7 +235,7 @@ public class WhWarehousingOrderSeedServiceImpl implements IWhWarehousingOrderSee
 
         //步骤2 商品数量入库商品库存信息表
         result = shopGoodsSeedService.updateShopGoodsSeedStockNumber(shopGoodsSeedList);
-         productSkuService.updateProductStockNumber(productSkuList);
+        result =productSkuService.updateProductStockNumber(productSkuList);
 
         //步骤3 根据商品ID查询库位，在把空库位标识改为N
         List<Long> storageIds = shopGoodsService.selectShopGoodsStorageIds(shopGoodsIds);

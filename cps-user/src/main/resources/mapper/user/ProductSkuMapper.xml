@@ -92,7 +92,7 @@
     </insert>
 
     <update id="updateProductSku" parameterType="com.cps.user.domain.ProductSku">
-        update product_sku
+        update fmmall2.product_sku
         <trim prefix="SET" suffixOverrides=",">
             <if test="productId != null and productId != ''">product_id = #{productId},</if>
             <if test="skuName != null and skuName != ''">sku_name = #{skuName},</if>
@@ -124,7 +124,7 @@
 
 
   <update id="updateProductStockNumber" parameterType="java.util.Map">
-    update product_sku
+    update fmmall2.product_sku
     <trim prefix="set" suffixOverrides=",">
       <trim prefix="stock =case" suffix="end,"> <!-- 库存数量 新增-->
         <foreach collection="list" item="item" index="key">

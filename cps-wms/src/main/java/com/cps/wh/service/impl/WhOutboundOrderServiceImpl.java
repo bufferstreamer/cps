@@ -13,7 +13,11 @@ import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.ShiroUtils;
 import com.cps.common.utils.StringUtils;
 import com.cps.shop.domain.ShopGoodsSeed;
+import com.cps.shop.mapper.ShopGoodsMapper;
 import com.cps.shop.service.IShopGoodsSeedService;
+import com.cps.shop.service.IShopGoodsService;
+import com.cps.user.domain.ProductSku;
+import com.cps.user.service.IProductSkuService;
 import com.cps.wh.domain.WhOutboundOrder;
 import com.cps.wh.domain.WhOutboundOrderSeed;
 import com.cps.wh.mapper.WhOutboundOrderMapper;
@@ -23,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -49,6 +54,11 @@ public class WhOutboundOrderServiceImpl implements IWhOutboundOrderService {
     @Autowired
     private IBasisDiscountPermissionService basisDiscountPermissionService;
 
+    @Resource
+    private IShopGoodsService shopGoodsService;
+
+    @Resource
+    private IProductSkuService productSkuService;
     /**
      * 查询商品出库单主表
      *
@@ -207,7 +217,14 @@ public class WhOutboundOrderServiceImpl implements IWhOutboundOrderService {
             shopGoodsSeed.setBeenPickingNumber(shopGoodsSeed.getBeenPickingNumber() - outboundOrderSeed.getActualNumber());//已拣货数量
             shopGoodsSeed.setStockNumber(shopGoodsSeed.getStockNumber() - outboundOrderSeed.getActualNumber());//库存数量
             shopGoodsSeed.setUpdateBy(whOutboundOrder.getUpdateBy());
+
+            ProductSku productSku = new ProductSku();
+            productSku.setSkuId(shopGoodsService.selectShopGoodsById(shopGoodsSeed.getGoodsId()).getGoodsCode());
+            productSku.setStock(Math.toIntExact(shopGoodsSeed.getStockNumber() - outboundOrderSeed.getActualNumber()));
+
+            result = productSkuService.updateProductSku(productSku);
             result = shopGoodsSeedService.updateShopGoodsSeed(shopGoodsSeed);
+
         }
         result = updateWhOutboundOrder(whOutboundOrder);
         return result;
