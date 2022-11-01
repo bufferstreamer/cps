@@ -171,6 +171,7 @@ public class ContractController extends BaseController {
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult addSave(Contract contract) {
+        contract.setContractType("0");
         contract.setContractTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
         contract.setContractId(IdUtils.fastSimpleUUID());
         //签名设置成 未签名

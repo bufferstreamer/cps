@@ -15,7 +15,7 @@
                     class="btn btn-primary btn-rounded btn-sm" onclick="queryTender()"><i class="fa fa-search"></i>&nbsp;选择标书</a>
             </div>
         </div>
-        <div class="form-group">
+        <!--<div class="form-group">
             <label class="col-sm-3 control-label is-required">合同类别：</label>
             <div class="col-sm-8">
                 <div class="radio-box" th:each="dict : ${@dict.getType('contract_type')}">
@@ -24,7 +24,7 @@
                     <label th:for="${'contractType_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
                 </div>
             </div>
-        </div>
+        </div>-->
         <div class="form-group">
             <label class="col-sm-3 control-label is-required">上传合同文件：</label>
             <div class="col-sm-8">
