@@ -464,6 +464,9 @@
                         // var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
                         var time =  hour+":"+minute;
                         this.users[i].chatMsg.creatTime = time;
+                        if(this.users[i].chatMsg.content.includes("jpg")||this.users[i].chatMsg.content.includes("png")||this.users[i].chatMsg.content.includes("JPG")||this.users[i].chatMsg.content.includes("PNG")) {
+                            this.users[i].chatMsg.content="【图片】";
+                        }
                     }
                     console.log(this.users);
                 }
@@ -489,8 +492,11 @@
             }
             //接收到消息的回调方法
             this.websocket.onmessage = function(event) {
-                console.log(event.data);
-                setMessageInnerHTML(event.data);
+                var message = event.data.split(":");
+                console.log("vm.selected.userId",vm.selected.userId);
+                if(message[0]==vm.selected.userId){
+                    setMessageInnerHTML(message[1]);
+                }
             }
             //连接关闭的回调方法
             this.websocket.onclose = function() {

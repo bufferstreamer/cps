@@ -34,6 +34,8 @@ public interface ProductMapper
      */
     public List<Product> selectProductList(Product product);
 
+    public String selectBigProduct();
+
     /**
      * 新增商品 商品信息相关：分类，商品图片，商品规格，商品参数
      *

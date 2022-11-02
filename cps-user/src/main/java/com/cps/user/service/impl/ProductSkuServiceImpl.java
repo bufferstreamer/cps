@@ -83,7 +83,8 @@ public class ProductSkuServiceImpl implements IProductSkuService
     @Override
     public int insertProductSku(ProductSku productSku)
     {
-        productSku.setSkuId(IdUtils.simpleUUID());
+        Integer id = Integer.valueOf(productSkuMapper.selectBigSkuId());
+        productSku.setSkuId(String.valueOf(id+1));
         Date time = new Date();
         productSku.setCreateTime(time);
         productSku.setStatus(1);
