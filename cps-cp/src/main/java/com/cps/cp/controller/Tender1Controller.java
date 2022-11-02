@@ -28,6 +28,7 @@ import com.cps.credit.domain.UserCredit;
 import com.cps.credit.service.IUserCreditService;
 import com.cps.product.domain.ProductIndexInfo;
 import com.cps.product.service.IProductIndexInfoService;
+import com.cps.system.service.ISysRoleService;
 import com.cps.system.service.ISysUserService;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -90,6 +91,7 @@ public class Tender1Controller extends BaseController {
     @RequiresPermissions("cp:tender1:view")
     @GetMapping()
     public String tender1(ModelMap map) {
+        //返回信用评分数据
         if(userCreditService.selectUserCreditByUserId(ShiroUtils.getUserId())!=null){
             UserCredit userCredit = userCreditService.selectUserCreditByUserId(ShiroUtils.getUserId());
             map.put("userCreditScore",userCredit.getCreditScore());
@@ -97,6 +99,8 @@ public class Tender1Controller extends BaseController {
             map.put("userCreditScore",Constants.CREDIT_SCORE_FULL);
         }
         map.put("CREDIT_SCORE_MAIN", Constants.CREDIT_SCORE_MAIN);
+        //返回用户身份信息
+        map.put("isNotSupplier",!sysUserService.isSupplier(ShiroUtils.getUserId()));
 
         return prefix + "/tender1";
     }
