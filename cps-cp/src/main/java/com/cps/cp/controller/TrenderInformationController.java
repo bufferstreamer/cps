@@ -86,11 +86,9 @@ public class TrenderInformationController extends BaseController {
 
             //新增出库订单
             TrenderInformation trenderInformation = new TrenderInformation();
-            TenderSeed tenderSeed = new TenderSeed();
-            tenderSeed.setSkuId("css");
-//            trenderInformationService.insertTrenderInformation(trenderInformation);
-            tenderSeedService.insertTenderSeed(tenderSeed);
-            modelMap.put("tenderSeed", tenderSeed);
+
+            trenderInformationService.insertTrenderInformation(trenderInformation);
+            modelMap.put("trenderInformation", trenderInformation);
             return prefix + "/add";
         }
 

@@ -6,12 +6,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
         import com.cps.common.utils.DateUtils;
+import com.cps.cp.domain.TenderSeed;
+import com.cps.cp.mapper.TenderSeedMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cps.cp.mapper.TrenderInformationMapper;
 import com.cps.cp.domain.TrenderInformation;
 import com.cps.cp.service.ITrenderInformationService;
 import com.cps.common.core.text.Convert;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 自动生成标书信息Service业务层处理
@@ -23,6 +26,9 @@ import com.cps.common.core.text.Convert;
 public class TrenderInformationServiceImpl implements ITrenderInformationService {
     @Autowired
     private TrenderInformationMapper trenderInformationMapper;
+
+    @Autowired
+    private TenderSeedMapper tenderSeedMapper;
 
     /**
      * 查询自动生成标书信息
@@ -55,7 +61,10 @@ public class TrenderInformationServiceImpl implements ITrenderInformationService
     @Override
     public int insertTrenderInformation(TrenderInformation trenderInformation) {
         trenderInformation.setCreateTime(DateUtils.getNowDate());
+//        TenderSeed tenderSeed = new TenderSeed();
         int result = trenderInformationMapper.insertTrenderInformation(trenderInformation);
+//        tenderSeed.setTenderInformationId(trenderInformation.getId());
+//        result = tenderSeedMapper.insertTenderSeed(tenderSeed);
         Process proc;
         try {
             /*这里要换成绝对路径*/
