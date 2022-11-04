@@ -65,14 +65,56 @@ public class TrenderInformationServiceImpl implements ITrenderInformationService
         int result = trenderInformationMapper.insertTrenderInformation(trenderInformation);
 //        tenderSeed.setTenderInformationId(trenderInformation.getId());
 //        result = tenderSeedMapper.insertTenderSeed(tenderSeed);
+        /*System.out.println(trenderInformation.getId());
         Process proc;
         try {
-            /*这里要换成绝对路径*/
+            *//*这里要换成绝对路径*//*
             //String[] arg = new String[]{"python", "E:\\IdeaProjects\\cps-3\\cps-sales\\src\\main\\resources\\salesForecast.py"};
             //proc = Runtime.getRuntime().exec("python e:/IdeaProjects/cps-3/cps-sales/src/main/resources/salesForecast.py");// 执行py文件
             File directory = new File("");//参数为空
             String courseFile = directory.getCanonicalPath() ;
-            proc = Runtime.getRuntime().exec("python "+courseFile+"\\document\\otherPython\\招标文件生成.py 2");
+            proc = Runtime.getRuntime().exec("python "+courseFile+"\\document\\otherPython\\招标文件生成.py "+ 189);
+            //proc = Runtime.getRuntime().exec("python E:\\IdeaProjects\\cps-3\\document\\otherPython\\招标文件生成.py 2");
+            //用输入输出流来截取结果
+            BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+            String line = null;
+            while ((line = in.readLine()) != null) {
+                System.out.println(line);
+            }
+            if(proc.exitValue() != 0){
+                System.out.println("ERROR:生成招标文件失败，请检查算法文件正确，且路径准确");
+            }
+            in.close();
+            proc.waitFor();
+        } catch (IOException e) {
+            System.out.println("失败1");
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            System.out.println("失败2");
+            e.printStackTrace();
+        }*/
+            return result;
+    }
+
+    /**
+     * 修改自动生成标书信息
+     *
+     * @param trenderInformation 自动生成标书信息
+     * @return 结果
+     */
+    @Override
+    public int updateTrenderInformation(TrenderInformation trenderInformation) {
+
+        int result = trenderInformationMapper.updateTrenderInformation(trenderInformation);
+        System.out.println(trenderInformation.getId());
+        Process proc;
+        try {
+
+            //String[] arg = new String[]{"python", "E:\\IdeaProjects\\cps-3\\cps-sales\\src\\main\\resources\\salesForecast.py"};
+            //proc = Runtime.getRuntime().exec("python e:/IdeaProjects/cps-3/cps-sales/src/main/resources/salesForecast.py");// 执行py文件
+            File directory = new File("");//参数为空
+            String courseFile = directory.getCanonicalPath() ;
+            proc = Runtime.getRuntime().exec("python "+courseFile+"\\document\\otherPython\\招标文件生成.py "+ trenderInformation.getId());
             //proc = Runtime.getRuntime().exec("python E:\\IdeaProjects\\cps-3\\document\\otherPython\\招标文件生成.py 2");
             //用输入输出流来截取结果
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
@@ -92,18 +134,7 @@ public class TrenderInformationServiceImpl implements ITrenderInformationService
             System.out.println("失败2");
             e.printStackTrace();
         }
-            return result;
-    }
-
-    /**
-     * 修改自动生成标书信息
-     *
-     * @param trenderInformation 自动生成标书信息
-     * @return 结果
-     */
-    @Override
-    public int updateTrenderInformation(TrenderInformation trenderInformation) {
-        return trenderInformationMapper.updateTrenderInformation(trenderInformation);
+        return result;
     }
 
     /**
