@@ -5,7 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
-        import com.cps.common.utils.DateUtils;
+
+import com.cps.common.utils.DateUtils;
 import com.cps.cp.domain.TenderSeed;
 import com.cps.cp.mapper.TenderSeedMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,7 +94,7 @@ public class TrenderInformationServiceImpl implements ITrenderInformationService
             System.out.println("失败2");
             e.printStackTrace();
         }*/
-            return result;
+        return result;
     }
 
     /**
@@ -113,8 +114,8 @@ public class TrenderInformationServiceImpl implements ITrenderInformationService
             //String[] arg = new String[]{"python", "E:\\IdeaProjects\\cps-3\\cps-sales\\src\\main\\resources\\salesForecast.py"};
             //proc = Runtime.getRuntime().exec("python e:/IdeaProjects/cps-3/cps-sales/src/main/resources/salesForecast.py");// 执行py文件
             File directory = new File("");//参数为空
-            String courseFile = directory.getCanonicalPath() ;
-            proc = Runtime.getRuntime().exec("python "+courseFile+"\\document\\otherPython\\招标文件生成.py "+ trenderInformation.getId());
+            String courseFile = directory.getCanonicalPath();
+            proc = Runtime.getRuntime().exec("python " + courseFile + "\\document\\otherPython\\招标文件生成.py " + trenderInformation.getId());
             //proc = Runtime.getRuntime().exec("python E:\\IdeaProjects\\cps-3\\document\\otherPython\\招标文件生成.py 2");
             //用输入输出流来截取结果
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
@@ -122,7 +123,7 @@ public class TrenderInformationServiceImpl implements ITrenderInformationService
             while ((line = in.readLine()) != null) {
                 System.out.println(line);
             }
-            if(proc.exitValue() != 0){
+            if (proc.exitValue() != 0) {
                 System.out.println("ERROR:生成招标文件失败，请检查算法文件正确，且路径准确");
             }
             in.close();
@@ -145,6 +146,12 @@ public class TrenderInformationServiceImpl implements ITrenderInformationService
      */
     @Override
     public int deleteTrenderInformationByIds(String ids) {
+        String[] id = Convert.toStrArray(ids);
+        for (String informationId : id) {
+            if (tenderSeedMapper.selectTenderSeedByInformationId(Long.valueOf(informationId)) != null) {
+                tenderSeedMapper.deleteTenderSeedByInformationId(Long.valueOf(informationId));
+            }
+        }
         return trenderInformationMapper.deleteTrenderInformationByIds(Convert.toStrArray(ids));
     }
 

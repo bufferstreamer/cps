@@ -126,9 +126,10 @@ public class TenderSeedController extends BaseController {
     @ResponseBody
     public String openFile(){
         try {
-            File directory = new File("");//参数为空
+            //参数为空
+            File directory = new File("");
             String courseFile = directory.getCanonicalPath() ;
-            Runtime.getRuntime().exec("explorer.exe /select," + courseFile + "\\cps-admin\\src\\main\\resources\\static\\documentTemplate\\tender\\招标公告");
+            Runtime.getRuntime().exec("cmd /c start " + courseFile + "\\cps-admin\\src\\main\\resources\\static\\documentTemplate\\tender");
         } catch (IOException e) {
             e.printStackTrace();
         }
