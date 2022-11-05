@@ -181,9 +181,9 @@
                         if ([[${canSignatureArr}]][index]) {
                             actions.push('<a class="btn btn-success btn-xs ' + '" href="javascript:void(0)" onclick="editSignatrue(\'' + row.contractId + '\',\'' + row.signatureA + '\',\'' + row.signatureB + '\')"><i class="fa fa-edit"></i>签名确认</a> ');
                         }
-                        if ([[${canDeleteArr}]][index]) {
-                            actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.contractId + '\')"><i class="fa fa-remove"></i>删除</a>');
-                        }
+                        // if ([[${canDeleteArr}]][index]) {
+                        //     actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.contractId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        // }
                         return actions.join('');
                     }
                 }]

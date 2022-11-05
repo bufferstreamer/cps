@@ -66,10 +66,8 @@ public class ContractController extends BaseController {
         if(userLoginName.equals("admin")){
             List<ContractView> contracts = contractService.selectContractList(new Contract());
             //当甲乙两方都点击确认后 去掉"删除按钮",签名后直接去掉签名确认按钮。
-            boolean[] canDeleteArr = new boolean[contracts.size()];
             boolean[] canSignatureArr = new boolean[contracts.size()];
             for (int i = 0; i < contracts.size(); i++) {
-                canDeleteArr[i] = true;
                 canSignatureArr[i] = true;
                 ContractView contract = contracts.get(i);
                 if(contract.getContractType().equals("0")){
@@ -81,18 +79,12 @@ public class ContractController extends BaseController {
                         canSignatureArr[i] = false;
                     }
                 }
-                if((contract.getSignatureA().equals("1"))&&(contract.getSignatureB().equals("1"))){
-                    canDeleteArr[i] = false;
-                }
             }
-            map.put("canDeleteArr", canDeleteArr);
             map.put("canSignatureArr",canSignatureArr);
         }else{
             List<ContractView> contractList = contractService.selectContractListByUserId(userId);
             boolean[] canSignatureArr = new boolean[contractList.size()];
-            boolean[] canDeleteArr = new boolean[contractList.size()];
             for (int i = 0; i < contractList.size(); i++) {
-                canDeleteArr[i] = false;
                 canSignatureArr[i] = true;
                 ContractView contract = contractList.get(i);
                 if(contract.getContractType().equals("0")){
@@ -109,7 +101,6 @@ public class ContractController extends BaseController {
                 }
             }
             map.put("canSignatureArr",canSignatureArr);
-            map.put("canDeleteArr", canDeleteArr);
         }
         return prefix + "/contract";
     }
@@ -209,47 +200,47 @@ public class ContractController extends BaseController {
     }
 
     /**
-     * 修改保存合同
+     * 修改保存合同 移除修改模块，转移到签名确认模块
      */
-    @RequiresPermissions("cp:contract:edit")
-    @Log(title = "合同", businessType = BusinessType.UPDATE)
-    @PostMapping("/edit")
-    @ResponseBody
-    public AjaxResult editSave(Contract contract) {
-        contract.setContractTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
-        // 获取当前的用户信息
-//        SysUser currentUser = ShiroUtils.getSysUser();
+//    @RequiresPermissions("cp:contract:edit")
+//    @Log(title = "合同", businessType = BusinessType.UPDATE)
+//    @PostMapping("/edit")
+//    @ResponseBody
+//    public AjaxResult editSave(Contract contract) {
+//        contract.setContractTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
+//        // 获取当前的用户信息
+////        SysUser currentUser = ShiroUtils.getSysUser();
+////        String userLoginName = currentUser.getLoginName();
+////        Long id = contract.getSignatureUserId();
+//        //获取签名方用户信息
+//        Contract contract1 = contractService.selectContractByContractId(contract.getContractId());
+//        SysUser currentUser = sysUserService.selectUserById(contract1.getSignatureUserId());
 //        String userLoginName = currentUser.getLoginName();
-//        Long id = contract.getSignatureUserId();
-        //获取签名方用户信息
-        Contract contract1 = contractService.selectContractByContractId(contract.getContractId());
-        SysUser currentUser = sysUserService.selectUserById(contract1.getSignatureUserId());
-        String userLoginName = currentUser.getLoginName();
-        //双方确认完之后，往(仓库系统-进货管理-其他入库)里传一份入库单。
-        if((contract.getSignatureA().equals("1"))&&(contract.getSignatureB().equals("1"))){
-            //新增入库订单
-            WhWarehousingOrder whWarehousingOrder = new WhWarehousingOrder();
-            //订单日期
-            whWarehousingOrder.setOrderDate(DateUtils.getNowDate());
-            //入库类型(其他入库、采购入库)
-            whWarehousingOrder.setOrderType(WhWarehousingOrderType.OTHER.getCode());
-            //入库单编号
-            whWarehousingOrder.setOrderCode(OrderNumGeneratorUtils.makeOrderNum(OrderConstants.ASN));
-            //状态(待到货、待卸货、待分拣、已分拣)
-            whWarehousingOrder.setStatus(WarehousingOrderStatus.ARRIVAL.getCode());
-            //交易单位名称
-            whWarehousingOrder.setDesWarehouseName(userLoginName);
-            //订单号
-            whWarehousingOrder.setOrderName(contract.getContractId());
-            whWarehousingOrder.setSupplierName(userLoginName);
-            whWarehousingOrder.setSupplierId(currentUser.getUserId());
-            whWarehousingOrder.setCreateBy(userLoginName);
-            whWarehousingOrder.setDeptId(currentUser.getDeptId());
-            whWarehousingOrderService.insertWhWarehousingOrder(whWarehousingOrder);
-        }
-
-        return toAjax(contractService.updateContract(contract));
-    }
+//        //双方确认完之后，往(仓库系统-进货管理-其他入库)里传一份入库单。
+//        if((contract.getSignatureA().equals("1"))&&(contract.getSignatureB().equals("1"))){
+//            //新增入库订单
+//            WhWarehousingOrder whWarehousingOrder = new WhWarehousingOrder();
+//            //订单日期
+//            whWarehousingOrder.setOrderDate(DateUtils.getNowDate());
+//            //入库类型(其他入库、采购入库)
+//            whWarehousingOrder.setOrderType(WhWarehousingOrderType.OTHER.getCode());
+//            //入库单编号
+//            whWarehousingOrder.setOrderCode(OrderNumGeneratorUtils.makeOrderNum(OrderConstants.ASN));
+//            //状态(待到货、待卸货、待分拣、已分拣)
+//            whWarehousingOrder.setStatus(WarehousingOrderStatus.ARRIVAL.getCode());
+//            //交易单位名称
+//            whWarehousingOrder.setDesWarehouseName(userLoginName);
+//            //订单号
+//            whWarehousingOrder.setOrderName(contract.getContractId());
+//            whWarehousingOrder.setSupplierName(userLoginName);
+//            whWarehousingOrder.setSupplierId(currentUser.getUserId());
+//            whWarehousingOrder.setCreateBy(userLoginName);
+//            whWarehousingOrder.setDeptId(currentUser.getDeptId());
+//            whWarehousingOrderService.insertWhWarehousingOrder(whWarehousingOrder);
+//        }
+//
+//        return toAjax(contractService.updateContract(contract));
+//    }
 
     /**
      * 删除合同
@@ -329,6 +320,8 @@ public class ContractController extends BaseController {
             whWarehousingOrder.setCreateBy(signatureUserLoginName);
             whWarehousingOrder.setDeptId(signatureUser.getDeptId());
             whWarehousingOrderService.insertWhWarehousingOrder(whWarehousingOrder);
+            //合同状态由未签署->待到货
+            contract.setContractStatus("1");
         }
         return toAjax(contractService.updateContract(contract));
     }
