@@ -239,7 +239,7 @@ public class WhOutboundOrderServiceImpl implements IWhOutboundOrderService {
      */
     @Override
     public WhOutboundOrder calculate(WhOutboundOrder whOutboundOrder, BigDecimal rate) {
-        BasisDiscountPermission basisDiscountPermission = basisDiscountPermissionService.selectBasisDiscountPermissionByUserId(ShiroUtils.getUserId());
+        BasisDiscountPermission basisDiscountPermission = basisDiscountPermissionService.selectBasisDiscountPermissionByUserId(Long.valueOf(100));
         if (StringUtils.isNull(basisDiscountPermission)) {
 //            throw new BusinessException("未开通折扣或折让权限");
         }
