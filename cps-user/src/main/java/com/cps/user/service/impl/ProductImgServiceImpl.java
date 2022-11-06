@@ -1,6 +1,8 @@
 package com.cps.user.service.impl;
 
 import java.util.List;
+
+import com.cps.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cps.user.mapper.ProductImgMapper;
@@ -53,6 +55,10 @@ public class ProductImgServiceImpl implements IProductImgService
     @Override
     public int insertProductImg(ProductImg productImg)
     {
+        Integer id = Integer.valueOf(productImgMapper.selectBigId());
+        productImg.setId(String.valueOf(id+1));
+        productImg.setCreatedTime(DateUtils.getNowDate());
+        productImg.setUpdatedTime(DateUtils.getNowDate());
         return productImgMapper.insertProductImg(productImg);
     }
 

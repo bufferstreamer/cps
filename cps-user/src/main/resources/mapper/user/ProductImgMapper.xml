@@ -16,6 +16,11 @@
     select id, item_id, url, sort, is_main, created_time, updated_time from product_img
   </sql>
 
+  <select id="selectBigId" resultType="java.lang.String">
+    select id
+    from product_img order by id desc limit 1
+  </select>
+
   <select id="selectProductImgList" parameterType="com.cps.user.domain.ProductImg" resultMap="ProductImgResult">
     <include refid="selectProductImgVo"/>
     <where>
