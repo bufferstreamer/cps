@@ -4,6 +4,7 @@ import pymysql
 import datetime as dt
 import os
 import cpsSetting as c
+from docx.shared import Pt
 def move_table_after(table, paragraph):
     tbl, p = table._tbl, paragraph._p
     p.addnext(tbl)
@@ -30,7 +31,7 @@ password = c.cps_password
 print(path)
 # 获取当前绝对路径
 docPath = os.getcwd()  # 获取当前路径
-# docPath = 'E:\\IdeaProjects\\cps-3'
+#docPath = 'E:\\IdeaProjects\\cps-3'
 # print(docPath)
 # docPath.replace("otherPython","tender")
 doc = Document(docPath + "\document\\tender\招标文件模板.docx")
@@ -109,6 +110,8 @@ replace_placeholder(doc, params)
 
 table_title = ["产品id", '产品名称', '商品规格名称','商品属性','指标名称', '指标要求', '需求数量', '商品单位','预算金额']  # 定义表格的第一行的标题
 table = doc.add_table(rows=1, cols=9)  # 定义表格的行数、列数
+table.autofit =True
+table.style = doc.styles["Table Grid"]
 table_cells = table.rows[0].cells  # 将 table_title 的每列的名称写入表格
 table_cells[0].text = table_title[0]
 table_cells[1].text = table_title[1]
@@ -119,6 +122,11 @@ table_cells[5].text = table_title[5]
 table_cells[6].text = table_title[6]
 table_cells[7].text = table_title[7]
 table_cells[8].text = table_title[8]
+for i in table.rows[0].cells:
+    run = i.paragraphs[0].runs[0]
+    run.font.size = Pt(8)
+# run = table.rows[0].cells.
+# run.font.size = 10
 
 sql_select_seed = "select product_id,\
                           product_name,\
