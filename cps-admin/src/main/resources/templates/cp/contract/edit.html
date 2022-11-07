@@ -15,11 +15,11 @@
         <!--                    <input name="tenderId" th:field="*{tenderId}" class="form-control" type="text" required>-->
         <!--                </div>-->
         <!--            </div>-->
-                    <div class="form-group" hidden>
-                        <label class="col-sm-3 control-label is-required">合同类别：</label>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label is-required">合同状态：</label>
                         <div class="col-sm-8">
-                            <div class="radio-box" th:each="dict : ${@dict.getType('contract_type')}">
-                                <input type="radio"  th:id="${'contractType_' + dict.dictCode}" name="contractType" th:value="${dict.dictValue}" th:field="*{contractType}" required>
+                            <div class="radio-box" th:each="dict : ${@dict.getType('edit_contract_status')}">
+                                <input type="radio"  th:id="${'contractType_' + dict.dictCode}" name="contractStatus" th:value="${dict.dictValue}" th:field="*{contractStatus}" required>
                                 <label th:for="${'contractType_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
                             </div>
                         </div>
@@ -33,26 +33,26 @@
         <!--                    </div>-->
         <!--                </div>-->
         <!--            </div>-->
-        <div id="jia" class="form-group">
-            <label class="col-sm-3 control-label is-required">甲方是否签名：</label>
-            <div class="col-sm-8">
-                <div class="radio-box" th:each="dict : ${@dict.getType('contract_signature')}">
-                    <input name="signatureA" required th:field="*{signatureA}"
-                           th:id="${'signatureA_' + dict.dictCode}" th:value="${dict.dictValue}" type="radio">
-                    <label th:for="${'signatureA_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
-                </div>
-            </div>
-        </div>
-        <div id="yi" class="form-group">
-            <label class="col-sm-3 control-label is-required">乙方是否签名：</label>
-            <div class="col-sm-8">
-                <div class="radio-box" th:each="dict : ${@dict.getType('contract_signature')}">
-                    <input name="signatureB" required th:field="*{signatureB}"
-                           th:id="${'signatureB_' + dict.dictCode}" th:value="${dict.dictValue}" type="radio">
-                    <label th:for="${'signatureB_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>
-                </div>
-            </div>
-        </div>
+<!--        <div id="jia" class="form-group">-->
+<!--            <label class="col-sm-3 control-label is-required">甲方是否签名：</label>-->
+<!--            <div class="col-sm-8">-->
+<!--                <div class="radio-box" th:each="dict : ${@dict.getType('contract_signature')}">-->
+<!--                    <input name="signatureA" required th:field="*{signatureA}"-->
+<!--                           th:id="${'signatureA_' + dict.dictCode}" th:value="${dict.dictValue}" type="radio">-->
+<!--                    <label th:for="${'signatureA_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div id="yi" class="form-group">-->
+<!--            <label class="col-sm-3 control-label is-required">乙方是否签名：</label>-->
+<!--            <div class="col-sm-8">-->
+<!--                <div class="radio-box" th:each="dict : ${@dict.getType('contract_signature')}">-->
+<!--                    <input name="signatureB" required th:field="*{signatureB}"-->
+<!--                           th:id="${'signatureB_' + dict.dictCode}" th:value="${dict.dictValue}" type="radio">-->
+<!--                    <label th:for="${'signatureB_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
         <!--            <div class="form-group">    -->
         <!--                <label class="col-sm-3 control-label is-required">合同签定时间：</label>-->
         <!--                <div class="col-sm-8">-->
@@ -73,35 +73,35 @@
         focusCleanup: true
     });
 
-    function GetRadioValue(RadioName){
-        var obj;
-        obj=document.getElementsByName(RadioName);
-        if(obj!=null){
-            var i;
-            for(i=0;i<obj.length;i++){
-                if(obj[i].checked){
-                    return obj[i].value;
-                }
-            }
-        }
-        return null;
-    }
-    var contractTypeValue = GetRadioValue("contractType");
-    if (contractTypeValue == 1){
-        $("#jia").hide()
-    } else {
-        $("#yi").hide()
-    }
+    // function GetRadioValue(RadioName){
+    //     var obj;
+    //     obj=document.getElementsByName(RadioName);
+    //     if(obj!=null){
+    //         var i;
+    //         for(i=0;i<obj.length;i++){
+    //             if(obj[i].checked){
+    //                 return obj[i].value;
+    //             }
+    //         }
+    //     }
+    //     return null;
+    // }
+    // var contractTypeValue = GetRadioValue("contractType");
+    // if (contractTypeValue == 1){
+    //     $("#jia").hide()
+    // } else {
+    //     $("#yi").hide()
+    // }
 
 
     function submitHandler() {
         if ($.validate.form()) {
             $.operate.save(prefix + "/edit", $('#form-contract-edit').serialize());
-            var signAValue = GetRadioValue("signatureA");
-            var signBValue = GetRadioValue("signatureB");
-            if(signAValue==1&&signBValue==1){
-                parent.location.reload();
-            }
+            // var signAValue = GetRadioValue("signatureA");
+            // var signBValue = GetRadioValue("signatureB");
+            // if(signAValue==1&&signBValue==1){
+            //     parent.location.reload();
+            // }
         }
     }
 

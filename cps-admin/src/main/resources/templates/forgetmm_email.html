@@ -36,8 +36,12 @@
     <div class="row">
         <div class="col-sm-7">
             <div class="signin-info">
-                <div class="logopanel m-b">
-                    <h1><img alt="[ cps ]" src="../static/cps.png" th:src="@{/cps.png}"></h1>
+                <div style="height:115px;" class="logopanel m-b">
+                    <!--                    <h1><img alt="[ cps ]" src="../static/cps.png" th:src="@{/cps.png}"></h1>-->
+                    <div style="height: 17px;"></div>
+                    <div class="icon" style="border-top-left-radius: 40px;border-bottom-right-radius: 40px;height: 70px;width:180px;box-shadow: 0 4px 10px -2px rgba(0, 0, 0, .8);">
+                        <h1 style="width:155px;color: #00A65A;line-height: 70px;text-align: right;font-weight: 450;font-family: iconfont">CPS</h1>
+                    </div>
                 </div>
                 <div class="m-b"></div>
                 <h4>欢迎使用 <strong>cps 后台管理系统</strong></h4>
@@ -70,13 +74,13 @@
             &emsp;&copy; 2018-2022 All Rights Reserved. cps&emsp; <br>
         </div>
         <div class="pull-right contact-icon">
-            <a href="#" class="btn-i">
+            <a data-toggle="tooltip" title="QQ:517631523" data-placement="bottom" class="btn-i">
                 <i class="fab fa-qq"></i>
             </a>
-            <a href="#" class="btn-i">
+            <a data-toggle="tooltip" title="WeChat:123456789" data-placement="bottom" class="btn-i">
                 <i class="fab fa-weixin"></i>
             </a>
-            <a href="#" class="btn-i">
+            <a href="https://github.com/bufferstreamer/cps" class="btn-i">
                 <i class="fab fa-github"></i>
             </a>
             <a href="#" class="btn-i">
