@@ -174,73 +174,40 @@ public class ContractController extends BaseController {
     }
 
     /**
-     * 修改合同
+     * 修改合同——更改合同状态
      */
     @RequiresPermissions("cp:contract:edit")
     @GetMapping("/edit/{contractId}")
     public String edit(@PathVariable("contractId") String contractId, ModelMap mmap) {
         Contract contract = contractService.selectContractByContractId(contractId);
-        contract.setContractTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
+//        contract.setContractTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
         mmap.put("contract", contract);
-        String resultUrl = ""; 
+//        String resultUrl = "";
         // 获取当前的用户信息
-        SysUser currentUser = ShiroUtils.getSysUser();
-        String userLoginName = currentUser.getLoginName();
-        if(userLoginName.equals("admin")){
-            resultUrl = prefix + "/edit";
-        }else{
-            if(contract.getContractType().equals("0")){
-                resultUrl = prefix + "/editgys";
-            }else{
-                resultUrl = prefix + "/editxsc";
-            }
-        }
-
-        return resultUrl;
+//        SysUser currentUser = ShiroUtils.getSysUser();
+//        String userLoginName = currentUser.getLoginName();
+//        if(userLoginName.equals("admin")){
+//            resultUrl = prefix + "/edit";
+//        }else{
+//            if(contract.getContractType().equals("0")){
+//                resultUrl = prefix + "/editgys";
+//            }else{
+//                resultUrl = prefix + "/editxsc";
+//            }
+//        }
+        return prefix+"/edit";
     }
 
     /**
-     * 修改保存合同 移除修改模块，转移到签名确认模块
+     * 修改保存合同
      */
-//    @RequiresPermissions("cp:contract:edit")
-//    @Log(title = "合同", businessType = BusinessType.UPDATE)
-//    @PostMapping("/edit")
-//    @ResponseBody
-//    public AjaxResult editSave(Contract contract) {
-//        contract.setContractTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
-//        // 获取当前的用户信息
-////        SysUser currentUser = ShiroUtils.getSysUser();
-////        String userLoginName = currentUser.getLoginName();
-////        Long id = contract.getSignatureUserId();
-//        //获取签名方用户信息
-//        Contract contract1 = contractService.selectContractByContractId(contract.getContractId());
-//        SysUser currentUser = sysUserService.selectUserById(contract1.getSignatureUserId());
-//        String userLoginName = currentUser.getLoginName();
-//        //双方确认完之后，往(仓库系统-进货管理-其他入库)里传一份入库单。
-//        if((contract.getSignatureA().equals("1"))&&(contract.getSignatureB().equals("1"))){
-//            //新增入库订单
-//            WhWarehousingOrder whWarehousingOrder = new WhWarehousingOrder();
-//            //订单日期
-//            whWarehousingOrder.setOrderDate(DateUtils.getNowDate());
-//            //入库类型(其他入库、采购入库)
-//            whWarehousingOrder.setOrderType(WhWarehousingOrderType.OTHER.getCode());
-//            //入库单编号
-//            whWarehousingOrder.setOrderCode(OrderNumGeneratorUtils.makeOrderNum(OrderConstants.ASN));
-//            //状态(待到货、待卸货、待分拣、已分拣)
-//            whWarehousingOrder.setStatus(WarehousingOrderStatus.ARRIVAL.getCode());
-//            //交易单位名称
-//            whWarehousingOrder.setDesWarehouseName(userLoginName);
-//            //订单号
-//            whWarehousingOrder.setOrderName(contract.getContractId());
-//            whWarehousingOrder.setSupplierName(userLoginName);
-//            whWarehousingOrder.setSupplierId(currentUser.getUserId());
-//            whWarehousingOrder.setCreateBy(userLoginName);
-//            whWarehousingOrder.setDeptId(currentUser.getDeptId());
-//            whWarehousingOrderService.insertWhWarehousingOrder(whWarehousingOrder);
-//        }
-//
-//        return toAjax(contractService.updateContract(contract));
-//    }
+    @RequiresPermissions("cp:contract:edit")
+    @Log(title = "合同", businessType = BusinessType.UPDATE)
+    @PostMapping("/edit")
+    @ResponseBody
+    public AjaxResult editSave(Contract contract) {
+        return toAjax(contractService.updateContract(contract));
+    }
 
     /**
      * 删除合同

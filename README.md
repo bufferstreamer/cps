@@ -33,40 +33,40 @@
 
 ### 登录界面
 
-![image-20220915141159941](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915141159941.png)
+![image-20220915141159941](https://github.com/bufferstreamer/cps/raw/dev/README.assets/image-20220915141159941.png)
 
 ### 注册界面
 
-![image-20220915141226799](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915141226799.png)
+![image-20220915141226799](https://github.com/bufferstreamer/cps/raw/dev/README.assets/image-20220915141226799.png)
 
 ### 首页
 
-![](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915141658593.png)
+![](https://github.com/bufferstreamer/cps/raw/dev/README.assets/image-20220915141658593.png)
 
 ### 系统管理
 
-![image-20220915142018631](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915142018631.png)
+![image-20220915142018631](https://github.com/bufferstreamer/cps/raw/dev/README.assets/image-20220915142018631.png)
 
 ### 系统监控
 
-![image-20220915142103231](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915142103231.png)
+![image-20220915142103231](https://github.com/bufferstreamer/cps/raw/dev/README.assets/image-20220915142103231.png)
 
 ### 仓库系统
 
-![image-20220915142433074](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915142433074.png)
+![image-20220915142433074](https://github.com/bufferstreamer/cps/raw/dev/README.assets/image-20220915142433074.png)
 
 ### 审核管理
 
-![image-20220915142506973](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915142506973.png)
+![image-20220915142506973](https://github.com/bufferstreamer/cps/raw/dev/README.assets/image-20220915142506973.png)
 
 ### 集采系统
 
-![image-20220915142538237](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915142538237.png)
+![image-20220915142538237](https://github.com/bufferstreamer/cps/raw/dev/README.assets/image-20220915142538237.png)
 
 ### 订单管理
 
-![image-20220915142607683](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915142607683.png)
+![image-20220915142607683](https://github.com/bufferstreamer/cps/raw/dev/README.assets/image-20220915142607683.png)
 
 ### 产品指标库管理
 
-![image-20220915142626094](https://github.com/bufferstreamer/cps/blob/dev/README.assets/image-20220915142626094.png)
+![image-20220915142626094](https://github.com/bufferstreamer/cps/raw/dev/README.assets/image-20220915142626094.png)

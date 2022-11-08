@@ -64,4 +64,6 @@ public interface ProductParamsMapper
      * @return 结果
      */
     public int deleteProductParamsByParamIds(String[] paramIds);
+
+    public String selectBigId();
 }
