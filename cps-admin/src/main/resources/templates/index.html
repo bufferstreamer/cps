@@ -279,6 +279,7 @@
     <!--右侧部分结束-->
 </div>
 <!-- 全局js -->
+<script th:src="@{/js/cookie_utils.js}"></script>
 <script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
 <script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
@@ -291,6 +292,7 @@
 <script th:src="@{/cps/index.js?v=20201208}"></script>
 <script th:src="@{/ajax/libs/fullscreen/jquery.fullscreen.js}"></script>
 <script th:inline="javascript">
+    document.cookie="cpsname="+[[${user.userId}]];
     window.history.forward(1);
     var ctx = [[@{/}]];
     var lockscreen = [[${session.lockscreen}]];

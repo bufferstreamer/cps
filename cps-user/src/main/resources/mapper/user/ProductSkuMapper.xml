@@ -53,6 +53,10 @@
         where sku_id = #{skuId}
     </select>
 
+    <select id="selectBigSkuId" resultType="java.lang.String">
+        select sku_id from product_sku order by create_time desc limit 0, 1
+    </select>
+
 
     <select id="selectProductSkuByProductId" parameterType="String" resultMap="ProductSkuResult">
         <include refid="selectProductSkuVo"/>
