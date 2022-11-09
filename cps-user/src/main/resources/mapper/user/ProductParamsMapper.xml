@@ -23,7 +23,7 @@
 
   <select id="selectBigId" resultType="java.lang.String">
     select param_id
-    from product_params order by param_id desc limit 1
+    from product_params order by create_time desc limit 1
   </select>
 
   <select id="selectProductParamsList" parameterType="com.cps.user.domain.ProductParams" resultMap="ProductParamsResult">

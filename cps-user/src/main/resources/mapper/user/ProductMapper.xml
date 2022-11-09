@@ -46,7 +46,7 @@
   </select>
   <select id="selectBigProduct" resultType="java.lang.String">
     select product_id
-    from product order by product_id desc limit 1
+    from product order by create_time desc limit 1
   </select>
 
   <insert id="insertProduct" parameterType="Product">

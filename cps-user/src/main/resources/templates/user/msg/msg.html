@@ -372,11 +372,12 @@
                     <div class="listHead">
                         <h4>{{user.nickname}}</h4>
                         <p class="time">{{user.chatMsg.creatTime}}</p>
+                        <!--						<span class="badge">{{user.unreadNumber}}</span>-->
                     </div>
                     <div class="message_p">
                         <p>{{user.chatMsg.content}}</p>
-                        <template v-if="user.unreadNumber >0">
-                            <span :id="user.userId" class="badge">{{user.unreadNumber}}</span>
+                        <template v-if="user.unreadNumber>0">
+                            <span :id="user.userId" class="badge" style="display:block" >{{user.unreadNumber}}</span>
                         </template>
                     </div>
                 </div>
@@ -387,7 +388,9 @@
         <div class="header">
             <div class="imgText">
                 <div class="userimg">
-                    <img :src="'../'+selected.userImg" class="cover">
+                    <template v-if="sign">
+                        <img :src="'../'+selected.userImg" class="cover">
+                    </template>
                 </div>
                 <h4>{{selected.nickname}}<br>
                     <template v-if="selected.status == '1'">
@@ -397,6 +400,7 @@
                         <span>离线</span>
                     </template>
                 </h4>
+
             </div>
         </div>
         <div class="chatBox"  id="message">
@@ -435,82 +439,101 @@
             msg:[],
             userImg:"",
             userId:"",
-            oldUsers:""
+            oldUsers:"",
+            sign: 0
 
         },
         created:function() {
             //从cookie中获取token、username、userImg
-            this.username = "0";
-            var userId = "0";
-            this.userId ="0";
-            var url1 = baseUrl+"chat/userList/"+userId;
+
+            var username = getCookieValue("cpsname");
+            var userId = "";
+            var url1 = baseUrl+"chat/userRelation/"+username;
             axios({
                 url:url1,
                 method:"get",
-                params:{
-                    userId:userId
-                },
             }).then((res)=>{
-                if(res.data.code == 20001 || res.data.code == 20002){
-                    //跳转登录
-                }else if(res.data.code == 10000){
-                    //请求成功  [{commonType:0},{commonType:1}]
-                    this.users = res.data.data;
-                    this.oldUsers = res.data.data;
-                    if(this.users.length>=1){
-                        this.selected = this.users[0];
-                    }
-                    for(var i=0; i<this.users.length; i++) {
-                        var date = new Date(this.users[i].chatMsg.creatTime);
-                        var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-                        var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-                        // var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-                        var time =  hour+":"+minute;
-                        this.users[i].chatMsg.creatTime = time;
-                        if(this.users[i].chatMsg.content.includes("jpg")||this.users[i].chatMsg.content.includes("png")||this.users[i].chatMsg.content.includes("JPG")||this.users[i].chatMsg.content.includes("PNG")) {
-                            this.users[i].chatMsg.content="【图片】";
-                        }
-                    }
-                    console.log(this.users);
+                if(res.data.code == 10000){
+                    userId = res.data.data;
+                    this.userId = res.data.data;
+                    this.createWeb(userId);
+                    this.getUserList();
+                    console.log(this.userId);
+                }else {
+                    alert("注册失败，请联系管理员进行操作！");
                 }
             });
             var nickname = userId
-            //判断当前浏览器是否支持WebSocket
-            if ('WebSocket'in window) {
-                this.websocket = new WebSocket("ws://localhost:8080/websocket/"+nickname);
-            } else {
-                alert('Not support websocket')
-            }
-            //连接发生错误的回调方法
-            this.websocket.onerror = function() {
-                setMessageInnerHTML("error");
-            };
-            //连接成功建立的回调方法
-            this.websocket.onopen = function(event) {
-                // setMessageInnerHTML("Loc MSG: 成功建立连接");
-            }
-            //接收到消息的回调方法
-            this.websocket.onmessage = function(event) {
-                var message = event.data.split(":");
 
-                if(message[0]==vm.selected.userId){
-
-                    setMessageInnerHTML(message[1]);
-                    addMessage(message,0);
-                }else {
-                    addMessage(message,1);
-                }
-            }
-            //连接关闭的回调方法
-            this.websocket.onclose = function() {
-                setMessageInnerHTML("Loc MSG:关闭连接");
-            }
-            //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
-            window.onbeforeunload = function() {
-                this.websocket.close();
-            }
         },
         methods: {
+            createWeb:function (nickname){
+                if ('WebSocket'in window) {
+                    this.websocket = new WebSocket("ws://localhost:8080/CustomerSocket/"+nickname);
+                } else {
+                    alert('Not support websocket')
+                }
+                //连接发生错误的回调方法
+                this.websocket.onerror = function() {
+                    setMessageInnerHTML("error");
+                };
+                //连接成功建立的回调方法
+                this.websocket.onopen = function(event) {
+                    // setMessageInnerHTML("Loc MSG: 成功建立连接");
+                }
+                //接收到消息的回调方法
+                this.websocket.onmessage = function(event) {
+                    var message = event.data.split(":");
+                    if(message[0]==vm.selected.userId){
+                        setMessageInnerHTML(message[1]);
+                        addMessage(message,0);
+                    }else {
+                        addMessage(message,1);
+                    }
+                }
+                //连接关闭的回调方法
+                this.websocket.onclose = function() {
+                    setMessageInnerHTML("Loc MSG:关闭连接");
+                }
+                //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+                window.onbeforeunload = function() {
+                    this.websocket.close();
+                }
+            },
+            getUserList:function (){
+                var url2 = baseUrl+"chat/userList/"+this.userId;
+                axios({
+                    url:url2,
+                    method:"get",
+                    params:{
+                        userId:this.userId
+                    },
+                }).then((res)=>{
+                    if(res.data.code == 20001 || res.data.code == 20002){
+                        //跳转登录
+                    }else if(res.data.code == 10000){
+                        //请求成功  [{commonType:0},{commonType:1}]
+                        this.users = res.data.data;
+                        this.oldUsers = res.data.data;
+                        if(this.users.length>=1){
+                            this.sign = 1;
+                            this.selected = this.users[0];
+                        }
+                        for(var i=0; i<this.users.length; i++) {
+                            var date = new Date(this.users[i].chatMsg.creatTime);
+                            var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+                            var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+                            // var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+                            var time =  hour+":"+minute;
+                            this.users[i].chatMsg.creatTime = time;
+                            if(this.users[i].chatMsg.content.includes("jpg")||this.users[i].chatMsg.content.includes("png")||this.users[i].chatMsg.content.includes("JPG")||this.users[i].chatMsg.content.includes("PNG")) {
+                                this.users[i].chatMsg.content="【图片】";
+                            }
+                        }
+                        console.log(this.users);
+                    }
+                });
+            },
             searchUser:function (){
                 document.getElementById('chatlist').value="";
                 var information = document.getElementById('search').value;
@@ -543,10 +566,9 @@
             getUser: function (user){
                 document.getElementById('message').innerHTML = "";
                 this.selected = user;
-                user.unreadNumber=0;
-                var userId = "0";
                 var url1 = baseUrl+"chat/msgHistory";
-                var ChatMsg = {sendId:userId,receiveId:user.userId};
+                user.unreadNumber=0;
+                var ChatMsg = {sendId:"0",receiveId:user.userId};
                 axios({
                     url:url1,
                     method:"post",
@@ -562,7 +584,7 @@
                     }
                 });
                 var url2 = baseUrl+"chat/msgRead";
-                var ChatMsg = {sendId:user.userId,receiveId:userId};
+                var ChatMsg = {sendId:user.userId,receiveId:"0"};
                 axios({
                     url:url2,
                     method:"post",
@@ -580,39 +602,36 @@
         for(var i=0;i<vm.users.length;i++){
             if(vm.users[i].userId==message[0]){
                 user = 1;
-                if(message[1]==("你的好友已离线")){
-                    vm.users[i].status='0';
-                }else {
-                    vm.users[i].chatMsg.content=message[1];
-                    var date = new Date();
-                    var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-                    var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-                    var time =  hour+":"+minute;
-                    vm.users[i].chatMsg.creatTime = time;
-                    vm.users[i].status='1';
-                    if(t==1){
-                        vm.users[i].unreadNumber=vm.users[i].unreadNumber+1;
-                    }
+                vm.users[i].chatMsg.content=message[1];
+                var date = new Date();
+                var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+                var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+                var time =  hour+":"+minute;
+                vm.users[i].chatMsg.creatTime = time;
+                vm.users[i].status='1';
+                if(t==1){
+                    vm.users[i].unreadNumber=vm.users[i].unreadNumber+1;
                 }
             }
         }
         if(user==0){
-            var url1 = baseUrl+"user/getUserByDetail/"+message[0];
+            var url1 = baseUrl+"chat/getUserByDetail/"+message[0];
             axios({
                 url:url1,
                 method:"get",
             }).then((res)=>{
                 if(res.data.code == 10000){
-                    //请求成功  [{commonType:0},{commonType:1}]
-                    user = res.data.data;
-                    var date = new Date();
-                    var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
-                    var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
-                    // var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-                    var time =  hour+":"+minute;
-                    user.chatMsg.creatTime = time;
-                    user.chatMsg.content = message[1];
-                    vm.users.add(user);
+                   var customer = res.data.data;
+                   var date = new Date();
+                   var hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+                   var minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+                   var time =  hour+":"+minute;
+                   customer[0].chatMsg.creatTime = time;
+                   customer[0].chatMsg.content = message[1];
+                   customer[0].unreadNumber = 1;
+                   customer[0].status='1';
+                   vm.oldUsers.push(customer[0]);
+                   vm.users = vm.oldUsers;
                 }
             });
         }
@@ -721,6 +740,22 @@
             div.appendChild(text)
         }
         document.getElementById('message').appendChild(div)
+    }
+    function getCookieValue(keyStr){
+        var operator = "=";
+        var value = null;
+        var s = window.document.cookie;
+        var arr = s.split("; ");
+        for(var i=0; i<arr.length; i++){
+            var str = arr[i];
+            var k = str.split(operator)[0];
+            var v = str.split(operator)[1];
+            if(k == keyStr){
+                value = v;
+                break;
+            }
+        }
+        return value;
     }
 </script>
 <script type="text/javascript">
