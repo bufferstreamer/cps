@@ -21,14 +21,12 @@ import com.cps.system.service.ISysUserService;
 import com.cps.wh.domain.WhWarehousingOrder;
 import com.cps.wh.enums.WarehousingOrderStatus;
 import com.cps.wh.service.IWhWarehousingOrderService;
-import com.github.pagehelper.Page;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,7 +63,7 @@ public class ContractController extends BaseController {
         Long userId = currentUser.getUserId();
         if(userLoginName.equals("admin")){
             List<ContractView> contracts = contractService.selectContractList(new Contract());
-            //当甲乙两方都点击确认后 去掉"删除按钮",签名后直接去掉签名确认按钮。
+            //当甲乙两方都点击确认后,签名后直接去掉签名确认按钮。
             boolean[] canSignatureArr = new boolean[contracts.size()];
             for (int i = 0; i < contracts.size(); i++) {
                 canSignatureArr[i] = true;

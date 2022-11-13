@@ -116,7 +116,8 @@
             return;
         }
         $.modal.close();
-        return row[0].userId;
+        var list = [row[0].userId,row[0].loginName]
+        return list;
         // callbackdata();
         // parent.$('#addTenderId').val("传入的数据值");
 
