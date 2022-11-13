@@ -43,7 +43,7 @@
             <!--                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="cp:contract:edit">-->
             <!--                    <i class="fa fa-edit"></i> 修改-->
             <!--                </a>-->
-            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()"
+            <a class="btn btn-danger multiple disabled" onclick="delAll()"
                shiro:hasPermission="cp:contract:remove">
                 <i class="fa fa-remove"></i> 删除
             </a>
@@ -76,6 +76,23 @@
 
     function detl(id) {
         $.modal.open("合同详情", ctx + "cp/contract/detail/" + id,1200,600);
+    }
+
+    function delAll() {
+        table.set();
+        var rows = $.common.isEmpty(table.options.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns(table.options.uniqueId);
+        if (rows.length == 0) {
+            $.modal.alertWarning("请至少选择一条记录");
+            return;
+        }
+        $.modal.confirm("确认要删除选中的" + rows.length + "条数据吗?", function () {
+            var url = table.options.removeUrl;
+            var data = {"ids": rows.join()};
+            $.operate.submit(url, "post", "json", data);
+            setTimeout(function (){
+                $.modal.reload();
+            }, 700);
+        });
     }
 
     function editSignatrue(id,A,B){
@@ -158,7 +175,7 @@
                 },
                 {
                     field: 'loginName',
-                    title: '签名方名称',
+                    title: '供应商名称',
                 },
                 {
                     field: 'contractStatus',
@@ -182,12 +199,11 @@
                         if (canEditContractStatus) {
                         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.contractId + '\')"><i class="fa fa-edit"></i>修改状态</a> ');
                         }
+
                         if ([[${canSignatureArr}]][index]) {
                             actions.push('<a class="btn btn-warning btn-xs ' + '" href="javascript:void(0)" onclick="editSignatrue(\'' + row.contractId + '\',\'' + row.signatureA + '\',\'' + row.signatureB + '\')"><i class="fa fa-edit"></i>签名确认</a> ');
                         }
-                        // if ([[${canDeleteArr}]][index]) {
-                        //     actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.contractId + '\')"><i class="fa fa-remove"></i>删除</a>');
-                        // }
+                        // actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.contractId + '\')"><i class="fa fa-remove"></i>删除</a>');
                         return actions.join('');
                     }
                 }]
