@@ -78,7 +78,8 @@
         </dependency>
         <dependency>
             <groupId>com.cps</groupId>
-            <artifactId>cps-credit</artifactId>
+            <artifactId>cps-shopWms</artifactId>
+            <version>4.7.5</version>
         </dependency>
 
     </dependencies>

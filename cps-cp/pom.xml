@@ -19,14 +19,6 @@
 
         <dependency>
             <groupId>com.cps</groupId>
-            <artifactId>cps-audit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.cps</groupId>
-            <artifactId>cps-bid</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.cps</groupId>
             <artifactId>cps-product</artifactId>
         </dependency>
         <!--信用评价模块-->
@@ -36,9 +28,10 @@
         </dependency>
         <dependency>
             <groupId>com.cps</groupId>
-            <artifactId>cps-user</artifactId>
-            <version>${cps.version}</version>
+            <artifactId>cps-shopWms</artifactId>
+            <version>4.7.5</version>
         </dependency>
+
     </dependencies>
 
 </project>

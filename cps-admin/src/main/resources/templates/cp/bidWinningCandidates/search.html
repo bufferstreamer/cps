@@ -71,7 +71,8 @@
             return;
         }
         $.modal.close();
-        return row[0].tenderId;
+        var list = [row[0].tenderId,row[0].projectName]
+        return list;
         // callbackdata();
         // parent.$('#addTenderId').val("传入的数据值");
 

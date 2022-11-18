@@ -281,6 +281,7 @@ public class ContractController extends BaseController {
             //订单号
             whWarehousingOrder.setOrderName(contract.getContractId());
             whWarehousingOrder.setSupplierName(signatureUserLoginName);
+            //设置供应商ID
             whWarehousingOrder.setSupplierId(signatureUser.getUserId());
             whWarehousingOrder.setCreateBy(signatureUserLoginName);
             whWarehousingOrder.setDeptId(signatureUser.getDeptId());
