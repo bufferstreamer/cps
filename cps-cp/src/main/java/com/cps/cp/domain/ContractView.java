@@ -92,6 +92,18 @@ public class ContractView extends BaseEntity {
     @Excel(name = "合同类别")
     private String contractStatus;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "交货截止日期", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date deadlineDeliveryDate;
+
+    public Date getDeadlineDeliveryDate() {
+        return deadlineDeliveryDate;
+    }
+
+    public void setDeadlineDeliveryDate(Date deadlineDeliveryDate) {
+        this.deadlineDeliveryDate = deadlineDeliveryDate;
+    }
+
     public String getContractStatus() {
         return contractStatus;
     }
@@ -185,6 +197,7 @@ public class ContractView extends BaseEntity {
                 .append("contractTime", getContractTime())
                 .append("signatureUserId",getSignatureUserId())
                 .append("loginName",getLoginName())
+                .append("deadlineDeliveryDate",getDeadlineDeliveryDate())
                 .toString();
     }
 }

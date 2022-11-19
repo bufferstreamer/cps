@@ -43,6 +43,16 @@ public class BasisSupplierServiceImpl implements IBasisSupplierService {
     }
 
     /**
+     * 查询供应商管理
+     *
+     * @param supplierName 供应商名称
+     * @return 供应商管理
+     */
+    @Override
+    public BasisSupplier selectBasisSupplierBySupplierName(String supplierName) {
+        return basisSupplierMapper.selectBasisSupplierBySupplierName(supplierName);
+    }
+    /**
      * 查询供应商管理列表
      *
      * @param basisSupplier 供应商管理

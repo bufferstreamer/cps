@@ -56,15 +56,15 @@
                     class="btn btn-primary btn-rounded btn-sm" onclick="queryUser()"><i class="fa fa-search"></i>&nbsp;选择签名用户</a>
             </div>
         </div>
-        <!--            <div class="form-group">    -->
-        <!--                <label class="col-sm-3 control-label is-required">合同签定时间：</label>-->
-        <!--                <div class="col-sm-8">-->
-        <!--                    <div class="input-group date">-->
-        <!--                        <input name="contractTime" class="form-control" placeholder="yyyy-MM-dd" type="text" required>-->
-        <!--                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>-->
-        <!--                    </div>-->
-        <!--                </div>-->
-        <!--            </div>-->
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">交货截止日期：</label>
+            <div class="col-sm-8">
+                <div class="input-group date">
+                    <input name="deadlineDeliveryDate" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
 <th:block th:include="include :: footer"/>
@@ -109,7 +109,7 @@
         }
     }
 
-    $("input[name='contractTime']").datetimepicker({
+    $("input[name='deadlineDeliveryDate']").datetimepicker({
         format: "yyyy-mm-dd",
         minView: "month",
         autoclose: true

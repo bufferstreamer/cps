@@ -9,6 +9,7 @@ import com.cps.common.core.page.TableDataInfo;
 import com.cps.common.enums.BusinessType;
 import com.cps.common.utils.ShiroUtils;
 import com.cps.common.utils.poi.ExcelUtil;
+import com.cps.user.domain.Supplier;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -80,6 +81,12 @@ public class BasisSupplierController extends BaseController {
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult addSave(BasisSupplier basisSupplier) {
+        String supplierName = basisSupplier.getSupplierName();
+        //根据供应商名称查询，有重复的,提醒重新添加
+        BasisSupplier basisSupplier1 = basisSupplierService.selectBasisSupplierBySupplierName(supplierName);
+        if(basisSupplier1!=null){
+            return AjaxResult.error("该供应商记录已经存在，请重新添加");
+        }
         basisSupplier.setDeptId(ShiroUtils.getDeptId());
         basisSupplier.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(basisSupplierService.insertBasisSupplier(basisSupplier));

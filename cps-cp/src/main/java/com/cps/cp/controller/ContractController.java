@@ -1,5 +1,7 @@
 package com.cps.cp.controller;
 
+import com.cps.basis.domain.BasisSupplier;
+import com.cps.basis.service.IBasisSupplierService;
 import com.cps.common.annotation.Log;
 import com.cps.common.constant.OrderConstants;
 import com.cps.common.core.controller.BaseController;
@@ -25,8 +27,10 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -124,10 +128,19 @@ public class ContractController extends BaseController {
         }else{
             list = contractService.selectContractListByUserId(userId);
         }
+        Date now = DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS));
         for (int i = 0; i < list.size();i++) {
             list.get(i).setProjectName(tenderService.selectTenderByTenderId(list.get(i).getTenderId()).getProjectName());
             list.get(i).setLoginName(sysUserService.selectUserById(list.get(i).getSignatureUserId()).getLoginName());
+            //若当前时间超过合同截止日期，设置合同状态为逾期。
+            if(now.after(list.get(i).getDeadlineDeliveryDate())&&list.get(i).getContractStatus().equals("1")){
+                list.get(i).setContractStatus("4");
+                Contract contract1 = contractService.selectContractByContractId(list.get(i).getContractId());
+                contract1.setContractStatus("4");
+                contractService.updateContract(contract1);
+            }
         }
+
         return getDataTable(list);
     }
 
@@ -237,6 +250,9 @@ public class ContractController extends BaseController {
         return prefix + "/user";
     }
 
+    @Autowired
+    private IBasisSupplierService basisSupplierService;
+
     //更新签名
     @PostMapping("/editSignature/{contractId}")
     @ResponseBody
@@ -264,6 +280,11 @@ public class ContractController extends BaseController {
         }
         SysUser signatureUser = sysUserService.selectUserById(contract.getSignatureUserId());
         String signatureUserLoginName = signatureUser.getLoginName();
+        //在仓库系统——基础资料——供应商管理 查看该供应商是否存在
+        BasisSupplier basisSupplier = basisSupplierService.selectBasisSupplierBySupplierName(signatureUserLoginName);
+        if(ObjectUtils.isEmpty(basisSupplier)){
+            return AjaxResult.error("请在仓库系统——基础资料——供应商管理：添加供应商相关信息");
+        }
         //双方确认完之后，往(仓库系统-进货管理-其他入库)里传一份入库单。
         if((contract.getSignatureA().equals("1"))&&(contract.getSignatureB().equals("1"))){
             //新增入库订单
@@ -282,7 +303,8 @@ public class ContractController extends BaseController {
             whWarehousingOrder.setOrderName(contract.getContractId());
             whWarehousingOrder.setSupplierName(signatureUserLoginName);
             //设置供应商ID
-            whWarehousingOrder.setSupplierId(signatureUser.getUserId());
+            Long id = basisSupplier.getId();
+            whWarehousingOrder.setSupplierId(id);
             whWarehousingOrder.setCreateBy(signatureUserLoginName);
             whWarehousingOrder.setDeptId(signatureUser.getDeptId());
             whWarehousingOrderService.insertWhWarehousingOrder(whWarehousingOrder);

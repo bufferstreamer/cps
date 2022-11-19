@@ -99,11 +99,15 @@
         // console.log(id)
 
         $.modal.confirm("确认签名后将无法修改!",function () {
-            $.operate.post(prefix + "/editSignature/" + id);
-            //停0.7秒刷新
-            setTimeout(function (){
-                $.modal.reload();
-            }, 700);
+            let data = {}
+            $.operate.post(prefix + "/editSignature/" + id,data,function (result) {
+                if(result.msg!="请在仓库系统——基础资料——供应商管理：添加供应商相关信息"){
+                    //停0.7秒刷新
+                    setTimeout(function (){
+                        $.modal.reload();
+                    }, 700);
+                }
+            });
             // $.modal.reload();
         });
         //刷新页面
@@ -167,6 +171,10 @@
                 {
                     field: 'contractTime',
                     title: '合同签定时间'
+                },
+                {
+                    field: 'deadlineDeliveryDate',
+                    title: '交货截止日期'
                 },
                 {
                     field: 'signatureUserId',
