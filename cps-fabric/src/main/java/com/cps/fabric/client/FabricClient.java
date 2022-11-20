@@ -1,6 +1,7 @@
 package com.cps.fabric.client;
 
 import com.cps.fabric.bean.UserContext;
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric.sdk.exception.*;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
@@ -24,7 +25,7 @@ public class FabricClient {
 
     private Channel channel;
 
-    public FabricClient(UserContext userContext) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, CryptoException, ClassNotFoundException, InvalidArgumentException {
+    public FabricClient(UserContext userContext) throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, CryptoException, ClassNotFoundException, InvalidArgumentException, org.hyperledger.fabric.sdk.exception.InvalidArgumentException {
         hfClient = HFClient.createNewInstance();
         CryptoSuite cryptoSuite = CryptoSuite.Factory.getCryptoSuite();
         //设置加密算法
@@ -43,7 +44,7 @@ public class FabricClient {
      * @throws TransactionException
      * @description 创建channel
      */
-    public Channel createChannel(String channelName, Orderer order, String txPath) throws IOException, com.sun.javaws.exceptions.InvalidArgumentException, TransactionException, InvalidArgumentException {
+    public Channel createChannel(String channelName, Orderer order, String txPath) throws IOException, InvalidArgumentException, TransactionException, InvalidArgumentException, org.hyperledger.fabric.sdk.exception.InvalidArgumentException {
         ChannelConfiguration channelConfiguration = new ChannelConfiguration(new File(txPath));
         return hfClient.newChannel(channelName, order, channelConfiguration, hfClient.getChannelConfigurationSignature(channelConfiguration, hfClient.getUserContext()));
     }
@@ -59,7 +60,7 @@ public class FabricClient {
      * @throws ProposalException
      * @description 安装合约
      */
-    public void installChaincode(TransactionRequest.Type lang, String chaincodeName, String chaincodeVersion, String chaincodeLocation, String chaincodePath, List<Peer> peers) throws com.sun.javaws.exceptions.InvalidArgumentException, ProposalException, InvalidArgumentException {
+    public void installChaincode(TransactionRequest.Type lang, String chaincodeName, String chaincodeVersion, String chaincodeLocation, String chaincodePath, List<Peer> peers) throws InvalidArgumentException, ProposalException, InvalidArgumentException, org.hyperledger.fabric.sdk.exception.InvalidArgumentException {
         InstallProposalRequest installProposalRequest = hfClient.newInstallProposalRequest();
         ChaincodeID.Builder builder = ChaincodeID.newBuilder().setName(chaincodeName).setVersion(chaincodeVersion);
         installProposalRequest.setChaincodeLanguage(lang);
@@ -90,7 +91,7 @@ public class FabricClient {
      * @throws InvalidArgumentException
      * @description 合约的实例化
      */
-    public void initChaincode(String channelName, TransactionRequest.Type lang, String chaincodeName, String chaincodeVersion, Orderer order, Peer peer, String funcName, String args[]) throws TransactionException, ProposalException, com.sun.javaws.exceptions.InvalidArgumentException, InvalidArgumentException {
+    public void initChaincode(String channelName, TransactionRequest.Type lang, String chaincodeName, String chaincodeVersion, Orderer order, Peer peer, String funcName, String args[]) throws TransactionException, ProposalException, InvalidArgumentException, InvalidArgumentException, org.hyperledger.fabric.sdk.exception.InvalidArgumentException {
         Channel channel = getChannel(channelName);
         channel.addPeer(peer);
         channel.addOrderer(order);
@@ -128,7 +129,7 @@ public class FabricClient {
      * @throws ChaincodeEndorsementPolicyParseException
      * @description 合约的升级
      */
-    public void upgradeChaincode(String channelName, TransactionRequest.Type lang, String chaincodeName, String chaincodeVersion, Orderer order, Peer peer, String funcName, String args[]) throws TransactionException, ProposalException, com.sun.javaws.exceptions.InvalidArgumentException, IOException, ChaincodeEndorsementPolicyParseException, InvalidArgumentException {
+    public void upgradeChaincode(String channelName, TransactionRequest.Type lang, String chaincodeName, String chaincodeVersion, Orderer order, Peer peer, String funcName, String args[]) throws TransactionException, ProposalException, InvalidArgumentException, IOException, ChaincodeEndorsementPolicyParseException, InvalidArgumentException, org.hyperledger.fabric.sdk.exception.InvalidArgumentException {
         Channel channel = getChannel(channelName);
         channel.addPeer(peer);
         channel.addOrderer(order);
@@ -166,7 +167,7 @@ public class FabricClient {
      * @throws InvalidArgumentException
      * @description 合约的调用
      */
-    public void invoke(String channelName, TransactionRequest.Type lang, String chaincodeName, Orderer order, List<Peer> peers, String funcName, String args[]) throws TransactionException, ProposalException, com.sun.javaws.exceptions.InvalidArgumentException, InvalidArgumentException {
+    public void invoke(String channelName, TransactionRequest.Type lang, String chaincodeName, Orderer order, List<Peer> peers, String funcName, String args[]) throws TransactionException, ProposalException, InvalidArgumentException, InvalidArgumentException, org.hyperledger.fabric.sdk.exception.InvalidArgumentException {
         Channel channel = getChannel(channelName);
         channel.addOrderer(order);
         for (Peer p : peers) {
@@ -204,7 +205,7 @@ public class FabricClient {
      * @throws ProposalException
      * @description 合约的查询
      */
-    public Map queryChaincode(List<Peer> peers, String channelName, TransactionRequest.Type lang, String chaincodeName, String funcName, String args[]) throws TransactionException, com.sun.javaws.exceptions.InvalidArgumentException, ProposalException, InvalidArgumentException {
+    public Map queryChaincode(List<Peer> peers, String channelName, TransactionRequest.Type lang, String chaincodeName, String funcName, String args[]) throws TransactionException, InvalidArgumentException, ProposalException, InvalidArgumentException, org.hyperledger.fabric.sdk.exception.InvalidArgumentException {
         Channel channel = getChannel(channelName);
         for (Peer p : peers) {
             channel.addPeer(p);
@@ -243,7 +244,7 @@ public class FabricClient {
      * @throws InvalidArgumentException
      * @description 获取orderer节点
      */
-    public Orderer getOrderer(String name, String grpcUrl, String tlsFilePath) throws com.sun.javaws.exceptions.InvalidArgumentException, InvalidArgumentException {
+    public Orderer getOrderer(String name, String grpcUrl, String tlsFilePath) throws InvalidArgumentException, InvalidArgumentException, org.hyperledger.fabric.sdk.exception.InvalidArgumentException {
         Properties properties = new Properties();
         properties.setProperty("pemFile", tlsFilePath);
         Orderer orderer = hfClient.newOrderer(name, grpcUrl, properties);
@@ -258,7 +259,7 @@ public class FabricClient {
      * @throws InvalidArgumentException
      * @description 获取peer节点
      */
-    public Peer getPeer(String name, String grpcUrl, String tlsFilePath) throws com.sun.javaws.exceptions.InvalidArgumentException, InvalidArgumentException {
+    public Peer getPeer(String name, String grpcUrl, String tlsFilePath) throws InvalidArgumentException, InvalidArgumentException, org.hyperledger.fabric.sdk.exception.InvalidArgumentException {
         Properties properties = new Properties();
         properties.setProperty("pemFile", tlsFilePath);
         Peer peer = hfClient.newPeer(name, grpcUrl, properties);
@@ -273,7 +274,7 @@ public class FabricClient {
      * @throws ProposalException
      * @description 获取已有的channel
      */
-    public Channel getChannel(String channelName) throws com.sun.javaws.exceptions.InvalidArgumentException, TransactionException, ProposalException, InvalidArgumentException {
+    public Channel getChannel(String channelName) throws InvalidArgumentException, org.hyperledger.fabric.sdk.exception.InvalidArgumentException {
         if (channel==null){
             channel = hfClient.newChannel(channelName);
         }

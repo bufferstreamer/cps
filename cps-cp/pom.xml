@@ -31,7 +31,6 @@
             <artifactId>cps-shopWms</artifactId>
             <version>4.7.5</version>
         </dependency>
-
     </dependencies>
 
 </project>

@@ -189,36 +189,6 @@ public class Tender1Controller extends BaseController {
             }
 
         }
-//        for(XWPFTable table : tables){
-//
-//            List<XWPFTableRow> rows = table.getRows();
-//            for(int i =1;i<=2;i++){
-//                XWPFTableRow row = rows.get(i);
-//                List<XWPFTableCell> cells = row.getTableCells();
-//                if(i==1){
-//                    tender.setContact(cells.get(1).getText());
-//                }
-//                if(i==2){
-//                    tender.setPhoneOfContact(cells.get(1).getText());
-//                }
-////                for(XWPFTableCell cell :cells){
-////                    String text =cell.getText();
-////                    System.out.println(text);
-////                }
-////                if(i==4){
-////                    tender.setDealineForQualificationReview(DateUtils.dateTime(DateUtils.YYYY_MM_DD,cells.get(1).getText()));
-////                }
-////                if(i==5){
-////                    tender.setBidStartTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD,cells.get(1).getText()));
-////                }
-////                if(i==6){
-////                    tender.setBidEndTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD,cells.get(1).getText()));
-////                }
-////                if(i==7){
-////                    tender.setPublishTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD,cells.get(1).getText()));
-////                }
-//            }
-//        }
         fileInputStream.close();
         return toAjax(tenderService.insertTender(tender));
     }

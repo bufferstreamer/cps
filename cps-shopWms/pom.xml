@@ -30,6 +30,11 @@
             <groupId>com.cps</groupId>
             <artifactId>cps-system</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.cps</groupId>
+            <artifactId>cps-fabric</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

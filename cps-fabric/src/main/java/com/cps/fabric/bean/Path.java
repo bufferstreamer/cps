@@ -12,37 +12,37 @@ import org.springframework.stereotype.Component;
 @Component
 public class Path {
     /**
-     * peer私钥的路径
+     * #Org1(2)组织管理员admin用户私钥的路径
      * peerOrganization-org1(2)-users-Admin-msp-keystore
      */
     @Value("${keyFolderPath}")
     public String keyFolderPath;
-//    @Value("${keyFolderPath2}")
-//    public String keyFolderPath2;
+    @Value("${keyFolderPath2}")
+    public String keyFolderPath2;
     /**
-     * peer私钥的值
+     * #Org1(2)组织管理员admin用户私钥的值
      * 就是上面路径的值 xxx_sk
      */
     @Value("${keyFileName}")
     public String keyFileName;
-//    @Value("${keyFileName2}")
-//    public String keyFileName2;
+    @Value("${keyFileName2}")
+    public String keyFileName2;
     /**
-     * peer证书的路径
+     * #Org1组织管理员admin的身份验证证书的路径
      * peerOrganization-org1(2)-users-Admin-msp-admincerts
      */
     @Value("${certFolderPath}")
     public String certFolderPath;
-//    @Value("${certFolderPath2}")
-//    public String certFolderPath2;
+    @Value("${certFolderPath2}")
+    public String certFolderPath2;
     /**
-     * peer证书的值
+     * #Org1(2)组织管理员admin的身份验证证书的值
      * 就是上面路径的值 xxx_pem
      */
     @Value("${certFileName}")
     public String certFileName;
-//    @Value("${certFileName2}")
-//    public String certFileName2;
+    @Value("${certFileName2}")
+    public String certFileName2;
 
     /**
      * order的tls的证书路径
@@ -63,35 +63,35 @@ public class Path {
      */
     @Value("${tlsPeerFilePath}")
     public String tlsPeerFilePath;
-    @Value("${tlsPeerFilePath1}")
-    public String tlsPeerFilePath1;
+    @Value("${tlsPeerFilePathAddition}")
+    public String tlsPeerFilePathAddition;
 
     /**
      * order节点信息
      */
-//    @Value("${orderName}")
-//    public String orderName;
-//    @Value("${orderGrpc}")
-//    public String orderGrpc;
+    @Value("${orderName}")
+    public String orderName;
+    @Value("${orderGrpc}")
+    public String orderGrpc;
 
     /**
      * peer节点信息
      */
-//    @Value("${peer0Name}")
-//    public String peer0Name;
-//    @Value("${peer0Grpc}")
-//    public String peer0Grpc;
-//    @Value("${peer1Name}")
-//    public String peer1Name;
-//    @Value("${peer1Grpc}")
-//    public String peer1Grpc;
-//
-//    @Value("${peer0Name2}")
-//    public String peer0Name2;
-//    @Value("${peer0Grpc2}")
-//    public String peer0Grpc2;
-//    @Value("${peer1Name2}")
-//    public String peer1Name2;
-//    @Value("${peer1Grpc2}")
-//    public String peer1Grpc2;
+    @Value("${peer0Name}")
+    public String peer0Name;
+    @Value("${peer0Grpc}")
+    public String peer0Grpc;
+    @Value("${peer1Name}")
+    public String peer1Name;
+    @Value("${peer1Grpc}")
+    public String peer1Grpc;
+
+    @Value("${peer0Name2}")
+    public String peer0Name2;
+    @Value("${peer0Grpc2}")
+    public String peer0Grpc2;
+    @Value("${peer1Name2}")
+    public String peer1Name2;
+    @Value("${peer1Grpc2}")
+    public String peer1Grpc2;
 }

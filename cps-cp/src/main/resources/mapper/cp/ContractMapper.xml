@@ -37,7 +37,7 @@
     <select id="selectContractList" parameterType="ContractView" resultMap="ContractResultVo">
         <include refid="selectContractVo"/>
         <where>
-<!--            <if test="contractId != null  and contractId != ''">and contract_id = #{contractId}</if>-->
+            <if test="contractId != null  and contractId != ''">and contract_id = #{contractId}</if>
             <if test="tenderId != null  and tenderId != ''">and tender_Id like concat('%', #{tenderId}, '%')</if>
             <if test="contractType != null  and contractType != ''">and contract_type = #{contractType}</if>
 

@@ -32,20 +32,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
 /**
- * 合同Controller
+ * 合同查询 区块链 Controller
  *
  * @author wxf
  * @date 2022-08-16
  */
 @Controller
-@RequestMapping("/cp/contract")
-public class ContractController extends BaseController {
-    private String prefix = "cp/contract";
+@RequestMapping("/cp/contractBlockchain")
+public class ContractBlockChainController extends BaseController {
+    private String prefix = "cp/contractBlockchain";
 
     @Autowired
     private IContractService contractService;
@@ -60,7 +60,7 @@ public class ContractController extends BaseController {
     private ISysUserService sysUserService;
 
 
-    @RequiresPermissions("cp:contract:view")
+    @RequiresPermissions("cp:contractBlockchain:view")
     @GetMapping()
     public String contract(ModelMap map) {
         // 获取当前的用户信息
@@ -113,7 +113,7 @@ public class ContractController extends BaseController {
     /**
      * 查询合同列表
      */
-    @RequiresPermissions("cp:contract:list")
+    @RequiresPermissions("cp:contractBlockchain:list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo list(Contract contract) {
@@ -150,7 +150,7 @@ public class ContractController extends BaseController {
     /**
      * 导出合同列表
      */
-    @RequiresPermissions("cp:contract:export")
+    @RequiresPermissions("cp:contractBlockchain:export")
     @Log(title = "合同", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     @ResponseBody
@@ -171,7 +171,7 @@ public class ContractController extends BaseController {
     /**
      * 新增保存合同
      */
-    @RequiresPermissions("cp:contract:add")
+    @RequiresPermissions("cp:contractBlockchain:add")
     @Log(title = "合同", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
@@ -190,7 +190,7 @@ public class ContractController extends BaseController {
     /**
      * 修改合同——更改合同状态
      */
-    @RequiresPermissions("cp:contract:edit")
+    @RequiresPermissions("cp:contractBlockchain:edit")
     @GetMapping("/edit/{contractId}")
     public String edit(@PathVariable("contractId") String contractId, ModelMap mmap) {
         Contract contract = contractService.selectContractByContractId(contractId);
@@ -219,7 +219,7 @@ public class ContractController extends BaseController {
     /**
      * 修改保存合同
      */
-    @RequiresPermissions("cp:contract:edit")
+    @RequiresPermissions("cp:contractBlockchain:edit")
     @Log(title = "合同", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
@@ -230,7 +230,7 @@ public class ContractController extends BaseController {
     /**
      * 删除合同
      */
-    @RequiresPermissions("cp:contract:remove")
+    @RequiresPermissions("cp:contractBlockchain:remove")
     @Log(title = "合同", businessType = BusinessType.DELETE)
     @PostMapping("/remove")
     @ResponseBody

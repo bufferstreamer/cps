@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('查看合同')"/>
+    <th:block th:include="include :: datetimepicker-css"/>
+    <th:block th:include="include :: bootstrap-fileinput-css"/>
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-contract-edit" th:object="${contract}">
+        <input name="contractId" th:field="*{contractId}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-5 control-label is-required" style="padding-top: 9.5px;height: 45px; font-size: large;color: black">合同ID：</label>
+            <div class="col-sm-6">
+                <input class="form-control" name="contractId" required th:field="*{contractId}"
+                       type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-5 control-label is-required" style="padding-top: 9.5px;height: 45px; font-size: large;color: black">标书ID：</label>
+            <div class="col-sm-6">
+                <input class="form-control" name="tenderId" required th:field="*{tenderId}"
+                       type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-5 control-label is-required" style="padding-top: 9.5px;height: 45px; font-size: large;color: black">合同类别：</label>
+            <div class="col-sm-6">
+                <input id="contractType" name="contractType" th:field="*{contractType}" class="form-control" type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly">
+<!--                <div class="radio-box" th:each="dict : ${@dict.getType('contract_type')}">-->
+<!--                    <input disabled="disabled" name="contractType" required-->
+<!--                           th:field="*{contractType}" th:id="${'contractType_' + dict.dictCode}" th:value="${dict.dictValue}" type="radio">-->
+<!--                    <label th:for="${'contractType_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>-->
+<!--                </div>-->
+            </div>
+        </div>
+        <!--            <div class="form-group">    -->
+        <!--                <label class="col-sm-3 control-label is-required">合同文件位置：</label>-->
+        <!--                <div class="col-sm-8">-->
+        <!--                    <input type="hidden" name="contractDocument" th:field="*{contractDocument}">-->
+        <!--                    <div class="file-loading">-->
+        <!--                        <input class="form-control file-upload" id="contractDocument" name="file" type="file" disabled="disabled">-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <div class="form-group">
+            <label id="partyA" class="col-sm-5 control-label is-required" style="padding-top: 9.5px;height: 45px; font-size: large;color: black">甲方：</label>
+            <div class="col-sm-6">
+                <strong><input id="signatureA" name="signatureA" th:field="*{signatureA}" class="form-control" type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly"></strong>
+            </div>
+        </div>
+        <div class="form-group">
+            <label id="partyB" class="col-sm-5 control-label is-required" style="padding-top: 9.5px;height: 45px; font-size: large;color: black">乙方：</label>
+            <div class="col-sm-6">
+                <strong><input id="signatureB" name="signatureB" th:field="*{signatureB}" class="form-control" type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly"></strong>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-5 control-label is-required" style="padding-top: 9.5px;height: 45px; font-size: large;color: black">合同签定时间：</label>
+            <div class="col-sm-6">
+                <div class="input-group date">
+                    <input class="form-control"
+                           placeholder="yyyy-MM-dd" required th:value="${#dates.format(contract.contractTime, 'yyyy-MM-dd')}" type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-5 control-label is-required" style="padding-top: 9.5px;height: 45px; font-size: large;color: black">合同状态：</label>
+            <div class="col-sm-6">
+                <input id="contractStatus" name="contractStatus" th:field="*{contractStatus}" class="form-control" type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly">
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: datetimepicker-js"/>
+<th:block th:include="include :: bootstrap-fileinput-js"/>
+<script th:inline="javascript">
+    var prefix = ctx + "cp/contract";
+    $("#form-contract-detail").validate({
+        focusCleanup: true
+    });
+
+    if(document.getElementById("contractType").value == 0){
+        document.getElementById("contractType").value = "供销社与供应商";
+        var partyA = document.getElementById("partyA");
+        var partyB = document.getElementById("partyB");
+        partyA.innerText = "供销社（甲方）：";
+        partyB.innerText = "供应商（乙方）：";
+    }else{
+        document.getElementById("contractType").value = "小商超与供销社";
+        var partyA = document.getElementById("partyA");
+        var partyB = document.getElementById("partyB");
+        partyA.innerText = "小商超（甲方）：";
+        partyB.innerText = "供销社（乙方）：";
+    }
+    
+    if(document.getElementById("signatureA").value == 0){
+        document.getElementById("signatureA").value = "未签名";
+        document.getElementById("signatureA").style.color = "red";
+    }else{
+        document.getElementById("signatureA").value = "已签名";
+        document.getElementById("signatureA").style.color = "#00A65A";
+    }
+    
+    if(document.getElementById("signatureB").value == 0){
+        document.getElementById("signatureB").value = "未签名";
+        document.getElementById("signatureB").style.color = "red";
+    }else{
+        document.getElementById("signatureB").value = "已签名";
+        document.getElementById("signatureB").style.color = "#00A65A";
+    }
+
+    //合同状态 0未签署 1未交货 2交货完成 3合同完成 4合同逾期 5合同取消
+    if(document.getElementById("contractStatus").value == 0){
+        document.getElementById("contractStatus").value = "未签署";
+    }else if (document.getElementById("contractStatus").value == 1){
+        document.getElementById("contractStatus").value = "未交货";
+    }else if(document.getElementById("contractStatus").value == 0){
+        document.getElementById("contractStatus").value = "交货完成";
+    }else if(document.getElementById("contractStatus").value == 0){
+        document.getElementById("contractStatus").value = "合同完成";
+    }else if(document.getElementById("contractStatus").value == 0){
+        document.getElementById("contractStatus").value = "合同逾期";
+    }else{
+        document.getElementById("contractStatus").value = "合同取消";
+    }
+
+
+    function submitHandler() {
+        // if ($.validate.form()) {
+        //     $.operate.cancel(prefix + "/detail", $('#form-contract-detail').serialize());
+        // }
+        $.modal.close();
+    }
+
+    $("input[name='contractTime']").datetimepicker({
+        format: "yyyy-mm-dd",
+        minView: "month",
+        autoclose: true
+    });
+
+    $(".file-upload").each(function (i) {
+        var val = $("input[name='" + this.id + "']").val()
+        $(this).fileinput({
+            'uploadUrl': ctx + 'common/upload',
+            initialPreviewAsData: true,
+            initialPreview: [val],
+            maxFileCount: 1,
+            autoReplace: true
+        }).on('fileuploaded', function (event, data, previewId, index) {
+            $("input[name='" + event.currentTarget.id + "']").val(data.response.url)
+        }).on('fileremoved', function (event, id, index) {
+            $("input[name='" + event.currentTarget.id + "']").val('')
+        })
+        $(this).fileinput('_initFileActions');
+    });
+</script>
+</body>
+</html>
