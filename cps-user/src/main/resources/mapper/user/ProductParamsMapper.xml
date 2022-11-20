@@ -21,6 +21,11 @@
     select param_id, product_id, product_place, foot_period, brand, factory_name, factory_address, packaging_method, weight, storage_method, eat_method, create_time, update_time from product_params
   </sql>
 
+  <select id="selectBigId" resultType="java.lang.String">
+    select param_id
+    from product_params order by create_time desc limit 1
+  </select>
+
   <select id="selectProductParamsList" parameterType="com.cps.user.domain.ProductParams" resultMap="ProductParamsResult">
     <include refid="selectProductParamsVo"/>
     <where>

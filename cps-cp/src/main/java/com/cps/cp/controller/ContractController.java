@@ -1,5 +1,7 @@
 package com.cps.cp.controller;
 
+import com.cps.basis.domain.BasisSupplier;
+import com.cps.basis.service.IBasisSupplierService;
 import com.cps.common.annotation.Log;
 import com.cps.common.constant.OrderConstants;
 import com.cps.common.core.controller.BaseController;
@@ -21,14 +23,14 @@ import com.cps.system.service.ISysUserService;
 import com.cps.wh.domain.WhWarehousingOrder;
 import com.cps.wh.enums.WarehousingOrderStatus;
 import com.cps.wh.service.IWhWarehousingOrderService;
-import com.github.pagehelper.Page;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -65,11 +67,9 @@ public class ContractController extends BaseController {
         Long userId = currentUser.getUserId();
         if(userLoginName.equals("admin")){
             List<ContractView> contracts = contractService.selectContractList(new Contract());
-            //当甲乙两方都点击确认后 去掉"删除按钮",签名后直接去掉签名确认按钮。
-            boolean[] canDeleteArr = new boolean[contracts.size()];
+            //当甲乙两方都点击确认后,签名后直接去掉签名确认按钮。
             boolean[] canSignatureArr = new boolean[contracts.size()];
             for (int i = 0; i < contracts.size(); i++) {
-                canDeleteArr[i] = true;
                 canSignatureArr[i] = true;
                 ContractView contract = contracts.get(i);
                 if(contract.getContractType().equals("0")){
@@ -81,18 +81,12 @@ public class ContractController extends BaseController {
                         canSignatureArr[i] = false;
                     }
                 }
-                if((contract.getSignatureA().equals("1"))&&(contract.getSignatureB().equals("1"))){
-                    canDeleteArr[i] = false;
-                }
             }
-            map.put("canDeleteArr", canDeleteArr);
             map.put("canSignatureArr",canSignatureArr);
         }else{
             List<ContractView> contractList = contractService.selectContractListByUserId(userId);
             boolean[] canSignatureArr = new boolean[contractList.size()];
-            boolean[] canDeleteArr = new boolean[contractList.size()];
             for (int i = 0; i < contractList.size(); i++) {
-                canDeleteArr[i] = false;
                 canSignatureArr[i] = true;
                 ContractView contract = contractList.get(i);
                 if(contract.getContractType().equals("0")){
@@ -109,7 +103,6 @@ public class ContractController extends BaseController {
                 }
             }
             map.put("canSignatureArr",canSignatureArr);
-            map.put("canDeleteArr", canDeleteArr);
         }
         return prefix + "/contract";
     }
@@ -135,10 +128,19 @@ public class ContractController extends BaseController {
         }else{
             list = contractService.selectContractListByUserId(userId);
         }
+        Date now = DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS));
         for (int i = 0; i < list.size();i++) {
             list.get(i).setProjectName(tenderService.selectTenderByTenderId(list.get(i).getTenderId()).getProjectName());
             list.get(i).setLoginName(sysUserService.selectUserById(list.get(i).getSignatureUserId()).getLoginName());
+            //若当前时间超过合同截止日期，设置合同状态为逾期。
+            if(now.after(list.get(i).getDeadlineDeliveryDate())&&list.get(i).getContractStatus().equals("1")){
+                list.get(i).setContractStatus("4");
+                Contract contract1 = contractService.selectContractByContractId(list.get(i).getContractId());
+                contract1.setContractStatus("4");
+                contractService.updateContract(contract1);
+            }
         }
+
         return getDataTable(list);
     }
 
@@ -171,6 +173,7 @@ public class ContractController extends BaseController {
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult addSave(Contract contract) {
+        contract.setContractType("0");
         contract.setContractTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
         contract.setContractId(IdUtils.fastSimpleUUID());
         //签名设置成 未签名
@@ -182,29 +185,28 @@ public class ContractController extends BaseController {
     }
 
     /**
-     * 修改合同
+     * 修改合同——更改合同状态
      */
     @RequiresPermissions("cp:contract:edit")
     @GetMapping("/edit/{contractId}")
     public String edit(@PathVariable("contractId") String contractId, ModelMap mmap) {
         Contract contract = contractService.selectContractByContractId(contractId);
-        contract.setContractTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
+//        contract.setContractTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
         mmap.put("contract", contract);
-        String resultUrl = ""; 
+//        String resultUrl = "";
         // 获取当前的用户信息
-        SysUser currentUser = ShiroUtils.getSysUser();
-        String userLoginName = currentUser.getLoginName();
-        if(userLoginName.equals("admin")){
-            resultUrl = prefix + "/edit";
-        }else{
-            if(contract.getContractType().equals("0")){
-                resultUrl = prefix + "/editgys";
-            }else{
-                resultUrl = prefix + "/editxsc";
-            }
-        }
-
-        return resultUrl;
+//        SysUser currentUser = ShiroUtils.getSysUser();
+//        String userLoginName = currentUser.getLoginName();
+//        if(userLoginName.equals("admin")){
+//            resultUrl = prefix + "/edit";
+//        }else{
+//            if(contract.getContractType().equals("0")){
+//                resultUrl = prefix + "/editgys";
+//            }else{
+//                resultUrl = prefix + "/editxsc";
+//            }
+//        }
+        return prefix+"/edit";
     }
 
     /**
@@ -215,38 +217,6 @@ public class ContractController extends BaseController {
     @PostMapping("/edit")
     @ResponseBody
     public AjaxResult editSave(Contract contract) {
-        contract.setContractTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
-        // 获取当前的用户信息
-//        SysUser currentUser = ShiroUtils.getSysUser();
-//        String userLoginName = currentUser.getLoginName();
-//        Long id = contract.getSignatureUserId();
-        //获取签名方用户信息
-        Contract contract1 = contractService.selectContractByContractId(contract.getContractId());
-        SysUser currentUser = sysUserService.selectUserById(contract1.getSignatureUserId());
-        String userLoginName = currentUser.getLoginName();
-        //双方确认完之后，往(仓库系统-进货管理-其他入库)里传一份入库单。
-        if((contract.getSignatureA().equals("1"))&&(contract.getSignatureB().equals("1"))){
-            //新增入库订单
-            WhWarehousingOrder whWarehousingOrder = new WhWarehousingOrder();
-            //订单日期
-            whWarehousingOrder.setOrderDate(DateUtils.getNowDate());
-            //入库类型(其他入库、采购入库)
-            whWarehousingOrder.setOrderType(WhWarehousingOrderType.OTHER.getCode());
-            //入库单编号
-            whWarehousingOrder.setOrderCode(OrderNumGeneratorUtils.makeOrderNum(OrderConstants.ASN));
-            //状态(待到货、待卸货、待分拣、已分拣)
-            whWarehousingOrder.setStatus(WarehousingOrderStatus.ARRIVAL.getCode());
-            //交易单位名称
-            whWarehousingOrder.setDesWarehouseName(userLoginName);
-            //订单号
-            whWarehousingOrder.setOrderName(contract.getContractId());
-            whWarehousingOrder.setSupplierName(userLoginName);
-            whWarehousingOrder.setSupplierId(currentUser.getUserId());
-            whWarehousingOrder.setCreateBy(userLoginName);
-            whWarehousingOrder.setDeptId(currentUser.getDeptId());
-            whWarehousingOrderService.insertWhWarehousingOrder(whWarehousingOrder);
-        }
-
         return toAjax(contractService.updateContract(contract));
     }
 
@@ -280,6 +250,9 @@ public class ContractController extends BaseController {
         return prefix + "/user";
     }
 
+    @Autowired
+    private IBasisSupplierService basisSupplierService;
+
     //更新签名
     @PostMapping("/editSignature/{contractId}")
     @ResponseBody
@@ -307,6 +280,11 @@ public class ContractController extends BaseController {
         }
         SysUser signatureUser = sysUserService.selectUserById(contract.getSignatureUserId());
         String signatureUserLoginName = signatureUser.getLoginName();
+        //在仓库系统——基础资料——供应商管理 查看该供应商是否存在
+        BasisSupplier basisSupplier = basisSupplierService.selectBasisSupplierBySupplierName(signatureUserLoginName);
+        if(ObjectUtils.isEmpty(basisSupplier)){
+            return AjaxResult.error("请在仓库系统——基础资料——供应商管理：添加供应商相关信息");
+        }
         //双方确认完之后，往(仓库系统-进货管理-其他入库)里传一份入库单。
         if((contract.getSignatureA().equals("1"))&&(contract.getSignatureB().equals("1"))){
             //新增入库订单
@@ -324,10 +302,14 @@ public class ContractController extends BaseController {
             //订单号
             whWarehousingOrder.setOrderName(contract.getContractId());
             whWarehousingOrder.setSupplierName(signatureUserLoginName);
-            whWarehousingOrder.setSupplierId(signatureUser.getUserId());
+            //设置供应商ID
+            Long id = basisSupplier.getId();
+            whWarehousingOrder.setSupplierId(id);
             whWarehousingOrder.setCreateBy(signatureUserLoginName);
             whWarehousingOrder.setDeptId(signatureUser.getDeptId());
             whWarehousingOrderService.insertWhWarehousingOrder(whWarehousingOrder);
+            //合同状态由未签署->待到货
+            contract.setContractStatus("1");
         }
         return toAjax(contractService.updateContract(contract));
     }

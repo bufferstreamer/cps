@@ -11,6 +11,8 @@ import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.OrderNumGeneratorUtils;
 import com.cps.common.utils.ShiroUtils;
 import com.cps.common.utils.StringUtils;
+import com.cps.cp.domain.Contract;
+import com.cps.cp.service.IContractService;
 import com.cps.wh.domain.WhWarehousingOrder;
 import com.cps.wh.enums.WarehousingOrderStatus;
 import com.cps.wh.service.IWhWarehousingOrderSeedService;
@@ -135,6 +137,9 @@ public class WhWarehousingOrderController extends BaseController {
         return toAjax(whWarehousingOrderService.deleteWhWarehousingOrderByIds(ids));
     }
 
+    @Autowired
+    private IContractService contractService;
+
     /**
      * 修改商品入库单状态-确认到货
      */
@@ -149,6 +154,13 @@ public class WhWarehousingOrderController extends BaseController {
             return AjaxResult.warn("请加入订单编号、供应商或商品");
         }
         whWarehousingOrder.setUpdateBy(ShiroUtils.getLoginName());
+        //更新合同状态为——交货完成-
+        String orderName = warehousingOrder.getOrderName();
+        if(orderName!=null&&!orderName.equals("")){
+            Contract contract = contractService.selectContractByContractId(orderName);
+            contract.setContractStatus("2");
+            contractService.updateContract(contract);
+        }
         return toAjax(whWarehousingOrderService.updateWhWarehousingOrder(whWarehousingOrder));
     }
 

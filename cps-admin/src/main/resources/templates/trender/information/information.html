@@ -124,9 +124,13 @@
                shiro:hasPermission="trender:information:remove">
                 <i class="fa fa-remove"></i> 删除
             </a>
-            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="trender:information:export">
+            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="trender:information:export" >
                 <i class="fa fa-download"></i> 导出
             </a>
+            <a class="btn btn-warning" onclick="openFileIIs()" shiro:hasPermission="trender:information:export" >
+                <i class="fa fa-download"></i> 打开招标公告文件夹
+            </a>
+
         </div>
         <div class="col-sm-12 select-table table-striped">
             <table id="bootstrap-table"></table>
@@ -134,10 +138,18 @@
     </div>
 </div>
 <th:block th:include="include :: footer"/>
+<!--<script src="../../../static/js/jquery.min.js"></script>
+<script src="../../../static/js/chat/axios.min.js"></script>-->
 <script th:inline="javascript">
     var editFlag = [[${@permission.hasPermi('trender:information:edit')}]];
     var removeFlag = [[${@permission.hasPermi('trender:information:remove')}]];
     var prefix = ctx + "trender/information";
+    function openFileIIs(){
+        /*$.ajax({url:"/cp/seed/openFile",success:function(){
+            }});*/
+        $.post(ctx + "/cp/seed/openFile", function (data) {
+        });
+    }
 
     $(function () {
         var options = {
@@ -272,6 +284,9 @@
         };
         $.table.init(options);
     });
+    function onClickRow(row, $element){
+        $element[0].firstElementChild.firstElementChild.click();
+    }
 </script>
 </body>
 </html>

@@ -44,6 +44,10 @@
     <include refid="selectProductVo"/>
     where product_id = #{productId}
   </select>
+  <select id="selectBigProduct" resultType="java.lang.String">
+    select product_id
+    from product order by create_time desc limit 1
+  </select>
 
   <insert id="insertProduct" parameterType="Product">
     insert into product

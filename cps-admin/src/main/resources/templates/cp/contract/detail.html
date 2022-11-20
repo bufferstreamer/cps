@@ -44,25 +44,15 @@
         <!--                </div>-->
         <!--            </div>-->
         <div class="form-group">
-            <label class="col-sm-5 control-label is-required" style="padding-top: 9.5px;height: 45px; font-size: large;color: black">甲方：</label>
+            <label id="partyA" class="col-sm-5 control-label is-required" style="padding-top: 9.5px;height: 45px; font-size: large;color: black">甲方：</label>
             <div class="col-sm-6">
-                <input id="signatureA" name="signatureA" th:field="*{signatureA}" class="form-control" type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly">
-<!--                <div class="radio-box" th:each="dict : ${@dict.getType('contract_signature')}">-->
-<!--                    <input disabled="disabled" name="signatureA" required-->
-<!--                           th:field="*{signatureA}" th:id="${'signatureA_' + dict.dictCode}" th:value="${dict.dictValue}" type="radio">-->
-<!--                    <label th:for="${'signatureA_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>-->
-<!--                </div>-->
+                <strong><input id="signatureA" name="signatureA" th:field="*{signatureA}" class="form-control" type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly"></strong>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-5 control-label is-required" style="padding-top: 9.5px;height: 45px; font-size: large;color: black">乙方：</label>
+            <label id="partyB" class="col-sm-5 control-label is-required" style="padding-top: 9.5px;height: 45px; font-size: large;color: black">乙方：</label>
             <div class="col-sm-6">
-                <input id="signatureB" name="signatureB" th:field="*{signatureB}" class="form-control" type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly">
-<!--                <div class="radio-box" th:each="dict : ${@dict.getType('contract_signature')}">-->
-<!--                    <input disabled="disabled" name="signatureB" required-->
-<!--                           th:field="*{signatureB}" th:id="${'signatureB_' + dict.dictCode}" th:value="${dict.dictValue}" type="radio">-->
-<!--                    <label th:for="${'signatureB_' + dict.dictCode}" th:text="${dict.dictLabel}"></label>-->
-<!--                </div>-->
+                <strong><input id="signatureB" name="signatureB" th:field="*{signatureB}" class="form-control" type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly"></strong>
             </div>
         </div>
         <div class="form-group">
@@ -72,6 +62,12 @@
                     <input class="form-control"
                            placeholder="yyyy-MM-dd" required th:value="${#dates.format(contract.contractTime, 'yyyy-MM-dd')}" type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly">
                 </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-5 control-label is-required" style="padding-top: 9.5px;height: 45px; font-size: large;color: black">合同状态：</label>
+            <div class="col-sm-6">
+                <input id="contractStatus" name="contractStatus" th:field="*{contractStatus}" class="form-control" type="text" style="height: 45px; border:0;background-color: white;font-size: large;color: black" readonly="readonly">
             </div>
         </div>
     </form>
@@ -87,20 +83,47 @@
 
     if(document.getElementById("contractType").value == 0){
         document.getElementById("contractType").value = "供销社与供应商";
+        var partyA = document.getElementById("partyA");
+        var partyB = document.getElementById("partyB");
+        partyA.innerText = "供销社（甲方）：";
+        partyB.innerText = "供应商（乙方）：";
     }else{
         document.getElementById("contractType").value = "小商超与供销社";
+        var partyA = document.getElementById("partyA");
+        var partyB = document.getElementById("partyB");
+        partyA.innerText = "小商超（甲方）：";
+        partyB.innerText = "供销社（乙方）：";
     }
     
     if(document.getElementById("signatureA").value == 0){
         document.getElementById("signatureA").value = "未签名";
+        document.getElementById("signatureA").style.color = "red";
     }else{
         document.getElementById("signatureA").value = "已签名";
+        document.getElementById("signatureA").style.color = "#00A65A";
     }
     
     if(document.getElementById("signatureB").value == 0){
         document.getElementById("signatureB").value = "未签名";
+        document.getElementById("signatureB").style.color = "red";
     }else{
         document.getElementById("signatureB").value = "已签名";
+        document.getElementById("signatureB").style.color = "#00A65A";
+    }
+
+    //合同状态 0未签署 1未交货 2交货完成 3合同完成 4合同逾期 5合同取消
+    if(document.getElementById("contractStatus").value == 0){
+        document.getElementById("contractStatus").value = "未签署";
+    }else if (document.getElementById("contractStatus").value == 1){
+        document.getElementById("contractStatus").value = "未交货";
+    }else if(document.getElementById("contractStatus").value == 0){
+        document.getElementById("contractStatus").value = "交货完成";
+    }else if(document.getElementById("contractStatus").value == 0){
+        document.getElementById("contractStatus").value = "合同完成";
+    }else if(document.getElementById("contractStatus").value == 0){
+        document.getElementById("contractStatus").value = "合同逾期";
+    }else{
+        document.getElementById("contractStatus").value = "合同取消";
     }
 
 

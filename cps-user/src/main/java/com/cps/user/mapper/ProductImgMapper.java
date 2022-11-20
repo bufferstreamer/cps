@@ -64,4 +64,6 @@ public interface ProductImgMapper
      * @return 结果
      */
     public int deleteProductImgByIds(String[] ids);
+
+    public String selectBigId();
 }

@@ -52,6 +52,11 @@ body.signin {
     color: #333
 }
 
+.signinpanel .icon {
+    background: #fff url(../img/favicon.svg) no-repeat 10% center;
+    color: #333
+}
+
 .signinpanel .uemail {
     background: #fff url(../img/mail.svg) no-repeat 95% center;
     color: #333
@@ -325,4 +330,11 @@ body.signin {
         top: -10%;
         left: -10%;
     }
+}
+
+@font-face {
+    font-family: 'iconfont';
+    url('../fonts/icon-font.woff2') format('woff')
+    font-weight: normal;
+    font-style: normal;
 }

@@ -78,6 +78,11 @@
         where id = #{id}
     </select>
 
+    <select id="selectBasisSupplierBySupplierName" parameterType="String" resultMap="BasisSupplierResult">
+        <include refid="selectBasisSupplierVo"/>
+        where supplier_name = #{supplierName}
+    </select>
+
     <insert id="insertBasisSupplier" parameterType="BasisSupplier" useGeneratedKeys="true" keyProperty="id">
         insert into wms_basis_supplier
         <trim prefix="(" suffix=")" suffixOverrides=",">

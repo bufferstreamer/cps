@@ -143,7 +143,16 @@
                         },
                         {
                             field: 'returnEvidence',
-                            title: '退货凭证'
+                            title: '退货凭证',
+                            formatter: function (value, row, index) {
+                                var imgPath = row.returnEvidence;
+                                var reg = /(.jpeg|.jpg|.png)$/i;
+                                if(reg.test(imgPath)){
+                                    var actions = [];
+                                    actions.push('<img alt="图片" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="' + row.returnEvidence + '">');
+                                    return actions.join('');
+                                }
+                            }
                         },
                         {
                             field: 'auditStatus',

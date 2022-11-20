@@ -95,8 +95,10 @@ public class WhWarehousingOrderServiceImpl implements IWhWarehousingOrderService
         //TODO 步骤:1.先重新获得存储供应商税率，以防供应商已做更改税率发生变化，2.按最新税率重新计算所有商品价格(备注:数量和含税单价不受税率影响),3.在梳理计算主表价格并且存库
         //步骤1
         whWarehousingOrder.setUpdateTime(DateUtils.getNowDate());
-        BasisSupplier basisSupplier = basisSupplierService.selectBasisSupplierById(whWarehousingOrder.getSupplierId());
-        whWarehousingOrder.setRate(basisSupplier.getInvoiceTax());
+        Long supplierId = whWarehousingOrder.getSupplierId();
+        BasisSupplier basisSupplier = basisSupplierService.selectBasisSupplierById(supplierId);
+        BigDecimal invoiceTax = basisSupplier.getInvoiceTax();
+        whWarehousingOrder.setRate(invoiceTax);
 
         //步骤2
         WhWarehousingOrderSeed whWarehousingOrderSeed = new WhWarehousingOrderSeed();

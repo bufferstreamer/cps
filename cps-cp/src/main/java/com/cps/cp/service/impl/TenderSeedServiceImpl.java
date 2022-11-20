@@ -30,6 +30,11 @@ public class TenderSeedServiceImpl implements ITenderSeedService {
         return tenderSeedMapper.selectTenderSeedById(id);
     }
 
+    @Override
+    public TenderSeed selectTenderSeedByInformationId(Long informationId) {
+        return tenderSeedMapper.selectTenderSeedByInformationId(informationId);
+    }
+
     /**
      * 查询自动生成标书所需信息的子表列表
      *
@@ -72,6 +77,16 @@ public class TenderSeedServiceImpl implements ITenderSeedService {
     @Override
     public int deleteTenderSeedByIds(String ids) {
         return tenderSeedMapper.deleteTenderSeedByIds(Convert.toStrArray(ids));
+    }
+
+    @Override
+    public int deleteTenderSeedByInformationIds(String informationIds) {
+        return tenderSeedMapper.deleteTenderSeedByInformationIds(Convert.toStrArray(informationIds));
+    }
+
+    @Override
+    public int deleteTenderSeedByInformationId(Long informationId) {
+        return tenderSeedMapper.deleteTenderSeedByInformationId(informationId);
     }
 
     /**

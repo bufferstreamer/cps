@@ -13,6 +13,7 @@
         <result property="contractTime" column="contract_time"/>
         <result property="signatureUserId" column="signature_user_id"/>
         <result property="contractStatus" column="contract_status"/>
+        <result property="deadlineDeliveryDate" column="deadline_delivery_date"/>
     </resultMap>
 
     <resultMap type="Contract" id="ContractResult">
@@ -25,10 +26,11 @@
         <result property="contractTime" column="contract_time"/>
         <result property="signatureUserId" column="signature_user_id"/>
         <result property="contractStatus" column="contract_status"/>
+        <result property="deadlineDeliveryDate" column="deadline_delivery_date"/>
     </resultMap>
 
     <sql id="selectContractVo">
-        select contract_id, tender_id, contract_type, contract_document, signature_a, signature_b, contract_time, signature_user_id ,contract_status
+        select contract_id, tender_id, contract_type, contract_document, signature_a, signature_b, contract_time, signature_user_id ,contract_status ,deadline_delivery_date
         from contract
     </sql>
 
@@ -66,6 +68,7 @@
             <if test="contractTime != null">contract_time,</if>
             <if test="signatureUserId != null and signatureUserId != ''">signature_user_id,</if>
             <if test="contractStatus != null and contractStatus != ''">contract_status,</if>
+            <if test="deadlineDeliveryDate != null">deadline_delivery_date,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="contractId != null">#{contractId},</if>
@@ -77,6 +80,7 @@
             <if test="contractTime != null">#{contractTime},</if>
             <if test="signatureUserId != null and signatureUserId != ''">#{signatureUserId},</if>
             <if test="contractStatus != null and contractStatus != ''">#{contractStatus},</if>
+            <if test="deadlineDeliveryDate != null">#{deadlineDeliveryDate},</if>
         </trim>
     </insert>
 
@@ -91,6 +95,7 @@
             <if test="contractTime != null">contract_time = #{contractTime},</if>
             <if test="signatureUserId != null and signatureUserId != ''">signature_user_id = #{signatureUserId},</if>
             <if test="contractStatus != null and contractStatus != ''">contract_status = #{contractStatus},</if>
+            <if test="deadlineDeliveryDate != null">deadline_delivery_date = #{deadlineDeliveryDate},</if>
         </trim>
         where contract_id = #{contractId}
     </update>

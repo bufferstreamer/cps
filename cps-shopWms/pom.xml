@@ -19,6 +19,11 @@
         </project.build.sourceEncoding>
         <module.shop.src>../cps-wms/src/main/java</module.shop.src>
         <module.wms.src>../cps-user/src/main/java</module.wms.src>
+        <module.cp.src>../cps-cp/src/main/java</module.cp.src>
+        <module.audit.src>../cps-audit/src/main/java</module.audit.src>
+        <module.bid.src>../cps-bid/src/main/java</module.bid.src>
+        <module.credit.src>../cps-credit/src/main/java</module.credit.src>
+        <module.product.src>../cps-product/src/main/java</module.product.src>
     </properties>
     <dependencies>
         <dependency>
@@ -44,6 +49,11 @@
                             <sources>
                                 <source>${module.shop.src}</source>
                                 <source>${module.wms.src}</source>
+                                <source>${module.cp.src}</source>
+                                <source>${module.audit.src}</source>
+                                <source>${module.bid.src}</source>
+                                <source>${module.credit.src}</source>
+                                <source>${module.product.src}</source>
                             </sources>
                         </configuration>
                     </execution>

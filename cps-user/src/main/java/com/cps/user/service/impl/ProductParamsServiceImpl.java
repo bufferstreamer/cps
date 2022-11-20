@@ -55,7 +55,10 @@ public class ProductParamsServiceImpl implements IProductParamsService
     @Override
     public int insertProductParams(ProductParams productParams)
     {
+        Integer id = Integer.valueOf(productParamsMapper.selectBigId());
+        productParams.setParamId(String.valueOf(id+1));
         productParams.setCreateTime(DateUtils.getNowDate());
+        productParams.setUpdateTime(DateUtils.getNowDate());
         return productParamsMapper.insertProductParams(productParams);
     }
 

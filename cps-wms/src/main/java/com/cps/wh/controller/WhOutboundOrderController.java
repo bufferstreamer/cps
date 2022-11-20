@@ -1,6 +1,5 @@
 package com.cps.wh.controller;
 
-import com.cps.basis.domain.BasisSupplier;
 import com.cps.basis.service.IBasisSupplierService;
 import com.cps.common.annotation.Log;
 import com.cps.common.constant.OrderConstants;
@@ -102,10 +101,21 @@ public class WhOutboundOrderController extends BaseController {
         //TODO: 1.保存whOutboundOrder 2.获取数据库中相应whOutboundOrder对象的id 3.将id和goods中的数据存入whOutboundOrderSeed表中
         //1.
         WhOutboundOrder whOutboundOrder = whOutboundOrderVo.getWhOutboundOrder();
+        whOutboundOrder.setOrderDate(DateUtils.getNowDate());
+        whOutboundOrder.setOrderType(WhOutboundOrderType.OTHER.getCode());
+        whOutboundOrder.setOrderCode(OrderNumGeneratorUtils.makeOrderNum(OrderConstants.SF));
+        whOutboundOrder.setDiscountRate(BigDecimal.ONE);
+        whOutboundOrder.setDiscountAmount(BigDecimal.ZERO);
+        whOutboundOrder.setDiscountPrice(BigDecimal.ZERO);
+        whOutboundOrder.setOtherFee(BigDecimal.ZERO);
+        whOutboundOrder.setStatus(OutboundOrderStatus.THEDELIVERY.getCode());
+        whOutboundOrder.setCreateBy("admin");
+//        whOutboundOrder.setDeptId(ShiroUtils.getDeptId());
+        whOutboundOrder.setDeptId(Long.valueOf(100));
         whOutboundOrderService.insertWhOutboundOrder(whOutboundOrder);
 
         //2.
-        Long whOutboundOrderId = whOutboundOrderService.selectWhOutboundOrderByOrderName(whOutboundOrder.getOrderName()).get(0).getWarehousingOrderId();
+        Long whOutboundOrderId = whOutboundOrderService.selectWhOutboundOrderByOrderName(whOutboundOrder.getOrderName()).get(0).getId();
         List<Cart> cartList = whOutboundOrderVo.getGoods();
 
         //3.
@@ -115,10 +125,15 @@ public class WhOutboundOrderController extends BaseController {
             whOutboundOrderSeed.setActualNumber(cart.getCartNum());
             whOutboundOrderSeed.setOweNumber(cart.getCartNum());
             whOutboundOrderSeed.setPlanNumber(cart.getCartNum());
+            whOutboundOrderSeed.setDeptId(Long.valueOf(100));
             whOutboundOrderSeedService.insertWhOutboundOrderSeed(whOutboundOrderSeed);
         }
         return toAjax(1);
     }
+
+
+
+
 
     /**
      * 修改商品出库单主表

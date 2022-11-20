@@ -226,18 +226,33 @@
                                 </div>
                             </div>
                         </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <button class="btn btn-white btn-sm" onclick="addColumn()" type="button"><i class="fa fa-plus"> 增加</i>
+                </button>
+                <button class="btn btn-white btn-sm" onclick="delColumn()" type="button"><i class="fa fa-minus">
+                    删除</i>
+                </button>
+                <div class="col-sm-12 select-table table-striped">
+                    <table id="bootstrap-table"></table>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
 <th:block th:include="include :: footer"/>
         <th:block th:include="include :: datetimepicker-js"/>
 <script th:inline="javascript">
     var prefix = ctx + "trender/information";
+    var ProductSkuSeedPrefix = ctx + "cp/seed";
+
     $("#form-information-edit").validate({
         focusCleanup: true
     });
 
     function submitHandler() {
         if ($.validate.form()) {
+            // $.operate.saveTab(ProductSkuSeedPrefix + "/edit", $('#form-information-add').serialize())
             $.operate.save(prefix + "/edit", $('#form-information-edit').serialize());
         }
     }
@@ -277,6 +292,421 @@
                 minView: "month",
                 autoclose: true
             });
+
+    $(function () {
+        init();
+
+    });
+    //初始化商品数据
+    var ProductSkuSeedPrefix = ctx + "cp/seed";
+
+    function init() {
+        // 初始化数据, 可以由后台传过来
+        var data = [];
+
+        var options = {
+            //data: data,
+            url: ProductSkuSeedPrefix + "/list",
+            pagination: false,
+            showSearch: false,
+            showRefresh: false,
+            showToggle: false,
+            showColumns: false,
+            sidePagination: "client",
+            queryParams: queryParams,
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'index',
+                    align: 'center',
+                    title: "序号",
+                    formatter: function (value, row, index) {
+                        var columnIndex = $.common.sprintf("<input type='hidden' name='index' value='%s'>", $.table.serialNumber(index));
+                        var skuId = $.common.sprintf("<input type='hidden' name='goods[%s].skuId' value='%s'>", index, row.skuId);//商品id 隐藏域
+                        return columnIndex + $.table.serialNumber(index) + skuId;
+                    }
+                },
+                {
+                    field: 'id',
+                    align: 'center',
+                    title: 'id',
+                    visible: false
+                },
+                // {
+                //     field: 'tenderInformationId',
+                //     align: 'center',
+                //     title: 'tenderInformationId',
+                //     // visible: false
+                // },
+                {
+                    field: 'productId',
+                    align: 'center',
+                    title: '商品id',
+                    visible: false
+                },
+                {
+                    field: 'productName',
+                    align: 'center',
+                    title: '商品名称',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf("<input class='form-control'  type='text' name='goods[%s].productName' id='productName' value='%s' style='text-align: center' readonly>", index, value);
+                    },
+                    events: onclickEvent
+                },
+                {
+                    field: 'skuId',
+                    align: 'center',
+                    title: '商品规格id',
+                    visible: false,
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf("<input class='form-control' onclick=selectProduct() type='text' name='goods[%s].skuId' value='%s' readonly>", index, value);
+                    },
+                },
+                {
+                    field: 'skuName',
+                    align: 'center',
+                    title: '商品规格名称',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf("<input class='form-control' id='skuName' type='text' name='goods[%s].skuName' style='text-align: center'  placeholder=\"请先选择商品\" value='%s' readonly>", index, value);
+                    },
+                    events: onclickEvent2
+                },
+                {
+                    field: 'untitled',
+                    align: 'center',
+                    title: '属性格式',
+                    formatter: function (value, row, index) {
+                        return $.common.sprintf("<input class='form-control' type='text' name='goods[%s].untitled' value='%s' style='text-align: center' readonly>", index, value);
+                    },
+                },
+                {
+                    field: 'goodsUnit',
+                    align: 'center',
+                    title: '单位',
+                    formatter: function (value, row, index) {
+                        var html = '';
+                        if ($.common.isEmpty(row.id)) {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].goodsUnit" value="' + value + '" maxlength="6" style="text-align: center">';
+                        } else {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].goodsUnit" value="' + value + '" maxlength="6" style="text-align: center" onchange="updateUnit('+ row.id +' , this)">';
+                        }
+                        return html;
+                    },
+                },
+                {
+                    field: 'shopIndexName',
+                    align: 'center',
+                    title: '商品指标名称',
+                    formatter: function (value, row, index) {
+                        var html = '';
+                        if ($.common.isEmpty(row.id)) {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].shopIndexName" value="' + value + '"  style="text-align: center">';
+                        } else {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].shopIndexName" value="' + value + '" style="text-align: center" onchange="updateIndexName('+ row.id +' , this)">';
+                        }
+                        return html;
+                    },
+                },
+                {
+                    field: 'shopIndexRequire',
+                    align: 'center',
+                    title: '商品指标要求',
+                    formatter: function (value, row, index) {
+                        var html = '';
+                        if ($.common.isEmpty(row.id)) {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].shopIndexRequire" value="' + value + '"  style="text-align: center">';
+                        } else {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].shopIndexRequire" value="' + value + '" style="text-align: center" onchange="updateIndexRequire('+ row.id +' , this)">';
+                        }
+                        return html;
+                    },
+                },
+                {
+                    field: 'planNumber',
+                    align: 'center',
+                    title: '拟招标数量',
+                    formatter: function (value, row, index) {
+                        var html = '';
+                        if ($.common.isEmpty(row.id)) {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].planNumber" value="' + value + '"  style="text-align: center">';
+                        } else {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].planNumber" value="' + value + '" style="text-align: center" onchange="updatePlanNumber('+ row.id +' , this)">';
+                        }
+                        return html;
+                    },
+                },
+                {
+                    field: 'planPrice',
+                    align: 'center',
+                    title: '预算金额',
+                    formatter: function (value, row, index) {
+                        var html = '';
+                        if ($.common.isEmpty(row.id)) {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].planPrice" value="' + value + '"  style="text-align: center">';
+                        } else {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].planPrice" value="' + value + '" style="text-align: center" onchange="updatePlanPrice('+ row.id +' , this)">';
+                        }
+                        return html;
+                    },
+                },
+            ]
+        };
+
+        $.table.init(options);
+    }
+
+    function addColumn() {
+        var row = {
+            id: "",
+            productId: "",
+            productName: "",
+            skuId: "",
+            skuName: "",
+            untitled: "无",
+            goodsUnit: "袋",
+            shopIndexName: "无",
+            shopIndexRequire: "无",
+            planNumber: "0",
+            planPrice: "0",
+        }
+        var count = $("#" + table.options.id).bootstrapTable('getData').length;
+        $("#" + table.options.id).bootstrapTable('insertRow', {
+            index: count + 1,
+            row: row
+        });
+    }
+
+    //删除行
+    function delColumn() {
+        sub.editColumn();
+
+        var column = "id";
+        // console.log(column);
+        var subColumn = $.common.isEmpty(column) ? "index" : column;
+        // console.log(subColumn);
+        var ids = $.table.selectColumns(subColumn);
+        // console.log(ids);
+        if (ids.length === 0) {
+            $.modal.alertWarning("请至少选择一条记录");
+            return;
+        }
+        if ($.common.isEmpty(ids.join())) {
+            $("#" + table.options.id).bootstrapTable('remove', {
+                field: "index",
+                values: $.table.selectColumns("index")
+            });
+        } else {
+            var data = {"ids": ids.join()};
+            $.operate.post(ProductSkuSeedPrefix + "/remove", data);
+        }
+    }
+
+    function queryParams(params) {
+        var search = {
+            tenderInformationId: $('#id').val(),
+        }
+        return search;
+    }
+
+    var productPrefix = ctx + "user/product";
+    var productSkuSeed;//子表ID
+    var skuSeed;//商品规格ID
+    var productId;//商品ID
+
+    function selectProduct() {
+        var url = productPrefix + '/selectProducts';
+        var options = {
+            title: '选择商品',
+            url: url,
+            callBack: doSubmitProducts
+        };
+        $.modal.openOptions(options);
+    }
+
+
+    function doSubmitProducts(index, layero) {
+        var iframeWin = layero.find("iframe")[0].contentWindow.$.table;
+        var rows = iframeWin.selectFirstColumns();//调用子页面的方法 获取ID
+        // console.log(rows);
+        if (rows.length === 0) {
+            $.modal.alertWarning("请至少选择一条记录");
+            return;
+        }
+        var data = $("#" + table.options.id).bootstrapTable('getData');
+        var productsId = iframeWin.selectColumns("productId").join();//调用子页面的方法 获取ID
+
+        var productsName = iframeWin.selectColumns("productName").join();//调用子页面的方法 获取ID
+        var skuId = data[0].skuId;//调用子页面的方法 获取ID
+        var skuName = data[0].skuName;
+        var untitled = data[0].untitled;
+        var goodsUnit = data[0].goodsUnit;
+        var shopIndexName = data[0].shopIndexName;
+        var shopIndexRequire = data[0].shopIndexRequire;
+        var planNumber = data[0].planNumber;
+        var planPrice = data[0].planPrice;
+        /*      for(i in data ){
+                  console.log(data[i]);  //获得属性值
+              }*/
+        var flag = 0;
+        $.each(data, function (index, obj) {  //index:索引obj:循环的每个元素
+            if (obj.productId === productsId) {
+                flag = 1;
+                return false; //跳出循环
+            }
+        });
+        if (flag === 1) {
+            $.modal.alertWarning("商品已在清单中!");
+            return;
+        }
+
+        $.modal.close(index);
+        //更新表格数据 ajax 调用后台存储
+        var _data = {
+            "tenderInformationId": $('#id').val(),
+            "productId": productsId,
+            "productName": productsName,
+            "skuId": "",
+            "skuName": "",
+            "untitled": "",
+            "goodsUnit": goodsUnit,
+            "shopIndexName": shopIndexName,
+            "shopIndexRequire": shopIndexRequire,
+            "planNumber": planNumber,
+            "planPrice": planPrice,
+        }
+        // console.log("productSkuSeed1: " + productSkuSeed);
+        if ($.common.isEmpty(productSkuSeed)) {
+            $.operate.post(ProductSkuSeedPrefix + "/add", _data);
+        } else {
+            _data.id = productSkuSeed;
+            $.operate.post(ProductSkuSeedPrefix + "/edit", _data);
+        }
+    }
+
+    window.onclickEvent = {
+        'click .form-control': function (e, value, row, index) {
+            productSkuSeed = row.id;
+            selectProduct();
+        }
+    };
+    window.onclickEvent2 = {
+        'click .form-control': function (e, value, row, index) {
+            skuSeed = row.id;
+            productId = row.productId;
+            selectSku();
+        }
+    };
+    let skuPrefix = ctx + "user/sku";
+
+    function selectSku() {
+        var url = skuPrefix + '/selectSkus' + "/{" + productId + "}";
+        var options = {
+            title: '选择商品sku',
+            url: url,
+            callBack: doSubmitSkus
+        };
+        // console.log(options.url);
+        $.modal.openOptions(options);
+    }
+
+    function doSubmitSkus(index, layero) {
+        var iframeWin = layero.find("iframe")[0].contentWindow.$.table;
+        var rows = iframeWin.selectFirstColumns();//调用子页面的方法 获取ID
+        // console.log(rows);
+        if (rows.length === 0) {
+            $.modal.alertWarning("请至少选择一条记录");
+            return;
+        }
+        var skuIds = iframeWin.selectColumns("skuId").join(" / ");//调用子页面的方法 获取ID
+        var skuNames = iframeWin.selectColumns("skuName").join(" / ");//调用子页面的方法 获取ID
+        var untitleds = iframeWin.selectColumns("untitled").join(" / ");//调用子页面的方法 获取ID
+        /*       var data = $("#" + table.options.id).bootstrapTable('getData');
+               var flag = 0;
+               $.each(data, function (index, obj) {  //index:索引obj:循环的每个元素
+                   if (obj.skuId === skuIds) {
+                       flag = 1;
+                       return false; //跳出循环
+                   }
+               });
+               if (flag === 1) {
+                   $.modal.alertWarning("商品sku已在清单中!");
+                   return;
+               }*/
+
+        $.modal.close(index);
+
+        //更新表格数据 ajax 调用后台存储
+        var _data = {
+            "tenderInformationId": $('#id').val(),
+            "skuId": skuIds,
+            "skuName": skuNames,
+            "untitled": untitleds,
+            // "skuId": "  ",
+            // "skuName": " ",
+            // "untitled": " ",
+            // "goodsUnit": " ",
+            // "shopIndexName": " ",
+            // "shopIndexRequire": " ",
+            // "planNumber": " ",
+            // "planPrice": " ",
+            // "productsName": productsName,
+            // "productsContent": productsContent,
+        }
+        // console.log("_data2: " + _data);
+        _data.id = skuSeed;
+        // console.log("_data.id: " + _data.id);
+        $.operate.post(ProductSkuSeedPrefix + "/edit", _data);
+    }
+
+    updateUnit = function (id, obj) {//更新表格数据 ajax 调用后台存储
+        // console.log(shopIndexNameVal);
+        // console.log(planNumberVal);
+        // console.log(planPriceVal);
+        // console.log(shopIndexRequireVal);
+        var _data = {
+            "id": id,
+            "goodsUnit": $(obj).val(),
+            // "shopIndexName": shopIndexNameVal,
+            // "shopIndexRequire": shopIndexRequireVal,
+            // "planNumber": planNumberVal,
+            // "planPrice": planPriceVal,
+        }
+        $.operate.post(ProductSkuSeedPrefix + "/edit", _data);
+
+    }
+
+    function updateIndexName(id, object) {
+        var _data = {
+            "id": id,
+            "shopIndexName": $(object).val(),
+        }
+        $.operate.post(ProductSkuSeedPrefix + "/edit", _data);
+    }
+
+    function updateIndexRequire(id, object) {
+        var _data = {
+            "id": id,
+            "shopIndexRequire": $(object).val(),
+        }
+        $.operate.post(ProductSkuSeedPrefix + "/edit", _data);
+    }
+
+    function updatePlanNumber(id, object) {
+        var _data = {
+            "id": id,
+            "planNumber": $(object).val(),
+        }
+        $.operate.post(ProductSkuSeedPrefix + "/edit", _data);
+    }
+
+    function updatePlanPrice(id, object) {
+        var _data = {
+            "id": id,
+            "planPrice": $(object).val(),
+        }
+        $.operate.post(ProductSkuSeedPrefix + "/edit", _data);
+    }
 </script>
 </body>
 </html>

@@ -26,6 +26,8 @@ public interface ProductSkuMapper
      */
     public ProductSku selectProductSkuBySkuId(String skuId);
 
+    public String selectBigSkuId();
+
     /**
      * 根据商品ID获得sku列表
      * @param productId: 商品ID

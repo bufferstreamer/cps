@@ -5,68 +5,83 @@
 <mapper namespace="com.cps.cp.mapper.TenderSeedMapper">
 
     <resultMap type="TenderSeed" id="TenderSeedResult">
-            <result property="id" column="id"/>
-            <result property="tenderInformationId" column="tender_information_id"/>
-            <result property="skuId" column="sku_id"/>
-            <result property="productId" column="product_id"/>
-            <result property="productName" column="product_name"/>
-            <result property="skuName" column="sku_name"/>
-            <result property="untitled" column="untitled"/>
-            <result property="goodsUnit" column="goods_unit"/>
-            <result property="shopIndexName" column="shop_index_name"/>
-            <result property="shopIndexRequire" column="shop_index_require"/>
-            <result property="planNumber" column="plan_number"/>
-            <result property="planPrice" column="plan_price"/>
+        <result property="id" column="id"/>
+        <result property="tenderInformationId" column="tender_information_id"/>
+        <result property="skuId" column="sku_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="skuName" column="sku_name"/>
+        <result property="untitled" column="untitled"/>
+        <result property="goodsUnit" column="goods_unit"/>
+        <result property="shopIndexName" column="shop_index_name"/>
+        <result property="shopIndexRequire" column="shop_index_require"/>
+        <result property="planNumber" column="plan_number"/>
+        <result property="planPrice" column="plan_price"/>
     </resultMap>
 
     <sql id="selectTenderSeedVo">
-        select id, tender_information_id, sku_id, sku_name, product_id, product_name, untitled, goods_unit, shop_index_name, shop_index_require, plan_number, plan_price
+        select id,
+               tender_information_id,
+               sku_id,
+               sku_name,
+               product_id,
+               product_name,
+               untitled,
+               goods_unit,
+               shop_index_name,
+               shop_index_require,
+               plan_number,
+               plan_price
         from fmmall2.tender_seed
     </sql>
 
     <select id="selectTenderSeedList" parameterType="TenderSeed" resultMap="TenderSeedResult">
         <include refid="selectTenderSeedVo"/>
         <where>
-                        <if test="tenderInformationId != null ">
-                            and tender_information_id = #{tenderInformationId}
-                        </if>
-                        <if test="skuId != null  and skuId != ''">
-                            and sku_id = #{skuId}
-                        </if>
-                        <if test="skuName != null  and skuName != ''">
-                            and sku_name like concat('%', #{skuName}, '%')
-                        </if>
-                        <if test="productId != null  and productId != ''">
-                            and product_id = #{productId}
-                        </if>
-                        <if test="productName != null  and productName != ''">
-                            and product_name like concat('%', #{productName}, '%')
-                        </if>
-                        <if test="untitled != null  and untitled != ''">
-                            and untitled = #{untitled}
-                        </if>
-                        <if test="goodsUnit != null  and goodsUnit != ''">
-                            and goods_unit = #{goodsUnit}
-                        </if>
-                        <if test="shopIndexName != null  and shopIndexName != ''">
-                            and shop_index_name like concat('%', #{shopIndexName}, '%')
-                        </if>
-                        <if test="shopIndexRequire != null  and shopIndexRequire != ''">
-                            and shop_index_require = #{shopIndexRequire}
-                        </if>
-                        <if test="planNumber != null ">
-                            and plan_number = #{planNumber}
-                        </if>
-                        <if test="planPrice != null ">
-                            and plan_price = #{planPrice}
-                        </if>
+            <if test="tenderInformationId != null ">
+                and tender_information_id = #{tenderInformationId}
+            </if>
+            <if test="skuId != null  and skuId != ''">
+                and sku_id = #{skuId}
+            </if>
+            <if test="skuName != null  and skuName != ''">
+                and sku_name like concat('%', #{skuName}, '%')
+            </if>
+            <if test="productId != null  and productId != ''">
+                and product_id = #{productId}
+            </if>
+            <if test="productName != null  and productName != ''">
+                and product_name like concat('%', #{productName}, '%')
+            </if>
+            <if test="untitled != null  and untitled != ''">
+                and untitled = #{untitled}
+            </if>
+            <if test="goodsUnit != null  and goodsUnit != ''">
+                and goods_unit = #{goodsUnit}
+            </if>
+            <if test="shopIndexName != null  and shopIndexName != ''">
+                and shop_index_name like concat('%', #{shopIndexName}, '%')
+            </if>
+            <if test="shopIndexRequire != null  and shopIndexRequire != ''">
+                and shop_index_require = #{shopIndexRequire}
+            </if>
+            <if test="planNumber != null ">
+                and plan_number = #{planNumber}
+            </if>
+            <if test="planPrice != null ">
+                and plan_price = #{planPrice}
+            </if>
         </where>
     </select>
 
     <select id="selectTenderSeedById" parameterType="Long"
             resultMap="TenderSeedResult">
-            <include refid="selectTenderSeedVo"/>
-            where id = #{id}
+        <include refid="selectTenderSeedVo"/>
+        where id = #{id}
+    </select>
+    <select id="selectTenderSeedByInformationId" parameterType="Long" resultMap="TenderSeedResult">
+        <include refid="selectTenderSeedVo"/>
+        where tender_information_id = #{informationId}
     </select>
 
     <insert id="insertTenderSeed" parameterType="TenderSeed" useGeneratedKeys="true"
@@ -125,53 +140,67 @@
     <update id="updateTenderSeed" parameterType="TenderSeed">
         update fmmall2.tender_seed
         <trim prefix="SET" suffixOverrides=",">
-                    <if test="tenderInformationId != null">tender_information_id =
-                        #{tenderInformationId},
-                    </if>
-                    <if test="skuId != null">sku_id =
-                        #{skuId},
-                    </if>
-                    <if test="productId != null">product_id =
-                        #{productId},
-                    </if>
-                    <if test="productName != null">product_name =
-                        #{productName},
-                    </if>
-                    <if test="skuName != null">sku_name =
-                        #{skuName},
-                    </if>
-                    <if test="untitled != null">untitled =
-                        #{untitled},
-                    </if>
-                    <if test="goodsUnit != null">goods_unit =
-                        #{goodsUnit},
-                    </if>
-                    <if test="shopIndexName != null">shop_index_name =
-                        #{shopIndexName},
-                    </if>
-                    <if test="shopIndexRequire != null">shop_index_require =
-                        #{shopIndexRequire},
-                    </if>
-                    <if test="planNumber != null">plan_number =
-                        #{planNumber},
-                    </if>
-                    <if test="planPrice != null">plan_price =
-                        #{planPrice},
-                    </if>
+            <if test="tenderInformationId != null">tender_information_id =
+                #{tenderInformationId},
+            </if>
+            <if test="skuId != null">sku_id =
+                #{skuId},
+            </if>
+            <if test="productId != null">product_id =
+                #{productId},
+            </if>
+            <if test="productName != null">product_name =
+                #{productName},
+            </if>
+            <if test="skuName != null">sku_name =
+                #{skuName},
+            </if>
+            <if test="untitled != null">untitled =
+                #{untitled},
+            </if>
+            <if test="goodsUnit != null">goods_unit =
+                #{goodsUnit},
+            </if>
+            <if test="shopIndexName != null">shop_index_name =
+                #{shopIndexName},
+            </if>
+            <if test="shopIndexRequire != null">shop_index_require =
+                #{shopIndexRequire},
+            </if>
+            <if test="planNumber != null">plan_number =
+                #{planNumber},
+            </if>
+            <if test="planPrice != null">plan_price =
+                #{planPrice},
+            </if>
         </trim>
         where id = #{id}
     </update>
 
     <delete id="deleteTenderSeedById" parameterType="Long">
         delete
-        from fmmall2.tender_seed where id = #{id}
+        from fmmall2.tender_seed
+        where id = #{id}
     </delete>
 
     <delete id="deleteTenderSeedByIds" parameterType="String">
-        delete from fmmall2.tender_seed where id in
+        delete from fmmall2.tender_seed where tender_seed.id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
+    </delete>
+    <delete id="deleteTenderSeedByInformationIds" parameterType="String">
+            delete from fmmall2.tender_seed where tender_seed.tender_information_id
+            in
+            <foreach item="id" collection="array" open="(" separator="," close=")">
+                #{informationId}
+            </foreach>
+
+    </delete>
+    <delete id="deleteTenderSeedByInformationId" parameterType="Long">
+        delete
+        from fmmall2.tender_seed
+        where tender_information_id = #{informationId}
     </delete>
 
 </mapper>

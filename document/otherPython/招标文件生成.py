@@ -4,6 +4,7 @@ import pymysql
 import datetime as dt
 import os
 import cpsSetting as c
+from docx.shared import Pt
 def move_table_after(table, paragraph):
     tbl, p = table._tbl, paragraph._p
     p.addnext(tbl)
@@ -30,6 +31,7 @@ password = c.cps_password
 print(path)
 # 获取当前绝对路径
 docPath = os.getcwd()  # 获取当前路径
+#docPath = 'E:\\IdeaProjects\\cps-3'
 # print(docPath)
 # docPath.replace("otherPython","tender")
 doc = Document(docPath + "\document\\tender\招标文件模板.docx")
@@ -39,7 +41,12 @@ db_cps = pymysql.connect(host=host,
                          user=user,
                          password=password,
                          database='cps')
+db_fmmall = pymysql.connect(host=host,
+                         user=user,
+                         password=password,
+                         database='fmmall2')
 cursor_cps = db_cps.cursor()
+cursor_fmmall = db_fmmall.cursor()
 
 sql_select_tender = "select id,\
                         tender_name,\
@@ -101,8 +108,10 @@ params = {
 
 replace_placeholder(doc, params)
 
-table_title = ["产品id", '产品名称', '指标名称', '指标要求', '需求数量', '预算金额']  # 定义表格的第一行的标题
-table = doc.add_table(rows=1, cols=6)  # 定义表格的行数、列数
+table_title = ["产品id", '产品名称', '商品规格名称','商品属性','指标名称', '指标要求', '需求数量', '商品单位','预算金额']  # 定义表格的第一行的标题
+table = doc.add_table(rows=1, cols=9)  # 定义表格的行数、列数
+table.autofit =True
+table.style = doc.styles["Table Grid"]
 table_cells = table.rows[0].cells  # 将 table_title 的每列的名称写入表格
 table_cells[0].text = table_title[0]
 table_cells[1].text = table_title[1]
@@ -110,17 +119,28 @@ table_cells[2].text = table_title[2]
 table_cells[3].text = table_title[3]
 table_cells[4].text = table_title[4]
 table_cells[5].text = table_title[5]
+table_cells[6].text = table_title[6]
+table_cells[7].text = table_title[7]
+table_cells[8].text = table_title[8]
+for i in table.rows[0].cells:
+    run = i.paragraphs[0].runs[0]
+    run.font.size = Pt(8)
+# run = table.rows[0].cells.
+# run.font.size = 10
 
-sql_select_seed = "select good_id,\
-                          good_name,\
-                          target_name,\
-                          target_require,\
-                          amount,\
-                          budgent\
-                    from trender_information_seed\
-                    where trender_id = %s" % (path)
-cursor_cps.execute(sql_select_seed)
-data = list(cursor_cps.fetchall())
+sql_select_seed = "select product_id,\
+                          product_name,\
+                          sku_name,\
+                          untitled,\
+                          shop_index_name,\
+                          shop_index_require,\
+                          plan_number,\
+                          goods_unit,\
+                          plan_price\
+                    from tender_seed\
+                    where tender_information_id = %s" % (path)
+cursor_fmmall.execute(sql_select_seed)
+data = list(cursor_fmmall.fetchall())
 
 # data = [            # 定义 data 的内容，准备将其追加写入表格
 # ('1','红烧牛肉方便面', '包装规格', '五连袋','100件','2000元'),
@@ -136,6 +156,9 @@ for i in data:  # 利用 for 循环将 data 追加写入表格
     row_cells[3].text = i[3]
     row_cells[4].text = i[4]
     row_cells[5].text = i[5]
+    row_cells[6].text = str(i[6])
+    row_cells[7].text = i[7]
+    row_cells[8].text = str(i[8])
 
 expect_text = '所需商品及商品需求如下：'
 
@@ -149,5 +172,6 @@ for paragraph in doc.paragraphs:
 
 move_table_after(table, target)
 
-doc.save(docPath + "/document/tender/" + result_tender[0][1] + "招标文件.docx")
+doc.save(docPath + "/cps-admin/src/main/resources/static/documentTemplate/tender/" + result_tender[0][1] + "招标文件.docx")
+# cps-admin/src/main/resources/static/documentTemplate/tender
 # doc.save("D:\idea\project\cps\document/tender/" + result_tender[0][1] + "招标文件.docx")

@@ -60,6 +60,8 @@ public class Contract extends BaseEntity {
     @Excel(name = "合同签定时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date contractTime;
 
+
+
     /**
      * 非管理员签名方的ID
      */
@@ -71,6 +73,21 @@ public class Contract extends BaseEntity {
      */
     @Excel(name = "合同类别")
     private String contractStatus;
+
+    /**
+     * 交货截止日期
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "交货截止日期", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date deadlineDeliveryDate;
+
+    public Date getDeadlineDeliveryDate() {
+        return deadlineDeliveryDate;
+    }
+
+    public void setDeadlineDeliveryDate(Date deadlineDeliveryDate) {
+        this.deadlineDeliveryDate = deadlineDeliveryDate;
+    }
 
     public String getContractStatus() {
         return contractStatus;
@@ -156,6 +173,7 @@ public class Contract extends BaseEntity {
                 .append("contractTime", getContractTime())
                 .append("signatureUserId",getSignatureUserId())
                 .append("contractStatus", getContractStatus())
+                .append("deadlineDeliveryDate",getDeadlineDeliveryDate())
                 .toString();
     }
 }

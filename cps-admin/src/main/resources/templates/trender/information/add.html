@@ -7,13 +7,13 @@
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
     <form class="form-horizontal m" id="form-information-add">
-        <input id="id" name="id" th:value="${tenderSeed.id}" type="hidden">
+        <input id="id" name="id" th:value="${trenderInformation.id}" type="hidden">
 
         <div class="form-group">
-            <label class="col-sm-3 control-label">标书名称
+            <label class="col-sm-3 control-label"><span style="color: red; ">*</span>标书名称
                 ：</label>
             <div class="col-sm-8">
-                <input name="tenderName" class="form-control" type="text">
+                <input name="tenderName" class="form-control" type="text" required>
             </div>
         </div>
         <div class="form-group">
@@ -24,21 +24,22 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">交货期
+            <label class="col-sm-3 control-label"><span style="color: red; ">*</span>
+                交货期
                 ：</label>
             <div class="col-sm-8">
                 <div class="input-group date">
-                    <input name="receiveTime" class="form-control" placeholder="yyyy-MM-dd"
+                    <input name="receiveTime" class="form-control" placeholder="yyyy-MM-dd" required
                            type="text">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">交货地点
+            <label class="col-sm-3 control-label"><span style="color: red; ">*</span>交货地点
                 ：</label>
             <div class="col-sm-8">
-                <input name="deliverPoint" class="form-control" type="text">
+                <input name="deliverPoint" class="form-control" type="text" required>
             </div>
         </div>
         <div class="form-group">
@@ -91,12 +92,12 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">投标文件递交的截止时间
+            <label class="col-sm-3 control-label"><span style="color: red; ">*</span>投标文件递交的截止时间
                 ：</label>
             <div class="col-sm-8">
                 <div class="input-group date">
                     <input name="bidDdl" class="form-control" placeholder="yyyy-MM-dd"
-                           type="text">
+                           type="text" required>
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
             </div>
@@ -126,28 +127,28 @@
             <label class="col-sm-3 control-label">招标人
                 ：</label>
             <div class="col-sm-8">
-                <input name="initiator" class="form-control" type="text">
+                <input name="initiator" class="form-control" type="text" value="cps">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">联系人
+            <label class="col-sm-3 control-label"><span style="color: red; ">*</span>联系人
                 ：</label>
             <div class="col-sm-8">
-                <input name="contacts" class="form-control" type="text">
+                <input name="contacts" class="form-control" type="text" required>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">联系电话
+            <label class="col-sm-3 control-label"><span style="color: red; ">*</span>联系电话
                 ：</label>
             <div class="col-sm-8">
-                <input name="contactNumber" class="form-control" type="text">
+                <input id="contactNumber" name="contactNumber" class="form-control" type="text" required>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label">电子邮件
                 ：</label>
             <div class="col-sm-8">
-                <input name="email" class="form-control" type="text">
+                <input id="email" name="email" class="form-control" type="text">
             </div>
         </div>
         <div class="form-group">
@@ -158,44 +159,44 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">资质审核截止时间
+            <label class="col-sm-3 control-label"><span style="color: red; ">*</span>资质审核截止时间
                 ：</label>
             <div class="col-sm-8">
                 <div class="input-group date">
-                    <input name="qualificationReviewTime" class="form-control" placeholder="yyyy-MM-dd"
+                    <input name="qualificationReviewTime" required class="form-control" placeholder="yyyy-MM-dd"
                            type="text">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">竞标开始时间
+            <label class="col-sm-3 control-label"><span style="color: red; ">*</span>竞标开始时间
                 ：</label>
             <div class="col-sm-8">
                 <div class="input-group date">
-                    <input name="biddingStartTime" class="form-control" placeholder="yyyy-MM-dd"
+                    <input name="biddingStartTime" class="form-control" required placeholder="yyyy-MM-dd"
                            type="text">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">竞标截止时间
+            <label class="col-sm-3 control-label"><span style="color: red; ">*</span>竞标截止时间
                 ：</label>
             <div class="col-sm-8">
                 <div class="input-group date">
-                    <input name="biddingEndTime" class="form-control" placeholder="yyyy-MM-dd"
+                    <input name="biddingEndTime" required class="form-control" placeholder="yyyy-MM-dd"
                            type="text">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">公布时间
+            <label class="col-sm-3 control-label"><span style="color: red; ">*</span>公布时间
                 ：</label>
             <div class="col-sm-8">
                 <div class="input-group date">
-                    <input name="publicationTime" class="form-control" placeholder="yyyy-MM-dd"
+                    <input name="publicationTime" required class="form-control" placeholder="yyyy-MM-dd"
                            type="text">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
@@ -210,7 +211,7 @@
                     删除</i>
                 </button>
                 <div class="col-sm-12 select-table table-striped">
-                    <table id="bootstrap-table"></table>
+                    <table id="bootstrap-table" ></table>
                 </div>
             </div>
         </div>
@@ -230,14 +231,28 @@
 <th:block th:include="include :: footer"/>
 <th:block th:include="include :: datetimepicker-js"/>
 <script th:inline="javascript">
+    jQuery.validator.addMethod("isPhone", function(value, element) {
+        var tel = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+d{8})$/;
+        return this.optional(element) || (tel.test(value));
+    }, "请正确填写您的手机号码");
     var prefix = ctx + "trender/information"
     $("#form-information-add").validate({
-        focusCleanup: true
+        focusCleanup: true,
+        rules: {
+            contactNumber:{
+                isPhone: true
+            },
+            email: {
+                email: true
+            },
+        }
     });
+
 
     function submitHandler() {
         if ($.validate.form()) {
-            $.operate.saveTab(prefix + "/add", $('#form-information-add').serialize());
+            // $.operate.saveTab(ProductSkuSeedPrefix + "/edit", $('#form-information-add').serialize())
+            $.operate.saveTab(prefix + "/edit", $('#form-information-add').serialize());
         }
     }
 
@@ -361,7 +376,7 @@
                     align: 'center',
                     title: '属性格式',
                     formatter: function (value, row, index) {
-                        return $.common.sprintf("<input class='form-control' type='text' name='goods[%s].untitled' value='%s' style='text-align: center'>", index, value);
+                        return $.common.sprintf("<input class='form-control' type='text' name='goods[%s].untitled' value='%s' style='text-align: center' readonly>", index, value);
                     },
                 },
                 {
@@ -369,15 +384,27 @@
                     align: 'center',
                     title: '单位',
                     formatter: function (value, row, index) {
-                        return $.common.sprintf("<input class='form-control' type='text' name='goods[%s].goodsUnit' value='%s' style='text-align: center'>", index, value);
-                    }
+                        var html = '';
+                        if ($.common.isEmpty(row.id)) {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].goodsUnit" value="' + value + '" maxlength="6" style="text-align: center">';
+                        } else {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].goodsUnit" value="' + value + '" maxlength="6" style="text-align: center" onchange="updateUnit('+ row.id +' , this)">';
+                        }
+                        return html;
+                    },
                 },
                 {
                     field: 'shopIndexName',
                     align: 'center',
                     title: '商品指标名称',
                     formatter: function (value, row, index) {
-                        return $.common.sprintf("<input class='form-control' type='text' name='goods[%s].shopIndexName' value='%s' style='text-align: center'>", index, value);
+                        var html = '';
+                        if ($.common.isEmpty(row.id)) {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].shopIndexName" value="' + value + '"  style="text-align: center">';
+                        } else {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].shopIndexName" value="' + value + '" style="text-align: center" onchange="updateIndexName('+ row.id +' , this)">';
+                        }
+                        return html;
                     },
                 },
                 {
@@ -385,7 +412,12 @@
                     align: 'center',
                     title: '商品指标要求',
                     formatter: function (value, row, index) {
-                        var html = $.common.sprintf("<input class='form-control' type='text' name='goods[%s].shopIndexRequire' value='%s' style='text-align: center'>", index, value);
+                        var html = '';
+                        if ($.common.isEmpty(row.id)) {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].shopIndexRequire" value="' + value + '"  style="text-align: center">';
+                        } else {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].shopIndexRequire" value="' + value + '" style="text-align: center" onchange="updateIndexRequire('+ row.id +' , this)">';
+                        }
                         return html;
                     },
                 },
@@ -394,7 +426,13 @@
                     align: 'center',
                     title: '拟招标数量',
                     formatter: function (value, row, index) {
-                        return $.common.sprintf("<input class='form-control' type='text'  name='goods[%s].planNumber'  value='%s' style='text-align: center'>", index, value);
+                        var html = '';
+                        if ($.common.isEmpty(row.id)) {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].planNumber" value="' + value + '"  style="text-align: center">';
+                        } else {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].planNumber" value="' + value + '" style="text-align: center" onchange="updatePlanNumber('+ row.id +' , this)">';
+                        }
+                        return html;
                     },
                 },
                 {
@@ -402,7 +440,13 @@
                     align: 'center',
                     title: '预算金额',
                     formatter: function (value, row, index) {
-                        return $.common.sprintf("<input class='form-control' type='text' name='goods[%s].planPrice' value='%s' style='text-align: center'>", index, value);
+                        var html = '';
+                        if ($.common.isEmpty(row.id)) {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].planPrice" value="' + value + '"  style="text-align: center">';
+                        } else {
+                            html += '<input class="form-control" type="text" name="goods[' + index + '].planPrice" value="' + value + '" style="text-align: center" onchange="updatePlanPrice('+ row.id +' , this)">';
+                        }
+                        return html;
                     },
                 },
             ]
@@ -418,12 +462,12 @@
             productName: "",
             skuId: "",
             skuName: "",
-            untitled: "",
-            goodsUnit: "",
-            shopIndexName: "",
-            shopIndexRequire: "",
-            planNumber: 0,
-            planPrice: 0,
+            untitled: "无",
+            goodsUnit: "袋",
+            shopIndexName: "无",
+            shopIndexRequire: "无",
+            planNumber: "0",
+            planPrice: "0",
         }
         var count = $("#" + table.options.id).bootstrapTable('getData').length;
         $("#" + table.options.id).bootstrapTable('insertRow', {
@@ -436,21 +480,26 @@
     function delColumn() {
         sub.editColumn();
 
-        var column = "sku_id";
+        var column = "id";
+        // console.log(column);
         var subColumn = $.common.isEmpty(column) ? "index" : column;
+        // console.log(subColumn);
         var ids = $.table.selectColumns(subColumn);
-        if (ids.length == 0) {
+        // console.log(ids);
+        if (ids.length === 0) {
             $.modal.alertWarning("请至少选择一条记录");
             return;
         }
         if ($.common.isEmpty(ids.join())) {
+            console.log("id is null");
             $("#" + table.options.id).bootstrapTable('remove', {
                 field: "index",
                 values: $.table.selectColumns("index")
             });
         } else {
+            console.log("id is not null");
             var data = {"ids": ids.join()};
-            $.operate.post(outboundOrderSeedPrefix + "/remove", data);
+            $.operate.post(ProductSkuSeedPrefix + "/remove", data);
         }
     }
 
@@ -476,6 +525,7 @@
         $.modal.openOptions(options);
     }
 
+
     function doSubmitProducts(index, layero) {
         var iframeWin = layero.find("iframe")[0].contentWindow.$.table;
         var rows = iframeWin.selectFirstColumns();//调用子页面的方法 获取ID
@@ -484,14 +534,24 @@
             $.modal.alertWarning("请至少选择一条记录");
             return;
         }
+        var data = $("#" + table.options.id).bootstrapTable('getData');
         var productsId = iframeWin.selectColumns("productId").join();//调用子页面的方法 获取ID
 
         var productsName = iframeWin.selectColumns("productName").join();//调用子页面的方法 获取ID
-        // var productsContent = iframeWin.selectColumns("content").join();//调用子页面的方法 获取ID
-        var data = $("#" + table.options.id).bootstrapTable('getData');
+        var skuId = data[0].skuId;//调用子页面的方法 获取ID
+        var skuName = data[0].skuName;
+        var untitled = data[0].untitled;
+        var goodsUnit = data[0].goodsUnit;
+        var shopIndexName = data[0].shopIndexName;
+        var shopIndexRequire = data[0].shopIndexRequire;
+        var planNumber = data[0].planNumber;
+        var planPrice = data[0].planPrice;
+        /*      for(i in data ){
+                  console.log(data[i]);  //获得属性值
+              }*/
         var flag = 0;
         $.each(data, function (index, obj) {  //index:索引obj:循环的每个元素
-            if (obj.productsId === productsId) {
+            if (obj.productId === productsId) {
                 flag = 1;
                 return false; //跳出循环
             }
@@ -502,28 +562,23 @@
         }
 
         $.modal.close(index);
-
         //更新表格数据 ajax 调用后台存储
         var _data = {
             "tenderInformationId": $('#id').val(),
             "productId": productsId,
             "productName": productsName,
-            // "skuId": "  ",
-            // "skuName": " ",
-            // "untitled": " ",
-            // "goodsUnit": " ",
-            // "shopIndexName": " ",
-            // "shopIndexRequire": " ",
-            // "planNumber": " ",
-            // "planPrice": " ",
-            // "productsName": productsName,
-            // "productsContent": productsContent,
+            "skuId": skuId,
+            "skuName": skuName,
+            "untitled": untitled,
+            "goodsUnit": goodsUnit,
+            "shopIndexName": shopIndexName,
+            "shopIndexRequire": shopIndexRequire,
+            "planNumber": planNumber,
+            "planPrice": planPrice,
         }
-        console.log("_data: " + _data.productName);
-        console.log("productSkuSeed1: " + productSkuSeed);
+        // console.log("productSkuSeed1: " + productSkuSeed);
         if ($.common.isEmpty(productSkuSeed)) {
             $.operate.post(ProductSkuSeedPrefix + "/add", _data);
-            console.log("come here");
         } else {
             _data.id = productSkuSeed;
             $.operate.post(ProductSkuSeedPrefix + "/edit", _data);
@@ -531,7 +586,6 @@
     }
 
     window.onclickEvent = {
-
         'click .form-control': function (e, value, row, index) {
             productSkuSeed = row.id;
             selectProduct();
@@ -545,6 +599,7 @@
         }
     };
     let skuPrefix = ctx + "user/sku";
+
     function selectSku() {
         var url = skuPrefix + '/selectSkus' + "/{" + productId + "}";
         var options = {
@@ -564,24 +619,21 @@
             $.modal.alertWarning("请至少选择一条记录");
             return;
         }
-        var skuIds = iframeWin.selectColumns("skuId").join();//调用子页面的方法 获取ID
-        var skuNames = iframeWin.selectColumns("skuName").join();//调用子页面的方法 获取ID
-        var untitleds = iframeWin.selectColumns("untitled").join();//调用子页面的方法 获取ID
-        console.log(skuIds);
-        console.log(skuNames);
-        console.log(untitleds);
-        var data = $("#" + table.options.id).bootstrapTable('getData');
-        var flag = 0;
-        $.each(data, function (index, obj) {  //index:索引obj:循环的每个元素
-            if (obj.skuId === skuIds) {
-                flag = 1;
-                return false; //跳出循环
-            }
-        });
-        if (flag === 1) {
-            $.modal.alertWarning("商品sku已在清单中!");
-            return;
-        }
+        var skuIds = iframeWin.selectColumns("skuId").join(" / ");//调用子页面的方法 获取ID
+        var skuNames = iframeWin.selectColumns("skuName").join(" / ");//调用子页面的方法 获取ID
+        var untitleds = iframeWin.selectColumns("untitled").join(" / ");//调用子页面的方法 获取ID
+        /*       var data = $("#" + table.options.id).bootstrapTable('getData');
+               var flag = 0;
+               $.each(data, function (index, obj) {  //index:索引obj:循环的每个元素
+                   if (obj.skuId === skuIds) {
+                       flag = 1;
+                       return false; //跳出循环
+                   }
+               });
+               if (flag === 1) {
+                   $.modal.alertWarning("商品sku已在清单中!");
+                   return;
+               }*/
 
         $.modal.close(index);
 
@@ -590,7 +642,7 @@
             "tenderInformationId": $('#id').val(),
             "skuId": skuIds,
             "skuName": skuNames,
-            "untitled":untitleds,
+            "untitled": untitleds,
             // "skuId": "  ",
             // "skuName": " ",
             // "untitled": " ",
@@ -602,12 +654,60 @@
             // "productsName": productsName,
             // "productsContent": productsContent,
         }
-        console.log("_data2: " + _data);
-            _data.id = skuSeed;
-        console.log("_data.id: " + _data.id);
-            $.operate.post(ProductSkuSeedPrefix + "/edit", _data);
+        // console.log("_data2: " + _data);
+        _data.id = skuSeed;
+        // console.log("_data.id: " + _data.id);
+        $.operate.post(ProductSkuSeedPrefix + "/edit", _data);
     }
 
+    updateUnit = function (id, obj) {//更新表格数据 ajax 调用后台存储
+        // console.log(shopIndexNameVal);
+        // console.log(planNumberVal);
+        // console.log(planPriceVal);
+        // console.log(shopIndexRequireVal);
+        var _data = {
+            "id": id,
+            "goodsUnit": $(obj).val(),
+            // "shopIndexName": shopIndexNameVal,
+            // "shopIndexRequire": shopIndexRequireVal,
+            // "planNumber": planNumberVal,
+            // "planPrice": planPriceVal,
+        }
+        $.operate.post(ProductSkuSeedPrefix + "/edit", _data);
+
+    }
+
+    function updateIndexName(id, object) {
+        var _data = {
+            "id": id,
+            "shopIndexName": $(object).val(),
+        }
+        $.operate.post(ProductSkuSeedPrefix + "/edit", _data);
+    }
+
+    function updateIndexRequire(id, object) {
+        var _data = {
+            "id": id,
+            "shopIndexRequire": $(object).val(),
+        }
+        $.operate.post(ProductSkuSeedPrefix + "/edit", _data);
+    }
+
+    function updatePlanNumber(id, object) {
+        var _data = {
+            "id": id,
+            "planNumber": $(object).val(),
+        }
+        $.operate.post(ProductSkuSeedPrefix + "/edit", _data);
+    }
+
+    function updatePlanPrice(id, object) {
+        var _data = {
+            "id": id,
+            "planPrice": $(object).val(),
+        }
+        $.operate.post(ProductSkuSeedPrefix + "/edit", _data);
+    }
 </script>
 </body>
 </html>

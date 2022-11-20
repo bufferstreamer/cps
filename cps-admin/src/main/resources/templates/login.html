@@ -36,8 +36,12 @@
     <div class="row">
         <div class="col-sm-7">
             <div class="signin-info">
-                <div class="logopanel m-b">
-                    <h1><img alt="[ cps ]" src="../static/cps.png" th:src="@{/cps.png}"></h1>
+                <div style="height:115px;" class="logopanel m-b">
+<!--                    <h1><img alt="[ cps ]" src="../static/cps.png" th:src="@{/cps.png}"></h1>-->
+                    <div style="height: 17px;"></div>
+                    <div class="icon" style="border-top-left-radius: 40px;border-bottom-right-radius: 40px;height: 70px;width:180px;box-shadow: 0 4px 10px -2px rgba(0, 0, 0, .8);">
+                        <h1 style="width:155px;color: #00A65A;line-height: 70px;text-align: right;font-weight: 450;font-family: iconfont">CPS</h1>
+                    </div>
                 </div>
                 <div class="m-b"></div>
                 <h4>欢迎使用 <strong>cps 后台管理系统</strong></h4>
@@ -85,25 +89,28 @@
             &emsp;Copyright © 2020-2022 cps All Rights Reserved&emsp;<br>
         </div>
         <div class="pull-right contact-icon">
-            <a href="#" class="btn-i">
-                <i class="fab fa-facebook-f"></i>
+            <a data-toggle="tooltip" title="QQ:517631523" data-placement="bottom" class="btn-i">
+                <i class="fab fa-qq"></i>
+            </a>
+            <a data-toggle="tooltip" title="WeChat:123456789" data-placement="bottom" class="btn-i">
+                <i class="fab fa-weixin"></i>
+            </a>
+
+            <a href="https://github.com/bufferstreamer/cps" class="btn-i">
+                <i class="fab fa-github"></i>
             </a>
             <a href="#" class="btn-i">
-                <i class="fab fa-twitter"></i>
-            </a>
-            <a href="#" class="btn-i">
-                <i class="fab fa-google"></i>
-            </a>
-            <a href="#" class="btn-i">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="#" class="btn-i">
-                <i class="fab fa-youtube"></i>
+                <i class="fab fa-weibo"></i>
             </a>
         </div>
     </div>
 </div>
-
+<script>
+    //初始化提示框
+    $(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 <script th:inline="javascript"> var ctx = [[@{/}]]; var captchaType = [[${captchaType}]]; </script>
 <!--[if lte IE 8]>
 <script>window.location.href = ctx + 'html/ie.html';</script><![endif]-->
@@ -115,5 +122,6 @@
 <script src="../static/ajax/libs/blockUI/jquery.blockUI.js" th:src="@{/ajax/libs/blockUI/jquery.blockUI.js}"></script>
 <script src="../static/cps/js/ry-ui.js" th:src="@{/cps/js/ry-ui.js?v=4.7.5}"></script>
 <script src="../static/cps/login.js" th:src="@{/cps/login.js}"></script>
+
 </body>
 </html>

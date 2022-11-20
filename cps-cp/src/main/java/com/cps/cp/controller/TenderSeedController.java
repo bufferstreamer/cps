@@ -1,5 +1,7 @@
 package com.cps.cp.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import com.cps.cp.mapper.TenderSeedMapper;
@@ -118,4 +120,19 @@ public class TenderSeedController extends BaseController {
         public AjaxResult remove(String ids) {
             return toAjax(tenderSeedService.deleteTenderSeedByIds(ids));
         }
+
+    @RequestMapping("/openFile")
+    @Log(title = "打开招标公告文件夹", businessType = BusinessType.GRANT)
+    @ResponseBody
+    public String openFile(){
+        try {
+            //参数为空
+            File directory = new File("");
+            String courseFile = directory.getCanonicalPath() ;
+            Runtime.getRuntime().exec("cmd /c start " + courseFile + "\\cps-admin\\src\\main\\resources\\static\\documentTemplate\\tender");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "1";
+    }
 }

@@ -59,7 +59,8 @@ public class ProductServiceImpl implements IProductService
     @Override
     public int insertProduct(Product product)
     {
-        product.setProductId(IdUtils.simpleUUID());
+        Integer id = Integer.valueOf(productMapper.selectBigProduct());
+        product.setProductId(String.valueOf(id+1));
         product.setSoldNum(0);
         product.setProductStatus(1);
         product.setCreateTime(DateUtils.getNowDate());
