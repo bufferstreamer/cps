@@ -30,7 +30,7 @@
       <if test="categoryId != null  and categoryId != ''">
         and category_id = #{categoryId}
       </if>
-      <if test="rootCategoryId != null ">
+      <if test="rootCategoryId != null and rootCategoryId != ''">
         and root_category_id = #{rootCategoryId}
       </if>
       <if test="soldNum != null ">
@@ -58,7 +58,7 @@
       </if>
       <if test="categoryId != null and categoryId != ''">category_id,
       </if>
-      <if test="rootCategoryId != null">root_category_id,
+      <if test="rootCategoryId != null and rootCategoryId != ''">root_category_id,
       </if>
       <if test="soldNum != null">sold_num,
       </if>
@@ -78,7 +78,7 @@
       </if>
       <if test="categoryId != null and categoryId != ''">#{categoryId},
       </if>
-      <if test="rootCategoryId != null">#{rootCategoryId},
+      <if test="rootCategoryId != null and rootCategoryId != ''">#{rootCategoryId},
       </if>
       <if test="soldNum != null">#{soldNum},
       </if>
@@ -102,7 +102,7 @@
       <if test="categoryId != null and categoryId != ''">category_id =
         #{categoryId},
       </if>
-      <if test="rootCategoryId != null">root_category_id =
+      <if test="rootCategoryId != null and rootCategoryId != ''">root_category_id =
         #{rootCategoryId},
       </if>
       <if test="soldNum != null">sold_num =
