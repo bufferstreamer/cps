@@ -468,7 +468,7 @@ public class Tender1Controller extends BaseController {
     }
 
     //资质审核
-    @PostMapping("canQualificationReview")
+    @GetMapping("canQualificationReview")
     @ResponseBody
     public boolean CanQualificationReview(String tenderId) {
         List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
@@ -528,7 +528,7 @@ public class Tender1Controller extends BaseController {
         return new String[0];
     }
 
-    @PostMapping("canPurchase")
+    @GetMapping("canPurchase")
     @ResponseBody
     public boolean CanPurchase(String tenderId) {
         List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());

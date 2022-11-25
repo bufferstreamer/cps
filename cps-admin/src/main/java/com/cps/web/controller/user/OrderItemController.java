@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.cps.framework.web.domain.server.Sys;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +33,7 @@ import com.cps.common.core.page.TableDataInfo;
  * @author cps
  * @date 2022-09-22
  */
+@Api
 @Controller
 @RequestMapping("/user/orderItem")
 public class OrderItemController extends BaseController {
@@ -47,6 +51,7 @@ public class OrderItemController extends BaseController {
         /**
          * 查询订单项/快照列表
          */
+        @ApiOperation("获取未招标产品列表的汇总")
         @RequiresPermissions("user:orderItem:list")
         @PostMapping("/list")
         @ResponseBody
@@ -78,6 +83,7 @@ public class OrderItemController extends BaseController {
     /**
      * 导出订单项/快照列表
      */
+    @ApiOperation("导出订单项列表")
     @RequiresPermissions("user:orderItem:export")
     @Log(title = "订单项/快照", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
@@ -99,6 +105,7 @@ public class OrderItemController extends BaseController {
     /**
      * 新增保存订单项/快照
      */
+    @ApiOperation("新增订单项记录")
     @RequiresPermissions("user:orderItem:add")
     @Log(title = "订单项/快照", businessType = BusinessType.INSERT)
     @PostMapping("/add")
@@ -122,6 +129,7 @@ public class OrderItemController extends BaseController {
     /**
      * 修改保存订单项/快照
      */
+    @ApiOperation("修改订单项记录")
     @RequiresPermissions("user:orderItem:edit")
     @Log(title = "订单项/快照", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
@@ -133,8 +141,10 @@ public class OrderItemController extends BaseController {
         /**
          * 删除订单项/快照
          */
+        @ApiOperation("批量删除订单项记录")
         @RequiresPermissions("user:orderItem:remove")
         @Log(title = "订单项/快照", businessType = BusinessType.DELETE)
+        @ApiImplicitParam(name = "ids", value = "主键ID(多个主键ID中间用','隔开)", required = true, dataType = "String", paramType = "path", dataTypeClass = String.class)
         @PostMapping("/remove")
         @ResponseBody
         public AjaxResult remove(String ids) {

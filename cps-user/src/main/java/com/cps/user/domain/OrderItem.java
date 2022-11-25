@@ -3,6 +3,8 @@ package com.cps.user.domain;
 import java.math.BigDecimal;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.cps.common.annotation.Excel;
@@ -14,64 +16,79 @@ import com.cps.common.core.domain.BaseEntity;
  * @author cps
  * @date 2022-09-17
  */
+@ApiModel(value = "OrderItem",description = "订单项实体")
 public class OrderItem extends BaseEntity
 {
     private static final long serialVersionUID=1L;
 
     /** 订单项ID */
+    @ApiModelProperty("主键")
     private String itemId;
 
     /** 订单ID */
-            @Excel(name = "订单ID")
+    @ApiModelProperty("订单ID")
+    @Excel(name = "订单ID")
     private String orderId;
 
     /** 商品ID */
-            @Excel(name = "商品ID")
+    @ApiModelProperty("商品ID")
+    @Excel(name = "商品ID")
     private String productId;
 
     /** 商品名称 */
-            @Excel(name = "商品名称")
+    @ApiModelProperty("商品名称")
+    @Excel(name = "商品名称")
     private String productName;
 
     /** 商品图片 */
-            @Excel(name = "商品图片")
+    @ApiModelProperty("商品图片")
+    @Excel(name = "商品图片")
     private String productImg;
 
     /** skuID */
-            @Excel(name = "skuID")
+    @ApiModelProperty("skuID")
+    @Excel(name = "skuID")
     private String skuId;
 
     /** sku名称 */
-            @Excel(name = "sku名称")
+    @ApiModelProperty("sku名称")
+    @Excel(name = "sku名称")
     private String skuName;
 
     /** 商品价格 */
-            @Excel(name = "商品价格")
+    @ApiModelProperty("商品价格")
+    @Excel(name = "商品价格")
     private BigDecimal productPrice;
 
     /** 购买数量 */
-            @Excel(name = "购买数量")
+    @ApiModelProperty("购买数量")
+    @Excel(name = "购买数量")
     private Long buyCounts;
 
     /** 商品总金额 */
-            @Excel(name = "商品总金额")
+    @ApiModelProperty("商品总金额")
+    @Excel(name = "商品总金额")
     private BigDecimal totalAmount;
 
     /** 加入购物车时间 */
-            @JsonFormat(pattern = "yyyy-MM-dd")
-            @Excel(name = "加入购物车时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @ApiModelProperty("加入购物车时间")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "加入购物车时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date basketDate;
 
     /** 购买时间 */
-            @JsonFormat(pattern = "yyyy-MM-dd")
-            @Excel(name = "购买时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @ApiModelProperty("购买时间")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "购买时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date buyTime;
 
     /** 评论状态： 0 未评价  1 已评价 */
-            @Excel(name = "评论状态： 0 未评价  1 已评价")
+    @ApiModelProperty("评论状态")
+    @Excel(name = "评论状态： 0 未评价  1 已评价")
     private Long isComment;
 
     /** 是否招标，N否Y是 */
+    @ApiModelProperty("是否招标")
     @Excel(name = "是否招标，N否Y是")
     private String isBid;
 
