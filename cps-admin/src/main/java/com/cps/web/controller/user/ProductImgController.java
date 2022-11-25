@@ -136,12 +136,11 @@ public class ProductImgController extends BaseController
     @ResponseBody
     @GetMapping("/getProductName")
     public AjaxResult getProductNames() {
-        ProductImg productImg = new ProductImg();
-        List<ProductImg> list = productImgService.selectProductImgList(productImg);
+        Product product = new Product();
+        List<Product> list = productService.selectProductList(product);
         HashMap<String,String> name = new HashMap<>();
-        for(ProductImg productImg1:list){
-            Product product = productService.selectProductByProductId(productImg1.getItemId());
-            name.put(productImg1.getItemId(),product.getProductName());
+        for(Product product1:list){
+            name.put(product1.getProductId(),product1.getProductName());
         }
         AjaxResult ajaxResult = new AjaxResult().success(name);
         return ajaxResult;

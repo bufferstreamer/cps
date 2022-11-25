@@ -22,7 +22,7 @@ public class Product {
     /**
      * 一级分类外键id 一级分类id，用于优化查询
      */
-    private Integer rootCategoryId;
+    private String rootCategoryId;
 
     /**
      * 销量 累计销售
@@ -108,7 +108,7 @@ public class Product {
      *
      * @return root_category_id - 一级分类外键id 一级分类id，用于优化查询
      */
-    public Integer getRootCategoryId() {
+    public String getRootCategoryId() {
         return rootCategoryId;
     }
 
@@ -117,7 +117,7 @@ public class Product {
      *
      * @param rootCategoryId 一级分类外键id 一级分类id，用于优化查询
      */
-    public void setRootCategoryId(Integer rootCategoryId) {
+    public void setRootCategoryId(String rootCategoryId) {
         this.rootCategoryId = rootCategoryId;
     }
 

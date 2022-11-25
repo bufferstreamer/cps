@@ -409,6 +409,7 @@
             <div class="instrument">
                 <img src="../img/picture.png" width="30px" height="30px" onclick="file.click()" style="margin-left: 100px">
                 <input type="file" id="file" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg" hidden>
+                <img src="../img/over.png" width="30px" height="30px" @click="removeFriend()" style="margin-left: 100px" title="结束通话">
             </div>
             <div>
                 <input type="text" width="200px" id="msg">
@@ -467,9 +468,32 @@
 
         },
         methods: {
+            removeFriend:function (){
+                var r = confirm("确定要结束服务吗？")
+                if (r == true) {
+                    var url2 = baseUrl+"chat/removeFriend";
+                    var ChatMsg = {sendId:this.userId,receiveId:this.selected.userId};
+                    axios({
+                        url:url2,
+                        method:"post",
+                        data: ChatMsg
+                    }).then((res)=>{
+                        if(res.data.code == 10000){
+                            //请求成功  [{commonType:0},{commonType:1}]
+                            for(var i=0; i<this.users.length; i++) {
+                                if(this.users[i].userId==this.selected.userId){
+                                    this.users.splice(i, 1);
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    return;
+                }
+            },
             createWeb:function (nickname){
                 if ('WebSocket'in window) {
-                    this.websocket = new WebSocket("ws://localhost:8080/CustomerSocket/"+nickname);
+                    this.websocket = new WebSocket(webSocketBaseUrl+"CustomerSocket/"+nickname);
                 } else {
                     alert('Not support websocket')
                 }
@@ -631,6 +655,9 @@
                    customer[0].unreadNumber = 1;
                    customer[0].status='1';
                    vm.oldUsers.push(customer[0]);
+                   if(vm.oldUsers.length==1){
+                       vm.selected = customer[0];
+                   }
                    vm.users = vm.oldUsers;
                 }
             });
@@ -653,7 +680,7 @@
             var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
             span.innerHTML += hour+":"+minute+":"+second;
             var img = document.createElement("img");
-            img.setAttribute("src", "../chatImg/"+innerHTML);
+            img.setAttribute("src", innerHTML);
             div.appendChild(img);
             div.appendChild(span);
         }else{
@@ -724,7 +751,7 @@
             var second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
             span.innerHTML += hour+":"+minute+":"+second;
             var img = document.createElement("img");
-            img.setAttribute("src", "../chatImg/"+message.content);
+            img.setAttribute("src", message.content);
             div.appendChild(img);
             div.appendChild(span);
         }else{

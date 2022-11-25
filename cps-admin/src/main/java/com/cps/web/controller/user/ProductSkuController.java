@@ -136,14 +136,14 @@ public class ProductSkuController extends BaseController {
     @ResponseBody
     @GetMapping("/getProductName")
     public AjaxResult getProductNames() {
-        ProductSku productSku = new ProductSku();
-        List<ProductSku> productSkus = productSkuService.selectProductSkuList(productSku);
-        HashMap<String, String> name = new HashMap<>();
-        for (ProductSku productSku1 : productSkus) {
-            Product product = productService.selectProductByProductId(productSku1.getProductId());
-            name.put(productSku1.getProductId(), product.getProductName());
+        Product product = new Product();
+        List<Product> list = productService.selectProductList(product);
+        HashMap<String,String> name = new HashMap<>();
+        for(Product product1:list){
+            name.put(product1.getProductId(),product1.getProductName());
         }
-        return AjaxResult.success(name);
+        AjaxResult ajaxResult = new AjaxResult().success(name);
+        return ajaxResult;
     }
 
     /**

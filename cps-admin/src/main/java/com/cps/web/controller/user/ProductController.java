@@ -52,13 +52,10 @@ public class ProductController extends BaseController
     @RequiresPermissions("user:product:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(Product product,ModelMap mmap)
+    public TableDataInfo list(Product product)
     {
         startPage();
         List<Product> list = productService.selectProductList(product);
-        for(Product product1:list){
-            mmap.put(product1.getProductId(), product1.getProductName());
-        }
         return getDataTable(list);
     }
 
@@ -187,19 +184,24 @@ public class ProductController extends BaseController
         Product product = new Product();
         List<Product> products = productService.selectProductList(product);
         HashMap<String,String> name = new HashMap<>();
-        for(Product product1:products){
-            Category category = categoryService.selectCategoryByCategoryId(String.valueOf(product1.getRootCategoryId()));
-            if(category==null){
-                name.put(String.valueOf(product1.getRootCategoryId()),"未分类");
-            }else {
-                name.put(String.valueOf(product1.getRootCategoryId()),category.getCategoryName());
-            }
-            Category category1 = categoryService.selectCategoryByCategoryId(product1.getCategoryId());
-            if(category1==null){
-                name.put(String.valueOf(product1.getRootCategoryId()),"未分类");
-            }else {
-                name.put(String.valueOf(product1.getCategoryId()),category1.getCategoryName());
-            }
+//        for(Product product1:products){
+//            Category category = categoryService.selectCategoryByCategoryId(String.valueOf(product1.getRootCategoryId()));
+//            if(category==null){
+//                name.put(String.valueOf(product1.getRootCategoryId()),"未分类");
+//            }else {
+//                name.put(String.valueOf(product1.getRootCategoryId()),category.getCategoryName());
+//            }
+//            Category category1 = categoryService.selectCategoryByCategoryId(product1.getCategoryId());
+//            if(category1==null){
+//                name.put(String.valueOf(product1.getRootCategoryId()),"未分类");
+//            }else {
+//                name.put(String.valueOf(product1.getCategoryId()),category1.getCategoryName());
+//            }
+//        }
+        Category category = new Category();
+        List<Category> categoryList = categoryService.selectCategoryList(category);
+        for(Category category1 : categoryList){
+            name.put(category1.getCategoryId(),category1.getCategoryName());
         }
         return AjaxResult.success(name);
     }

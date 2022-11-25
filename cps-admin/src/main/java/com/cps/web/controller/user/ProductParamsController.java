@@ -136,12 +136,11 @@ public class ProductParamsController extends BaseController
     @ResponseBody
     @GetMapping("/getProductName")
     public AjaxResult getProductNames() {
-        ProductParams productParams = new ProductParams();
-        List<ProductParams> list = productParamsService.selectProductParamsList(productParams);
+        Product product = new Product();
+        List<Product> list = productService.selectProductList(product);
         HashMap<String,String> name = new HashMap<>();
-        for(ProductParams productParams1:list){
-            Product product = productService.selectProductByProductId(productParams1.getProductId());
-            name.put(productParams1.getProductId(),product.getProductName());
+        for(Product product1:list){
+            name.put(product1.getProductId(),product1.getProductName());
         }
         AjaxResult ajaxResult = new AjaxResult().success(name);
         return ajaxResult;
