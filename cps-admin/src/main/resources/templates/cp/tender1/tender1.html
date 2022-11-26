@@ -190,8 +190,8 @@
 
                         $.ajax({
                             url: ctx + "cp/tender1/canPurchase",
-                            type: "get",
-                            dataType: "text",
+                            type: "post",
+                            dataType: "json",
                             data: {"tenderId": row.tenderId},
                             async: false,
                             success: function (result) {
@@ -202,8 +202,8 @@
                         });
                         $.ajax({
                             url: ctx + "cp/tender1/canQualificationReview",
-                            type: "get",
-                            dataType: "text",
+                            type: "post",
+                            dataType: "json",
                             data: {"tenderId": row.tenderId},
                             async: false,
                             success: function (result) {
