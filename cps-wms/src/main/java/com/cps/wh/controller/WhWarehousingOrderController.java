@@ -158,8 +158,10 @@ public class WhWarehousingOrderController extends BaseController {
         String orderName = warehousingOrder.getOrderName();
         if(orderName!=null&&!orderName.equals("")){
             Contract contract = contractService.selectContractByContractId(orderName);
-            contract.setContractStatus("2");
-            contractService.updateContract(contract);
+            if(contract!=null){
+                contract.setContractStatus("2");
+                contractService.updateContract(contract);
+            }
         }
         return toAjax(whWarehousingOrderService.updateWhWarehousingOrder(whWarehousingOrder));
     }
