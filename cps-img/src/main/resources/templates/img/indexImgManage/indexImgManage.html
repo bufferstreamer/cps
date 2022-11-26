@@ -10,40 +10,40 @@
             <form id="formId">
                 <div class="select-list">
                     <ul>
-                                    <li>
-                                        <label>背景色：</label>
-                                        <input type="text" name="imgBgColor"/>
-                                    </li>
-                                    <li>
-                                        <label>商品id：</label>
-                                        <input type="text" name="prodId"/>
-                                    </li>
-                                    <li>
-                                        <label>商品分类id：</label>
-                                        <input type="text" name="categoryId"/>
-                                    </li>
-                                    <li>
-                                        <label>轮播图类型：</label>
-                                        <select name="indexType"
-                                                th:with="type=${@dict.getType('busi_indeximg_type')}">
-                                            <option value="">所有</option>
-                                            <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
-                                                    th:value="${dict.dictValue}"></option>
-                                        </select>
-                                    </li>
-                                    <li>
-                                        <label>轮播图展示顺序：</label>
-                                        <input type="text" name="seq"/>
-                                    </li>
-                                    <li>
-                                        <label>是否展示：</label>
-                                        <select name="status"
-                                                th:with="type=${@dict.getType('busi_indeximg_status')}">
-                                            <option value="">所有</option>
-                                            <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
-                                                    th:value="${dict.dictValue}"></option>
-                                        </select>
-                                    </li>
+                        <li>
+                            <label>背景色：</label>
+                            <input type="text" name="imgBgColor"/>
+                        </li>
+                        <li>
+                            <label>商品id：</label>
+                            <input type="text" name="prodId"/>
+                        </li>
+                        <li>
+                            <label>商品分类id：</label>
+                            <input type="text" name="categoryId"/>
+                        </li>
+                        <li>
+                            <label>轮播图类型：</label>
+                            <select name="indexType"
+                                    th:with="type=${@dict.getType('busi_indeximg_type')}">
+                                <option value="">所有</option>
+                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                        th:value="${dict.dictValue}"></option>
+                            </select>
+                        </li>
+                        <li>
+                            <label>轮播图展示顺序：</label>
+                            <input type="text" name="seq"/>
+                        </li>
+                        <li>
+                            <label>是否展示：</label>
+                            <select name="status"
+                                    th:with="type=${@dict.getType('busi_indeximg_status')}">
+                                <option value="">所有</option>
+                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}"
+                                        th:value="${dict.dictValue}"></option>
+                            </select>
+                        </li>
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
                                     class="fa fa-search"></i>&nbsp;搜索</a>
@@ -80,8 +80,8 @@
 <script th:inline="javascript">
     var editFlag = [[${@permission.hasPermi('img:indexImgManage:edit')}]];
     var removeFlag = [[${@permission.hasPermi('img:indexImgManage:remove')}]];
-            var indexTypeDatas = [[${@dict.getType('busi_indeximg_type')}]];
-            var statusDatas = [[${@dict.getType('busi_indeximg_status')}]];
+    var indexTypeDatas = [[${@dict.getType('busi_indeximg_type')}]];
+    var statusDatas = [[${@dict.getType('busi_indeximg_status')}]];
     var prefix = ctx + "img/indexImgManage";
 
     $(function () {
@@ -95,50 +95,50 @@
             columns: [{
                 checkbox: true
             },
-                        {
-                            field: 'imgId',
-                            title: '主键',
-                            visible: false
-                        },
-                        {
-                            field: 'imgUrl',
-                            title: '图片',
-                            formatter: function (value, row, index) {
-                                var actions = [];
-                                actions.push('<img alt="图片" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="' + row.imgUrl + '">');
-                                return actions.join('');
-                            }
-                        },
-                        {
-                            field: 'imgBgColor',
-                            title: '背景色'
-                        },
-                        {
-                            field: 'prodId',
-                            title: '商品id'
-                        },
-                        {
-                            field: 'categoryId',
-                            title: '商品分类id'
-                        },
-                        {
-                            field: 'indexType',
-                            title: '轮播图类型',
-                            formatter: function (value, row, index) {
-                                return $.table.selectDictLabel(indexTypeDatas, value);
-                            }
-                        },
-                        {
-                            field: 'seq',
-                            title: '轮播图展示顺序'
-                        },
-                        {
-                            field: 'status',
-                            title: '是否展示',
-                            formatter: function (value, row, index) {
-                                return $.table.selectDictLabel(statusDatas, value);
-                            }
-                        },
+                {
+                    field: 'imgId',
+                    title: '主键',
+                    visible: false
+                },
+                {
+                    field: 'imgUrl',
+                    title: '图片',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<img alt="图片" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="' + row.imgUrl + '">');
+                        return actions.join('');
+                    }
+                },
+                {
+                    field: 'imgBgColor',
+                    title: '背景色'
+                },
+                {
+                    field: 'prodId',
+                    title: '商品id'
+                },
+                {
+                    field: 'categoryId',
+                    title: '商品分类id'
+                },
+                {
+                    field: 'indexType',
+                    title: '轮播图类型',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(indexTypeDatas, value);
+                    }
+                },
+                {
+                    field: 'seq',
+                    title: '轮播图展示顺序'
+                },
+                {
+                    field: 'status',
+                    title: '是否展示',
+                    formatter: function (value, row, index) {
+                        return $.table.selectDictLabel(statusDatas, value);
+                    }
+                },
                 {
                     title: '操作',
                     align: 'center',
