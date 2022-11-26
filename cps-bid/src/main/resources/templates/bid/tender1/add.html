@@ -35,10 +35,11 @@
             }
 
             $.operate.save(prefix + "/add", $('#form-tender1-add').serialize());
-            // $.modal.closeTab();
+            //$.modal.close();
+            //$.modal.closeAll();
             parent.location.reload();
-            }
         }
+    }
 
     $(".file-upload").fileinput({
         uploadUrl: ctx + 'common/upload',
