@@ -17,6 +17,10 @@ import com.cps.wh.domain.WhWarehousingOrder;
 import com.cps.wh.enums.WarehousingOrderStatus;
 import com.cps.wh.service.IWhWarehousingOrderSeedService;
 import com.cps.wh.service.IWhWarehousingOrderService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +35,7 @@ import java.util.List;
  * @author miki
  * @date 2021-05-26
  */
+@Api("商品入库主表管理")
 @Controller
 @RequestMapping("/wh/warehousingOrder")
 public class WhWarehousingOrderController extends BaseController {
@@ -51,6 +56,7 @@ public class WhWarehousingOrderController extends BaseController {
     /**
      * 查询商品入库单主表列表
      */
+    @ApiOperation("查询商品入库单主表列表")
     @RequiresPermissions("wh:warehousingOrder:list")
     @PostMapping("/list")
     @ResponseBody
@@ -66,6 +72,7 @@ public class WhWarehousingOrderController extends BaseController {
      * 新增商品入库单主表
      */
     @GetMapping("/add")
+    @ApiOperation("新增商品入库单主表")
     public String add(ModelMap modelMap) {
         //新增入库订单
         WhWarehousingOrder whWarehousingOrder = new WhWarehousingOrder();
@@ -83,6 +90,7 @@ public class WhWarehousingOrderController extends BaseController {
     /**
      * 新增保存商品入库单主表
      */
+    @ApiOperation("新增保存商品入库单主表")
     @RequiresPermissions("wh:warehousingOrder:add")
     @Log(title = "商品入库单主表", businessType = BusinessType.INSERT)
     @PostMapping("/add")
@@ -94,6 +102,8 @@ public class WhWarehousingOrderController extends BaseController {
     /**
      * 修改商品入库单主表
      */
+    @ApiOperation("修改商品入库单主表")
+    @ApiImplicitParam(name = "id", value = "商品入库单主表id", dataType = "Long", dataTypeClass = Long.class)
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id, ModelMap mmap) {
         WhWarehousingOrder whWarehousingOrder = whWarehousingOrderService.selectWhWarehousingOrderById(id);
@@ -104,6 +114,7 @@ public class WhWarehousingOrderController extends BaseController {
     /**
      * 查看商品入库单子表
      */
+    @ApiOperation("查看商品入库单子表")
     @GetMapping("/select/{id}")
     public String select(@PathVariable("id") Long id, ModelMap mmap) {
         WhWarehousingOrder whWarehousingOrder = whWarehousingOrderService.selectWhWarehousingOrderById(id);
@@ -114,6 +125,7 @@ public class WhWarehousingOrderController extends BaseController {
     /**
      * 修改保存商品入库单主表
      */
+    @ApiOperation("修改保存商品入库单主表")
     @RequiresPermissions("wh:warehousingOrder:edit")
     @Log(title = "商品入库单主表", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
@@ -129,6 +141,7 @@ public class WhWarehousingOrderController extends BaseController {
     /**
      * 删除商品入库单主表
      */
+    @ApiOperation("删除商品入库单主表")
     @RequiresPermissions("wh:warehousingOrder:remove")
     @Log(title = "商品入库单主表", businessType = BusinessType.DELETE)
     @PostMapping("/remove")
@@ -143,6 +156,8 @@ public class WhWarehousingOrderController extends BaseController {
     /**
      * 修改商品入库单状态-确认到货
      */
+    @ApiOperation("修改商品入库单状态-确认到货")
+
     @RequiresPermissions("wh:warehousingOrder:changeStatus")
     @Log(title = "商品入库单主表", businessType = BusinessType.UPDATE)
     @PostMapping("/changeStatus")
@@ -169,6 +184,8 @@ public class WhWarehousingOrderController extends BaseController {
     /**
      * 修改商品入库单状态-确认完成卸货
      */
+    @ApiOperation("修改商品入库单状态-确认完成卸货")
+
     @RequiresPermissions("wh:warehousingOrder:editDischarge")
     @Log(title = "商品入库单主表", businessType = BusinessType.UPDATE)
     @PostMapping("/editDischarge")
@@ -181,6 +198,8 @@ public class WhWarehousingOrderController extends BaseController {
     /**
      * 修改商品入库单状态-确认作废
      */
+    @ApiOperation("修改商品入库单状态-确认作废")
+
     @RequiresPermissions("wh:warehousingOrder:editRemove")
     @Log(title = "商品入库单主表", businessType = BusinessType.UPDATE)
     @PostMapping("/editRemove")

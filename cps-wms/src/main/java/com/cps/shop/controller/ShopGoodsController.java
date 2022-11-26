@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * 商品信息Controller
  *
- * @author miki
+ * @author cps
  * @date 2021-05-25
  */
 @Controller

@@ -12,6 +12,9 @@ import com.cps.cp.domain.TenderSeed;
 import com.cps.cp.service.ITenderSeedService;
 import com.cps.wh.domain.WhOutboundOrder;
 import com.cps.wh.enums.OutboundOrderStatus;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +39,7 @@ import com.cps.common.core.page.TableDataInfo;
  * @author cps
  * @date 2022-10-24
  */
+@Api("自动生成标书信息管理")
 @Controller
 @RequestMapping("/trender/information")
 public class TrenderInformationController extends BaseController {
@@ -56,6 +60,7 @@ public class TrenderInformationController extends BaseController {
         /**
          * 查询自动生成标书信息列表
          */
+        @ApiOperation("查询自动生成标书信息列表")
         @RequiresPermissions("trender:information:list")
         @PostMapping("/list")
         @ResponseBody
@@ -68,6 +73,7 @@ public class TrenderInformationController extends BaseController {
     /**
      * 导出自动生成标书信息列表
      */
+    @ApiOperation("导出自动生成标书信息列表")
     @RequiresPermissions("trender:information:export")
     @Log(title = "自动生成标书信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
@@ -81,6 +87,7 @@ public class TrenderInformationController extends BaseController {
         /**
          * 新增自动生成标书信息
          */
+        @ApiOperation("新增自动生成标书信息")
         @GetMapping("/add")
         public String add(ModelMap modelMap) {
 
@@ -95,6 +102,7 @@ public class TrenderInformationController extends BaseController {
     /**
      * 新增保存自动生成标书信息
      */
+    @ApiOperation("新增保存自动生成标书信息")
     @RequiresPermissions("trender:information:add")
     @Log(title = "自动生成标书信息", businessType = BusinessType.INSERT)
     @PostMapping("/add")
@@ -107,6 +115,8 @@ public class TrenderInformationController extends BaseController {
     /**
      * 修改自动生成标书信息
      */
+    @ApiOperation("修改自动生成标书信息")
+
     @RequiresPermissions("trender:information:edit")
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Long id, ModelMap mmap) {
@@ -119,6 +129,8 @@ public class TrenderInformationController extends BaseController {
     /**
      * 修改保存自动生成标书信息
      */
+    @ApiOperation("修改保存自动生成标书信息")
+
     @RequiresPermissions("trender:information:edit")
     @Log(title = "自动生成标书信息", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
@@ -130,6 +142,8 @@ public class TrenderInformationController extends BaseController {
         /**
          * 删除自动生成标书信息
          */
+        @ApiOperation("删除自动生成标书信息")
+
         @RequiresPermissions("trender:information:remove")
         @Log(title = "自动生成标书信息", businessType = BusinessType.DELETE)
         @PostMapping("/remove")

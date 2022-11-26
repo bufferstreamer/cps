@@ -9,6 +9,8 @@ import com.cps.common.utils.ShiroUtils;
 import com.cps.wh.domain.WhWarehousingOrderSeed;
 import com.cps.wh.model.WarehousingOrderSeedModel;
 import com.cps.wh.service.IWhWarehousingOrderSeedService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +22,10 @@ import java.util.List;
 /**
  * 商品入库单子Controller
  *
- * @author miki
+ * @author cps
  * @date 2021-06-02
  */
+@Api("商品入库单子管理")
 @Controller
 @RequestMapping("/wh/warehousingOrderSeed")
 public class WhWarehousingOrderSeedController extends BaseController {
@@ -34,6 +37,7 @@ public class WhWarehousingOrderSeedController extends BaseController {
     /**
      * 查询商品入库单子列表
      */
+    @ApiOperation("查询商品入库单子列表")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo list(WhWarehousingOrderSeed whWarehousingOrderSeed) {
@@ -45,6 +49,8 @@ public class WhWarehousingOrderSeedController extends BaseController {
     /**
      * 新增保存商品入库单子
      */
+    @ApiOperation("新增保存商品入库单子")
+
     @Log(title = "商品入库单子", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
@@ -57,6 +63,8 @@ public class WhWarehousingOrderSeedController extends BaseController {
     /**
      * 修改保存商品入库单子
      */
+    @ApiOperation("修改保存商品入库单子")
+
     @Log(title = "商品入库单子", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
@@ -68,6 +76,8 @@ public class WhWarehousingOrderSeedController extends BaseController {
     /**
      * 删除商品入库单子
      */
+    @ApiOperation("删除商品入库单子")
+
     @Log(title = "商品入库单子", businessType = BusinessType.DELETE)
     @PostMapping("/remove")
     @ResponseBody
