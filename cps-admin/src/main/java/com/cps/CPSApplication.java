@@ -12,7 +12,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * @author cps
  */
 @EnableAsync
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class,PageHelperAutoConfiguration.class})
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class/*,PageHelperAutoConfiguration.class*/})
 public class CPSApplication {
     public static void main(String[] args) {
         // System.setProperty("spring.devtools.restart.enabled", "false");

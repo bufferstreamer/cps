@@ -34,20 +34,23 @@ docPath = os.getcwd()  # 获取当前路径
 #docPath = 'E:\\IdeaProjects\\cps-3'
 # print(docPath)
 # docPath.replace("otherPython","tender")
-doc = Document(docPath + "\document\\tender\招标文件模板.docx")
-# doc = Document("D:\idea\project\cps\document\\tender\招标文件模板.docx")
-
+print("start")
+print(docPath)
+doc = Document(docPath + "/otherPython/招标文件模板.docx")
+# doc = Document("D:\idea\project\cps\document\\tenderC\招标文件模板.docx")
+print("connect first database")
 db_cps = pymysql.connect(host=host,
                          user=user,
                          password=password,
                          database='cps')
+print("connect second database")
 db_fmmall = pymysql.connect(host=host,
                          user=user,
                          password=password,
                          database='fmmall2')
 cursor_cps = db_cps.cursor()
 cursor_fmmall = db_fmmall.cursor()
-
+print("connect finish")
 sql_select_tender = "select id,\
                         tender_name,\
                         text,\
@@ -171,7 +174,11 @@ for paragraph in doc.paragraphs:
         break
 
 move_table_after(table, target)
-doc.save(docPath + "/cps-admin/target/classes/static/documentTemplate/tender/"+ path + result_tender[0][1] + "招标文件.docx")
+print("saving")
+doc.save(docPath + "/otherPython/biddingDocuments/" + path + result_tender[0][1] + "招标文件.docx")
+print("bidding create finish")
+db_cps.close()
+db_fmmall.close()
 #doc.save(docPath + "/cps-admin/src/main/resources/static/documentTemplate/tender/" + path + result_tender[0][1] + "招标文件.docx")
 # cps-admin/src/main/resources/static/documentTemplate/tender
 # doc.save("D:\idea\project\cps\document/tender/" + result_tender[0][1] + "招标文件.docx")
