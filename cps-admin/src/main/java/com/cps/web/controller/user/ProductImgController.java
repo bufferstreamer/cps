@@ -94,6 +94,17 @@ public class ProductImgController extends BaseController
     @ResponseBody
     public AjaxResult addSave(ProductImg productImg)
     {
+        ProductImg productImg1 = new ProductImg();
+        productImg1.setItemId(productImg.getItemId());
+        List<ProductImg> productImgList = productImgService.selectProductImgList(productImg1);
+        for(ProductImg productImg2 : productImgList){
+            if(productImg2.getIsMain()==1&&productImg.getIsMain()==1){
+                return error("同一件商品不能存在两张主图");
+            }
+            if(productImg2.getSort()==productImg.getSort()){
+                return error("两张图片展示顺序相同");
+            }
+        }
         return toAjax(productImgService.insertProductImg(productImg));
     }
 
@@ -118,6 +129,19 @@ public class ProductImgController extends BaseController
     @ResponseBody
     public AjaxResult editSave(ProductImg productImg)
     {
+        ProductImg productImg1 = new ProductImg();
+        productImg1.setItemId(productImg.getItemId());
+        List<ProductImg> productImgList = productImgService.selectProductImgList(productImg1);
+        for(ProductImg productImg2 : productImgList){
+            if(productImg2.getId()!=productImg.getId()){
+                if(productImg2.getIsMain()==1&&productImg.getIsMain()==1){
+                    return error("同一件商品不能存在两张主图");
+                }
+                if(productImg2.getSort()==productImg.getSort()){
+                    return error("两张图片展示顺序相同");
+                }
+            }
+        }
         return toAjax(productImgService.updateProductImg(productImg));
     }
 
