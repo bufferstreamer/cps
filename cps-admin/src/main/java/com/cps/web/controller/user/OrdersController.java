@@ -19,6 +19,9 @@ import com.cps.user.service.ICategoryService;
 import com.cps.user.service.IOrderItemService;
 import com.cps.user.service.IOrdersService;
 import com.cps.user.service.IProductService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +38,7 @@ import java.util.*;
  * @author cps
  * @date 2022-09-08
  */
+@Api("订单管理")
 @Controller
 @RequestMapping("/user/orders")
 public class OrdersController extends BaseController {
@@ -56,6 +60,7 @@ public class OrdersController extends BaseController {
     /**
      * 查询订单列表
      */
+    @ApiOperation("获取订单列表")
     @RequiresPermissions("user:orders:list")
     @PostMapping("/list")
     @ResponseBody
@@ -85,6 +90,7 @@ public class OrdersController extends BaseController {
     /**
      * 导出订单列表
      */
+    @ApiOperation("导出订单列表")
     @RequiresPermissions("user:orders:export")
     @Log(title = "订单", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
@@ -106,6 +112,7 @@ public class OrdersController extends BaseController {
     /**
      * 新增保存订单
      */
+    @ApiOperation("新增订单")
     @RequiresPermissions("user:orders:add")
     @Log(title = "订单", businessType = BusinessType.INSERT)
     @PostMapping("/add")
@@ -128,6 +135,7 @@ public class OrdersController extends BaseController {
     /**
      * 修改保存订单
      */
+    @ApiOperation("修改订单")
     @RequiresPermissions("user:orders:edit")
     @Log(title = "订单", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
@@ -139,8 +147,10 @@ public class OrdersController extends BaseController {
     /**
      * 删除订单
      */
+    @ApiOperation("批量删除订单")
     @RequiresPermissions("user:orders:remove")
     @Log(title = "订单", businessType = BusinessType.DELETE)
+    @ApiImplicitParam(name = "ids", value = "主键ID(多个主键ID中间用','隔开)", required = true, dataType = "String", paramType = "path", dataTypeClass = String.class)
     @PostMapping("/remove")
     @ResponseBody
     public AjaxResult remove(String ids) {
@@ -187,6 +197,8 @@ public class OrdersController extends BaseController {
     }
 
     /*跳转到指定的界面echart*/
+    @ApiOperation("跳转到指定类型的饼状图下")
+    @ApiImplicitParam(name = "parentId", value = "分类ID", required = true, dataType = "String", paramType = "path", dataTypeClass = String.class)
     @GetMapping("/category/{parentId}")
     public String category(@PathVariable("parentId") String parentId, ModelMap map) {
         if (categorySoldDict.size()==0){
@@ -240,6 +252,8 @@ public class OrdersController extends BaseController {
         return prefix+"/item";
     }
 
+    @ApiOperation("获取指定产品的所有买家")
+    @ApiImplicitParam(name = "productId", value = "产品ID", required = true, dataType = "String", paramType = "path", dataTypeClass = String.class)
     @GetMapping("/receiver/{productId}")
     public String receiver(@PathVariable("productId") String productId, ModelMap map) {
         OrderItem orderItem = new OrderItem();
@@ -263,6 +277,8 @@ public class OrdersController extends BaseController {
     @Autowired
     private IOrderItemService orderItemService;
 
+    @ApiOperation("获取订单的具体信息(表格)")
+    @ApiImplicitParam(name = "orderId", value = "订单ID", required = true, dataType = "String", paramType = "path", dataTypeClass = String.class)
     @RequiresPermissions("user:orders:detail")
     @GetMapping("/detail/{orderId}")
     public String detail(@PathVariable("orderId") String orderId, ModelMap map){
@@ -283,7 +299,9 @@ public class OrdersController extends BaseController {
         return prefix+"/detail";
     }
 
-    @PostMapping("corporateName")
+    @ApiOperation("获取供应商名称")
+    @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long", paramType = "path", dataTypeClass = Long.class)
+    @GetMapping("corporateName")
     @ResponseBody
     public String GetCorporateName(Long userId){
         SupplierLicenseInfo info = supplierLicenseInfoService.selectSupplierLicenseInfoByUserId(userId);

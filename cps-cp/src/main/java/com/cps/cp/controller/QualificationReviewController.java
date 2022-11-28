@@ -15,6 +15,10 @@ import com.cps.cp.domain.Tender;
 import com.cps.cp.service.IQualificationReviewService;
 import com.cps.cp.service.ITenderService;
 import com.cps.system.service.ISysUserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +36,7 @@ import java.util.List;
  * @author cps
  * @date 2022-08-16
  */
+@Api("资质审核管理")
 @Controller
 @RequestMapping("/cp/qualificationReview")
 public class QualificationReviewController extends BaseController {
@@ -54,6 +60,7 @@ public class QualificationReviewController extends BaseController {
     /**
      * 查询资质审核列表
      */
+    @ApiOperation("获取资质审核记录列表")
     @RequiresPermissions("cp:qualificationReview:list")
     @PostMapping("/list")
     @ResponseBody
@@ -70,6 +77,7 @@ public class QualificationReviewController extends BaseController {
     /**
      * 导出资质审核列表
      */
+    @ApiOperation("导出资质审核记录")
     @RequiresPermissions("cp:qualificationReview:export")
     @Log(title = "资质审核", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
@@ -92,7 +100,18 @@ public class QualificationReviewController extends BaseController {
      * 新增保存资质审核
      */
     //@RequiresPermissions("cp:qualificationReview:add")
+    @ApiOperation("新增资质审核记录")
     @Log(title = "资质审核", businessType = BusinessType.INSERT)
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "qualificationReviewId", value = "主键", dataType = "String", dataTypeClass = String.class),
+//            @ApiImplicitParam(name = "supplyId", value = "供应商ID", dataType = "Long", dataTypeClass = Long.class),
+//            @ApiImplicitParam(name = "qualificationReviewDocument", value = "资质审核文件存储位置", dataType = "String", dataTypeClass = String.class),
+//            @ApiImplicitParam(name = "goodsId", value = "商品编号", dataType = "Long", dataTypeClass = Long.class),
+//            @ApiImplicitParam(name = "tenderId", value = "标书id", dataType = "String", dataTypeClass = String.class),
+//            @ApiImplicitParam(name = "auditStatus", value = "审核状态", dataType = "String", dataTypeClass = String.class),
+//            @ApiImplicitParam(name = "auditExplanation", value = "审核说明", dataType = "String", dataTypeClass = String.class),
+//            @ApiImplicitParam(name = "submitTime", value = "提交时间", dataType = "Date", dataTypeClass = Date.class)
+//    })
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult addSave(QualificationReview qualificationReview) {
@@ -115,6 +134,7 @@ public class QualificationReviewController extends BaseController {
     /**
      * 修改保存资质审核
      */
+    @ApiOperation("对提交的信息进行审核")
     @RequiresPermissions("cp:qualificationReview:edit")
     @Log(title = "资质审核", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
@@ -126,6 +146,7 @@ public class QualificationReviewController extends BaseController {
         return toAjax(qualificationReviewService.updateQualificationReview(qualificationReview));
     }
 
+    @ApiOperation("修改资质审核信息")
     @PostMapping("/update")
     @ResponseBody
     public AjaxResult update(QualificationReview qualificationReview) throws ParseException {
@@ -137,8 +158,10 @@ public class QualificationReviewController extends BaseController {
     /**
      * 删除资质审核
      */
+    @ApiOperation("批量删除资质审核信息")
     @RequiresPermissions("cp:qualificationReview:remove")
     @Log(title = "资质审核", businessType = BusinessType.DELETE)
+    @ApiImplicitParam(name = "ids", value = "主键ID(多个主键ID中间用','隔开)", required = true, dataType = "String", paramType = "path", dataTypeClass = String.class)
     @PostMapping("/remove")
     @ResponseBody
     public AjaxResult remove(String ids) {

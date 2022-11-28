@@ -3,6 +3,8 @@ package com.cps.sales.controller;
 import java.util.List;
 
 import com.cps.sales.domain.SalesForecastVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,7 @@ import com.cps.common.core.page.TableDataInfo;
  * @author cps
  * @date 2022-10-20
  */
+@Api("销量预测管理")
 @Controller
 @RequestMapping("/sales/forecast")
 public class SalesForecastController extends BaseController {
@@ -44,6 +47,7 @@ public class SalesForecastController extends BaseController {
     /**
      * 查询销量预测列表
      */
+    @ApiOperation("查询销量预测列表")
     @RequiresPermissions("sales:forecast:list")
     @PostMapping("/list")
     @ResponseBody
@@ -57,6 +61,8 @@ public class SalesForecastController extends BaseController {
     /**
      * 导出销量预测列表
      */
+    @ApiOperation("导出销量预测列表")
+
     @RequiresPermissions("sales:forecast:export")
     @Log(title = "销量预测", businessType = BusinessType.EXPORT)
     @PostMapping("/export")

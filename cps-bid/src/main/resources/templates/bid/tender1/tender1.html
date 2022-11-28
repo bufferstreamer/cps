@@ -11,12 +11,12 @@
                 <div class="select-list">
                     <ul>
                         <li>
-                            <label>项目名称：</label>
-                            <input name="projectName" type="text"/>
+                            <label>标书ID：</label>
+                            <input name="tenderId" type="text"/>
                         </li>
                         <li>
-                            <label>供应商：</label>
-                            <input name="corporateName" type="text"/>
+                            <label>供应商ID：</label>
+                            <input name="supplierId" type="text"/>
                         </li>
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i
@@ -77,13 +77,18 @@
                 },
                 {
                     field: 'tenderId',
+                    title: '标书ID',
+                    visible:false
+                },
+                {
+                    field: 'projectName',
                     title: '项目名称',
                     formatter: function (value, row, index) {
-                        var data = {"tenderId": value};
+                        var data = {"tenderId": row.tenderId};
                         var projectName="-";
                         $.ajax({
                             url: ctx + "bid/tender1/projectName",
-                            type: "post",
+                            type: "get",
                             dataType: "text",
                             data: data,
                             async: false,
@@ -97,13 +102,18 @@
                 },
                 {
                     field: 'supplierId',
+                    title: '供应商ID',
+                    visible:false
+                },
+                {
+                    field: 'corporateName',
                     title: '供应商',
                     formatter: function (value, row, index) {
-                        var data = {"supplierId": value};
+                        var data = {"supplierId": row.supplierId};
                         var corporateName="-";
                         $.ajax({
                             url: ctx + "bid/tender1/corporateName",
-                            type: "post",
+                            type: "get",
                             dataType: "text",
                             data: data,
                             async: false,

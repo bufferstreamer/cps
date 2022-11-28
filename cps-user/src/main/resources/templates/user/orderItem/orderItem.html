@@ -87,7 +87,12 @@
                 },
                 {
                     field: 'productImg',
-                    title: '商品图片'
+                    title: '商品图片',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<img alt="公司征信信息" class="img-xs img-circle" data-height="auto" data-width="auto" data-target="self" style="border-radius:0;"   src="' + row.productImg + '">');
+                        return actions.join('');
+                    }
                 },
                 {
                     field: 'skuName',

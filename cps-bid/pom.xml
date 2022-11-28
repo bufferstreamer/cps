@@ -17,6 +17,5 @@
             <artifactId>cps-common</artifactId>
             <version>${cps.version}</version>
         </dependency>
-
     </dependencies>
 </project>

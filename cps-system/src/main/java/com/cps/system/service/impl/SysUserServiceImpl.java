@@ -36,6 +36,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * 用户 业务层处理
@@ -180,16 +184,17 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 通过用户id查询该用户是否是小商超
+     *
      * @param userId 用户id
      * @return 结果
      */
     @Override
-    public boolean isSupperMarket(Long userId){
+    public boolean isSupperMarket(Long userId) {
         List<SysUserRole> userRoleList = userRoleMapper.selectUserRoleByUserId(userId);
-        if(userRoleList == null) {
+        if (userRoleList == null) {
             return false;
         }
-        if(userRoleList.get(0).getRoleId() == Constants.SYS_SUPPERMARKET_ROLEID){
+        if (userRoleList.get(0).getRoleId() == Constants.SYS_SUPPERMARKET_ROLEID) {
             return true;
         }
         return false;
@@ -197,16 +202,17 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 通过用户id查询该用户是否是供应商
+     *
      * @param userId 用户id
      * @return 结果
      */
     @Override
-    public boolean isSupplier(Long userId){
+    public boolean isSupplier(Long userId) {
         List<SysUserRole> userRoleList = userRoleMapper.selectUserRoleByUserId(userId);
-        if(userRoleList == null) {
+        if (userRoleList == null) {
             return false;
         }
-        if(userRoleList.get(0).getRoleId() == Constants.SYS_SUPPLIER_ROLEID){
+        if (userRoleList.get(0).getRoleId() == Constants.SYS_SUPPLIER_ROLEID) {
             return true;
         }
         return false;
@@ -214,16 +220,17 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 通过用户id查询该用户是否是小商超或供应商
+     *
      * @param userId 用户id
      * @return 结果
      */
     @Override
-    public boolean isSupperMarketOrSupplier(Long userId){
+    public boolean isSupperMarketOrSupplier(Long userId) {
         List<SysUserRole> userRoleList = userRoleMapper.selectUserRoleByUserId(userId);
-        if(userRoleList == null) {
+        if (userRoleList == null) {
             return false;
         }
-        if(userRoleList.get(0).getRoleId() == Constants.SYS_SUPPERMARKET_ROLEID || userRoleList.get(0).getRoleId() == Constants.SYS_SUPPLIER_ROLEID){
+        if (userRoleList.get(0).getRoleId() == Constants.SYS_SUPPERMARKET_ROLEID || userRoleList.get(0).getRoleId() == Constants.SYS_SUPPLIER_ROLEID) {
             return true;
         }
         return false;
@@ -306,12 +313,12 @@ public class SysUserServiceImpl implements ISysUserService {
     public boolean registerUser(SysUser user) {
         user.setUserType(UserConstants.REGISTER_USER_TYPE);
         boolean regFlag = userMapper.insertUser(user) > 0;
-        if(regFlag){
+        if (regFlag) {
             SysUser tempUser = selectUserByLoginName(user.getUserName());
             Long userRole = Long.valueOf(ServletUtils.getRequest().getParameter("userRole"));
             Long[] userRoles = new Long[1];
             userRoles[0] = userRole;
-            insertUserRole(tempUser.getUserId(),userRoles);
+            insertUserRole(tempUser.getUserId(), userRoles);
         }
         return regFlag;
     }
@@ -617,21 +624,23 @@ public class SysUserServiceImpl implements ISysUserService {
 
     /**
      * 发招标通知邮件
+     *
      * @param subject 邮件主题
-     * @param notice 邮件内容
-     * @param deptId 通知部门id
+     * @param notice  邮件内容
+     * @param deptId  通知部门id
      */
     @Override
     public String noticeByMail(String subject, String notice, Long[] deptId, String operator) {
+        ExecutorService pool = Executors.newSingleThreadExecutor();
         ArrayList<String> address = userMapper.getEmailByDeptid(deptId);
-        new Thread(() -> {
+        pool.submit(() -> {
             String result;
             SysNotice noticeRecord = new SysNotice();
             noticeRecord.setNoticeType("1");
             noticeRecord.setNoticeContent(notice);
             noticeRecord.setNoticeTitle(subject);
             noticeRecord.setCreateBy(operator);
-            if(CollUtil.isEmpty(address)){
+            if (CollUtil.isEmpty(address)) {
                 result = "未查询到所选择经营范围的供应商!";
                 noticeRecord.setStatus("1");
             } else {
@@ -640,7 +649,7 @@ public class SysUserServiceImpl implements ISysUserService {
             }
             noticeRecord.setRemark(result);
             sysNoticeService.insertNotice(noticeRecord);
-        }).start();
+        });
         return "操作成功";
     }
 }

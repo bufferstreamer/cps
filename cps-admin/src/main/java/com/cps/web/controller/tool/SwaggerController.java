@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SwaggerController extends BaseController {
     @RequiresPermissions("tool:swagger:view")
     @GetMapping()
-    public String index() {
-        return redirect("/swagger-ui/index.html");
+    //public String index() {
+    //    return redirect("/swagger-ui/index.html");
+    //}
+    public String index()
+    {
+        return redirect("/doc.html");
     }
 }

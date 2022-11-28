@@ -30,6 +30,9 @@
     <select id="selectOrderItemList" parameterType="OrderItem" resultMap="OrderItemResult">
         <include refid="selectOrderItemVo"/>
         <where>
+            <if test="orderId != null  and orderId != ''">
+                and order_id = #{orderId}
+            </if>
             <if test="productId != null  and productId != ''">
                 and product_id = #{productId}
             </if>

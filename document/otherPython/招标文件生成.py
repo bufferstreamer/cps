@@ -28,7 +28,7 @@ path = sys.argv[1]
 host = c.cps_host
 user = c.cps_user
 password = c.cps_password
-print(path)
+# print(path)
 # 获取当前绝对路径
 docPath = os.getcwd()  # 获取当前路径
 #docPath = 'E:\\IdeaProjects\\cps-3'
@@ -171,7 +171,7 @@ for paragraph in doc.paragraphs:
         break
 
 move_table_after(table, target)
-
-doc.save(docPath + "/cps-admin/src/main/resources/static/documentTemplate/tender/" + result_tender[0][1] + "招标文件.docx")
+doc.save(docPath + "/cps-admin/target/classes/static/documentTemplate/tender/"+ path + result_tender[0][1] + "招标文件.docx")
+#doc.save(docPath + "/cps-admin/src/main/resources/static/documentTemplate/tender/" + path + result_tender[0][1] + "招标文件.docx")
 # cps-admin/src/main/resources/static/documentTemplate/tender
 # doc.save("D:\idea\project\cps\document/tender/" + result_tender[0][1] + "招标文件.docx")

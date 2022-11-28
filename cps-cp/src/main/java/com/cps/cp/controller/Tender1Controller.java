@@ -497,7 +497,7 @@ public class Tender1Controller extends BaseController {
         review.setTenderId(tenderId);
         review.setSupplyId(ShiroUtils.getUserId());
         List<QualificationReviewView> reviewList = qualificationReviewService.selectQualificationReviewList(review);
-        if (reviewList.size()>0 && reviewList.get(0).getAuditStatus().equals("1")) {
+        if (reviewList.size()>0) {
             return false;
         }
 
@@ -594,7 +594,7 @@ public class Tender1Controller extends BaseController {
         String subject = request.getParameter("informSubject");
         String notice = request.getParameter("informContent");
         //给供应商发送email
-        if (informWay.equals("1") ||informWay.equals("3")){
+        if ("1".equals(informWay) || "3".equals(informWay)){
             return AjaxResult.success(sysUserService.noticeByMail(subject,notice,deptId,getLoginName()));
         }
         return AjaxResult.error();

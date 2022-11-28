@@ -1,8 +1,6 @@
 package com.cps.web.controller.bid;
 
-import com.cps.audit.domain.AuditDocuments;
 import com.cps.audit.domain.SupplierLicenseInfo;
-import com.cps.audit.service.IAuditDocumentsService;
 import com.cps.audit.service.ISupplierLicenseInfoService;
 import com.cps.bid.domain.CentralizedPurchaseRecord;
 import com.cps.bid.service.ICentralizedPurchaseRecordService;
@@ -11,13 +9,12 @@ import com.cps.common.core.controller.BaseController;
 import com.cps.common.core.domain.AjaxResult;
 import com.cps.common.core.page.TableDataInfo;
 import com.cps.common.enums.BusinessType;
-import com.cps.common.utils.StringUtils;
 import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.cp.domain.Tender;
 import com.cps.cp.service.ITenderService;
-import com.cps.framework.web.domain.server.Sys;
 import com.cps.product.domain.ProductIndexInfo;
 import com.cps.product.service.IProductIndexInfoService;
+import io.swagger.annotations.*;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -29,12 +26,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,6 +37,7 @@ import java.util.List;
  * @author cps
  * @date 2022-09-03
  */
+@Api("投标记录管理")
 @Controller
 @RequestMapping("/bid/tender1")
 public class CentralizedPurchaseRecordController extends BaseController {
@@ -69,69 +64,20 @@ public class CentralizedPurchaseRecordController extends BaseController {
     /**
      * 查询集中采购记录列表
      */
+    @ApiOperation("获取投标记录列表")
     @RequiresPermissions("bid:tender1:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(CentralizedPurchaseRecord centralizedPurchaseRecord, HttpServletRequest request) {
+    public TableDataInfo list(CentralizedPurchaseRecord centralizedPurchaseRecord) {
         startPage();
-        List<CentralizedPurchaseRecord> list=new ArrayList<>();
-
-        String projectName = request.getParameter("projectName");
-        String corporateName = request.getParameter("corporateName");
-        if (StringUtils.isEmpty(projectName)&&StringUtils.isEmpty(corporateName)){
-            list= centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord);
-        }
-        else if (!StringUtils.isEmpty(projectName)&&StringUtils.isEmpty(corporateName)){
-            Tender tender=new Tender();
-            tender.setProjectName(projectName);
-            List<Tender> tenderList = tenderService.selectTender1List(tender);
-            for (Tender temp:tenderList)
-            {
-                centralizedPurchaseRecord.setTenderId(temp.getTenderId());
-                list.addAll(centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord));
-            }
-        }
-        else if (StringUtils.isEmpty(projectName)&&!StringUtils.isEmpty(corporateName)){
-            HashSet<Long> idSet = new HashSet<>();
-            supplierLicenseInfoService.selectAuditDocumentsListByCorporateName(corporateName).forEach(doc->{
-                idSet.add(doc.getUserId());
-            });
-
-            for (long id:idSet)
-            {
-                centralizedPurchaseRecord.setSupplierId(id);
-                list.addAll(centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord));
-            }
-        }
-        else {
-            HashSet<Long> supplierIdSet = new HashSet<>();
-            supplierLicenseInfoService.selectAuditDocumentsListByCorporateName(corporateName).forEach(doc->{
-                supplierIdSet.add(doc.getUserId());
-            });
-            HashSet<String> tenderIdSet=new HashSet<>();
-            Tender tender=new Tender();
-            tender.setProjectName(projectName);
-            tenderService.selectTender1List(tender).forEach(temp->{
-                tenderIdSet.add(temp.getTenderId());
-            });
-
-            for (String tenderId:tenderIdSet) 
-            {
-                for (long supplierId:supplierIdSet)
-                {
-                    centralizedPurchaseRecord.setTenderId(tenderId);
-                    centralizedPurchaseRecord.setSupplierId(supplierId);
-                    list.addAll(centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord));
-                }
-            }
-        }
-
+        List<CentralizedPurchaseRecord> list=centralizedPurchaseRecordService.selectCentralizedPurchaseRecordList(centralizedPurchaseRecord);
         return getDataTable(list);
     }
 
     /**
      * 导出集中采购记录列表
      */
+    @ApiOperation("导出投标记录")
     @RequiresPermissions("bid:tender1:export")
     @Log(title = "集中采购记录", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
@@ -154,8 +100,17 @@ public class CentralizedPurchaseRecordController extends BaseController {
     /**
      * 新增保存集中采购记录
      */
+    @ApiOperation("新增投标记录")
     @RequiresPermissions("bid:tender1:add")
     @Log(title = "集中采购记录", businessType = BusinessType.INSERT)
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "centralizedPurchaseRecordId", value = "主键", dataType = "String", dataTypeClass = String.class),
+//            @ApiImplicitParam(name = "tenderId", value = "标书ID", dataType = "String", dataTypeClass = String.class),
+//            @ApiImplicitParam(name = "supplierId", value = "供应商ID", dataType = "Long", dataTypeClass = Long.class),
+//            @ApiImplicitParam(name = "tenderDocument", value = "投标文件存储信息", dataType = "String", dataTypeClass = String.class),
+//            @ApiImplicitParam(name = "centralizedPurchaseRecordTime", value = "投标时间", dataType = "Date", dataTypeClass = Date.class),
+//            @ApiImplicitParam(name = "isBid", value = "是否中标", dataType = "String", dataTypeClass = String.class)
+//    })
     @PostMapping("/add")
     @ResponseBody
     public AjaxResult addSave(CentralizedPurchaseRecord centralizedPurchaseRecord) throws IOException {
@@ -237,6 +192,7 @@ public class CentralizedPurchaseRecordController extends BaseController {
     /**
      * 修改保存集中采购记录
      */
+    @ApiOperation("修改投标记录")
     @RequiresPermissions("bid:tender1:edit")
     @Log(title = "集中采购记录", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
@@ -248,7 +204,9 @@ public class CentralizedPurchaseRecordController extends BaseController {
     /**
      * 删除集中采购记录
      */
+    @ApiOperation("批量删除投标记录")
     @RequiresPermissions("bid:tender1:remove")
+    @ApiImplicitParam(name = "ids", value = "主键ID(多个主键ID中间用','隔开)", required = true, dataType = "String", paramType = "path", dataTypeClass = String.class)
     @Log(title = "集中采购记录", businessType = BusinessType.DELETE)
     @PostMapping("/remove")
     @ResponseBody
@@ -256,7 +214,9 @@ public class CentralizedPurchaseRecordController extends BaseController {
         return toAjax(centralizedPurchaseRecordService.deleteCentralizedPurchaseRecordByCentralizedPurchaseRecordIds(ids));
     }
 
-    @PostMapping("projectName")
+    @ApiOperation("获取标书项目的名称")
+    @ApiImplicitParam(name = "tenderId", value = "标书ID", required = true, dataType = "String", paramType = "path", dataTypeClass = String.class)
+    @GetMapping("projectName")
     @ResponseBody
     public String GetProjectName(String tenderId){
         Tender tender = tenderService.selectTenderByTenderId(tenderId);
@@ -271,7 +231,9 @@ public class CentralizedPurchaseRecordController extends BaseController {
     @Autowired
     private ISupplierLicenseInfoService supplierLicenseInfoService;
 
-    @PostMapping("corporateName")
+    @ApiOperation("获取供应商的名称")
+    @ApiImplicitParam(name = "supplierId", value = "供应商ID", required = true, dataType = "Long", paramType = "path", dataTypeClass = Long.class)
+    @GetMapping("corporateName")
     @ResponseBody
     public String GetCorporateName(Long supplierId){
         SupplierLicenseInfo info = supplierLicenseInfoService.selectSupplierLicenseInfoByUserId(supplierId);

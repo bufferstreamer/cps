@@ -127,9 +127,9 @@
             <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="trender:information:export" >
                 <i class="fa fa-download"></i> 导出
             </a>
-            <a class="btn btn-warning" onclick="openFileIIs()" shiro:hasPermission="trender:information:export" >
+            <!--<a class="btn btn-warning" onclick="openFileIIs()" shiro:hasPermission="trender:information:export" >
                 <i class="fa fa-download"></i> 打开招标公告文件夹
-            </a>
+            </a>-->
 
         </div>
         <div class="col-sm-12 select-table table-striped">
@@ -158,6 +158,7 @@
             updateUrl: prefix + "/edit/{id}",
             removeUrl: prefix + "/remove",
             exportUrl: prefix + "/export",
+            downloadUrl:ctx + "test2/fileDownload",
             modalName: "自动生成标书信息",
             sortOrder: 'desc',
             sortName: 'id',
@@ -278,6 +279,7 @@
                         var actions = [];
                         actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        actions.push('<a class="btn btn-warning btn-xs " href="javascript:void(0)" onclick="doAjax_FileDownload(\''+ row.id + '\')"><i class="fa fa-remove"></i>下载</a>');
                         return actions.join('');
                     }
                 }]
@@ -287,6 +289,63 @@
     function onClickRow(row, $element){
         $element[0].firstElementChild.firstElementChild.click();
     }
+    function doAjax_FileDownload(param, callback) {
+
+        $.ajax({
+            url:  ctx + "test2/fileDownload/"+param,
+            type: "post",
+            data: JSON.stringify(param),
+            // 向服务器发送的数据类型
+            contentType: 'application/json;charset=utf-8',
+            // 💢💢💢指定服务器返回的类型,因为我们要返回文件流,所以类型为二进制数据
+            dataType: "binary",
+            // 💢💢💢原生 XMLHttpRequest 的属性,设置响应类型为blob,接收文件流
+            xhrFields: {
+                'responseType': 'blob'
+            },
+            success: function (result, status, xhr) {
+
+                // 可通过XMLHttpRequest对象,获取响应头
+                console.log(xhr);
+
+                // 浏览器兼容
+                const download_URL = (window.URL || window.webkitURL).createObjectURL(result);
+
+                // 创建a标签,模拟点击下载
+                const a_link = document.createElement('a');
+                a_link.href = download_URL;
+                // 利用了a标签的download属性,指定文件名称
+                a_link.download = param + ".docx";
+                document.body.appendChild(a_link);
+                a_link.click();
+
+                setTimeout(function () {
+                    // 移除内存中的临时文件路径和为下载而创建的a标签
+                    URL.revokeObjectURL(download_URL);
+                    a_link.remove();
+                }, 10000);
+            },
+            error: function (xhr, textStatus, errorMessage) {
+
+                // 从响应头中获取异常信息,如果包含中文的话会乱码因此 后台URLEncoder.encode() + 前台decodeURIComponent() 防止乱码
+                const errorInfo = decodeURIComponent(xhr.getResponseHeader("errorInfo"));
+
+                // 对错误信息进行展示
+                alert(errorInfo);
+            }
+        });
+    }
+
+    /*$("#btn").click(() => {
+
+        const url = "http://localhost:8080/test2/fileDownload";
+        const fileInfo = {
+            fileName: '测试文件.text',
+            fileId: 'A110120119'
+        };
+        doAjax_FileDownload(url, fileInfo, function () {});
+    });*/
+
 </script>
 </body>
 </html>
