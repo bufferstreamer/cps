@@ -126,6 +126,10 @@ public class WhOutboundOrderController extends BaseController {
             whOutboundOrderSeed.setOweNumber(cart.getCartNum());
             whOutboundOrderSeed.setPlanNumber(cart.getCartNum());
             whOutboundOrderSeed.setDeptId(Long.valueOf(100));
+            whOutboundOrderSeed.setShopGoodsCode(cart.getProductId());
+            whOutboundOrderSeed.setShopGoodsName(cart.getProductName());
+            whOutboundOrderSeed.setGoodsUnit("1");
+            whOutboundOrderSeed.setGoodsUnitDesc("份");
             whOutboundOrderSeedService.insertWhOutboundOrderSeed(whOutboundOrderSeed);
         }
         return toAjax(1);
