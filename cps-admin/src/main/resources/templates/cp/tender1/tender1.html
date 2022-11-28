@@ -55,9 +55,12 @@
             <!--                <a class="btn btn-info" onclick="downloadFile('http://localhost:8081/cps/profile/upload/template/zhaobiao.docx')" >-->
             <!--                    -->
             <!--                </a>-->
-            <a class="btn btn-info" download="" href="http://localhost:80/cps/documentTemplate/zhaobiao3.docx" shiro:hasPermission="cp:tender1:zb"><i
-                    class="fa fa-download"></i> 下载招标模板</a>
-            <a class="btn btn-info" download="" href="http://localhost:80/cps/documentTemplate/toubiao.docx" shiro:hasPermission="cp:tender1:tb"><i
+<!--            <a class="btn btn-info" download="" href="http://localhost:80/cps/documentTemplate/zhaobiao3.docx" shiro:hasPermission="cp:tender1:zb"><i-->
+<!--                    class="fa fa-download"></i> 下载招标模板</a>-->
+
+<!--            <a class="btn btn-info" onclick="downloadZb()" shiro:hasPermission="cp:tender1:zb"><i-->
+<!--                    class="fa fa-download"></i> 下载招标模板</a>-->
+            <a class="btn btn-info" onclick="downloadTb()" shiro:hasPermission="cp:tender1:tb"><i
                     class="fa fa-download"></i> 下载投标模板</a>
         </div>
 
@@ -81,6 +84,19 @@
     function downloadFile(value) {
         window.location.href = ctx + "common/download/resource?resource=" + value;
     }
+
+    //下载招标文件
+    function downloadZb(){
+        let zbDocument = 'http://localhost/cps/profile/upload/documentTemplate/zhaobiao3.docx';
+        downloadFile(zbDocument);
+    }
+
+    //下载投标文件
+    function downloadTb(){
+        let tbDocument = 'http://localhost/cps/profile/upload/documentTemplate/toubiao.docx';
+        downloadFile(tbDocument);
+    }
+
 
     function detl( id) {  $.modal.open("公告详情",ctx+"cp/tender1/detail/"+id,1200,630); }
 
