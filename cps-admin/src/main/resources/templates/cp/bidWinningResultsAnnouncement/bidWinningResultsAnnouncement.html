@@ -49,8 +49,7 @@
                shiro:hasPermission="cp:bidWinningResultsAnnouncement:export">
                 <i class="fa fa-download"></i> 导出
             </a>
-            <a class="btn btn-info" download=""
-               href="http://localhost:80/cps/documentTemplate/bidWinningResultsAnnouncement.docx"><i class="fa fa-download"></i> 下载中标结果公示模板</a>
+            <a class="btn btn-info" onclick="downloadBidWinningResultsFile()"><i class="fa fa-download"></i> 下载中标结果公示模板</a>
         </div>
         <div class="col-sm-12 select-table table-striped">
             <table id="bootstrap-table"></table>
@@ -65,11 +64,13 @@
     var downloadFlag = [[${@permission.hasPermi('cp:bidWinningResultsAnnouncement:download')}]];
 
     function downloadFile(value) {
-        console.log("文件名");
-        console.log("value");
         window.location.href = ctx + "common/download/resource?resource=" + value;
     }
 
+    function downloadBidWinningResultsFile(){
+        let bidWinningResultsDocument = 'http://localhost/cps/profile/upload/documentTemplate/bidWinningResultsAnnouncement.docx';
+        downloadFile(bidWinningResultsDocument);
+    }
     $(function () {
         var options = {
             url: prefix + "/list",

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.cps.user.domain.Product;
+import com.cps.user.domain.ProductImg;
 import com.cps.user.domain.ProductSku;
 import com.cps.user.service.IProductService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -94,6 +95,12 @@ public class ProductParamsController extends BaseController
     @ResponseBody
     public AjaxResult addSave(ProductParams productParams)
     {
+        ProductParams productParams1 = new ProductParams();
+        productParams1.setProductId(productParams.getProductId());
+        List<ProductParams> productParamsList = productParamsService.selectProductParamsList(productParams1);
+        if(productParamsList.size()>0){
+            return error("商品相关信息重复");
+        }
         return toAjax(productParamsService.insertProductParams(productParams));
     }
 
@@ -118,6 +125,14 @@ public class ProductParamsController extends BaseController
     @ResponseBody
     public AjaxResult editSave(ProductParams productParams)
     {
+        ProductParams productParams1 = new ProductParams();
+        productParams1.setProductId(productParams.getProductId());
+        List<ProductParams> productParamsList = productParamsService.selectProductParamsList(productParams1);
+        for(ProductParams productParams2:productParamsList){
+            if(productParams2.getParamId()!=productParams.getParamId()){
+                return error("商品相关信息重复");
+            }
+        }
         return toAjax(productParamsService.updateProductParams(productParams));
     }
 
