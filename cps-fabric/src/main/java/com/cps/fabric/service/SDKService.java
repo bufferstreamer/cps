@@ -48,7 +48,7 @@ public class SDKService {
         List<Peer> peers = new ArrayList<Peer>();
         peers.add(peer0);
         peers.add(peer1);
-        fabricClient.installChaincode(TransactionRequest.Type.JAVA, "contractInfo", "3.0", "G:\\Code\\chaincode",
+        fabricClient.installChaincode(TransactionRequest.Type.JAVA, "contractInfo", "3.0", "/Users/bubu/Documents/Code/Java/chaincode",
                 null, peers);
     }
 
@@ -57,9 +57,16 @@ public class SDKService {
         Peer peer = fabricClient.getPeer("peer0.org1.example.com", "grpcs://peer0.org1.example.com:7051", path.tlsPeerFilePath);
         Orderer order = fabricClient.getOrderer("orderer.example.com", "grpcs://orderer.example.com:7050", path.tlsOrderFilePath);
         String initArgs[] = {""};
-        fabricClient.initChaincode("mychannel", TransactionRequest.Type.JAVA,"contractInfo","3.0",order,peer,"init",initArgs);
+        fabricClient.initChaincode("mychannel", TransactionRequest.Type.JAVA,"tenderInfo","3.0",order,peer,"init",initArgs);
     }
 
+    //合约的更新
+    public void chainCodeUpdate(FabricClient fabricClient) throws Exception {
+        Peer peer = fabricClient.getPeer("peer0.org1.example.com", "grpcs://peer0.org1.example.com:7051", path.tlsPeerFilePath);
+        Orderer order = fabricClient.getOrderer("orderer.example.com", "grpcs://orderer.example.com:7050", path.tlsOrderFilePath);
+        String initArgs[] = {""};
+        fabricClient.upgradeChaincode("mychannel", TransactionRequest.Type.JAVA,"c1","5.0",order,peer,"init",initArgs);
+    }
 
     /**
      * 合约的调用
@@ -72,7 +79,7 @@ public class SDKService {
         List<Peer> peers = new ArrayList<>();
         peers.add(peer0);
         Orderer order = fabricClient.getOrderer("orderer.example.com", "grpcs://orderer.example.com:7050", path.tlsOrderFilePath);
-        fabricClient.invoke("mychannel", TransactionRequest.Type.JAVA, "contractInfo", order, peers, func, args);
+        fabricClient.invoke("mychannel", TransactionRequest.Type.JAVA, "tender", order, peers, func, args);
     }
 
     /**
@@ -87,7 +94,15 @@ public class SDKService {
         Peer peer0 = fabricClient.getPeer("peer0.org1.example.com", "grpcs://peer0.org1.example.com:7051", path.tlsPeerFilePath);
         List<Peer> peers = new ArrayList<>();
         peers.add(peer0);
-        Map map = fabricClient.queryChaincode(peers, "mychannel", TransactionRequest.Type.JAVA, "contractInfo", func, args);
+        Map map = fabricClient.queryChaincode(peers, "mychannel", TransactionRequest.Type.JAVA, "tender", func, args);
+        return String.valueOf(map.get(200));
+    }
+
+    public String chainCodeOfQueryHistory(FabricClient fabricClient,String func,String[] args) throws Exception {
+        Peer peer0 = fabricClient.getPeer("peer0.org1.example.com", "grpcs://peer0.org1.example.com:7051", path.tlsPeerFilePath);
+        List<Peer> peers = new ArrayList<>();
+        peers.add(peer0);
+        Map map = fabricClient.queryChaincodeHistory(peers, "mychannel", TransactionRequest.Type.JAVA, "tender", func, args);
         return String.valueOf(map.get(200));
     }
 }

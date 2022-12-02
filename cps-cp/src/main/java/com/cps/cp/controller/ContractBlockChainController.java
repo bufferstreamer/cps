@@ -11,12 +11,14 @@ import com.cps.common.core.domain.entity.SysUser;
 import com.cps.common.core.page.TableDataInfo;
 import com.cps.common.enums.BusinessType;
 import com.cps.common.enums.WhWarehousingOrderType;
+import com.cps.common.json.JSON;
 import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.OrderNumGeneratorUtils;
 import com.cps.common.utils.ShiroUtils;
 import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.utils.uuid.IdUtils;
 import com.cps.cp.domain.Contract;
+import com.cps.cp.domain.ContractFabricView;
 import com.cps.cp.domain.ContractView;
 import com.cps.cp.service.IContractService;
 import com.cps.cp.service.ITenderService;
@@ -33,6 +35,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -107,7 +110,7 @@ public class ContractBlockChainController extends BaseController {
             }
             map.put("canSignatureArr",canSignatureArr);
         }
-        return prefix + "/contract";
+        return prefix + "/contractBlockchain";
     }
 
     /**
@@ -143,10 +146,51 @@ public class ContractBlockChainController extends BaseController {
                 contractService.updateContract(contract1);
             }
         }
-
         return getDataTable(list);
     }
 
+
+    @PostMapping("/listHistory")
+    @ResponseBody
+    public TableDataInfo listHistory(Contract contract) throws Exception {
+        startPage();
+        String contractId = contract.getContractId();
+        List<ContractFabricView> list = new ArrayList<>();
+        FabricClient fabricClient = sdkService.initFabricClient();
+        String initArgs[] = new String[1];
+        initArgs[0] = contractId;
+        String jsonStr = sdkService.chainCodeOfQueryHistory(fabricClient,"queryHistory",initArgs);
+
+        ArrayList listAll = JSON.unmarshal(jsonStr,ArrayList.class);
+        System.out.println(listAll);
+
+        for(int i=0;i<listAll.size();i++){
+            ArrayList listLittle = (ArrayList) listAll.get(i);
+            ContractFabricView contractFabricView = new ContractFabricView();
+            contractFabricView.setTxId((String) listLittle.get(0));
+            contractFabricView.setTimeStamp((String) listLittle.get(1));
+            System.out.println(listLittle.get(2));
+            System.out.println(JSON.marshal(listLittle.get(2)));
+            Contract contract1 = JSONObject.parseObject((String) listLittle.get(2), Contract.class);
+            System.out.println(contract1);
+            contractFabricView.setContractId(contract1.getContractId());
+            contractFabricView.setContractDocument(contract1.getContractDocument());
+            contractFabricView.setContractStatus(contract1.getContractStatus());
+            contractFabricView.setContractTime(contract1.getContractTime());
+            contractFabricView.setContractType(contract1.getContractType());
+            contractFabricView.setSignatureA(contract1.getSignatureA());
+            contractFabricView.setSignatureB(contract1.getSignatureB());
+            contractFabricView.setProjectName(tenderService.selectTenderByTenderId(contract1.getTenderId()).getProjectName());
+            contractFabricView.setSignatureUserId(contract1.getSignatureUserId());
+            contractFabricView.setLoginName(sysUserService.selectUserById(contract1.getSignatureUserId()).getLoginName());
+            contractFabricView.setTenderId(contract1.getTenderId());
+            contractFabricView.setDeadlineDeliveryDate(contract1.getDeadlineDeliveryDate());
+            list.add(contractFabricView);
+        }
+//        List listResult = JSON.parseArray(result,ArrayList.class);
+//        list.add(contractView);
+        return getDataTable(list);
+    }
     /**
      * 导出合同列表
      */

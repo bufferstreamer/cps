@@ -1,5 +1,6 @@
 package com.cps.wh.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cps.common.annotation.Log;
 import com.cps.common.constant.OrderConstants;
 import com.cps.common.core.controller.BaseController;
@@ -11,14 +12,18 @@ import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.OrderNumGeneratorUtils;
 import com.cps.common.utils.ShiroUtils;
 import com.cps.common.utils.StringUtils;
+import com.cps.common.utils.file.SHAUtils;
 import com.cps.cp.domain.Contract;
 import com.cps.cp.service.IContractService;
+import com.cps.fabric.client.FabricClient;
+import com.cps.fabric.service.SDKService;
 import com.cps.wh.domain.WhWarehousingOrder;
 import com.cps.wh.enums.WarehousingOrderStatus;
 import com.cps.wh.service.IWhWarehousingOrderSeedService;
 import com.cps.wh.service.IWhWarehousingOrderService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -140,6 +145,12 @@ public class WhWarehousingOrderController extends BaseController {
     @Autowired
     private IContractService contractService;
 
+    @Autowired
+    private SDKService sdkService;
+
+    @Value("${cps.profile}")
+    private String profile;
+
     /**
      * 修改商品入库单状态-确认到货
      */
@@ -147,7 +158,7 @@ public class WhWarehousingOrderController extends BaseController {
     @Log(title = "商品入库单主表", businessType = BusinessType.UPDATE)
     @PostMapping("/changeStatus")
     @ResponseBody
-    public AjaxResult changeStatus(WhWarehousingOrder whWarehousingOrder) {
+    public AjaxResult changeStatus(WhWarehousingOrder whWarehousingOrder) throws Exception {
         //检测是否已选中供应商和加入商品
         WhWarehousingOrder warehousingOrder = whWarehousingOrderService.selectWhWarehousingOrderById(whWarehousingOrder.getId());
         if (StringUtils.isNull(warehousingOrder.getSupplierId()) || StringUtils.isBlank(warehousingOrder.getOrderName()) || whWarehousingOrderSeedService.getOrderSeedShopCount(whWarehousingOrder.getId()) == 0) {
@@ -160,6 +171,18 @@ public class WhWarehousingOrderController extends BaseController {
             Contract contract = contractService.selectContractByContractId(orderName);
             contract.setContractStatus("2");
             contractService.updateContract(contract);
+
+            Contract contract1 = (Contract) contract.clone();
+            String contractPath = contract1.getContractDocument();
+            String FilePath = profile + contractPath.substring(28);
+            contract1.setContractDocument(SHAUtils.getSHA(FilePath));
+            //fabric:合同信息上链
+            FabricClient fabricClient = sdkService.initFabricClient();
+            String initArgs[] = new String[2];
+            initArgs[0] = contract.getContractId();
+            String contractJsonString = JSONObject.toJSONString(contract);
+            initArgs[1] = contractJsonString;
+            sdkService.chainCodeOfInvoke(fabricClient,"update",initArgs);
         }
         return toAjax(whWarehousingOrderService.updateWhWarehousingOrder(whWarehousingOrder));
     }

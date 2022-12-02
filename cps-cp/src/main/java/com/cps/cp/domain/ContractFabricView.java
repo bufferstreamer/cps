@@ -8,14 +8,45 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.Date;
 
-/**
- * 合同对象 contract
- *
- * @author wxf
- * @date 2022-08-16
- */
-public class Contract extends BaseEntity implements Cloneable{
+public class ContractFabricView extends BaseEntity {
+
     private static final long serialVersionUID = 1L;
+    /**
+     * TxId
+     */
+    private String txId;
+    /**
+     * 时间戳
+     */
+    private String timeStamp;
+//    /**
+//     * 是否被删除(状态数据库)
+//     */
+//    private boolean isDeleted;
+
+    public String getTxId() {
+        return txId;
+    }
+
+    public void setTxId(String txId) {
+        this.txId = txId;
+    }
+
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+//    public boolean isDeleted() {
+//        return isDeleted;
+//    }
+//
+//    public void setDeleted(boolean deleted) {
+//        isDeleted = deleted;
+//    }
 
     /**
      * 合同id
@@ -28,6 +59,20 @@ public class Contract extends BaseEntity implements Cloneable{
      */
     @Excel(name = "标书id")
     private String tenderId;
+
+    /**
+     * 项目名称
+     */
+    @Excel(name = "项目名称")
+    private String projectName;
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
 
     /**
      * 合同类别
@@ -60,8 +105,6 @@ public class Contract extends BaseEntity implements Cloneable{
     @Excel(name = "合同签定时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date contractTime;
 
-
-
     /**
      * 非管理员签名方的ID
      */
@@ -69,14 +112,17 @@ public class Contract extends BaseEntity implements Cloneable{
     private Long signatureUserId;
 
     /**
+     * 非管理员签名方的名称
+     */
+    @Excel(name = "非管理员签名方的名称")
+    private String loginName;
+
+    /**
      * 合同状态 0未签署 1未交货 2交货完成 3合同完成 4合同逾期 5合同取消
      */
     @Excel(name = "合同类别")
     private String contractStatus;
 
-    /**
-     * 交货截止日期
-     */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "交货截止日期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date deadlineDeliveryDate;
@@ -95,6 +141,14 @@ public class Contract extends BaseEntity implements Cloneable{
 
     public void setContractStatus(String contractStatus) {
         this.contractStatus = contractStatus;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 
     public Long getSignatureUserId() {
@@ -166,23 +220,18 @@ public class Contract extends BaseEntity implements Cloneable{
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("contractId", getContractId())
                 .append("tenderId", getTenderId())
+                .append("projectName",getProjectName())
                 .append("contractType", getContractType())
                 .append("contractDocument", getContractDocument())
                 .append("signatureA", getSignatureA())
                 .append("signatureB", getSignatureB())
                 .append("contractTime", getContractTime())
                 .append("signatureUserId",getSignatureUserId())
-                .append("contractStatus", getContractStatus())
+                .append("loginName",getLoginName())
                 .append("deadlineDeliveryDate",getDeadlineDeliveryDate())
+                .append("txId",getTxId())
+                .append("timeStamp",getTimeStamp())
+//                .append("isDeleted",isDeleted())
                 .toString();
-    }
-    @Override
-    public Object clone(){
-        try {
-            return super.clone();
-        }catch (CloneNotSupportedException ignore){
-
-        }
-        return null;
     }
 }

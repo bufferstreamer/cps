@@ -288,6 +288,14 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/sendEmailCode", "anon,captchaValidate");
         filterChainDefinitionMap.put("/checkEmailVerifyCode", "anon,captchaValidate");
         filterChainDefinitionMap.put("/changemm", "anon,captchaValidate");
+        // fabric测试
+        filterChainDefinitionMap.put("/sdk/chainCodeInstall", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/sdk/chainCodeInit", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/sdk/add", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/sdk/query", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/sdk/update", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/sdk/delete", "anon,captchaValidate");
+        filterChainDefinitionMap.put("/sdk/queryHistory", "anon,captchaValidate");
         // 系统权限列表
         // filterChainDefinitionMap.putAll(SpringUtils.getBean(IMenuService.class).selectPermsAll());
 

@@ -1,7 +1,7 @@
 package com.cps.fabric.client;
 
 import com.cps.fabric.bean.UserContext;
-import com.sun.javaws.exceptions.InvalidArgumentException;
+//import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.*;
 import org.hyperledger.fabric.sdk.exception.*;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
@@ -235,6 +235,35 @@ public class FabricClient {
         return map;
     }
 
+    public Map queryChaincodeHistory(List<Peer> peers, String channelName, TransactionRequest.Type lang, String chaincodeName, String funcName, String args[]) throws TransactionException, InvalidArgumentException, ProposalException, InvalidArgumentException, org.hyperledger.fabric.sdk.exception.InvalidArgumentException {
+        Channel channel = getChannel(channelName);
+        for (Peer p : peers) {
+            channel.addPeer(p);
+        }
+        channel.initialize();
+        HashMap map = new HashMap();
+        QueryByChaincodeRequest queryByChaincodeRequest = hfClient.newQueryProposalRequest();
+        ChaincodeID.Builder builder = ChaincodeID.newBuilder().setName(chaincodeName);
+        queryByChaincodeRequest.setChaincodeID(builder.build());
+        queryByChaincodeRequest.setArgs(args);
+        queryByChaincodeRequest.setFcn(funcName);
+        queryByChaincodeRequest.setChaincodeLanguage(lang);
+        Collection<ProposalResponse> responses = channel.queryByChaincode(queryByChaincodeRequest);
+        for (ProposalResponse response : responses) {
+            if (response.getStatus().getStatus() == 200) {
+                log.info("data is {}", response.getProposalResponse().getResponse().getPayload());
+                map.put(response.getStatus().getStatus(), response.getMessage());
+                //map.put(response.getStatus().getStatus(), response.getMessage());
+                return map;
+            } else {
+                log.error("data get error {}", response.getMessage());
+                map.put(response.getStatus().getStatus(), response.getMessage());
+                return map;
+            }
+        }
+        map.put("code", "404");
+        return map;
+    }
 
     /**
      * @param name
@@ -274,7 +303,7 @@ public class FabricClient {
      * @throws ProposalException
      * @description 获取已有的channel
      */
-    public Channel getChannel(String channelName) throws InvalidArgumentException, org.hyperledger.fabric.sdk.exception.InvalidArgumentException {
+    public Channel getChannel(String channelName) throws org.hyperledger.fabric.sdk.exception.InvalidArgumentException {
         if (channel==null){
             channel = hfClient.newChannel(channelName);
         }

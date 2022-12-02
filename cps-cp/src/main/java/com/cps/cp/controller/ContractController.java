@@ -1,5 +1,6 @@
 package com.cps.cp.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.cps.basis.domain.BasisSupplier;
 import com.cps.basis.service.IBasisSupplierService;
@@ -14,6 +15,7 @@ import com.cps.common.enums.WhWarehousingOrderType;
 import com.cps.common.utils.DateUtils;
 import com.cps.common.utils.OrderNumGeneratorUtils;
 import com.cps.common.utils.ShiroUtils;
+import com.cps.common.utils.file.SHAUtils;
 import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.utils.uuid.IdUtils;
 import com.cps.cp.domain.Contract;
@@ -28,6 +30,7 @@ import com.cps.wh.enums.WarehousingOrderStatus;
 import com.cps.wh.service.IWhWarehousingOrderService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
@@ -175,7 +178,7 @@ public class ContractController extends BaseController {
     @Log(title = "合同", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(Contract contract) {
+    public AjaxResult addSave(Contract contract) throws Exception {
         contract.setContractType("0");
         contract.setContractTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
         contract.setContractId(IdUtils.fastSimpleUUID());
@@ -184,6 +187,19 @@ public class ContractController extends BaseController {
         contract.setSignatureB("0");
         //设置合同状态为未签署
         contract.setContractStatus("0");
+
+        Contract contract1 = (Contract) contract.clone();
+        String contractPath = contract1.getContractDocument();
+        String FilePath = profile + contractPath.substring(28);
+        contract1.setContractDocument(SHAUtils.getSHA(FilePath));
+        //fabric:合同信息上链
+        FabricClient fabricClient = sdkService.initFabricClient();
+        String initArgs[] = new String[2];
+        initArgs[0] = contract1.getContractId();
+        String contractJsonString = JSON.toJSONString(contract1);
+        initArgs[1] = contractJsonString;
+        sdkService.chainCodeOfInvoke(fabricClient,"add",initArgs);
+
         return toAjax(contractService.insertContract(contract));
     }
 
@@ -216,6 +232,9 @@ public class ContractController extends BaseController {
     @Autowired
     private SDKService sdkService;
 
+    @Value("${cps.profile}")
+    private String profile;
+
     /**
      * 修改保存合同
      */
@@ -223,7 +242,21 @@ public class ContractController extends BaseController {
     @Log(title = "合同", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(Contract contract) {
+    public AjaxResult editSave(Contract contract) throws Exception {
+        Contract contract1 = contractService.selectContractByContractId(contract.getContractId());
+        contract1.setContractStatus(contract.getContractStatus());
+
+        String contractPath = contract1.getContractDocument();
+        String FilePath = profile + contractPath.substring(28);
+        contract1.setContractDocument(SHAUtils.getSHA(FilePath));
+        //fabric:合同信息上链
+        FabricClient fabricClient = sdkService.initFabricClient();
+        String initArgs[] = new String[2];
+        initArgs[0] = contract1.getContractId();
+        String contractJsonString = JSONObject.toJSONString(contract1);
+        initArgs[1] = contractJsonString;
+        sdkService.chainCodeOfInvoke(fabricClient,"update",initArgs);
+
         return toAjax(contractService.updateContract(contract));
     }
 
@@ -315,17 +348,21 @@ public class ContractController extends BaseController {
             whWarehousingOrder.setCreateBy(signatureUserLoginName);
             whWarehousingOrder.setDeptId(signatureUser.getDeptId());
             whWarehousingOrderService.insertWhWarehousingOrder(whWarehousingOrder);
-
+            //合同状态由未签署->待到货
             contract.setContractStatus("1");
+
+            Contract contract1 = (Contract) contract.clone();
+            String contractPath = contract1.getContractDocument();
+            String FilePath = profile + contractPath.substring(28);
+            contract1.setContractDocument(SHAUtils.getSHA(FilePath));
             //fabric:合同信息上链
             FabricClient fabricClient = sdkService.initFabricClient();
             String initArgs[] = new String[2];
-            initArgs[0] = contract.getContractId();
-            String contractJsonString = JSONObject.toJSONString(contract);
+            initArgs[0] = contract1.getContractId();
+            String contractJsonString = JSONObject.toJSONString(contract1);
             initArgs[1] = contractJsonString;
-            sdkService.chainCodeOfInvoke(fabricClient,"add",initArgs);
-            //合同状态由未签署->待到货
-            contract.setContractStatus("1");
+            sdkService.chainCodeOfInvoke(fabricClient,"update",initArgs);
+
         }
         return toAjax(contractService.updateContract(contract));
     }
