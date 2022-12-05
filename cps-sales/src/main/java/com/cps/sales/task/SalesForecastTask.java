@@ -21,7 +21,8 @@ public class SalesForecastTask {
             //proc = Runtime.getRuntime().exec("python e:/IdeaProjects/cps-3/cps-sales/src/main/resources/salesForecast.py");
 
             //proc = Runtime.getRuntime().exec("cmd.exe /c start python "+courseFile+"\\document\\otherPython\\salesForecast.py");
-            proc = Runtime.getRuntime().exec(" python3 "+courseFile+"/otherPython/salesForecast.py");
+//            proc = Runtime.getRuntime().exec(" python3 "+courseFile+"/otherPython/salesForecast.py");
+            proc = Runtime.getRuntime().exec(" python3 "+"/home/cps/otherPython/salesForecast.py");
 
             //用输入输出流来截取结果
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));

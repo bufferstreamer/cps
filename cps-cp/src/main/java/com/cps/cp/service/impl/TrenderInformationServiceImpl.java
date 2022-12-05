@@ -115,8 +115,8 @@ public class TrenderInformationServiceImpl implements ITrenderInformationService
             //proc = Runtime.getRuntime().exec("python e:/IdeaProjects/cps-3/cps-sales/src/main/resources/salesForecast.py");// 执行py文件
             File directory = new File("");//参数为空
             String courseFile = directory.getCanonicalPath();
-            proc = Runtime.getRuntime().exec("python3 " + courseFile + "/otherPython/招标文件生成.py " + trenderInformation.getId());
             //proc = Runtime.getRuntime().exec("python " + courseFile + "\\document\\otherPython\\招标文件生成.py " + trenderInformation.getId());
+            proc = Runtime.getRuntime().exec("python3 " +  "/home/cps/otherPython/招标文件生成.py " + trenderInformation.getId());
             //用输入输出流来截取结果
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             String line = null;
