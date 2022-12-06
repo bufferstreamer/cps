@@ -29,6 +29,9 @@ import com.cps.credit.service.IUserCreditService;
 import com.cps.product.domain.ProductIndexInfo;
 import com.cps.product.service.IProductIndexInfoService;
 import com.cps.system.service.ISysUserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
@@ -60,6 +63,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/cp/tender1")
+@Api(value = "招标相关接口",tags = "招标管理")
 public class Tender1Controller extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(Tender1Controller.class);
     private String prefix = "cp/tender1";
@@ -150,6 +154,7 @@ public class Tender1Controller extends BaseController {
     @Log(title = "招标", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
+    @ApiOperation("新增招标")
     public AjaxResult addSave(Tender tender) throws IOException {
         // 获取当前的用户信息
         SysUser currentUser = ShiroUtils.getSysUser();
@@ -164,7 +169,33 @@ public class Tender1Controller extends BaseController {
         FileInputStream fileInputStream = new FileInputStream(readFilePath);
         XWPFDocument doc = new XWPFDocument(fileInputStream);
 
-//        List<XWPFTable> tables = doc.getTables();
+        //检查招标文件指标数据是否在库
+        List<XWPFTable> tables = doc.getTables();
+
+        for (XWPFTable table : tables) {
+            List<XWPFTableRow> rows = table.getRows();
+            int productNum = (rows.size() - 2) / 10;
+            for (int i = 0; i < productNum; i++) {
+                String productName = rows.get(i * 10 + 2).getTableCells().get(0).getText();
+                ArrayList<String> arr = new ArrayList<>();
+                int productIndex = 2 + i * 10;
+                for (int j = 0; j < 10; j++) {
+                    XWPFTableRow row = rows.get(productIndex + j);
+                    if (row.getTableCells().get(1).getText().equals("")) {
+                        break;
+                    } else {
+                        String indexName = row.getTableCells().get(1).getText();
+                        ProductIndexInfo productIndexInfo = productIndexInfoService.selectIndexSortByProductNameAndIndexName(productName,indexName);
+                        if(productIndexInfo == null){
+                            String errorMsg = "未找到产品 "+productName+" 的指标 "+indexName+" , 请检查产品指标数据库并重新填写招标文件!";
+                            return error(errorMsg);
+                        }
+                    }
+                }
+            }
+        }
+
+
         List<XWPFParagraph> paras = doc.getParagraphs();
         XWPFParagraph firstParas = paras.get(0);
         tender.setProjectName(firstParas.getParagraphText());
@@ -441,6 +472,8 @@ public class Tender1Controller extends BaseController {
     //资质审核
     @PostMapping("canQualificationReview")
     @ResponseBody
+    @ApiOperation("资质审核")
+    @ApiImplicitParam(name = "tenderId", value = "标书ID", required = true, dataType = "String", dataTypeClass = String.class)
     public boolean CanQualificationReview(String tenderId) {
         List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
         if (tempList == null) {
