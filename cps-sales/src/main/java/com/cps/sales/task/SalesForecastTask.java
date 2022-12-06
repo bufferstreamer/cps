@@ -1,5 +1,6 @@
 package com.cps.sales.task;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -9,6 +10,10 @@ import java.io.InputStreamReader;
 
 @Component("SalesForecastTask")
 public class SalesForecastTask {
+
+    @Value("${cps.profile}")
+    private String profile;
+
     public void renewSalesForecast(){
         System.out.println(111111112);
         Process proc;
@@ -22,7 +27,7 @@ public class SalesForecastTask {
 
             //proc = Runtime.getRuntime().exec("cmd.exe /c start python "+courseFile+"\\document\\otherPython\\salesForecast.py");
 //            proc = Runtime.getRuntime().exec(" python3 "+courseFile+"/otherPython/salesForecast.py");
-            proc = Runtime.getRuntime().exec(" python3 "+"/home/cps/otherPython/salesForecast.py");
+            proc = Runtime.getRuntime().exec(" python3 "+profile+"/otherPython/salesForecast.py");
 
             //用输入输出流来截取结果
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));

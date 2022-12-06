@@ -3,6 +3,7 @@ package com.cps.web.controller.tool;
 import com.cps.cp.domain.TrenderInformation;
 import com.cps.cp.mapper.TrenderInformationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,8 @@ public class Test2Service {
 
     @Autowired
     private TrenderInformationMapper trenderInformationMapper;
-
+    @Value("${cps.profile}")
+    private String profile;
     public void fileDownload(Long form) throws Exception {
 
         TrenderInformation trenderInformation = trenderInformationMapper.selectTrenderInformationById(form);
@@ -42,7 +44,7 @@ public class Test2Service {
         //Resource resource = resourceLoader.getResource("classpath:static/documentTemplate/tender/"+filePath+"招标文件.docx");
 
 //        Resource resource = new UrlResource("file:otherPython/biddingDocuments/"+filePath+"招标文件.docx");
-        Resource resource = new UrlResource("file:///home/cps/otherPython/biddingDocuments/"+filePath+"招标文件.docx");
+        Resource resource = new UrlResource("file://"+profile+"/otherPython/biddingDocuments/"+filePath+"招标文件.docx");
 
         //resourceLoader.getResource("classpath:static/documentTemplate/tender/"+filePath+"招标文件.docx");
         //System.out.println(courseFile+"\\cps-admin\\src\\main\\resources\\static\\documentTemplate\\tender\\"+filePath+"招标文件.docx");

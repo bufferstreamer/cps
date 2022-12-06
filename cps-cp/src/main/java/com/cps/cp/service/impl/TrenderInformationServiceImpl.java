@@ -10,6 +10,7 @@ import com.cps.common.utils.DateUtils;
 import com.cps.cp.domain.TenderSeed;
 import com.cps.cp.mapper.TenderSeedMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.cps.cp.mapper.TrenderInformationMapper;
 import com.cps.cp.domain.TrenderInformation;
@@ -30,6 +31,10 @@ public class TrenderInformationServiceImpl implements ITrenderInformationService
 
     @Autowired
     private TenderSeedMapper tenderSeedMapper;
+
+    @Value("${cps.profile}")
+    private String profile;
+
 
     /**
      * 查询自动生成标书信息
@@ -116,7 +121,7 @@ public class TrenderInformationServiceImpl implements ITrenderInformationService
             File directory = new File("");//参数为空
             String courseFile = directory.getCanonicalPath();
             //proc = Runtime.getRuntime().exec("python " + courseFile + "\\document\\otherPython\\招标文件生成.py " + trenderInformation.getId());
-            proc = Runtime.getRuntime().exec("python3 " +  "/home/cps/otherPython/招标文件生成.py " + trenderInformation.getId());
+            proc = Runtime.getRuntime().exec("python3 " + profile +"/otherPython/招标文件生成.py " + trenderInformation.getId());
             //用输入输出流来截取结果
             BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             String line = null;
