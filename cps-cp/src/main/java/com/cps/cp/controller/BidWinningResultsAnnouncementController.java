@@ -44,6 +44,9 @@ public class BidWinningResultsAnnouncementController extends BaseController {
     @Value("${cps.profile}")
     private String profile;
 
+    @Value("${serverIp}")
+    private String serverIp;
+
     @Autowired
     private ITenderService tenderService;
 
@@ -103,8 +106,8 @@ public class BidWinningResultsAnnouncementController extends BaseController {
 
         String tenderId = bidWinningResultsAnnouncement.getTenderId();
         Tender tender = tenderService.selectTenderByTenderId(tenderId);
-
-        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", profile);
+        String replaceString = "http://"+serverIp+"/cps/profile";
+        String readFilePath = tender.getTenderDocument().replace(replaceString, profile);
 
         FileInputStream fileInputStream = new FileInputStream(readFilePath);
 

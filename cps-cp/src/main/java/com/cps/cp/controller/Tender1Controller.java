@@ -86,6 +86,9 @@ public class Tender1Controller extends BaseController {
     @Value("${cps.profile}")
     private String profile;
 
+    @Value("${serverIp}")
+    private String serverIp;
+
     @RequiresPermissions("cp:tender1:view")
     @GetMapping()
     public String tender1(ModelMap map) {
@@ -151,16 +154,14 @@ public class Tender1Controller extends BaseController {
         // 获取当前的用户信息
         SysUser currentUser = ShiroUtils.getSysUser();
         tender.setBidNumber(1);
-//        tender.setTenderId(IdUtils.fastSimpleUUID().substring(0, 22));
         tender.setGxsId(currentUser.getUserId());
         tender.setTenderId("zb"+ Seq.getId());
         tender.setCreateDatetime(DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS)));
-//        String readFilePath = "G:\\Code\\Test\\zhaobiao.docx";
         logger.info(tender.getTenderDocument());
-        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", profile);
+        String replaceString = "http://"+serverIp+"/cps/profile";
+        String readFilePath = tender.getTenderDocument().replace(replaceString, profile);
         File file = new File(readFilePath);
         FileInputStream fileInputStream = new FileInputStream(readFilePath);
-
         XWPFDocument doc = new XWPFDocument(fileInputStream);
 
 //        List<XWPFTable> tables = doc.getTables();
@@ -189,36 +190,6 @@ public class Tender1Controller extends BaseController {
             }
 
         }
-//        for(XWPFTable table : tables){
-//
-//            List<XWPFTableRow> rows = table.getRows();
-//            for(int i =1;i<=2;i++){
-//                XWPFTableRow row = rows.get(i);
-//                List<XWPFTableCell> cells = row.getTableCells();
-//                if(i==1){
-//                    tender.setContact(cells.get(1).getText());
-//                }
-//                if(i==2){
-//                    tender.setPhoneOfContact(cells.get(1).getText());
-//                }
-////                for(XWPFTableCell cell :cells){
-////                    String text =cell.getText();
-////                    System.out.println(text);
-////                }
-////                if(i==4){
-////                    tender.setDealineForQualificationReview(DateUtils.dateTime(DateUtils.YYYY_MM_DD,cells.get(1).getText()));
-////                }
-////                if(i==5){
-////                    tender.setBidStartTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD,cells.get(1).getText()));
-////                }
-////                if(i==6){
-////                    tender.setBidEndTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD,cells.get(1).getText()));
-////                }
-////                if(i==7){
-////                    tender.setPublishTime(DateUtils.dateTime(DateUtils.YYYY_MM_DD,cells.get(1).getText()));
-////                }
-//            }
-//        }
         fileInputStream.close();
         return toAjax(tenderService.insertTender(tender));
     }
@@ -291,8 +262,8 @@ public class Tender1Controller extends BaseController {
     public String qpcs(@PathVariable("tenderId") String tenderId, ModelMap mmap) {
         Tender tender = tenderService.selectTenderByTenderId(tenderId);
 //        mmap.put("tender", tender);
-        String readFilePath = tender.getTenderDocument().replace("http://localhost/cps/profile", profile);
-//        String readFilePath = "G:/Code/Test/zhaobiao3.docx";
+        String replaceString = "http://"+serverIp+"/cps/profile";
+        String readFilePath = tender.getTenderDocument().replace(replaceString, profile);
 
 //        FileInputStream fileInputStream = new FileInputStream(readFilePath);
         FileInputStream fileInputStream = null;
