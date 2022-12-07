@@ -98,22 +98,7 @@
                 {
                     field: 'userId',
                     title: '供应商',
-                    formatter: function (value, row, index) {
-                        var data = {"userId": value};
-                        var corporateName="-";
-                        $.ajax({
-                            url: ctx + "user/orders/corporateName",
-                            type: "get",
-                            dataType: "text",
-                            data: data,
-                            async: false,
-                            success: function (result) {
-                                corporateName=result;
-                            }
-                        });
-
-                        return corporateName;
-                    }
+                    visible: false
                 },
                 {
                     field: 'untitled',

@@ -471,20 +471,11 @@ public class Tender1Controller extends BaseController {
     @PostMapping("canQualificationReview")
     @ResponseBody
     public boolean CanQualificationReview(String tenderId) {
-        List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
-        if (tempList == null) {
+        if (ShiroUtils.getUserId()==1)
             return false;
-        }
-        if (tempList.size() < 2) {
-            return false;
-        }
 
-        for (AuditDocuments temp : tempList
-        ) {
-            if (temp.getAuditStatus().equals("1")) {
-                return false;
-            }
-        }
+        if(!mAuditDocumentsService.getUserAuditStatus(ShiroUtils.getUserId()))
+            return false;
 
         //审核营业执照
         List<String> scopeList = Arrays.asList(GetBusinessScope());
@@ -531,20 +522,11 @@ public class Tender1Controller extends BaseController {
     @PostMapping("canPurchase")
     @ResponseBody
     public boolean CanPurchase(String tenderId) {
-        List<AuditDocuments> tempList = mAuditDocumentsService.selectAuditDocumentsByUserId(ShiroUtils.getUserId());
-        if (tempList == null) {
+        if (ShiroUtils.getUserId()==1)
             return false;
-        }
-        if (tempList.size() < 2) {
-            return false;
-        }
 
-        for (AuditDocuments temp : tempList
-        ) {
-            if (temp.getAuditStatus().equals("1")) {
-                return false;
-            }
-        }
+        if(!mAuditDocumentsService.getUserAuditStatus(ShiroUtils.getUserId()))
+            return false;
 
         //审核投标次数
         CentralizedPurchaseRecord centralizedPurchaseRecord =new CentralizedPurchaseRecord();

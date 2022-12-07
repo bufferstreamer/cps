@@ -9,7 +9,7 @@ cps:
   # 实例演示开关
   demoEnabled: true
   # 文件路径 示例（ Windows配置D:/cps/uploadPath，Linux配置 /home/cps/uploadPath）
-  profile: D:/cps/uploadPath
+  profile: /home/cps/uploadPath
   # 获取ip地址开关
   addressEnabled: true
 # 开发环境配置
