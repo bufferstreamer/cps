@@ -3,11 +3,14 @@ package com.cps.web.controller.tool;
 import com.cps.cp.domain.TrenderInformation;
 import com.cps.cp.mapper.TrenderInformationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 
+
+import org.springframework.core.io.UrlResource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,7 +28,8 @@ public class Test2Service {
 
     @Autowired
     private TrenderInformationMapper trenderInformationMapper;
-
+    @Value("${cps.profile}")
+    private String profile;
     public void fileDownload(Long form) throws Exception {
 
         TrenderInformation trenderInformation = trenderInformationMapper.selectTrenderInformationById(form);
@@ -36,9 +40,13 @@ public class Test2Service {
         String courseFile = directory.getCanonicalPath();
         // 格式化拼接资源的相对路径
         String filePath = MessageFormat.format("{0}{1}", form, fileName);
-        //System.out.println(filePath);
         // 使用ResourceLoader获取项目中的资源,防止项目打包之后找不到资源
-        Resource resource = resourceLoader.getResource("classpath:static/documentTemplate/tender/"+filePath+"招标文件.docx");
+        //Resource resource = resourceLoader.getResource("classpath:static/documentTemplate/tender/"+filePath+"招标文件.docx");
+
+//        Resource resource = new UrlResource("file:otherPython/biddingDocuments/"+filePath+"招标文件.docx");
+        Resource resource = new UrlResource("file://"+profile+"/otherPython/biddingDocuments/"+filePath+"招标文件.docx");
+
+        //resourceLoader.getResource("classpath:static/documentTemplate/tender/"+filePath+"招标文件.docx");
         //System.out.println(courseFile+"\\cps-admin\\src\\main\\resources\\static\\documentTemplate\\tender\\"+filePath+"招标文件.docx");
         if (!resource.exists()) {
             // 抛出异常,前台Ajax在error方法中对异常进行处理,获取响应头中的异常信息

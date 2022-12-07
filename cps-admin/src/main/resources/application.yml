@@ -141,3 +141,6 @@ xss:
 swagger:
   # 是否开启swagger
   enabled: true
+
+# 服务器ip
+serverIp: 123.249.18.188

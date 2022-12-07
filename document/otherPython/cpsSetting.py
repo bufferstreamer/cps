@@ -1,3 +1,6 @@
-cps_host = '210.30.97.22'
+cps_host = 'localhost'
 cps_user = 'root'
-cps_password='root'
+cps_password='mVOtVo3@OD3O$ke!83@TtxZHgvompSiX&VYY'
+#cps_host = '210.30.97.22'
+#cps_user = 'root'
+#cps_password='root'
