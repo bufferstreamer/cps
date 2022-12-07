@@ -61,6 +61,9 @@ public class CentralizedPurchaseRecordController extends BaseController {
     @Value("${cps.profile}")
     private String profile;
 
+    @Value("${serverIp}")
+    private String serverIp;
+
     /**
      * 查询集中采购记录列表
      */
@@ -116,14 +119,15 @@ public class CentralizedPurchaseRecordController extends BaseController {
     public AjaxResult addSave(CentralizedPurchaseRecord centralizedPurchaseRecord) throws IOException {
         //1. 获取招标和投标的标书文件的信息表格
         //1.1 获取招标文件的信息表格对象
-        String tenderReadCPRFilePath = tenderService.selectTenderByTenderId(centralizedPurchaseRecord.getTenderId()).getTenderDocument().replace("http://localhost/cps/profile", profile);
+        String replaceString = "http://"+serverIp+"/cps/profile";
+        String tenderReadCPRFilePath = tenderService.selectTenderByTenderId(centralizedPurchaseRecord.getTenderId()).getTenderDocument().replace(replaceString, profile);
         FileInputStream tenderFileInputStream = new FileInputStream(tenderReadCPRFilePath);
         XWPFDocument tenderDoc = new XWPFDocument(tenderFileInputStream);
         List<XWPFTable> tenderTables = tenderDoc.getTables();
         XWPFTable tenderTable = tenderTables.get(0);
         List<XWPFTableRow> tenderRows = tenderTable.getRows();
         //1.1 获取竞标文件的信息表格对象
-        String bidReadCPRFilePath = centralizedPurchaseRecord.getTenderDocument().replace("http://localhost/cps/profile", profile);
+        String bidReadCPRFilePath = centralizedPurchaseRecord.getTenderDocument().replace(replaceString, profile);
         FileInputStream fileInputStream1 = new FileInputStream(bidReadCPRFilePath);
         XWPFDocument bidDoc = new XWPFDocument(fileInputStream1);
         List<XWPFTable> bidTables = bidDoc.getTables();

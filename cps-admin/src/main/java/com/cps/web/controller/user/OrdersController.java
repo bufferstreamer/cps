@@ -298,18 +298,4 @@ public class OrdersController extends BaseController {
 
         return prefix+"/detail";
     }
-
-    @ApiOperation("获取供应商名称")
-    @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Long", paramType = "path", dataTypeClass = Long.class)
-    @GetMapping("corporateName")
-    @ResponseBody
-    public String GetCorporateName(Long userId){
-        SupplierLicenseInfo info = supplierLicenseInfoService.selectSupplierLicenseInfoByUserId(userId);
-        if (info!=null){
-            return info.getCorporateName();
-        }
-        else {
-            return "null";
-        }
-    }
 }

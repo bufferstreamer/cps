@@ -6,17 +6,17 @@ spring:
     druid:
       # 主库数据源
       master:
-        url: jdbc:mysql://210.30.97.22:3306/cps?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+        url: jdbc:mysql://localhost:3306/cps?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
         username: root
-        password: root
+        password: mVOtVo3@OD3O$ke!83@TtxZHgvompSiX&VYY
 
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭
         enabled: true
-        url: jdbc:mysql://210.30.97.22:3306/fmmall2?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+        url: jdbc:mysql://localhost:3306/fmmall2?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
         username: root
-        password: root
+        password: mVOtVo3@OD3O$ke!83@TtxZHgvompSiX&VYY
       # 初始连接数
       initialSize: 5
       # 最小连接池数量
