@@ -3,6 +3,7 @@ package com.cps.cp.controller;
 import com.cps.common.annotation.Log;
 import com.cps.common.core.controller.BaseController;
 import com.cps.common.core.domain.AjaxResult;
+import com.cps.common.core.domain.entity.SysUser;
 import com.cps.common.core.page.TableDataInfo;
 import com.cps.common.enums.BusinessType;
 import com.cps.common.utils.DateUtils;
@@ -68,8 +69,18 @@ public class QualificationReviewController extends BaseController {
         startPage();
         List<QualificationReviewView> list = qualificationReviewService.selectQualificationReviewList(qualificationReview);
         for (int i = 0; i < list.size();i++) {
-            list.get(i).setProjectName(tenderService.selectTenderByTenderId(list.get(i).getTenderId()).getProjectName());
-            list.get(i).setLoginName(sysUserService.selectUserById(list.get(i).getSupplyId()).getLoginName());
+            Tender tender = tenderService.selectTenderByTenderId(list.get(i).getTenderId());
+            if(tender!=null){
+                list.get(i).setProjectName(tender.getProjectName());
+            }else{
+                list.get(i).setProjectName("");
+            }
+            SysUser sysUser = sysUserService.selectUserById(list.get(i).getSupplyId());
+            if(sysUser!=null){
+                list.get(i).setLoginName(sysUser.getLoginName());
+            }else{
+                list.get(i).setLoginName("");
+            }
         }
         return getDataTable(list);
     }

@@ -17,6 +17,7 @@ import com.cps.common.utils.poi.ExcelUtil;
 import com.cps.common.utils.uuid.IdUtils;
 import com.cps.cp.domain.Contract;
 import com.cps.cp.domain.ContractView;
+import com.cps.cp.domain.Tender;
 import com.cps.cp.service.IContractService;
 import com.cps.cp.service.ITenderService;
 import com.cps.system.service.ISysUserService;
@@ -130,8 +131,18 @@ public class ContractController extends BaseController {
         }
         Date now = DateUtils.dateTime(DateUtils.YYYY_MM_DD_HH_MM_SS, DateUtils.dateTimeNow(DateUtils.YYYY_MM_DD_HH_MM_SS));
         for (int i = 0; i < list.size();i++) {
-            list.get(i).setProjectName(tenderService.selectTenderByTenderId(list.get(i).getTenderId()).getProjectName());
-            list.get(i).setLoginName(sysUserService.selectUserById(list.get(i).getSignatureUserId()).getLoginName());
+            Tender tender = tenderService.selectTenderByTenderId(list.get(i).getTenderId());
+            if(tender!=null){
+                list.get(i).setProjectName(tender.getProjectName());
+            }else{
+                list.get(i).setProjectName("");
+            }
+            SysUser sysUser = sysUserService.selectUserById(list.get(i).getSignatureUserId());
+            if(sysUser!=null){
+                list.get(i).setLoginName(sysUser.getLoginName());
+            }else{
+                list.get(i).setLoginName("");
+            }
             //若当前时间超过合同截止日期，设置合同状态为逾期。
             if(now.after(list.get(i).getDeadlineDeliveryDate())&&list.get(i).getContractStatus().equals("1")){
                 list.get(i).setContractStatus("4");
