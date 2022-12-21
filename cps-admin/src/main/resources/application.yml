@@ -9,7 +9,7 @@ cps:
   # 实例演示开关
   demoEnabled: true
   # 文件路径 示例（ Windows配置D:/cps/uploadPath，Linux配置 /home/cps/uploadPath）
-  profile: G:/Code/Java/cps/uploadPath
+  profile: /Users/bubu/Documents/Code/Java/cps-fabric/cps/uploadPath
   # 获取ip地址开关
   addressEnabled: true
 # 开发环境配置
@@ -145,28 +145,28 @@ swagger:
 #fabric相关:
 #Org1:
 #Org1组织管理员admin用户私钥的路径
-keyFolderPath: G:\Code\Java\cps\cps-fabric\src\main\resources\crypto-config\peerOrganizations\org1.example.com\users\Admin@org1.example.com\msp\keystore
+keyFolderPath: /Users/bubu/Documents/Code/Java/cps-fabric/cps/cps-fabric/src/main/resources/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore
 #Org1组织管理员admin用户私钥的值
-keyFileName: ba30d75a1042da7fa9fd2556a858b31a87efcdddd0dfc2ab868189f7f7bfaf21_sk
+keyFileName: d46688b43610e374d34606d8628584a71ec4e0df01301b10a60cfdc88cca7299_sk
 #Org1组织管理员admin的身份验证证书的路径
-certFolderPath: G:\Code\Java\cps\cps-fabric\src\main\resources\crypto-config\peerOrganizations\org1.example.com\users\Admin@org1.example.com\msp\admincerts
+certFolderPath: /Users/bubu/Documents/Code/Java/cps-fabric/cps/cps-fabric/src/main/resources/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/admincerts
 #Org1组织管理员admin的身份验证证书的值
 certFileName: Admin@org1.example.com-cert.pem
 
 #order的tls的证书路径
-tlsOrderFilePath: G:\Code\Java\cps\cps-fabric\src\main\resources\crypto-config\ordererOrganizations\example.com\tlsca\tlsca.example.com-cert.pem
+tlsOrderFilePath: /Users/bubu/Documents/Code/Java/cps-fabric/cps/cps-fabric/src/main/resources/crypto-config/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
 #peer0的org1的tls的证书路径
-tlsPeerFilePath: G:\Code\Java\cps\cps-fabric\src\main\resources\crypto-config\peerOrganizations\org1.example.com\peers\peer0.org1.example.com\msp\tlscacerts\tlsca.org1.example.com-cert.pem
+tlsPeerFilePath: /Users/bubu/Documents/Code/Java/cps-fabric/cps/cps-fabric/src/main/resources/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp/tlscacerts/tlsca.org1.example.com-cert.pem
 #peer1的org1的tls的证书路径
-tlsPeerFilePathAddition: G:\Code\Java\cps\cps-fabric\src\main\resources\crypto-config\peerOrganizations\org1.example.com\peers\peer1.org1.example.com\msp\tlscacerts\tlsca.org1.example.com-cert.pem
+tlsPeerFilePathAddition: /Users/bubu/Documents/Code/Java/cps-fabric/cps/cps-fabric/src/main/resources/crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/msp/tlscacerts/tlsca.org1.example.com-cert.pem
 
 #Org2:
 #Org2组织管理员admin用户私钥的路径
-keyFolderPath2: G:\Code\Java\cps\cps-fabric\src\main\resources\crypto-config\peerOrganizations\org2.example.com\users\Admin@org2.example.com\msp\keystore
+keyFolderPath2: /Users/bubu/Documents/Code/Java/cps-fabric/cps/cps-fabric/src/main/resources/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/keystore
 #Org2组织管理员admin用户私钥的值
-keyFileName2: 61d3edf34f4efaa148ce968d4581d9c3ae7dae83a59220a69ca32c2ae6f81bd8_sk
+keyFileName2: 0e01347c26442c6c8910b155b658a2d2a6411ea215359127ebbb0f4c12697c32_sk
 #Org2组织管理员admin的身份验证证书的路径
-certFolderPath2: G:\Code\Java\cps\cps-fabric\src\main\resources\crypto-config\peerOrganizations\org2.example.com\users\Admin@org2.example.com\msp\admincerts
+certFolderPath2: /Users/bubu/Documents/Code/Java/cps-fabric/cps/cps-fabric/src/main/resources/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/admincerts
 #Org2组织管理员admin的身份验证证书的值
 certFileName2: Admin@org2.example.com-cert.pem
 

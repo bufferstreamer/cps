@@ -362,7 +362,6 @@ public class ContractController extends BaseController {
             String contractJsonString = JSONObject.toJSONString(contract1);
             initArgs[1] = contractJsonString;
             sdkService.chainCodeOfInvoke(fabricClient,"update",initArgs);
-
         }
         return toAjax(contractService.updateContract(contract));
     }
